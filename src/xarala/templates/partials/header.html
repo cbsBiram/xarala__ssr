@@ -1,0 +1,88 @@
+{% load static %}
+<header class="masthead">
+  <div class="header-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="top-contact">
+            <div class="trggericon"><i class="fas fa-at"></i></div>
+            <div class="close"><i class="far fa-times-circle"></i></div>
+            <div class="contacts">
+              <span><i class="fas fa-phone"></i> <a href="tel:+221779929952">(+221) 779929952</a></span>
+              <span><i class="fas fa-envelope"></i> <a href="#">support@xarala.tech</a></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+
+          <div class="menu-search-form dropdown float-right">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              <span>Recherche</span> <i class="fas fa-search"></i>
+            </a>
+            <div class="dropdown-menu">
+              <form action="#" class="menu-search">
+                <input type="text" class="form-control" placeholder="Je veux un cours sur.... ..." name="s"
+                  title="Search here" required>
+                <input type="submit" class="form-control">
+              </form>
+            </div>
+          </div>
+
+
+          <div class="user-area dropdown float-right">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Mon espace
+            </a>
+
+            <div class="user-menu dropdown-menu">
+              <a class="nav-link" href="#"><i class="fa fa- user"></i>Profile</a>
+
+              <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+
+              <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+
+              <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.header-top -->
+
+  <div class="header-bottom">
+    <div class="container">
+      <nav class="navbar navbar-expand-md m-0">
+        <a class="navbar-brand" href="index.html"><img class="logo" src="{% static 'images/logo/logo.png' %}"
+            alt="Logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
+          aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main-menu">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home"></i> Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-laptop"></i> Formation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}"><i class="fab fa-blogger-b"></i> Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-book"></i> Livres</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-terminal"></i> Lab</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-bullhorn"></i> Events</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    </div><!-- /.container -->
+  </div><!-- /.header-bottom -->
+</header><!-- /.masthead -->

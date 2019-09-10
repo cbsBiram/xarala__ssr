@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users',
     'blog',
     'course',
+    # 'comments',
     'pages',
 ]
 
@@ -133,5 +134,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'users.CustomUser'
 
-MAILCHIMP_API_KEY = "8600bebb6160c103eec8a5a8f49d53c1-us20"
-MAILCHIMP_SUBSCRIBE_LIST_ID = "e9328319b4"
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
