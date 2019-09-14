@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ object.title }}
+{% endblock %}
+
+
+{% block banner %}
+
+{% endblock %}
+
+{% block content %}
+
+<section class="courses">
+  <div class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h2 class="course-title">{{ object.title }}</h2><!-- /.course-title -->
+          <div class="course-meta">
+            <span class="meta-details">
+              <img class="rounded-circle float-left" src="{{ object.teacher.avatar.url }}" alt="Avatar">
+
+              <span class="meta-id">Instructor</span>
+              <a class="name" href="#">{{ object.teacher }}</a>
+            </span>
+            <span class="meta-details">
+              <span class="meta-id">Category</span>
+              <span>Design</span>
+            </span>
+            <span class="meta-details">
+              <span class="meta-id">Reviews</span>
+              <span class="rating">
+                <input type="hidden" class="rating-tooltip-manual" data-filled="fas fa-star" data-empty="far fa-star"
+                  value="4.5" data-fractions="5" />
+                <span>(2,543 Ratings)</span>
+              </span><!-- /.rating -->
+            </span>
+          </div>
+          <img class="radius" src="{{ course.thumbnail.url }}" alt="Course Image">
+
+          <div class="course-single-details">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-1" data-toggle="tab" href="#description" role="tab"
+                aria-controls="description" aria-selected="true">Description</a>
+              <a class="nav-item nav-link" id="nav-2" data-toggle="tab" href="#curriculum" role="tab"
+                aria-controls="curriculum" aria-selected="false">Curriculum</a>
+              <a class="nav-item nav-link" id="nav-3" data-toggle="tab" href="#instructor" role="tab"
+                aria-controls="instructor" aria-selected="false">Instructor</a>
+
+            </div>
+
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description">
+                <h4 class="title">Course description</h4>
+                {{ course.description }}
+              </div>
+              <div class="tab-pane fade" id="curriculum" role="tabpanel" aria-labelledby="curriculum">
+                <h4 class="title">Curriculum for this Course</h4>
+                <div class="curriculum-details">
+
+                  {% if object.get_chapters %}
+
+                  {% for chapter in object.get_chapters %}
+                  <div class="content-table">
+                    <span class="title">{{ chapter.name }}</span>
+                    <ul class="content-list">
+                      {% if object.get_lessons  %}
+                      {% for lesson in object.get_lessons  %}
+                      {% if lesson.chapter.id == chapter.id %}
+                      <li>
+                        <span class="float-left"><a href="{% url 'lesson-detail' lesson.slug %}"><i
+                              class="fa fa-play-circle""></i> {{ lesson.title }}
+                          </a></span>
+                        <span class=" float-right">1.5MB</span>
+                      </li>
+                      {% endif %}
+                      {% endfor %}
+                      {% endif %}
+                    </ul>
+                  </div><!-- /.content-table -->
+                  {% endfor %}
+                  {% endif %}
+                </div><!-- /.curriculum-details -->
+              </div>
+
+              <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor">
+                <div class="author-bio">
+                  <h3 class="title">About the Instructor</h3>
+                  <div class="author-contents media">
+                    <div class="author-avatar float-left"><img class="radius" src="images/au.jpg" alt="Avatar"></div>
+                    <!-- /.author-avatar -->
+                    <div class="author-details media-body">
+                      <h3 class="name"><a href="#">Julia Adams</a></h3>
+                      <span>UX Consultant and Web Design Instructor</span>
+                      <p>
+                        There was a painful and uncontrollable squeaking mixed in with it, the words could be made out
+                        at first but then there was a sort of echo which made them unclear, leaving the hearer unsure
+                        whether he had heard properly or not.
+                      </p>
+                      <a href="#" class="load-more">Learn more <i class="fa fa-angle-double-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- reviewss -->
+            </div>
+          </div><!-- /.course-single-details -->
+
+
+          <!-- related course -->
+        </div>
+
+        <div class="col-md-4">
+          <aside class="sidebar">
+            <button class="btn btn-lg enroll-btn">Enroll now</button>
+
+            <div class="info">
+              <ul class="info-list">
+                <li>
+                  <span class="price"> {% if object.is_free %}Free{% else %}{{ object.price }}{% endif %}
+                  </span></li>
+                <li><span>13 Hours on-demand video</span></li>
+                <li><span>11 Lectures</span></li>
+                <li><span>3 Quizes</span></li>
+                <li><span>{{ object.students.all.count }} Students enrolled</span></li>
+                <li><span>Certificate on Completion</span></li>
+              </ul>
+            </div>
+          </aside><!-- /.sidebar -->
+        </div>
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+  </div><!-- /.section-padding -->
+</section><!-- /.courses -->
+
+{% endblock %}

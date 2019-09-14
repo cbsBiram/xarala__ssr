@@ -35,15 +35,19 @@
               Mon espace
             </a>
 
+            {% if request.user.is_authenticated %}
             <div class="user-menu dropdown-menu">
               <a class="nav-link" href="#"><i class="fa fa- user"></i>Profile</a>
-
               <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
-
               <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-
-              <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+              <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-power -off"></i>Logout</a>
             </div>
+            {% else %}
+            <div class="user-menu dropdown-menu">
+              <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-power -on"></i>Se connecter</a>
+            </div>
+            {% endif %}
+
           </div>
         </div>
       </div>
@@ -65,7 +69,7 @@
               <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home"></i> Accueil</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-laptop"></i> Formation</a>
+              <a class="nav-link" href="{% url 'courses' %}"><i class="fas fa-laptop"></i> Formation</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'home' %}"><i class="fab fa-blogger-b"></i> Blog</a>

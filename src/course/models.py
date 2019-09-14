@@ -32,6 +32,8 @@ class Course(models.Model):
     price = models.DecimalField(default=0, max_digits=13, decimal_places=2)
     level = models.CharField(max_length=150, choices=LEVEL, default=BEGINNER)
     slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
+    thumbnail = models.ImageField(
+        upload_to=upload_image_path, null=True, blank=True)
     teacher = models.ForeignKey(
         CustomUser, models.SET_NULL, null=True, related_name='courses_created')
     students = models.ManyToManyField(
@@ -56,6 +58,14 @@ class Course(models.Model):
             self.slug = self._get_unique_slug()
         super().save(*args, **kwargs)
 
+    def get_chapters(self):
+        chapters = Chapter.objects.filter(course=self)
+        return chapters
+
+    def get_lessons(self):
+        lessons = Lesson.objects.filter(chapter__in=self.get_chapters())
+        return lessons
+
 
 class Chapter(models.Model):
     name = models.CharField(max_length=150)
@@ -67,7 +77,7 @@ class Chapter(models.Model):
         return self.name
 
     def _get_unique_slug(self):
-        slug = slugify(self.title)
+        slug = slugify(self.name)
         unique_slug = slug
         num = 1
         while Chapter.objects.filter(slug=unique_slug).exists():

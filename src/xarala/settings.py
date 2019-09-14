@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+from django.contrib.messages import constants as messages
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -31,19 +32,22 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # django default apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # third party apps
+    'social_django',
     # custom app
-    'users',
     'blog',
     'course',
     # 'comments',
+    'events',
     'pages',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -107,6 +111,18 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# add this
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = 'login'
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -135,6 +151,10 @@ MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 
+# Messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
 try:
     from .local_settings import *
 except ImportError:

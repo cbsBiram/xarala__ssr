@@ -1,35 +1,63 @@
 {% extends 'base.html' %}
 
 
+{% block title %}
+Authentification
+{% endblock %}
+
+
 {% block banner %}
 
 {% endblock %}
 
-
-
 {% block content %}
-<div class="container">
-  <h2 class="text-center">Bienvenue </h2>
-  <div class="col-md-6 m-auto">
-    <div class="card card-body mt-5">
-      <form>
-        <div className="form-group">
-          <label for="email" class="">Email</label>
-          <input name="email" type="email" class="form-control" placeholder="votre email..." />
-          <label for="password" class="">Mot de passe</label>
-          <input name="password" type="password" class="form-control" placeholder="votre mot de passe..." />
-          <button class="btn btn-primary">Se connecter</button>
-          {% if error %}
-          <div className="alert alert-danger"></div>
-          {% endif %}
 
+
+
+<section id="login" class="bg-light py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-header  text-light">
+            <h4>
+              Ravis de vous retrouver!</h4>
+          </div>
+          <div class="card-body">
+            <!-- Alerts -->
+            {% include 'partials/alerts.html' %}
+            <form action="{% url 'login' %}" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="email">Email :<span class="text-danger">*</span></label>
+                <input type="email" name="email" class="form-control" placeholder="Votre email" required>
+              </div>
+              <div class="form-group">
+                <label for="password">Mot de passe :<span class="text-danger">*</span></label>
+                <input type="password" name="password" class="form-control" required>
+              </div>
+              <input type="submit" value="Se connecter" class="btn btn-secondary btn-block">
+              <p class="mt-3">
+                Vous n'avez pas de compte?
+                <a href="{% url 'register' %}" class="btn-auth">S'inscrire</a>
+              </p>
+            </form>
+            <div class="social-login">
+              <button class="btn btn-danger  mb-2 btn-block text-light">
+                <a href="#" class="text-light">Se connecter avec Instagram</a>
+              </button>
+              <button class="btn btn-primary mb-2 btn-block text-light">
+                <a href="{% url 'social:begin' 'facebook' %}" class="text-light">Se connecter avec Facebook
+                </a>
+              </button>
+              <button class="btn btn-info mb-2 btn-block text-light">
+                <a href="#" class="text-light">Se connecter avec LinkedIn</a>
+              </button>
+            </div>
+          </div>
         </div>
-        <p class="mt-3">
-          Vous n'avez pas de compte?
-          <a href="{% url 'register' %}" class="btn-auth">Ouvrir un</a>
-        </p>
-      </form>
+      </div>
     </div>
   </div>
-</div>
+</section>
 {% endblock %}
