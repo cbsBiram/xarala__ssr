@@ -1,5 +1,7 @@
-from django.http import HttpResponse
+from django.views.generic import ListView
+from .models import Post
 
 
-def all_posts(request):
-    return HttpResponse("All posts")
+class PostListView(ListView):
+    model = Post
+    context_object_name = 'posts'

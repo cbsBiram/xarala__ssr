@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # third party apps
     'social_django',
+    'django_summernote',
     # custom app
     'blog',
     'course',

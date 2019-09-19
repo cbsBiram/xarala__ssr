@@ -9,6 +9,9 @@ verify_ssl = true
 django = "*"
 pillow = "*"
 mailchimp = "*"
+social-auth-app-django = "*"
+django-crispy-forms = "*"
+django-summernote = "*"
 
 [requires]
 python_version = "3.7"

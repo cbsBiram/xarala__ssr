@@ -58,6 +58,10 @@ class Course(models.Model):
             self.slug = self._get_unique_slug()
         super().save(*args, **kwargs)
 
+    def get_introudction(self):
+        lesson = Lesson.objects.filter(chapter__in=self.get_chapters()).first()
+        return lesson
+
     def get_chapters(self):
         chapters = Chapter.objects.filter(course=self)
         return chapters

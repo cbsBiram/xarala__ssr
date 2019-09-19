@@ -16,18 +16,30 @@
   <div class="section-padding">
     <div class="container">
       <div class="row">
-        <div class="col-md-8 offset-md-2 mt-2">
-          <h2 class="course-title text-center">{{ object.title }} </h2>
-          <!-- /.course-title -->
+        <div class="col-md-8">
+          <h2 class="course-title">{{ object.title }}</h2><!-- /.course-title -->
           <div class="course-meta">
-            <div class="course-video">
-              <div class="embed-responsive embed-responsive-16by9 mb-4 rounded bg-light" id="videoWrapper">
-                <iframe id="jsVimeoFrame" class="embed-responsive-item"
-                  src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" frameborder="0" allowfullscreen=""
-                  allow="autoplay; fullscreen"></iframe>
-              </div>
-            </div>
+            <span class="meta-details">
+              <img class="rounded-circle float-left" src="{{ object.teacher.avatar.url }}" alt="Avatar">
+
+              <span class="meta-id">Instructor</span>
+              <a class="name" href="#">{{ object.teacher }}</a>
+            </span>
+            <span class="meta-details">
+              <span class="meta-id">Category</span>
+              <span>Design</span>
+            </span>
+            <span class="meta-details">
+              <span class="meta-id">Reviews</span>
+              <span class="rating">
+                <input type="hidden" class="rating-tooltip-manual" data-filled="fas fa-star" data-empty="far fa-star"
+                  value="4.5" data-fractions="5" />
+                <span>(2,543 Ratings)</span>
+              </span><!-- /.rating -->
+            </span>
           </div>
+          <img class="radius" src="{{ course.thumbnail.url }}" alt="Course Image">
+
           <div class="course-single-details">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <a class="nav-item nav-link active" id="nav-1" data-toggle="tab" href="#description" role="tab"
@@ -58,9 +70,10 @@
                       {% for lesson in object.get_lessons  %}
                       {% if lesson.chapter.id == chapter.id %}
                       <li>
-                        <span class="float-left"><a href="#"><i class="fa fa-play-circle""></i> {{ lesson.title }}
-                            </a></span>
-                          <span class=" float-right">1.5MB</span>
+                        <span class="float-left"><a href="{% url 'course-detail' lesson.slug %}"><i
+                              class="fa fa-play-circle""></i> {{ lesson.title }}
+                          </a></span>
+                        <span class=" float-right">1.5MB</span>
                       </li>
                       {% endif %}
                       {% endfor %}
@@ -74,9 +87,13 @@
 
               <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor">
                 <div class="author-bio">
-                  <h3 class="title">Community</h3>
+                  <h3 class="title">About the Instructor</h3>
                   <div class="author-contents media">
+                    <div class="author-avatar float-left"><img class="radius" src="images/au.jpg" alt="Avatar"></div>
+                    <!-- /.author-avatar -->
                     <div class="author-details media-body">
+                      <h3 class="name"><a href="#">Julia Adams</a></h3>
+                      <span>UX Consultant and Web Design Instructor</span>
                       <p>
                         There was a painful and uncontrollable squeaking mixed in with it, the words could be made out
                         at first but then there was a sort of echo which made them unclear, leaving the hearer unsure
@@ -94,6 +111,33 @@
 
 
           <!-- related course -->
+        </div>
+
+        <div class="col-md-4">
+          <aside class="sidebar">
+
+            <!-- {% if enrolled %}
+              
+            {% endif %} -->
+
+            <!-- <button class="btn btn-lg enroll-btn"> <a href="#"></a>
+              Enroll now</button> -->
+            <button class="btn btn-lg enroll-btn"> <a href="{% url 'course-detail' object.slug %}">Voir</a>
+            </button>
+
+            <div class="info">
+              <ul class="info-list">
+                <li>
+                  <span class="price"> {% if object.is_free %}Free{% else %}{{ object.price }}{% endif %}
+                  </span></li>
+                <li><span>13 Hours on-demand video</span></li>
+                <li><span>11 Lectures</span></li>
+                <li><span>3 Quizes</span></li>
+                <li><span>{{ object.students.all.count }} Students enrolled</span></li>
+                <li><span>Certificate on Completion</span></li>
+              </ul>
+            </div>
+          </aside><!-- /.sidebar -->
         </div>
       </div><!-- /.row -->
     </div><!-- /.container -->
