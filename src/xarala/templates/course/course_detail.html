@@ -17,13 +17,14 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 offset-md-2 mt-2">
-          <h2 class="course-title text-center">{{ object.title }} </h2>
+          <h2 class="course-title text-center">{{ object.title }} - <span class="lesson-title">{{ lesson.title }}</span>
+          </h2>
           <!-- /.course-title -->
           <div class="course-meta">
             <div class="course-video">
               <div class="embed-responsive embed-responsive-16by9 mb-4 rounded bg-light" id="videoWrapper">
                 <iframe id="jsVimeoFrame" class="embed-responsive-item"
-                  src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" frameborder="0" allowfullscreen=""
+                  src="https://www.youtube.com/embed/{{ lesson.video_id }}?rel=0" frameborder="0" allowfullscreen=""
                   allow="autoplay; fullscreen"></iframe>
               </div>
             </div>
@@ -41,8 +42,8 @@
 
             <div class="tab-content" id="nav-tabContent">
               <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description">
-                <h4 class="title">Course description</h4>
-                {{ course.description }}
+                <h4 class="title">Description du cours</h4>
+                {{ lesson.text|safe }}
               </div>
               <div class="tab-pane fade" id="curriculum" role="tabpanel" aria-labelledby="curriculum">
                 <h4 class="title">Curriculum for this Course</h4>
@@ -55,16 +56,17 @@
                     <span class="title">{{ chapter.name }}</span>
                     <ul class="content-list">
                       {% if object.get_lessons  %}
-                      {% for lesson in object.get_lessons  %}
-                      {% if lesson.chapter.id == chapter.id %}
-                      <li>
-                        <span class="float-left"><a href="#"><i class="fa fa-play-circle""></i> {{ lesson.title }}
+                      {% for course in object.get_lessons  %}
+                      {% if course.chapter.id == chapter.id %}
+                      <li {% if course.id == lesson.id %} class="active-course" {% else %} class="" {% endif %}>
+                        <span class="float-left"><a href="/courses/{{ object.slug }}/?lecture={{course.slug}}"><i
+                              class="fa fa-play-circle""></i> {{ course.title }}
                             </a></span>
                           <span class=" float-right">1.5MB</span>
-                      </li>
-                      {% endif %}
-                      {% endfor %}
-                      {% endif %}
+                        </liclass="active-course">
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
                     </ul>
                   </div><!-- /.content-table -->
                   {% endfor %}

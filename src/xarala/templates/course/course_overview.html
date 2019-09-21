@@ -70,7 +70,7 @@
                       {% for lesson in object.get_lessons  %}
                       {% if lesson.chapter.id == chapter.id %}
                       <li>
-                        <span class="float-left"><a href="{% url 'course-detail' lesson.slug %}"><i
+                        <span class="float-left"><a href="/courses/{{ object.slug }}/?lecture={{lesson.slug}}"><i
                               class="fa fa-play-circle""></i> {{ lesson.title }}
                           </a></span>
                         <span class=" float-right">1.5MB</span>
@@ -122,7 +122,8 @@
 
             <!-- <button class="btn btn-lg enroll-btn"> <a href="#"></a>
               Enroll now</button> -->
-            <button class="btn btn-lg enroll-btn"> <a href="{% url 'course-detail' object.slug %}">Voir</a>
+            <button class="btn btn-lg enroll-btn"> <a
+                href="/courses/{{ object.slug }}/?lecture={{object.get_introudction.slug}}">Voir</a>
             </button>
 
             <div class="info">
