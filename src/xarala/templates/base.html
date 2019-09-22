@@ -57,6 +57,10 @@
 
 
 <body>
+<!-- Preloader -->
+  <div id="preloader">
+    <div id="status">&nbsp;</div>
+  </div>
     {% include 'partials/header.html' %}
 
 
@@ -569,13 +573,13 @@
     <section class="subscribe text-center gray-bg subscribe_form">
         <div class="section-padding">
             <div class="container">
-                <h4 class="title">Subscribe Weekly Newsletter</h4>
-
+                <h4 class="title">S'INSCRIRE À LA NEWSLETTER</h4>
+                <p>Recevoir les nouveaux articles et formations par e-mail</p>
                 <form id="subscribe" class="mc4wp-form mc4wp-form-1971 bm8 " method="post" data-id="1971"
                     data-name="Mail Form"> {% csrf_token %}
                     <input class="subscribe-email" type="email" id="email_id" name="email_id"
-                        placeholder="Enter Email Address Here" required="">
-                    <input class="subscribe-submit" type="submit" id="email_submit" name="submit" value="Subscribe now">
+                        placeholder="Votre email..." required>
+                    <input class="subscribe-submit" type="submit" id="email_submit" name="submit" value="OK">
                 </form>
             </div><!-- /.container -->
         </div><!-- /.section-padding -->

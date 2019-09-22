@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Evenetment
+{% endblock %}
+
+
+{% block banner %}
+
+{% endblock %}
+
+{% block content %}
+<section class="events">
+  <div class="section-padding">
+    <div class="container">
+      <div class="row">
+
+
+        {% if events %}
+
+        {% for event in events %}
+        <div class="col-md-6">
+          <div class="event media">
+            <div class="event-time media-left">
+              <time datetime="2017-07-28"><span class="date">28</span> July</time>
+            </div>
+            <div class="event-details media-body">
+              <div class="event-thumb radius"><img src="{{ event.image.url }}" alt="Event Thumbnail"></div>
+              <!-- /.enent-thumb -->
+              <h2 class="event-title"><a href="{% url 'event-detail' event.slug %}">{{ event.title }}</a></h2>
+              <!-- /.event-title -->
+              <div class="event-meta">
+                <span class="time"><i class="icon-clock"></i> 4am - 8pm</span><!-- /.time -->
+                <span class="place"><i class="icon-location-pin"></i> {{ event.location }}, {{ event.country }}</span>
+                <!-- /.place -->
+              </div><!-- /.event-meta -->
+              <p>
+                {{ event.short_description }}
+              </p>
+            </div><!-- /.event-details -->
+          </div><!-- /.event -->
+        </div>
+        {% endfor %}
+
+        {% else %}
+
+        <p class="text-center alert alert-info">Pas d'eventement</p>
+
+        {% endif %}
+
+
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+  </div><!-- /.section-padding -->
+</section>
+{% endblock %}

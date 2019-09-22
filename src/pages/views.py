@@ -3,13 +3,15 @@ from .models import Subscribe
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from course.models import Course
+from blog.models import Post
 
 # Create your views here.
 
 
 def home(request):
-    courses = Course.objects.all()
-    return render(request, "pages/index.html", {"courses": courses})
+    courses = Course.objects.all()[:10]
+    posts = Post.objects.all()[:4]
+    return render(request, "pages/index.html", {"courses": courses, "posts": posts})
 
 
 def subscribe(request):

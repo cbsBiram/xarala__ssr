@@ -1,58 +1,86 @@
 {% extends 'base.html' %}
-
+<!--  -->
 {% block content %}
-{% include 'partials/alerts.html' %}
+<!--  -->
+{% include 'partials/alerts.html'%}
+<!--  -->
 <section class="popular-courses">
   <div class="section-padding">
-
-
     <div class="container">
       <div class="top-content">
         <div class="left-content float-left">
           <h2 class="section-title">Formation populaire</h2>
           <p>Les compétences les plus attendues</p>
-        </div><!-- /.left-content -->
+        </div>
+        <!-- /.left-content -->
 
-        <div class="owl-controls float-right"></div><!-- /.owl-controls -->
-      </div><!-- /.top-content -->
+        <div class="owl-controls float-right"></div>
+        <!-- /.owl-controls -->
+      </div>
+      <!-- /.top-content -->
 
       {% if courses %}
 
-
       <div class="course-items with-slider">
         <div id="course-slider" class="course-slider owl-carousel">
-
           {% for course in courses %}
 
           <div class="item">
             <div class="item-thumb">
-              <img src="{{ course.thumbnail.url }}" alt="Item Thumbnail">
-              <div class="avatar"><img class="rounded-circle" src="{{ course.teacher.avatar.url }}" alt="Avatar Image">
-              </div><!-- /.avatar -->
-            </div><!-- /.item-thumb -->
+              <img src="{{ course.thumbnail.url }}" alt="Item Thumbnail" />
+              <div class="avatar">
+                <img
+                  class="rounded-circle"
+                  src="{{ course.teacher.avatar.url }}"
+                  alt="Avatar Image"
+                />
+              </div>
+              <!-- /.avatar -->
+            </div>
+            <!-- /.item-thumb -->
             <div class="item-details">
-              <h3 class="item-title"><a href="{% url 'course-overview'  course.slug %}">{{ course.title }}</a></h3>
+              <h3 class="item-title">
+                <a href="{% url 'course-overview'  course.slug %}">
+                  {{ course.title }}</a
+                >
+              </h3>
               <!-- /.item-title -->
-              <span class="instructor"><a href="#">{{ course.teacher }}</a></span><!-- /.instructor -->
+              <span class="instructor"
+                ><a href="#">{{ course.teacher }}</a></span
+              ><!-- /.instructor -->
               <div class="details-bottom">
-                <div class="course-price float-left"><span class="currency">$ </span><span
-                    class="price">{{ course.price }}</span></div>
+                <div class="course-price float-left">
+                  <span class="currency">$ </span
+                  ><span class="price">{{ course.price }}</span>
+                </div>
                 <!-- /.course-price -->
                 <div class="rating float-right">
-                  <input type="hidden" class="rating-tooltip-manual" data-filled="fas fa-star" data-empty="far fa-star"
-                    data-fractions="2" />
-                </div><!-- /.rating -->
-              </div><!-- /.details-bottom -->
+                  <input
+                    type="hidden"
+                    class="rating-tooltip-manual"
+                    data-filled="fas fa-star"
+                    data-empty="far fa-star"
+                    data-fractions="2"
+                  />
+                </div>
+                <!-- /.rating -->
+              </div>
+              <!-- /.details-bottom -->
 
               <div class="item-meta">
-                <span><i class="icons icon-people"></i> {{ course.students.all.count }}</span>
+                <span
+                  ><i class="icons icon-people"></i>
+                  {{ course.students.all.count }}</span
+                >
                 <span><i class="icons icon-clock"></i> 22Hrs</span>
                 <span><i class="icons icon-bubble"></i> 51</span>
-              </div><!-- /.item-meta -->
-            </div><!-- /.item-details -->
-          </div><!-- /.item -->
+              </div>
+              <!-- /.item-meta -->
+            </div>
+            <!-- /.item-details -->
+          </div>
+          <!-- /.item -->
           {% endfor %}
-
         </div>
       </div>
       {% else %}
@@ -65,5 +93,58 @@
     </div>
   </div>
 </section>
+
+<section class="recent-posts black-bg">
+  <div class="section-padding">
+    <div class="container">
+      <div class="top-content">
+        <div class="left-content float-left">
+          <h2 class="section-title">Recent Blog Posts</h2>
+          <p>Donec rutrum congue leo eget malesuada</p>
+        </div>
+        <!-- /.left-content -->
+        <div class="owl-controls float-right"></div>
+        <!-- /.owl-controls -->
+      </div>
+      <!-- /.top-content -->
+
+      <div id="post-slider" class="post-slider owl-carousel">
+        {% if posts %} {% for post in posts %}
+
+        <div class="item">
+          <article class="post">
+            <div class="entry-thumbnail radius">
+              <img src="{{ post.image.url }}" alt="Post Thumbnail" />
+            </div>
+            <!-- /.entry-thumbnail -->
+            <div class="entry-content">
+              <h3 class="entry-title">
+                <a href="{% url 'blog-detail' post.slug %}">{{ post.title }}</a>
+              </h3>
+              <!-- /.entry-title -->
+              <div class="entry-meta">
+                <span class="author"
+                  ><i class="icon-user"></i>
+                  <a href="#">{{ post.author }}</a></span
+                ><!-- /.author -->
+                <span class="time"
+                  ><i class="icon-calendar"></i> 26/05/2018</span
+                ><!-- /.time -->
+              </div>
+              <!-- /.entry-meta -->
+            </div>
+            <!-- /.entry-content -->
+          </article>
+          <!-- /.post -->
+        </div>
+        {% endfor %} {% endif %}
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.section-padding -->
+</section>
+<!-- /.recent-posts -->
 
 {% endblock %}
