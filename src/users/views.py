@@ -1,8 +1,10 @@
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 from .models import CustomUser
 from .forms import CustomUserLoginForm
+from send_mail.views import send_new_register_email
 
 
 def login(request):
@@ -49,6 +51,7 @@ def register(request):
                         password=password,
                     )
                     user.save()
+                    send_new_register_email(user)
                     messages.success(
                         request, "You are now registred and can log  in")
                     return redirect("login")
@@ -56,5 +59,4 @@ def register(request):
             messages.error(request, "Password didn't match")
             return redirect('register')
     else:
-        context = {}
-        return render(request, "users/register.html", context)
+        return render(request, "users/register.html")

@@ -2,12 +2,14 @@ from xarala.utils import SendSubscribeMail
 from .models import Subscribe
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from course.models import Course
 
 # Create your views here.
 
 
 def home(request):
-    return render(request, "pages/index.html")
+    courses = Course.objects.all()
+    return render(request, "pages/index.html", {"courses": courses})
 
 
 def subscribe(request):

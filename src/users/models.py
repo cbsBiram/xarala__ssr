@@ -30,6 +30,7 @@ class CustomUser(AbstractUser):
     scoial = models.ForeignKey(Social, models.SET_NULL, null=True, blank=True)
     avatar = models.ImageField(
         upload_to=upload_image_path, null=True, blank=True)
+    bio = models.TextField(blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

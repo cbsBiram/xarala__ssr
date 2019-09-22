@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Liste des articles
+Liste des articles de {{ category }}
 {% endblock %}
 
 
@@ -41,7 +41,7 @@ Liste des articles
                 </div><!-- /.entry-meta -->
 
                 <p>
-                  {{ post.content|safe }}
+                  {{ post.content|safe |slice:":100" }}
                 </p>
 
                 <a href="{% url 'blog-detail' post.slug %}" class="btn btn-lg">Voir plus</a>
@@ -108,6 +108,21 @@ Liste des articles
               <div class="widget-details">
                 <article class="post type-post media">
                   <div class="entry-thumbnail">
+                    <img src="images/widget/1.jpg" alt="post" />
+                  </div>
+                  <!--/.entry-thumbnail-->
+
+                  <div class="entry-content media-body">
+                    <h3 class="entry-title"><a href="#">WordPress Theme Development Resources</a></h3>
+                    <div class="entry-meta">
+                      <span class="time"><i class="icons icon-calendar"></i> <time datetime="2018-05-28">28 July,
+                          2018</time></span>
+                    </div><!-- /.entry-meta -->
+                  </div>
+                  <!--/.entry-content media-body-->
+                </article>
+                <article class="post type-post media">
+                  <div class="entry-thumbnail">
                     <img src="images/widget/2.jpg" alt="post" />
                   </div>
                   <!--/.entry-thumbnail-->
@@ -121,47 +136,24 @@ Liste des articles
                   </div>
                   <!--/.entry-content media-body-->
                 </article>
+                <article class="post type-post media">
+                  <div class="entry-thumbnail">
+                    <img src="images/widget/3.jpg" alt="post" />
+                  </div>
+                  <!--/.entry-thumbnail-->
 
+                  <div class="entry-content media-body">
+                    <h3 class="entry-title"><a href="#">WordPress Themes 2018 : Responsive and Creative Design</a></h3>
+                    <div class="entry-meta">
+                      <span class="time"><i class="icons icon-calendar"></i> <time datetime="2018-05-28">28 July,
+                          2018</time></span>
+                    </div><!-- /.entry-meta -->
+                  </div>
+                  <!--/.entry-content media-body-->
+                </article>
               </div><!-- /.widget-details -->
             </div>
             <!--/.widget-->
-
-            <div class="widget widget_tag_cloud">
-              <h2 class="widget-title">Tags Cloud</h2>
-              <div class="widget-details">
-                <div class="tagcloud">
-
-                  {% if tags %}
-
-                  {% for tag in tags %}
-                  <a href="#">{{ tag.name }}</a>
-                  {% endfor %}
-
-                  {% else %}
-                  <a href="#">Theme</a>
-
-                  {% endif %}
-
-                </div>
-                <!--/.tagcloud-->
-              </div><!-- /.widget-details -->
-            </div>
-            <!--/.widget-->
-
-
-            <!-- <div class="widget widget_archive">
-              <h2 class="widget-title">Archive</h2>
-              <div class="widget-details">
-                <ul>
-                  <li><a href="#">January 2018</a></li>
-                  <li><a href="#">February 2018</a></li>
-                  <li><a href="#">March 2018</a></li>
-                  <li><a href="#">April 2018</a></li>
-                  <li><a href="#">May 2018</a></li>
-                  <li><a href="#">June 2018</a></li>
-                </ul>
-              </div>
-            </div> -->
             <!--/.widget-->
           </aside>
           <!--/.sidebar-->

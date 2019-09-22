@@ -40,7 +40,12 @@
               <a class="nav-link" href="#"><i class="fa fa- user"></i>Profile</a>
               <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
               <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-              <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-power -off"></i>Logout</a>
+              <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}"><i
+                  class="fa fa-power -off"></i>Logout</a>
+              <form action="{% url 'logout' %}" method="POST" id="logout">
+                {% csrf_token %}
+                <input type="hidden">
+              </form>
             </div>
             {% else %}
             <div class="user-menu dropdown-menu">
@@ -75,7 +80,7 @@
               <a class="nav-link" href="{% url 'blog' %}"><i class="fab fa-blogger-b"></i> Blog</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fas fa-book"></i> Livres</a>
+              <a class="nav-link" href="#"><i class="fas fa-book"></i> Ressources</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#"><i class="fas fa-terminal"></i> Lab</a>

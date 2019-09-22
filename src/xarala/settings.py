@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # third party apps
     'social_django',
     'django_summernote',
+    'crispy_forms',
     # custom app
     'blog',
     'course',
@@ -123,7 +124,7 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_URL = 'logout'
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = 'home'
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -156,6 +157,10 @@ AUTH_USER_MODEL = 'users.CustomUser'
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
 try:
     from .local_settings import *
 except ImportError:
