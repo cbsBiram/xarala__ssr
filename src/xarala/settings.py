@@ -99,10 +99,19 @@ DATABASES = {
         'NAME': 'database1',
         'USER': 'database1_role',
         'PASSWORD': 'database1_password',
-        'HOST': 'database1',  # <-- IMPORTANT: same name as docker-compose service!
+        'HOST': 'database1',
+        'PORT': '5432',
+    },
+    'database2': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'database2',
+        'USER': 'database2_role',
+        'PASSWORD': 'database2_password',
+        'HOST': 'database2',
         'PORT': '5432',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
