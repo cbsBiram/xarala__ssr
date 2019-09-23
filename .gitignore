@@ -116,5 +116,5 @@ XDG_CACHE_HOME/
 .vs/
 .vs/
 logs/
-media/
-static/
+# media/
+# static/
