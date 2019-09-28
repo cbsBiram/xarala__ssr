@@ -21,11 +21,9 @@ Evenetment {{ object.title }}
           <div class="event-single-contents">
             <div class="event-banner background-bg text-center" data-image-src="{{ event.image.url }}">
               <div class="overlay">
-                <div id="countdown"></div>
+                <div id="" class="text-light event-title">{{ event.title }}</div>
               </div><!-- /.overlay -->
             </div><!-- /.event-banner -->
-
-            <h2 class="event-title">{{ object.title }}</h2><!-- /.event-title -->
 
             <p>
               <strong>{{ object.short_description }}</strong>
@@ -80,19 +78,22 @@ Evenetment {{ object.title }}
 
         <div class="col-md-4">
           <aside class="sidebar">
-            <button class="btn btn-lg enroll-btn">Join the event</button>
+            <button class="btn btn-lg enroll-btn"><a href="{{ event.join_link }}" target="_blank">Participez à
+                l'événement!</a></button>
 
             <div class="widget widget_event_meta">
 
               <div class="meta-info">
                 <ul class="info-list">
-                  <li><span class="price">Free</span></li>
-                  <li><span class="meta-id">Date</span> Aug 20- Aug 22</li>
-                  <li><span class="meta-id">Time</span> 11.00am - 04.30.00pm</li>
-                  <li><span class="meta-id">Place</span> Paris, France</li>
-                  <li><span class="meta-id">Total Seats</span> 250</li>
+                  <li><span class="price">Gratuit</span></li>
+                  <li><span class="meta-id">Date</span> {{ event.date_start|date:"M d" }}-
+                    {{ event.date_start|date:"M d" }}</li>
+                  <li><span class="meta-id">Time</span> {{ event.date_start|date:"H:i" }} -
+                    {{ event.date_start|date:"H:i" }}</li>
+                  <li><span class="meta-id">Place</span> {{ event.location }}, {{ event.country }}</li>
+                  <li><span class="meta-id">Nombre de places</span> {{ event.total_seats }}</li>
                   <li>
-                    <span class="meta-id">Share</span>
+                    <span class="meta-id">Partgaer</span>
                     <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-google-plus"></i></a>

@@ -8,41 +8,41 @@ from send_mail.views import send_new_register_email
 
 
 def login(request):
-    if request.method == "POST":
-        next_ = request.GET.get('next')
-        next_post = request.POST.get('next')
-        redirect_path = next_ or next_post
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(request, email=email, password=password)
-        if user is not None:
-            auth_login(request, user)
-            messages.success(request, "Bienvenue chez Xarala")
-            return redirect("/")
-        else:
-            messages.error(
-                request, "Information incorrect")
-            return redirect('/users/login')
+    if request.user.is_authenticated:
+        return redirect('dashboard')
     else:
-        return render(request, "users/login.html")
+        if request.method == "POST":
+            next_ = request.GET.get('next')
+            next_post = request.POST.get('next')
+            redirect_path = next_ or next_post
+            email = request.POST['email']
+            password = request.POST['password']
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                auth_login(request, user)
+                messages.success(request, "Bienvenue chez Xarala")
+                return redirect("/")
+            else:
+                messages.error(
+                    request, "Information incorrect")
+                return redirect('/users/login')
+        else:
+            return render(request, "users/login.html")
 
 
 def register(request):
-    if request.method == "POST":
-        # Get form values
-        email = request.POST['email']
-        password = request.POST['password']
-        password2 = request.POST['password2']
-        # check if password much
-        if password == password2:
-            pass
-            # check username
-            if CustomUser.objects.filter(email=email).exists():
-                messages.error(request, "That email is taken")
-                return redirect('register')
-            else:
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    else:
+        if request.method == "POST":
+            # Get form values
+            email = request.POST['email']
+            password = request.POST['password']
+            password2 = request.POST['password2']
+            # check if password much
+            if password == password2:
                 if CustomUser.objects.filter(email=email).exists():
-                    messages.error(request, "That email is being used")
+                    messages.error(request, "Le email est deja utilisé")
                     return redirect('register')
                 else:
                     # looks good
@@ -53,10 +53,15 @@ def register(request):
                     user.save()
                     send_new_register_email(user)
                     messages.success(
-                        request, "You are now registred and can log  in")
+                        request, "Vous êtes maintenant inscrit et pouvez vous connecter...")
                     return redirect("login")
+            else:
+                messages.error(
+                    request, "Les mots de passe ne sont pas identiques")
+                return redirect('register')
         else:
-            messages.error(request, "Password didn't match")
-            return redirect('register')
-    else:
-        return render(request, "users/register.html")
+            return render(request, "users/register.html")
+
+
+def dashboard(request):
+    return render(request, "users/dashboard.html")

@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import URLValidator
 from django.utils.text import slugify
 from xarala.utils import upload_image_path
 
@@ -23,6 +24,8 @@ class Event(models.Model):
     country = models.CharField(max_length=240, null=True)
     total_seats = models.IntegerField(default=0)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
+    join_link = models.TextField(
+        validators=[URLValidator()], blank=True, null=True)
     image = models.ImageField(
         upload_to=upload_image_path, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)

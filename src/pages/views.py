@@ -26,3 +26,7 @@ def subscribe(request):
             # Send the Mail, Class available in utils.py
             SendSubscribeMail(email)
     return HttpResponse("/")
+
+
+def about(request):
+    return render(request, "pages/about.html")

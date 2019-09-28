@@ -55,3 +55,8 @@ h2.lesson-title {
 .active-course {
   background-color: #66a0f880;
 }
+
+a {
+  text-decoration: none;
+  color: #4c505f;
+}

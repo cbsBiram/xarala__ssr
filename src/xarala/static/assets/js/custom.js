@@ -81,7 +81,7 @@ $.ajaxSetup({
 
 setTimeout(function () {
   $('#message').fadeOut('slow');
-}, 3000);
+}, 9000);
 
 
 $(document).on('click', '.panel-heading span.clickable', function (e) {

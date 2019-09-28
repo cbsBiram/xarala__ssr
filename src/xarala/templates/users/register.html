@@ -18,7 +18,7 @@ Authentification, inscription
       <div class="contents text-center">
         <!-- Alerts -->
         {% include 'partials/alerts.html' %}
-        <h2 class="section-title">Register</h2>
+        <h2 class="section-title">Inscrivez-vous et commencez à apprendre !</h2>
 
         <form class="register-form" id="register-form" action="{% url 'register' %}" method="post">
           {% csrf_token %}
@@ -31,31 +31,31 @@ Authentification, inscription
           </p>
 
           <p class="form-input">
-            <input type="password" name="password2" id="confirm_pass" class="input" placeholder="Confirmation de mot de passe"
-              required="">
+            <input type="password" name="password2" id="confirm_pass" class="input"
+              placeholder="Confirmation de mot de passe" required="">
           </p>
 
           <p class="checkbox">
-            <input name="rememberme" type="checkbox" class="rememberme float-left" value="Remember Me">
-            By clicking I agree to the
-            <a href="#" class="" title="Recover Your Lost Password">Terms & Conditions</a>
+            <input name="rememberme" type="checkbox" class="rememberme float-left" value="Remember Me" required>
+            En cliquant, j'accepte
+            <a href="#" class="" title="Recover Your Lost Password">les conditions générales</a>
           </p>
 
           <p class="form-input">
-            <input type="submit" name="wp-submit" id="wp-submit" class="btn" value="Sign Up">
+            <input type="submit" name="wp-submit" id="wp-submit" class="btn" value="Inscription">
           </p>
 
         </form>
 
         <div class="login-social">
-          <h2 class="section-title">Or Sign up using</h2>
+          <h2 class="section-title">Inscription avec</h2>
           <button class="btn facebook"><i class="fab fa-facebook"></i> Facebook</button>
           <button class="btn twitter"><i class="fab fa-twitter"></i> Twitter</button>
           <button class="btn google"><i class="fab fa-google-plus"></i> Google</button>
         </div><!-- /.login-social -->
 
         <p class="register">
-          Already have an account? <a href="{% url 'login' %}">Sign in now</a>
+          Vous etes membre? <a href="{% url 'login' %}">Connectez-vous.</a>
         </p>
       </div><!-- /.contents -->
     </div><!-- /.container -->

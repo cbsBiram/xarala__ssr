@@ -37,11 +37,11 @@
 
             {% if request.user.is_authenticated %}
             <div class="user-menu dropdown-menu">
-              <a class="nav-link" href="#"><i class="fa fa- user"></i>Profile</a>
+              <a class="nav-link" href="#"><i class="fa fa- user"></i>Mon Profile</a>
               <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
-              <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+              <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa -cog"></i>Dashboard</a>
               <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}"><i
-                  class="fa fa-power -off"></i>Logout</a>
+                  class="fa fa-power -off"></i>Déconnexion</a>
               <form action="{% url 'logout' %}" method="POST" id="logout">
                 {% csrf_token %}
                 <input type="hidden">

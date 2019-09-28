@@ -86,29 +86,10 @@ WSGI_APPLICATION = 'xarala.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'database1',
-        'USER': 'database1_role',
-        'PASSWORD': 'database1_password',
-        'HOST': 'database1',
-        'PORT': '5432',
-    },
-    'database2': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'database2',
-        'USER': 'database2_role',
-        'PASSWORD': 'database2_password',
-        'HOST': 'database2',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

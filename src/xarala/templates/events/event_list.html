@@ -23,7 +23,8 @@ Evenetment
         <div class="col-md-6">
           <div class="event media">
             <div class="event-time media-left">
-              <time datetime="2017-07-28"><span class="date">28</span> July</time>
+              <time datetime="{{ event.date_created|date:'m-d-Y' }}"><span
+                  class="date">{{ event.date_created|date:"d" }}</span> {{ event.date_created|date:"F" }}</time>
             </div>
             <div class="event-details media-body">
               <div class="event-thumb radius"><img src="{{ event.image.url }}" alt="Event Thumbnail"></div>
@@ -31,7 +32,8 @@ Evenetment
               <h2 class="event-title"><a href="{% url 'event-detail' event.slug %}">{{ event.title }}</a></h2>
               <!-- /.event-title -->
               <div class="event-meta">
-                <span class="time"><i class="icon-clock"></i> 4am - 8pm</span><!-- /.time -->
+                <span class="time"><i class="icon-clock"></i> {{ event.date_start|date:"H" }}H -
+                  {{ event.date_end|date:"H" }}H</span><!-- /.time -->
                 <span class="place"><i class="icon-location-pin"></i> {{ event.location }}, {{ event.country }}</span>
                 <!-- /.place -->
               </div><!-- /.event-meta -->

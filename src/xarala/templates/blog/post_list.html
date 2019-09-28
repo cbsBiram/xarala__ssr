@@ -27,7 +27,8 @@ Liste des articles
             <!-- /.entry-thumbnail -->
             <div class="entry-content media">
               <div class="post-date">
-                <time datetime="2018-05-28"><span class="date">28</span> July</time>
+                <time datetime="{{ post.date_created|date:'m-d-Y' }}"><span
+                    class="date">{{ post.date_created|date:"d" }}</span> {{ post.date_created|date:"F" }}</time>
               </div><!-- /.post-date -->
 
               <div class="content-details media-body">
@@ -36,13 +37,15 @@ Liste des articles
                 <div class="entry-meta">
                   <span class="author"><i class="icon-user"></i> <a href="#">{{ post.author }}</a></span>
                   <!-- /.author -->
-                  <span class="tag"><i class="icon-tag"></i> <a href="#">News</a></span><!-- /.tag -->
-                  <span class="comments"><i class="icon-bubbles"></i> <a href="#">13 comments</a></span><!-- /.tag -->
+                  <span class="tag"><i class="icon-tag"></i> <a
+                      href="#">{{ post.tags.first|default_if_none:"" }}</a></span><!-- /.tag -->
+                  <!--<span class="comments"><i class="icon-bubbles"></i> <a href="#">13 comments</a></span>-- /.tag -->
                 </div><!-- /.entry-meta -->
 
                 <p>
-                  {{ post.content|safe }}
+                  {{ post.content|safe|truncatewords:50 }}
                 </p>
+
 
                 <a href="{% url 'blog-detail' post.slug %}" class="btn btn-lg">Voir plus</a>
               </div><!-- /.content-details -->
@@ -104,23 +107,25 @@ Liste des articles
             <!--/.widget-->
 
             <div class="widget widget_categories">
-              <h2 class="widget-title">Categories</h2>
+              <h2 class="widget-title">Catégories</h2>
               <div class="widget-details">
                 <ul>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Photography</a></li>
-                  <li><a href="#">WordPress</a></li>
-                  <li><a href="#">Learning Press</a></li>
-                  <li><a href="#">HTML5</a></li>
-                  <li><a href="#">Blog</a></li>
+
+                  {% for tag in tags %}
+                  <li><a href="{% url 'blog_tag' tag.name %}">{{ tag.name }}</a></li>
+                  {% endfor %}
+
+
                 </ul>
               </div><!-- /.widget-details -->
             </div>
             <!--/.widget-->
 
+            {% if popular_posts %}
             <div class="widget widget_popular_post">
-              <h2 class="widget-title">Popular Posts</h2>
+              <h2 class="widget-title">Articles populaires</h2>
               <div class="widget-details">
+                {% for post in popular_posts %}
                 <article class="post type-post media">
                   <div class="entry-thumbnail">
                     <img src="images/widget/2.jpg" alt="post" />
@@ -137,9 +142,11 @@ Liste des articles
                   <!--/.entry-content media-body-->
                 </article>
 
+                {% endfor %}
               </div><!-- /.widget-details -->
             </div>
             <!--/.widget-->
+            {% endif %}
 
             <div class="widget widget_tag_cloud">
               <h2 class="widget-title">Tags Cloud</h2>

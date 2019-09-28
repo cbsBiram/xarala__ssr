@@ -57,10 +57,10 @@
 
 
 <body>
-<!-- Preloader -->
-  <div id="preloader">
-    <div id="status">&nbsp;</div>
-  </div>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
     {% include 'partials/header.html' %}
 
 
@@ -73,7 +73,14 @@
                         <h6 class="sub-title mb-2">La technologie dans votre langue.</h6>
                         <h2 class="banner-title mb-5">Commencez à apprendre</h2>
 
-                        <a href="#" class="btn btn-lg mt-2 banner-btn">J'en profite</a>
+                        {% if request.user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="btn btn-lg mt-2 banner-btn">Dashboard</a>
+                        {% else %}
+
+                        <a href="{% url 'login' %}" class="btn btn-lg mt-2 banner-btn">J'en profite</a>
+
+                        {% endif %}
+
                     </div><!-- /.banner-texts -->
                 </div><!-- /.container -->
             </div><!-- /.section-padding -->

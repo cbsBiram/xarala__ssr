@@ -11,13 +11,13 @@ Liste des articles de {{ category }}
 {% endblock %}
 
 {% block content %}
-
 <section class="blog-posts">
+
   <div class="section-padding">
     <div class="container">
       <div class="row">
         <div class="col-md-8">
-
+          <h4 class="title text-center">Liste des articles de : {{ tag }}</h4>
           {% if posts %}
 
           {% for post in posts %}
@@ -27,22 +27,25 @@ Liste des articles de {{ category }}
             <!-- /.entry-thumbnail -->
             <div class="entry-content media">
               <div class="post-date">
-                <time datetime="2018-05-28"><span class="date">28</span> July</time>
+                <time datetime="{{ post.date_created|date:'m-d-Y' }}"><span
+                    class="date">{{ post.date_created|date:"d" }}</span> {{ post.date_created|date:"F" }}</time>
               </div><!-- /.post-date -->
 
               <div class="content-details media-body">
-                <h3 class="entry-title"><a href="#">{{ post.title }}</a></h3>
+                <h3 class="entry-title"><a href="{% url 'blog-detail' post.slug %}">{{ post.title }}</a></h3>
                 <!-- /.entry-title -->
                 <div class="entry-meta">
                   <span class="author"><i class="icon-user"></i> <a href="#">{{ post.author }}</a></span>
                   <!-- /.author -->
-                  <span class="tag"><i class="icon-tag"></i> <a href="#">News</a></span><!-- /.tag -->
-                  <span class="comments"><i class="icon-bubbles"></i> <a href="#">13 comments</a></span><!-- /.tag -->
+                  <span class="tag"><i class="icon-tag"></i> <a
+                      href="#">{{ post.tags.first|default_if_none:"" }}</a></span><!-- /.tag -->
+                  <!--<span class="comments"><i class="icon-bubbles"></i> <a href="#">13 comments</a></span>-- /.tag -->
                 </div><!-- /.entry-meta -->
 
                 <p>
-                  {{ post.content|safe |slice:":100" }}
+                  {{ post.content|safe|truncatewords:50 }}
                 </p>
+
 
                 <a href="{% url 'blog-detail' post.slug %}" class="btn btn-lg">Voir plus</a>
               </div><!-- /.content-details -->
@@ -57,111 +60,38 @@ Liste des articles de {{ category }}
 
           {% endif %}
 
-
-
-
-
           <nav aria-label="Page navigation example">
+            {% if is_paginated %}
             <ul class="pagination">
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              {% if page_obj.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">&laquo;</a></li>
+              {% else %}
+              <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+              {% endif %}
+              {% for i in paginator.page_range %}
+              {% if page_obj.number == i %}
+              <li class="page-item"><a class="page-link active">{{ i }}</a></li>
+              {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+              {% endfor %}
+              {% if page_obj.has_next %}
               <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <i class="fa fa-angle-right"></i>
-                </a>
+                <a href="?page={{page_obj.next_page_number}}" class="page-link">&raquo;</a>
               </li>
+              {% else %}
+              <li class="page-item disabled">
+                <a class="page-link">&raquo;</a>
+              </li>
+              {% endif %}
             </ul>
+            {% endif %}
           </nav>
+
         </div>
-
-        <div class="col-md-4">
-          <aside class="sidebar">
-            <div class="widget widget_search">
-              <div class="widget-details">
-                <form method="get" class="search-form" action="#">
-                  <input type="text" class="form-control" placeholder="Search ..." name="s" title="Search here"
-                    required>
-                  <input type="submit" class="form-control">
-                </form>
-              </div><!-- /.widget-details -->
-            </div>
-            <!--/.widget-->
-
-            <div class="widget widget_categories">
-              <h2 class="widget-title">Categories</h2>
-              <div class="widget-details">
-                <ul>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Photography</a></li>
-                  <li><a href="#">WordPress</a></li>
-                  <li><a href="#">Learning Press</a></li>
-                  <li><a href="#">HTML5</a></li>
-                  <li><a href="#">Blog</a></li>
-                </ul>
-              </div><!-- /.widget-details -->
-            </div>
-            <!--/.widget-->
-
-            <div class="widget widget_popular_post">
-              <h2 class="widget-title">Popular Posts</h2>
-              <div class="widget-details">
-                <article class="post type-post media">
-                  <div class="entry-thumbnail">
-                    <img src="images/widget/1.jpg" alt="post" />
-                  </div>
-                  <!--/.entry-thumbnail-->
-
-                  <div class="entry-content media-body">
-                    <h3 class="entry-title"><a href="#">WordPress Theme Development Resources</a></h3>
-                    <div class="entry-meta">
-                      <span class="time"><i class="icons icon-calendar"></i> <time datetime="2018-05-28">28 July,
-                          2018</time></span>
-                    </div><!-- /.entry-meta -->
-                  </div>
-                  <!--/.entry-content media-body-->
-                </article>
-                <article class="post type-post media">
-                  <div class="entry-thumbnail">
-                    <img src="images/widget/2.jpg" alt="post" />
-                  </div>
-                  <!--/.entry-thumbnail-->
-
-                  <div class="entry-content media-body">
-                    <h3 class="entry-title"><a href="#">How To Tell If A Site Is WordPress Or Not</a></h3>
-                    <div class="entry-meta">
-                      <span class="time"><i class="icons icon-calendar"></i> <time datetime="2018-05-28">28 July,
-                          2018</time></span>
-                    </div><!-- /.entry-meta -->
-                  </div>
-                  <!--/.entry-content media-body-->
-                </article>
-                <article class="post type-post media">
-                  <div class="entry-thumbnail">
-                    <img src="images/widget/3.jpg" alt="post" />
-                  </div>
-                  <!--/.entry-thumbnail-->
-
-                  <div class="entry-content media-body">
-                    <h3 class="entry-title"><a href="#">WordPress Themes 2018 : Responsive and Creative Design</a></h3>
-                    <div class="entry-meta">
-                      <span class="time"><i class="icons icon-calendar"></i> <time datetime="2018-05-28">28 July,
-                          2018</time></span>
-                    </div><!-- /.entry-meta -->
-                  </div>
-                  <!--/.entry-content media-body-->
-                </article>
-              </div><!-- /.widget-details -->
-            </div>
-            <!--/.widget-->
-            <!--/.widget-->
-          </aside>
-          <!--/.sidebar-->
-        </div>
-      </div><!-- /.row -->
-    </div><!-- /.container -->
-  </div><!-- /.section-padding -->
-</section><!-- /.blog-posts -->
-
+      </div>
+    </div>
+  </div>
+</section>
 
 {% endblock %}
