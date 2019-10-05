@@ -3870,7 +3870,7 @@ img {
 .courses .col-md-8 {
   -webkit-box-ordinal-group: 3;
   -ms-flex-order: 2;
-  order: 2;
+  /* order: 2; */
 }
 
 .courses .course-items {
@@ -3951,8 +3951,8 @@ img {
 }
 
 .courses aside .info ul {
-  border: 1px solid #cfd8dc;
-  border-radius: 5px;
+  /* border: 1px solid #cfd8dc; */
+  /* border-radius: 5px; */
   margin: 0;
   padding: 0;
 }
@@ -3963,7 +3963,7 @@ img {
   display: inline-block;
   font-size: 1em;
   font-weight: 600;
-  padding: 1.375em 1.875em;
+  padding: 0.375em 1.875em;
   width: 100%;
 }
 

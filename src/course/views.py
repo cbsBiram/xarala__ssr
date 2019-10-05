@@ -4,7 +4,7 @@ from .models import Course, Chapter, Lesson
 
 
 class CourseListView(ListView):
-    model = Course
+    queryset = Course.objects.order_by('-date_created')
     context_object_name = 'courses'
 
 

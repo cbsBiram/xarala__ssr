@@ -47,16 +47,17 @@ Liste des cours
                 <div class="course-price float-left"><span class="currency">$ </span><span
                     class="price">{{ course.price }}</span></div>
                 <!-- /.course-price -->
-                <div class="rating float-right">
+                <!-- <div class="rating float-right">
                   <input type="hidden" class="rating-tooltip-manual" data-filled="fas fa-star" data-empty="far fa-star"
                     data-fractions="2" />
-                </div><!-- /.rating -->
+                </div> -->
+                <!-- /.rating -->
               </div><!-- /.details-bottom -->
 
               <div class="item-meta">
                 <span><i class="icons icon-people"></i> {{ course.students.all.count }}</span>
-                <span><i class="icons icon-clock"></i> 22Hrs</span>
-                <span><i class="icons icon-bubble"></i> 51</span>
+                <span><i class="icons icon-clock"></i> {{ course.count_duration }}</span>
+                <span><i class="icons icon-bubble"></i> 0</span>
               </div><!-- /.item-meta -->
             </div><!-- /.item-details -->
           </div><!-- /.item -->

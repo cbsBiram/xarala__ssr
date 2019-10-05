@@ -53,10 +53,92 @@ h2.lesson-title {
 
 /* active course */
 .active-course {
-  background-color: #66a0f880;
+  background-color: #10a8e5ff;
 }
 
 a {
   text-decoration: none;
   color: #4c505f;
+}
+
+.active-course a {
+  color: #ffffff;
+}
+
+.content-table .title {
+  color: #37474f;
+  font-size: 2em;
+  font-weight: 600;
+  margin: 5px 5px;
+  padding: 0;
+}
+
+/* next and previous */
+
+.l-container {
+  margin: auto;
+  width: auto;
+  padding: 30px;
+  text-align: left;
+}
+
+.l-container .c-dev-title1 {
+  margin: 30px 0 20px;
+  padding: 5px 0;
+  border-bottom: 1px solid #999;
+  font-weight: bold;
+}
+
+/*c-pager ------------------------------------------------------------*/
+.c-pager ul {
+  margin: auto;
+  display: table;
+}
+
+.c-pager ul li {
+  padding: 0 2px;
+  display: table-cell;
+}
+
+.c-pager ul li a {
+  box-sizing: border-box;
+  padding: 10px 25px;
+  border: 1px solid #666;
+  border-radius: 4px;
+  display: block;
+  color: #036;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms ease;
+}
+
+.c-pager ul li a:hover {
+  background: #444;
+  color: #fff;
+}
+
+.pager {
+  text-align: center;
+}
+
+.pager .page-numbers {
+  margin: 0 2px;
+  padding: 10px;
+  border: 1px solid #444;
+  display: inline-block;
+  color: #036;
+  text-decoration: none;
+  transition: all 300ms ease;
+}
+
+.pager .page-numbers:hover,
+.pager .page-numbers.current {
+  background: #444;
+  color: #fff;
+}
+
+.pager .page-numbers.dots {
+  padding: 11px 5px;
+  border: none;
 }
