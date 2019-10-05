@@ -149,19 +149,18 @@
             <!--/.widget-->
 
             <div class="widget widget_categories">
-              <h2 class="widget-title">Categories</h2>
+              <h2 class="widget-title">Catégories</h2>
               <div class="widget-details">
                 <ul>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Photography</a></li>
-                  <li><a href="#">WordPress</a></li>
-                  <li><a href="#">Learning Press</a></li>
-                  <li><a href="#">HTML5</a></li>
-                  <li><a href="#">Blog</a></li>
+
+                  {% for tag in object.tags.all %}
+                  <li><a href="{% url 'blog_tag' tag.name %}">{{ tag.name }}</a></li>
+                  {% endfor %}
+
+
                 </ul>
               </div><!-- /.widget-details -->
             </div>
-            <!--/.widget-->
 
 
             {% if popular_posts %}
