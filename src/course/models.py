@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from users.models import CustomUser
@@ -70,6 +71,23 @@ class Course(models.Model):
         lessons = Lesson.objects.filter(chapter__in=self.get_chapters())
         return lessons
 
+    def count_lessons(self):
+        lessons = Lesson.objects.filter(
+            chapter__in=self.get_chapters()).count()
+        return lessons
+
+    def count_duration(self):
+        text = ""
+        lessons = Lesson.objects.filter(
+            chapter__in=self.get_chapters())
+        get_duration = lessons.aggregate(Sum('duration'))['duration__sum']
+        if get_duration >= 60:
+            get_duration = get_duration/60
+            text = " Hrs"
+        else:
+            text = " Mns"
+        return f"{get_duration} {text}"
+
 
 class Chapter(models.Model):
     name = models.CharField(max_length=150)
@@ -113,6 +131,7 @@ class Lesson(models.Model):
     file = models.FileField(upload_to=upload_image_path, blank=True, null=True)
     resource_link = models.CharField(max_length=240, null=True, blank=True)
     video_id = models.CharField(max_length=150, null=True, blank=True)
+    duration = models.IntegerField(default=0)
     platform = models.CharField(
         max_length=50, choices=PLATFORM, default=YOUTUBE)
     chapter = models.ForeignKey(
@@ -129,6 +148,18 @@ class Lesson(models.Model):
             unique_slug = '{}-{}'.format(slug, num)
             num += 1
         return unique_slug
+
+    def next(self):
+        try:
+            return Lesson.objects.get(pk=self.pk+1)
+        except:
+            return None
+
+    def previous(self):
+        try:
+            return Lesson.objects.get(pk=self.pk-1)
+        except:
+            return None
 
     def save(self, *args, **kwargs):
         if not self.slug:

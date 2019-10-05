@@ -29,11 +29,7 @@
             <div class="item-thumb">
               <img src="{{ course.thumbnail.url }}" alt="Item Thumbnail" />
               <div class="avatar">
-                <img
-                  class="rounded-circle"
-                  src="{{ course.teacher.avatar.url }}"
-                  alt="Avatar Image"
-                />
+                <img class="rounded-circle" src="{{ course.teacher.avatar.url }}" alt="Avatar Image" />
               </div>
               <!-- /.avatar -->
             </div>
@@ -41,39 +37,28 @@
             <div class="item-details">
               <h3 class="item-title">
                 <a href="{% url 'course-overview'  course.slug %}">
-                  {{ course.title }}</a
-                >
+                  {{ course.title }}</a>
               </h3>
               <!-- /.item-title -->
-              <span class="instructor"
-                ><a href="#">{{ course.teacher }}</a></span
-              ><!-- /.instructor -->
+              <span class="instructor"><a href="#">{{ course.teacher }}</a></span><!-- /.instructor -->
               <div class="details-bottom">
                 <div class="course-price float-left">
-                  <span class="currency">$ </span
-                  ><span class="price">{{ course.price }}</span>
+                  <span class="currency">$ </span><span class="price">{{ course.price }}</span>
                 </div>
                 <!-- /.course-price -->
-                <div class="rating float-right">
-                  <input
-                    type="hidden"
-                    class="rating-tooltip-manual"
-                    data-filled="fas fa-star"
-                    data-empty="far fa-star"
-                    data-fractions="2"
-                  />
-                </div>
+                <!-- <div class="rating float-right">
+                  <input type="hidden" class="rating-tooltip-manual" data-filled="fas fa-star" data-empty="far fa-star"
+                    data-fractions="2" />
+                </div> -->
                 <!-- /.rating -->
               </div>
               <!-- /.details-bottom -->
 
               <div class="item-meta">
-                <span
-                  ><i class="icons icon-people"></i>
-                  {{ course.students.all.count }}</span
-                >
-                <span><i class="icons icon-clock"></i> 22Hrs</span>
-                <span><i class="icons icon-bubble"></i> 51</span>
+                <span><i class="icons icon-people"></i>
+                  {{ course.students.all.count }}</span>
+                <span><i class="icons icon-clock"></i> {{ course.count_duration }}</span>
+                <span><i class="icons icon-bubble"></i> 0</span>
               </div>
               <!-- /.item-meta -->
             </div>
@@ -99,8 +84,8 @@
     <div class="container">
       <div class="top-content">
         <div class="left-content float-left">
-          <h2 class="section-title">Recent Blog Posts</h2>
-          <p>Donec rutrum congue leo eget malesuada</p>
+          <h2 class="section-title">Derniere minute</h2>
+          <p>Derniere publication de Xarala</p>
         </div>
         <!-- /.left-content -->
         <div class="owl-controls float-right"></div>
@@ -123,13 +108,10 @@
               </h3>
               <!-- /.entry-title -->
               <div class="entry-meta">
-                <span class="author"
-                  ><i class="icon-user"></i>
-                  <a href="#">{{ post.author }}</a></span
-                ><!-- /.author -->
-                <span class="time"
-                  ><i class="icon-calendar"></i> 26/05/2018</span
-                ><!-- /.time -->
+                <span class="author"><i class="icon-user"></i>
+                  <a href="#">{{ post.author }}</a></span><!-- /.author -->
+                <span class="time"><i class="icon-calendar"></i> {{ post.date_created|date:'d/m/Y' }}</span>
+                <!-- /.time -->
               </div>
               <!-- /.entry-meta -->
             </div>

@@ -1,21 +1,4 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}
-{{ object.title }}
-{% endblock %}
-
-
-{% block banner %}
-
-{% endblock %}
-
-{% block content %}
-
-<section class="courses">
-  <div class="section-padding">
-    <div class="container">
-      <div class="row">
+  <div class="row">
         <div class="col-md-8">
           <!--offset-md-2  -->
           <h2 class="course-title text-center"> <span class="lesson-title">{{ lesson.title }}</span>
@@ -104,8 +87,3 @@
           </aside><!-- /.sidebar -->
         </div>
       </div><!-- /.row -->
-    </div><!-- /.container -->
-  </div><!-- /.section-padding -->
-</section><!-- /.courses -->
-
-{% endblock %}

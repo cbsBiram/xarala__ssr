@@ -4,7 +4,8 @@ from .models import Post, Tag
 
 
 class PostListView(ListView):
-    model = Post
+    # model = Post
+    queryset = Post.objects.order_by('-date_published')
     context_object_name = 'posts'
     paginate_by = 2
 
