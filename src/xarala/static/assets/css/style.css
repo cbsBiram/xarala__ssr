@@ -1012,18 +1012,18 @@ img {
 }
 
 .masthead .header-top {
-  background-color: #2c2d36;
-  color: #85858c;
+  background-color: #4c505f;
+  color: #ffffff;
   font-size: 14px;
   font-weight: 400;
 }
 
 .masthead .header-top a {
-  color: #85858c;
+  color: #ffffff;
 }
 
 .masthead .header-top a:hover {
-  color: #fff;
+  color: #85858c;
 }
 
 .masthead .header-top i {

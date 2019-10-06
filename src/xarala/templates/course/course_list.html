@@ -42,7 +42,7 @@ Liste des cours
             <div class="item-details">
               <h3 class="item-title"><a href="{% url 'course-overview'  course.slug %}">{{ course.title }}</a></h3>
               <!-- /.item-title -->
-              <span class="instructor"><a href="#">{{ course.teacher }}</a></span><!-- /.instructor -->
+              <span class="instructor"><a href="#">{{ course.teacher.get_full_name }}</a></span><!-- /.instructor -->
               <div class="details-bottom">
                 <div class="course-price float-left"><span class="currency">$ </span><span
                     class="price">{{ course.price }}</span></div>

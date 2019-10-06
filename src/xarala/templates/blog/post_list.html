@@ -23,7 +23,15 @@ Liste des articles
           {% for post in posts %}
 
           <article class="post type-post format-standard">
-            <div class="entry-thumbnail radius"><img src="{{ post.image.url }}" alt="Post Thumbnail"></div>
+            <div class="entry-thumbnail radius">
+
+              {% if post.cloud_image %}
+              <img src="{{ post.cloud_image.url }}" alt="Post Thumbnail">
+              {% else %}
+              <img src="{{ post.image.url }}" alt="Post Thumbnail">
+              {% endif %}
+
+            </div>
             <!-- /.entry-thumbnail -->
             <div class="entry-content media">
               <div class="post-date">
