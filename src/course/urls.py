@@ -8,5 +8,6 @@ urlpatterns = [
          views.CourseOverviewView.as_view(), name="course-overview"),
     path('<slug:slug>/',
          views.CourseDetailView.as_view(), name="course-detail"),
-
+    path('subscribe_user_to_course/', views.subscribe_user_to_course,
+         name="subscribe_user_to_course"),
 ]

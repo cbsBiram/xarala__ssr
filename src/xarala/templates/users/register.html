@@ -20,7 +20,7 @@ Authentification, inscription
         {% include 'partials/alerts.html' %}
         <h2 class="section-title">Inscrivez-vous et commencez à apprendre !</h2>
 
-        <form class="register-form" id="register-form" action="{% url 'register' %}" method="post">
+        <form class="register-form" id="register-form" method="post">
           {% csrf_token %}
           <p class="form-input">
             <input type="email" name="email" id="user_email" class="input" placeholder="Email" required="">

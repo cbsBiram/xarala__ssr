@@ -35,7 +35,7 @@ Liste des articles de {{ category }}
                 <h3 class="entry-title"><a href="{% url 'blog-detail' post.slug %}">{{ post.title }}</a></h3>
                 <!-- /.entry-title -->
                 <div class="entry-meta">
-                  <span class="author"><i class="icon-user"></i> <a href="#">{{ post.author }}</a></span>
+                  <span class="author"><i class="icon-user"></i> <a href="#">{{ post.author.get_full_name }}</a></span>
                   <!-- /.author -->
                   <span class="tag"><i class="icon-tag"></i> <a
                       href="#">{{ post.tags.first|default_if_none:"" }}</a></span><!-- /.tag -->

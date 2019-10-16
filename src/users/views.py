@@ -1,13 +1,18 @@
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
+from django.utils.http import is_safe_url
 from .models import CustomUser
 from .forms import CustomUserLoginForm
 from send_mail.views import send_new_register_email
 
 
 def login(request):
+    next_ = request.GET.get('next')
+    next_post = request.POST.get('next')
+    redirect_path = next_ or next_post
     if request.user.is_authenticated:
         return redirect('dashboard')
     else:
@@ -21,7 +26,10 @@ def login(request):
             if user is not None:
                 auth_login(request, user)
                 messages.success(request, "Bienvenue chez Xarala")
-                return redirect("/")
+                if is_safe_url(redirect_path, request.get_host()):
+                    return redirect(redirect_path)
+                else:
+                    return redirect("/")
             else:
                 messages.error(
                     request, "Information incorrect")
@@ -31,6 +39,9 @@ def login(request):
 
 
 def register(request):
+    next_ = request.GET.get('next')
+    next_post = request.POST.get('next')
+    redirect_path = next_ or next_post
     if request.user.is_authenticated:
         return redirect('dashboard')
     else:
@@ -52,9 +63,13 @@ def register(request):
                     )
                     user.save()
                     send_new_register_email(user)
+                    auth_login(request, user)
                     messages.success(
                         request, "Vous êtes maintenant inscrit et pouvez vous connecter...")
-                    return redirect("login")
+                    if is_safe_url(redirect_path, request.get_host()):
+                        return redirect(redirect_path)
+                    else:
+                        return redirect("/")
             else:
                 messages.error(
                     request, "Les mots de passe ne sont pas identiques")
@@ -63,5 +78,7 @@ def register(request):
             return render(request, "users/register.html")
 
 
+# nouveau projet
+@login_required(login_url="login")
 def dashboard(request):
     return render(request, "users/dashboard.html")

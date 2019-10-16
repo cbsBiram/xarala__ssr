@@ -22,7 +22,7 @@ Authentification
         {% include 'partials/alerts.html' %}
         <h2 class="section-title">Nous sommes ravis de vous retrouver</h2>
 
-        <form class="sign-in-form" id="sign-in-form" action="{% url 'login' %}" method="post">
+        <form class="sign-in-form" id="sign-in-form" method="post">
           {% csrf_token %}
           <p class="form-input">
             <input type="email" name="email" id="user_login" class="input" placeholder="Email" required>

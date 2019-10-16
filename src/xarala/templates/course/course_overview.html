@@ -29,14 +29,13 @@
               <span class="meta-id">Categorie</span>
               <span>{{ object.categories.first|default_if_none:"" }}</span>
             </span>
-            <!-- <span class="meta-details">
-              <span class="meta-id">Reviews</span>
+            <span class="meta-details">
+              <span class="meta-id">Langue</span>
               <span class="rating">
-                <input type="hidden" class="rating-tooltip-manual" data-filled="fas fa-star" data-empty="far fa-star"
-                  value="4.5" data-fractions="5" />
-                <span>(2,543 Ratings)</span>
+
+                <span> <i class="fa fa-lang"></i> </span>
               </span>
-            </span> -->
+            </span>
           </div>
           <img class="radius" src="{{ course.thumbnail.url }}" alt="Course Image">
 
