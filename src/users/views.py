@@ -25,7 +25,7 @@ def login(request):
             user = authenticate(request, email=email, password=password)
             if user is not None:
                 auth_login(request, user)
-                messages.success(request, "Bienvenue chez Xarala")
+                messages.success(request, f"Bienvenue {user}, chez Xarala")
                 if is_safe_url(redirect_path, request.get_host()):
                     return redirect(redirect_path)
                 else:
