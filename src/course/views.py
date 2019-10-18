@@ -54,3 +54,10 @@ def subscribe_user_to_course(request, course_slug):
     except Exception as e:
         print("Error ", e)
         return JsonResponse(values)
+
+
+class UserCourseListView(ListView):
+    def get_queryset(self):
+        student = self.request.user
+        return student.courses_enrolled.all()
+    context_object_name = 'courses'

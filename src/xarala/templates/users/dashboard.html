@@ -36,7 +36,9 @@ Dashboard
             <div class="float-left">
 
               <h4 class="projects count">{{ courses_enrolled }}</h4>
-              <p><a href="#">Formation enrollée</a></p>
+              <p><a
+                  href="{% if courses_enrolled > 0 %}{% url 'enrolled-courses' %}{% else %} {% url 'courses' %} {% endif %}">Formation
+                  enrollée</a></p>
 
             </div>
             <div class="float-right">
@@ -51,7 +53,7 @@ Dashboard
 
             <div class="float-left">
 
-              <h4 class="projects count">45</h4>
+              <h4 class="projects count">0</h4>
               <p> <a href="#">Quiz</a> </p>
 
             </div>
@@ -68,12 +70,12 @@ Dashboard
 
             <div class="float-left">
 
-              <h4 class="projects count">54</h4>
+              <h4 class="projects count">1%</h4>
               <p>Progression</p>
 
             </div>
             <div class="float-right">
-              <span><i class="fa fa-money fa-4x" aria-hidden="true"></i></span>
+              <span><i class="fas fa-chart-line fa-4x" aria-hidden="true"></i></span>
             </div>
           </div>
         </div>
