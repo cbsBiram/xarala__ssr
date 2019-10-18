@@ -30,3 +30,7 @@ def subscribe(request):
 
 def about(request):
     return render(request, "pages/about.html")
+
+
+def privacy_policy(request):
+    return render(request, "pages/privacy_policy.html")

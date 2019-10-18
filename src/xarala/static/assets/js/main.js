@@ -396,29 +396,3 @@ window.onload = function (e) {
 
 
 
-/* Working Contact Form Js
--------------------------------------------------------------------*/
-// Email from Validation
-jQuery('#submit').on("click", function (e) {
-
-	//Stop form submission & check the validation
-	e.preventDefault();
-
-	// Variable declaration
-	var error = false;
-	var k_name = jQuery('#name').val();
-	var k_email = jQuery('#email').val();
-	var k_email = jQuery('#subject').val();
-	var k_message = jQuery('#message').val();
-
-	/* Post Ajax function of jQuery to get all the data from the submission of the form as soon as the form sends the values to email.php*/
-	jQuery.post("email.php", jQuery(".wpcf7-form").serialize(), function (result) {
-		//Check the result set from email.php file.
-		if (result == 'sent') {
-			$('.contact-message').html('<i class="fa fa-check contact-success"></i><div>Your message has been sent.</div>').fadeIn();
-		} else {
-			// $('.error-message').html('<i class="fa fa-thumbs-down contact-error"></i><div>Your message has not been sent</div>').fadeIn();
-		}
-	});
-
-});

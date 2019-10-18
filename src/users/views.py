@@ -11,6 +11,7 @@ from send_mail.views import send_new_register_email
 
 def login(request):
     next_ = request.GET.get('next')
+    print("nex", next_)
     next_post = request.POST.get('next')
     redirect_path = next_ or next_post
     if request.user.is_authenticated:
@@ -35,11 +36,12 @@ def login(request):
                     request, "Information incorrect")
                 return redirect('/users/login')
         else:
-            return render(request, "users/login.html")
+            return render(request, "users/login.html", {"next": next_})
 
 
 def register(request):
     next_ = request.GET.get('next')
+    print("next ", next_)
     next_post = request.POST.get('next')
     redirect_path = next_ or next_post
     if request.user.is_authenticated:
@@ -62,8 +64,9 @@ def register(request):
                         password=password,
                     )
                     user.save()
+                    # auth_login(
+                    #     request, user)
                     send_new_register_email(user)
-                    auth_login(request, user)
                     messages.success(
                         request, "Vous êtes maintenant inscrit et pouvez vous connecter...")
                     if is_safe_url(redirect_path, request.get_host()):
@@ -75,10 +78,17 @@ def register(request):
                     request, "Les mots de passe ne sont pas identiques")
                 return redirect('register')
         else:
-            return render(request, "users/register.html")
+            return render(request, "users/register.html", {"next": next_})
 
 
 # nouveau projet
 @login_required(login_url="login")
 def dashboard(request):
-    return render(request, "users/dashboard.html")
+    student = request.user
+    courses_enrolled = student.courses_enrolled.all().count()
+    return render(
+        request,
+        "users/dashboard.html",
+        {"student": student,
+         "courses_enrolled": courses_enrolled}
+    )
