@@ -40,7 +40,7 @@
                   {{ course.title }}</a>
               </h3>
               <!-- /.item-title -->
-              <span class="instructor"><a href="#">{{ course.teacher }}</a></span><!-- /.instructor -->
+              <span class="instructor"><a href="#">{{ course.teacher.get_full_name }}</a></span><!-- /.instructor -->
               <div class="details-bottom">
                 <div class="course-price float-left">
                   <span class="currency">$ </span><span class="price">{{ course.price }}</span>
@@ -109,7 +109,7 @@
               <!-- /.entry-title -->
               <div class="entry-meta">
                 <span class="author"><i class="icon-user"></i>
-                  <a href="#">{{ post.author }}</a></span><!-- /.author -->
+                  <a href="#">{{ post.author.get_full_name }}</a></span><!-- /.author -->
                 <span class="time"><i class="icon-calendar"></i> {{ post.date_created|date:'d/m/Y' }}</span>
                 <!-- /.time -->
               </div>

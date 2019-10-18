@@ -20,7 +20,7 @@ Authentification, inscription
         {% include 'partials/alerts.html' %}
         <h2 class="section-title">Inscrivez-vous et commencez à apprendre !</h2>
 
-        <form class="register-form" id="register-form" action="{% url 'register' %}" method="post">
+        <form class="register-form" id="register-form" method="post">
           {% csrf_token %}
           <p class="form-input">
             <input type="email" name="email" id="user_email" class="input" placeholder="Email" required="">
@@ -31,14 +31,15 @@ Authentification, inscription
           </p>
 
           <p class="form-input">
-            <input type="password" name="password2" id="confirm_pass" class="input"
-              placeholder="Confirmation de mot de passe" required="">
+            <input type="password" name="password2" id="confirm_pass" class="input" placeholder="Repeter mot de passe"
+              required="">
           </p>
 
           <p class="checkbox">
             <input name="rememberme" type="checkbox" class="rememberme float-left" value="Remember Me" required>
             En cliquant, j'accepte
-            <a href="#" class="" title="Acceptez les conditions générales">les conditions générales</a>
+            <a href="{% url 'privacy_policy' %}" target="_blank" class="" title="Acceptez les conditions générales">les
+              conditions générales</a>
           </p>
 
           <p class="form-input">
@@ -55,7 +56,7 @@ Authentification, inscription
         </div><!-- /.login-social -->
 
         <p class="register">
-          Vous etes membre? <a href="{% url 'login' %}">Connectez-vous.</a>
+          Vous etes membre? <a href="{% url 'login' %}?next={{ next|default_if_none:'/' }}">Connectez-vous.</a>
         </p>
       </div><!-- /.contents -->
     </div><!-- /.container -->

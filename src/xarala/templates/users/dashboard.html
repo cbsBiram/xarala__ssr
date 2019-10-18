@@ -14,5 +14,75 @@ Dashboard
 
 
 {% block content %}
-<h2 class="text-center">Dashboard</h2>
+<div id="dashboard" class="pb-2">
+  <div class="container-fluid">
+    <div class="row ">
+      <div class="col-md-12">
+        <div class="card text-center">
+          <div class="card-body">
+            {% include 'partials/alerts.html' %}
+            <h2>Tableau de bord</h2>
+            <p>Le resume de toute vos activités</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-4">
+        <div class="card report-card">
+          <div class="card-body">
+
+            <div class="float-left">
+
+              <h4 class="projects count">{{ courses_enrolled }}</h4>
+              <p><a
+                  href="{% if courses_enrolled > 0 %}{% url 'enrolled-courses' %}{% else %} {% url 'courses' %} {% endif %}">Formation
+                  enrollée</a></p>
+
+            </div>
+            <div class="float-right">
+              <span><i class="fa fa-laptop fa-4x" aria-hidden="true"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card report-card">
+          <div class="card-body">
+
+            <div class="float-left">
+
+              <h4 class="projects count">0</h4>
+              <p> <a href="#">Quiz</a> </p>
+
+            </div>
+            <div class="float-right">
+              <span><i class="fa fa-cart-arrow-down fa-4x" aria-hidden="true"></i></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-4">
+        <div class="card report-card">
+          <div class="card-body">
+
+            <div class="float-left">
+
+              <h4 class="projects count">1%</h4>
+              <p>Progression</p>
+
+            </div>
+            <div class="float-right">
+              <span><i class="fas fa-chart-line fa-4x" aria-hidden="true"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
 {% endblock %}
