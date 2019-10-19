@@ -6,6 +6,14 @@ from users.models import CustomUser
 from xarala.utils import upload_image_path
 
 
+class Language(models.Model):
+    name = models.CharField(max_length=50)
+    abr = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.name} - {self.abr}"
+
+
 class Category(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
@@ -41,6 +49,7 @@ class Course(models.Model):
         CustomUser, related_name='courses_enrolled', blank=True)
     categories = models.ManyToManyField(Category, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    language = models.ForeignKey(Language, models.SET_NULL, null=True)
 
     def __str__(self):
         return self.title

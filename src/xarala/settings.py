@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # third party app
+    'jet',
     # django default apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # third party apps
-    'social_django',
+    # 'social_django',
     'django_summernote',
     'crispy_forms',
     'cloudinary',

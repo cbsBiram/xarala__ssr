@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "cc727f178fcb6309cf60f5d6e607a0f3539fc3bd3e87aab168fdfe5dda9e5733"
+            "sha256": "4f09cfb4009383327aeddfac8bd41ab69c3ce85ce614f25675a507987d234772"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -32,10 +32,10 @@
         },
         "cloudinary": {
             "hashes": [
-                "sha256:a7c8f170f5c408d4dd657f0fe2f15a719a9a22eda4c65cca39e5b84d7bc89986"
+                "sha256:e1b22a75de83b34ca39faaa02af0c8662234b9173a7b6caae55fbd7c7369d8e4"
             ],
             "index": "pypi",
-            "version": "==1.18.1"
+            "version": "==1.18.2"
         },
         "defusedxml": {
             "hashes": [
@@ -55,11 +55,18 @@
         },
         "django-crispy-forms": {
             "hashes": [
-                "sha256:5952bab971110d0b86c278132dae0aa095beee8f723e625c3d3fa28888f1675f",
-                "sha256:705ededc554ad8736157c666681165fe22ead2dec0d5446d65fc9dd976a5a876"
+                "sha256:0320b303420fec9ce94e045321dfd180ca0e31e0336211c5d30ad0bda5ebbb5d",
+                "sha256:22b6634e3a6316623e4eb062527fe5be5f97ea8b83020c65bcd8fac4747807b5"
             ],
             "index": "pypi",
-            "version": "==1.7.2"
+            "version": "==1.8.0"
+        },
+        "django-jet": {
+            "hashes": [
+                "sha256:f521dc0873023afa198d2b57687e0593ee62022bd50fa59506dfce69b101cd9e"
+            ],
+            "index": "pypi",
+            "version": "==1.0.8"
         },
         "django-summernote": {
             "hashes": [
@@ -210,10 +217,10 @@
         },
         "pytz": {
             "hashes": [
-                "sha256:26c0b32e437e54a18161324a2fca3c4b9846b74a8dccddd843113109e1116b32",
-                "sha256:c894d57500a4cd2d5c71114aaab77dbab5eabd9022308ce5ac9bb93a60a6f0c7"
+                "sha256:1c557d7d0e871de1f5ccd5833f60fb2550652da6be2693c1e02300743d21500d",
+                "sha256:b02c06db6cf09c12dd25137e563b31700d3b80fcc4ad23abb7a315f2789819be"
             ],
-            "version": "==2019.2"
+            "version": "==2019.3"
         },
         "requests": {
             "hashes": [
