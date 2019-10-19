@@ -142,3 +142,9 @@ a {
   padding: 11px 5px;
   border: none;
 }
+
+@media (min-width: 768px) {
+  .report-card {
+    margin-bottom: .5rem;
+  }
+}
