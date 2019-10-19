@@ -86,21 +86,23 @@ class Course(models.Model):
         return lessons
 
     def count_duration(self):
-        text = ""
+        text = "Mns"
         lessons = Lesson.objects.filter(
             chapter__in=self.get_chapters())
         get_duration = lessons.aggregate(Sum('duration'))['duration__sum']
-        if get_duration >= 60:
-            get_duration = get_duration/60
-            text = " Hrs"
+        if get_duration:
+            if get_duration >= 60:
+                get_duration = get_duration/60
+                text = " Hrs"
         else:
-            text = " Mns"
+            get_duration = 0
         return f"{get_duration} {text}"
 
 
 class Chapter(models.Model):
     name = models.CharField(max_length=150)
-    course = models.ForeignKey(Course, models.SET_NULL, null=True)
+    course = models.ForeignKey(
+        Course, models.SET_NULL, null=True, related_name="course_chapters")
     slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
@@ -128,11 +130,13 @@ class Lesson(models.Model):
     VIMEO = "Vimeo"
     WISTA = "Wista"
     CUSTOM = "Custom"
+    CLOUDINARY = "CloudiNary"
     PLATFORM = (
         (YOUTUBE, YOUTUBE),
         (VIMEO, VIMEO),
         (WISTA, WISTA),
-        (CUSTOM, CUSTOM)
+        (CUSTOM, CUSTOM),
+        (CLOUDINARY, CLOUDINARY)
     )
     title = models.CharField(max_length=200)
     text = models.TextField(blank=True)
@@ -144,7 +148,8 @@ class Lesson(models.Model):
     platform = models.CharField(
         max_length=50, choices=PLATFORM, default=YOUTUBE)
     chapter = models.ForeignKey(
-        Chapter, models.SET_NULL, null=True, blank=True)
+        Chapter, models.SET_NULL, null=True, blank=True,
+        related_name="course_lessons")
 
     def __str__(self):
         return self.title

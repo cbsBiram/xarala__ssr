@@ -81,13 +81,13 @@
         <div class="col-md-4">
           <aside class="sidebar">
             <div class="info">
-              {% if object.get_chapters %}
-              {% for chapter in object.get_chapters %}
+              {% if object.course_chapters.all %}
+              {% for chapter in object.course_chapters.all %}
               <div class="content-table">
                 <span class="title">{{ chapter.name }}</span>
                 <ul class="info-list">
-                  {% if object.get_lessons  %}
-                  {% for course in object.get_lessons  %}
+                  {% if chapter.course_lessons.all  %}
+                  {% for course in chapter.course_lessons.all  %}
                   {% if course.chapter.id == chapter.id %}
                   <li {% if course.id == lesson.id %} class="active-course" {% else %} class="" {% endif %}>
                     <a href="/courses/{{ object.slug }}/?lecture={{course.slug}}">

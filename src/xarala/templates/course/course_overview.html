@@ -59,14 +59,14 @@
                 <h4 class="title">Contenu du cours</h4>
                 <div class="curriculum-details">
 
-                  {% if object.get_chapters %}
+                  {% if object.course_chapters.all %}
 
-                  {% for chapter in object.get_chapters %}
+                  {% for chapter in object.course_chapters.all %}
                   <div class="content-table">
                     <span class="title">{{ chapter.name }}</span>
                     <ul class="content-list">
-                      {% if object.get_lessons  %}
-                      {% for lesson in object.get_lessons  %}
+                      {% if chapter.course_lessons.all  %}
+                      {% for lesson in chapter.course_lessons.all  %}
                       {% if lesson.chapter.id == chapter.id %}
                       <li>
                         <span class="float-left"><a href="#"><i class="fa fa-play-circle"></i> {{ lesson.title }}
