@@ -34,7 +34,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # third party app
-    'jet',
+ 'jet.dashboard', 
+ 'jet',
     # django default apps
     'django.contrib.admin',
     'django.contrib.auth',
