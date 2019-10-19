@@ -16,6 +16,7 @@ gunicorn = "*"
 psycopg2-binary = "*"
 cloudinary = "*"
 django-jet = "*"
+sentry-sdk = "*"
 
 [requires]
 python_version = "3.7"
