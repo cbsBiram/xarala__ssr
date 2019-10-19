@@ -61,6 +61,13 @@
             "index": "pypi",
             "version": "==1.8.0"
         },
+        "django-jet": {
+            "hashes": [
+                "sha256:f521dc0873023afa198d2b57687e0593ee62022bd50fa59506dfce69b101cd9e"
+            ],
+            "index": "pypi",
+            "version": "==1.0.8"
+        },
         "django-summernote": {
             "hashes": [
                 "sha256:7e2a7cfa806dba508aceee872a7a556b0f86ebcc176f9c3951d4ae56871de609"

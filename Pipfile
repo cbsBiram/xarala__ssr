@@ -15,6 +15,7 @@ django-summernote = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 cloudinary = "*"
+django-jet = "*"
 
 [requires]
 python_version = "3.7"
