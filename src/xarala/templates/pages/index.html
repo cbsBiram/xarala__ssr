@@ -27,9 +27,9 @@
 
           <div class="item">
             <div class="item-thumb">
-              <img src="{{ course.thumbnail.url }}" alt="Item Thumbnail" />
+              <img src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %}  {% endif %}" alt="Item Thumbnail" />
               <div class="avatar">
-                <img class="rounded-circle" src="{{ course.teacher.avatar.url }}" alt="Avatar Image" />
+                <img class="rounded-circle" src="{% if course.teacher.avatar %} {{ course.teacher.avatar.url }} {% else %} {% endif %}" alt="Avatar Image" />
               </div>
               <!-- /.avatar -->
             </div>

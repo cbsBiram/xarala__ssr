@@ -47,22 +47,32 @@
 				loop: true,
 				margin: 15,
 				autoplay: true,
+				mouseDrag: true,
+				touchDrag: false,
 				responsive: {
 					320: {
 						items: 1,
-						margin: 0
+						margin: 0,
+						mouseDrag: false,
+						touchDrag: true
 					},
 					480: {
 						items: 2,
-						margin: 15
+						margin: 15,
+						mouseDrag: false,
+						touchDrag: true
 					},
 					640: {
 						items: 3,
-						margin: 15
+						margin: 15,
+						mouseDrag: false,
+						touchDrag: true
 					},
 					768: {
 						items: 4,
-						margin: 15
+						margin: 15,
+						mouseDrag: false,
+						touchDrag: true
 					},
 					1024: {
 						items: 5,
@@ -78,22 +88,32 @@
 				margin: 30,
 				autoplay: true,
 				navContainer: '.popular-courses .top-content .owl-controls',
+				mouseDrag: true,
+				touchDrag: false,
 				responsive: {
 					320: {
 						items: 1,
-						margin: 0
+						margin: 0,
+						mouseDrag: false,
+						touchDrag: true
 					},
 					480: {
 						items: 2,
-						margin: 15
+						margin: 15,
+						mouseDrag: false,
+						touchDrag: true
 					},
 					640: {
 						items: 3,
-						margin: 15
+						margin: 15,
+						mouseDrag: false,
+						touchDrag: true
 					},
 					768: {
 						items: 3,
-						margin: 15
+						margin: 15,
+						mouseDrag: false,
+						touchDrag: true
 					},
 					1024: {
 						items: 4,
@@ -110,22 +130,32 @@
 				margin: 30,
 				autoplay: true,
 				navContainer: '.recent-posts .top-content .owl-controls',
+				mouseDrag: true,
+				touchDrag: false,
 				responsive: {
 					320: {
 						items: 1,
-						margin: 0
+						margin: 0,
+						mouseDrag: false,
+						touchDrag: true
 					},
 					480: {
 						items: 2,
-						margin: 15
+						margin: 15,
+						mouseDrag: false,
+						touchDrag: true
 					},
 					640: {
 						items: 2,
-						margin: 15
+						margin: 15,
+						mouseDrag: false,
+						touchDrag: true
 					},
 					768: {
 						items: 2,
-						margin: 15
+						margin: 15,
+						mouseDrag: false,
+						touchDrag: true
 					},
 					1024: {
 						items: 3,
@@ -392,7 +422,3 @@ window.onload = function (e) {
 	});
 
 };
-
-
-
-

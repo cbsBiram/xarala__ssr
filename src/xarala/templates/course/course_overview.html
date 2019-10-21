@@ -21,7 +21,7 @@
           <h2 class="course-title">{{ object.title }}</h2><!-- /.course-title -->
           <div class="course-meta">
             <span class="meta-details">
-              <img class="rounded-circle float-left" src="{{ object.teacher.avatar.url }}" alt="Avatar">
+              <img class="rounded-circle float-left" src="{% if object.teacher.avatar %} {{ object.teacher.avatar.url }} {% else %} {% endif %}" alt="Avatar">
 
               <span class="meta-id">Instructeur</span>
               <a class="name" href="#">{{ object.teacher }}</a>
@@ -37,7 +37,7 @@
 
             </span>
           </div>
-          <img class="radius" src="{{ course.thumbnail.url }}" alt="Course Image">
+          <img class="radius" src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %}  {% endif %}" alt="Course Image">
 
           <div class="course-single-details">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -87,7 +87,7 @@
                 <div class="author-bio">
                   <h3 class="title">Votre Instructeur</h3>
                   <div class="author-contents media">
-                    <div class="author-avatar float-left"><img class="radius" src="{{ object.teacher.avatar.url }}"
+                    <div class="author-avatar float-left"><img class="radius" src="{% if object.teacher.avatar %} {{ object.teacher.avatar.url }} {% else %}  {% endif %}"
                         alt="Avatar"></div>
                     <!-- /.author-avatar -->
                     <div class="author-details media-body">
