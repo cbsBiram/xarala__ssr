@@ -1,4 +1,6 @@
+import cloudinary
 from django.db import models
+from cloudinary.models import CloudinaryField
 from django.db.models import Sum
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
@@ -144,6 +146,7 @@ class Lesson(models.Model):
     file = models.FileField(upload_to=upload_image_path, blank=True, null=True)
     resource_link = models.CharField(max_length=240, null=True, blank=True)
     video_id = models.CharField(max_length=150, null=True, blank=True)
+    cloudinary_file = CloudinaryField(null=True, blank=True)
     duration = models.IntegerField(default=0)
     platform = models.CharField(
         max_length=50, choices=PLATFORM, default=YOUTUBE)
