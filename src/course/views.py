@@ -20,7 +20,7 @@ class CourseOverviewView(DetailView):
         student = self.request.user
         context = super().get_context_data(**kwargs)
         button_text = "Voir la formation"
-        if context.get("course") in student.courses_enrolled.all():
+        if student.is_authenticated and context.get("course") in student.courses_enrolled.all():
             pass
         else:
             button_text = "S'inscrire"
@@ -45,12 +45,14 @@ def subscribe_user_to_course(request, course_slug):
     course = get_object_or_404(Course, slug=course_slug)
     student = request.user
     try:
-        if course not in student.courses_enrolled.all():
-            student.courses_enrolled.add(course)
-            messages.success(
-                request, "Vous êtes inscrit avec succes...")
-            return redirect(f"/courses/{course.slug}/overview")
-        return JsonResponse(values)
+        if student.is_authenticated:
+            if course not in student.courses_enrolled.all():
+                student.courses_enrolled.add(course)
+                messages.success(
+                    request, "Vous êtes inscrit avec succes...")
+                return redirect(f"/courses/{course.slug}/overview")
+            else:
+                return redirect(f"/courses/{course.slug}/overview")
     except Exception as e:
         print("Error ", e)
         return JsonResponse(values)

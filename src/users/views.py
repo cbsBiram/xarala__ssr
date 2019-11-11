@@ -26,7 +26,7 @@ def login(request):
             user = authenticate(request, email=email, password=password)
             if user is not None:
                 auth_login(request, user)
-                messages.success(request, f"Bienvenue {user}, chez Xarala")
+                # messages.success(request, f"Bienvenue {user}, chez Xarala")
                 if is_safe_url(redirect_path, request.get_host()):
                     return redirect(redirect_path)
                 else:
@@ -34,7 +34,7 @@ def login(request):
             else:
                 messages.error(
                     request, "Information incorrect")
-                return redirect('/users/login')
+                return redirect(f'/users/login/?next={redirect_path}')
         else:
             return render(request, "users/login.html", {"next": next_})
 
@@ -56,7 +56,7 @@ def register(request):
             if password == password2:
                 if CustomUser.objects.filter(email=email).exists():
                     messages.error(request, "Le email est deja utilisé")
-                    return redirect('register')
+                    return redirect(f'/users/register/?next={redirect_path}')
                 else:
                     # looks good
                     user = CustomUser.objects.create_user(
@@ -64,11 +64,9 @@ def register(request):
                         password=password,
                     )
                     user.save()
-                    # auth_login(
-                    #     request, user)
                     send_new_register_email(user)
                     messages.success(
-                        request, "Vous êtes maintenant inscrit et pouvez vous connecter...")
+                        request, "compte crée avec succes...")
                     if is_safe_url(redirect_path, request.get_host()):
                         return redirect(redirect_path)
                     else:
@@ -76,7 +74,7 @@ def register(request):
             else:
                 messages.error(
                     request, "Les mots de passe ne sont pas identiques")
-                return redirect('register')
+                return redirect(f'/users/register/?next={redirect_path}')
         else:
             return render(request, "users/register.html", {"next": next_})
 
