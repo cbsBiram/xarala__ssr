@@ -21,7 +21,9 @@
           <h2 class="course-title">{{ object.title }}</h2><!-- /.course-title -->
           <div class="course-meta">
             <span class="meta-details">
-              <img class="rounded-circle float-left" src="{% if object.teacher.avatar %} {{ object.teacher.avatar.url }} {% else %} {% endif %}" alt="Avatar">
+              <img class="rounded-circle float-left"
+                src="{% if object.teacher.avatar %} {{ object.teacher.avatar.url }} {% else %} {% endif %}"
+                alt="Avatar">
 
               <span class="meta-id">Instructeur</span>
               <a class="name" href="#">{{ object.teacher }}</a>
@@ -37,8 +39,13 @@
 
             </span>
           </div>
-          <img class="radius" src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %}  {% endif %}" alt="Course Image">
-
+          <div class="course-video">
+            <div class="embed-responsive embed-responsive-16by9 mb-4 rounded bg-light radius" id="videoWrapper">
+              <iframe id="jsVimeoFrame" class="embed-responsive-item"
+                src="https://www.youtube.com/embed/{{ object.get_introudction.video_id }}?rel=0" frameborder="0"
+                allowfullscreen="" allow="autoplay; fullscreen"></iframe>
+            </div>
+          </div>
           <div class="course-single-details">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <a class="nav-item nav-link active" id="nav-1" data-toggle="tab" href="#description" role="tab"
@@ -87,7 +94,8 @@
                 <div class="author-bio">
                   <h3 class="title">Votre Instructeur</h3>
                   <div class="author-contents media">
-                    <div class="author-avatar float-left"><img class="radius" src="{% if object.teacher.avatar %} {{ object.teacher.avatar.url }} {% else %}  {% endif %}"
+                    <div class="author-avatar float-left"><img class="radius"
+                        src="{% if object.teacher.avatar %} {{ object.teacher.avatar.url }} {% else %}  {% endif %}"
                         alt="Avatar"></div>
                     <!-- /.author-avatar -->
                     <div class="author-details media-body">
