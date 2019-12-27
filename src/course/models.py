@@ -52,6 +52,7 @@ class Course(models.Model):
     categories = models.ManyToManyField(Category, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     language = models.ForeignKey(Language, models.SET_NULL, null=True)
+    drafted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -107,6 +108,7 @@ class Chapter(models.Model):
         Course, models.SET_NULL, null=True, related_name="course_chapters")
     slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    drafted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -146,13 +148,14 @@ class Lesson(models.Model):
     file = models.FileField(upload_to=upload_image_path, blank=True, null=True)
     resource_link = models.CharField(max_length=240, null=True, blank=True)
     video_id = models.CharField(max_length=150, null=True, blank=True)
-    cloudinary_file = CloudinaryField(null=True, blank=True)
+    # cloudinary_file = CloudinaryField(null=True, blank=True)
     duration = models.IntegerField(default=0)
     platform = models.CharField(
         max_length=50, choices=PLATFORM, default=YOUTUBE)
     chapter = models.ForeignKey(
         Chapter, models.SET_NULL, null=True, blank=True,
         related_name="course_lessons")
+    drafted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -169,13 +172,13 @@ class Lesson(models.Model):
     def next(self):
         try:
             return Lesson.objects.get(pk=self.pk+1)
-        except:
+        except Exception as e:
             return None
 
     def previous(self):
         try:
             return Lesson.objects.get(pk=self.pk-1)
-        except:
+        except Exception as e:
             return None
 
     def save(self, *args, **kwargs):

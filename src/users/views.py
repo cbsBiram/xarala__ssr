@@ -11,7 +11,6 @@ from send_mail.views import send_new_register_email
 
 def login(request):
     next_ = request.GET.get('next')
-    print("nex", next_)
     next_post = request.POST.get('next')
     redirect_path = next_ or next_post
     if request.user.is_authenticated:

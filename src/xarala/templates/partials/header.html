@@ -8,90 +8,149 @@
             <div class="trggericon"><i class="fas fa-at"></i></div>
             <div class="close"><i class="far fa-times-circle"></i></div>
             <div class="contacts">
-              <span><i class="fas fa-phone"></i> <a href="tel:+221779929952">(+221) 779929952</a></span>
-              <span><i class="fas fa-envelope"></i> <a href="#">support@xarala.tech</a></span>
+              <span
+                ><i class="fas fa-phone"></i>
+                <a href="tel:+221779929952">(+221) 779929952</a></span
+              >
+              <span
+                ><i class="fas fa-envelope"></i>
+                <a href="#">support@xarala.tech</a></span
+              >
             </div>
           </div>
         </div>
         <div class="col-md-6">
-
           <div class="menu-search-form dropdown float-right">
-            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
               <span>Recherche</span> <i class="fas fa-search"></i>
             </a>
             <div class="dropdown-menu">
               <form action="#" class="menu-search">
-                <input type="text" class="form-control" placeholder="Je veux un cours sur.... ..." name="s"
-                  title="Search here" required>
-                <input type="submit" class="form-control">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Je veux un cours sur.... ..."
+                  name="s"
+                  title="Search here"
+                  required
+                />
+                <input type="submit" class="form-control" />
               </form>
             </div>
           </div>
 
-
           <div class="user-area dropdown float-right">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a
+              href="#"
+              class="dropdown-toggle btn btn-lg banner-btn"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
               Mon espace
             </a>
 
             {% if request.user.is_authenticated %}
             <div class="user-menu dropdown-menu">
-              <a class="nav-link" href="#"><i class="fa fa- user"></i>Mon Profile</a>
-              <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
-              <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa -cog"></i>Dashboard</a>
-              <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}"><i
-                  class="fa fa-power -off"></i>Déconnexion</a>
+              <a class="nav-link" href="#"
+                ><i class="fa fa- user"></i>Mon Profile</a
+              >
+              <a class="nav-link" href="#"
+                ><i class="fa fa- user"></i>Notifications
+                <span class="count">13</span></a
+              >
+              <a class="nav-link" href="{% url 'dashboard' %}"
+                ><i class="fa fa -cog"></i>Dashboard</a
+              >
+              <a
+                class="nav-link"
+                href="javascript:{document.getElementById('logout').submit()}"
+                ><i class="fa fa-power -off"></i>Déconnexion</a
+              >
               <form action="{% url 'logout' %}" method="POST" id="logout">
                 {% csrf_token %}
-                <input type="hidden">
+                <input type="hidden" />
               </form>
             </div>
             {% else %}
             <div class="user-menu dropdown-menu">
-              <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-power -on"></i>Se connecter</a>
+              <a class="nav-link" href="{% url 'login' %}"
+                ><i class="fa fa-power -on"></i>Se connecter</a
+              >
             </div>
             {% endif %}
-
           </div>
         </div>
       </div>
     </div>
-  </div><!-- /.header-top -->
+  </div>
+  <!-- /.header-top -->
 
   <div class="header-bottom">
     <div class="container">
       <nav class="navbar navbar-expand-md m-0">
-        <a class="navbar-brand" href="{% url 'home' %}"><img class="logo" src="{% static 'images/logo/logo.png' %}"
-            alt="Logo"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
-          aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="{% url 'home' %}"
+          ><img
+            class="logo"
+            src="{% static 'images/logo/logo.png' %}"
+            alt="Logo"
+        /></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#main-menu"
+          aria-controls="main-menu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="main-menu">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home"></i> Accueil</a>
+              <a class="nav-link" href="{% url 'home' %}"
+                ><i class="fas fa-home"></i> Accueil</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'courses' %}"><i class="fas fa-laptop"></i> Formation</a>
+              <a class="nav-link" href="{% url 'courses' %}"
+                ><i class="fas fa-laptop"></i> Formation</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'blog' %}"><i class="fab fa-blogger-b"></i> Blog</a>
+              <a class="nav-link" href="{% url 'blog' %}"
+                ><i class="fab fa-blogger-b"></i> Blog</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fas fa-book"></i> Ressources</a>
+              <a class="nav-link" href="#"
+                ><i class="fas fa-users"></i> Communauté</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fas fa-terminal"></i> Lab</a>
+              <a class="nav-link" href="#"
+                ><i class="fas fa-terminal"></i> Lab</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'events' %}"><i class="fas fa-bullhorn"></i> Events</a>
+              <a class="nav-link" href="{% url 'events' %}"
+                ><i class="fas fa-bullhorn"></i> Events</a
+              >
             </li>
           </ul>
         </div>
       </nav>
-
-    </div><!-- /.container -->
-  </div><!-- /.header-bottom -->
-</header><!-- /.masthead -->
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.header-bottom -->
+</header>
+<!-- /.masthead -->

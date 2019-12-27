@@ -34,8 +34,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # third party app
- 'jet.dashboard', 
- 'jet',
+    # 'jet.dashboard',
+    # 'jet',
     # django default apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,9 +45,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # third party apps
     # 'social_django',
+    'corsheaders',
+    'graphene_django',
     'django_summernote',
     'crispy_forms',
     'cloudinary',
+
     # custom app
     'blog',
     'course',
@@ -60,12 +63,20 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+GRAPHENE = {
+    'SCHEMA': 'xarala.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+}
 
 ROOT_URLCONF = 'xarala.urls'
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'xarala', 'templates')
@@ -117,6 +128,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # add this
 """AUTHENTICATION_BACKENDS = [
@@ -157,6 +172,12 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'users.CustomUser'
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://localhost:8000",
+    "http://127.0.0.1:3000",
+]
 
 
 # Messages

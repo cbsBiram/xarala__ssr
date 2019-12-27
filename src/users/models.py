@@ -25,12 +25,24 @@ class Social(models.Model):
 
 
 class CustomUser(AbstractUser):
+    STUDENT = "ST"
+    TEACHER = "TC"
+    MENTOR = "MT"
+    WRITER = "WT"
+    USERTYPE = [
+        (STUDENT, "Student"),
+        (TEACHER, "Teacher"),
+        (MENTOR, "Mentor"),
+        (WRITER, "Writer")
+    ]
     username = None
     email = models.EmailField(_('email address'), unique=True)
     scoial = models.ForeignKey(Social, models.SET_NULL, null=True, blank=True)
     avatar = models.ImageField(
         upload_to=upload_image_path, null=True, blank=True)
     bio = models.TextField(blank=True)
+    user_type = models.CharField(
+        max_length=10, choices=USERTYPE, default=STUDENT)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
