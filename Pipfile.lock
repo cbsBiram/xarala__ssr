@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0b0ec2e934118dbd96a7a10295bf5f43c2808fc0bc5381e884b012572022ebf5"
+            "sha256": "f5431568a9bf1975a79a23d708b2663e71075b4898952d94b6f41c79db1028cf"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -97,6 +97,14 @@
             "index": "pypi",
             "version": "==1.0.8"
         },
+        "django-markdownx": {
+            "hashes": [
+                "sha256:e18e395cad0ade96afbb250a81cad15618e417ac3c0d9c37d964be3d8fd57bcf",
+                "sha256:f4d8998618c0548bf5349713d805e7440684d70116de0f10413932286c4e375f"
+            ],
+            "index": "pypi",
+            "version": "==3.0.1"
+        },
         "django-summernote": {
             "hashes": [
                 "sha256:c23dae35c287f0d3d1ff801654ace77c3c6836453162e87c7330710d74d2eb88"
@@ -160,6 +168,13 @@
             ],
             "index": "pypi",
             "version": "==2.0.9"
+        },
+        "markdown": {
+            "hashes": [
+                "sha256:2e50876bcdd74517e7b71f3e7a76102050edec255b3983403f1a63e7c8a41e7a",
+                "sha256:56a46ac655704b91e5b7e6326ce43d5ef72411376588afa1dd90e881b83c7e8c"
+            ],
+            "version": "==3.1.1"
         },
         "mock": {
             "hashes": [
