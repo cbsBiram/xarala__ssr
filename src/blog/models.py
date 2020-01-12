@@ -1,8 +1,5 @@
 import cloudinary
 from django.db import models
-from django.dispatch import receiver
-from django.db.models.signals import pre_delete
-from cloudinary.models import CloudinaryField
 from django.utils.text import slugify
 from django.utils import timezone
 from xarala.utils import upload_image_path
@@ -29,14 +26,16 @@ class Post(models.Model):
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     image = models.ImageField(
         upload_to=upload_image_path, blank=True, null=True)
-    # cloud image
-    cloud_image = CloudinaryField(null=True, blank=True)
+    image_url = models.URLField(
+        max_length=255, blank=True, null=True)
     published = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True)
     date_published = models.DateTimeField(
         auto_now_add=False, blank=True, null=True)
     date_updated = models.DateTimeField(
         auto_now_add=False, blank=True, null=True)
+    featured = models.BooleanField(default=False)
+    drafted = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
@@ -55,8 +54,3 @@ class Post(models.Model):
         if not self.slug:
             self.slug = self._get_unique_slug()
         super().save(*args, **kwargs)
-
-
-@receiver(pre_delete, sender=Post)
-def photo_delete(sender, instance, **kwargs):
-    cloudinary.uploader.destroy(instance.cloud_image.public_id)
