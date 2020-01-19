@@ -134,6 +134,23 @@ class DeleteCourse(graphene.Mutation):
         return DeleteCourse(courseId=courseId)
 
 
+# subscribe user to course
+
+class SubscribeUserToCourse(graphene.Mutation):
+    course = graphene.Field(CourseType)
+
+    class Arguments:
+        courseId = graphene.Int(required=True)
+
+    def mutate(self, info, courseId):
+        user = info.context.user
+        if not user:
+            raise GraphQLError("Vous n'etes pas connecté")
+        course = Course.objects.get(pk=courseId)
+        if course not in student.courses_enrolled.all():
+            student.courses_enrolled.add(course)
+
+
 class Mutation(graphene.ObjectType):
     create_course = CreateCourse.Field()
     update_course = UpdateCourse.Field()

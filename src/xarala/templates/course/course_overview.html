@@ -121,7 +121,7 @@
         <div class="col-md-4">
           <aside class="sidebar">
             <button class="btn btn-lg enroll-btn"> <a
-                href="{% if button_text == 'S\'inscrire'  %}{% url 'subscribe_user_to_course' object.slug %}{% else %}/courses/{{ object.slug }}/?lecture={{object.get_introudction.slug}}{% endif %}">{{ button_text }}</a>
+                href="/courses/{{ object.slug }}/?lecture={{object.get_introudction.slug}}">Voir le cours</a>
             </button>
 
             <div class="info">
