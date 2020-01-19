@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.template.loader import get_template, render_to_string
 
 # email apres la creation de compte
+
+
 def send_new_register_email(user):
     htmly = get_template('email/thanks_new_register.html')
     context = {

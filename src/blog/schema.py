@@ -1,140 +1,114 @@
 import graphene
 from graphql import GraphQLError
-from .models import Course, Chapter, Lesson
-from .query_types import CourseType, ChapterType, LessonType, Q
+from .models import Post, Tag
+from .query_types import PostType, TagType, Q
 
 
 class Query(graphene.ObjectType):
-    courses = graphene.List(CourseType, search=graphene.String())
-    course = graphene.Field(CourseType, courseId=graphene.Int())
-    chapters = graphene.List(ChapterType, search=graphene.String())
-    chapter = graphene.Field(ChapterType, chapterId=graphene.Int())
-    lessons = graphene.List(LessonType, search=graphene.String())
-    lesson = graphene.Field(LessonType, lessonId=graphene.Int())
+    posts = graphene.List(PostType, search=graphene.String())
+    post = graphene.Field(PostType, postId=graphene.Int())
+    tags = graphene.List(TagType, search=graphene.String())
+    tag = graphene.Field(TagType, tagId=graphene.Int())
 
-    def resolve_courses(self, info, search=None):
+    def resolve_posts(self, info, search=None):
         if search:
             filter = (
                 Q(title__icontains=search) |
-                Q(description__icontains=search)
+                Q(content__icontains=search)
             )
-            return Course.objects.filter(filter)
-        return Course.objects.all()
+            return Post.objects.filter(filter)
+        return Post.objects.all()
 
-    def resolve_course(self, info, courseId):
-        course = Course.objects.get(pk=courseId)
-        return course
+    def resolve_post(self, info, postId):
+        post = Post.objects.get(pk=postId)
+        return post
 
-    def resolve_chapters(self, info, search=None):
+    def resolve_tags(self, info, search=None):
         if search:
             filter = (
                 Q(name__icontains=search) |
-                Q(course__title__icontains=search)
+                Q(description__icontains=search)
             )
-            return Chapter.objects.filter(filter)
-        return Chapter.objects.all()
+            return Tag.objects.filter(filter)
+        return Tag.objects.all()
 
-    def resolve_chapter(self, info, chapterId):
-        chapter = Chapter.objects.get(pk=chapterId)
-        return chapter
+    def resolve_tag(self, info, tagId):
+        tag = Tag.objects.get(pk=tagId)
+        return tag
 
-    def resolve_lessons(self, info, search=None):
-        if search:
-            filter = (
-                Q(title__icontains=search) |
-                Q(chapter__name__icontains=search)
-            )
-            return Lesson.objects.filter(filter)
-        return Lesson.objects.all()
-
-    def resolve_lesson(self, info, lessonId):
-        lesson = Lesson.objects.get(pk=lessonId)
-        return lesson
 
 # new product
 
 
-class CreateCourse(graphene.Mutation):
-    course = graphene.Field(CourseType)
+class CreatePost(graphene.Mutation):
+    post = graphene.Field(PostType)
 
     class Arguments:
         title = graphene.String()
-        description = graphene.Int()
-        price = graphene.Float()
-        level = graphene.String()
-        thumbnail = graphene.String()
-        language = graphene.String()
+        content = graphene.Int()
+        image = graphene.String()
 
-    def mutate(self, info, title, description, price, level, thumbnail, language):
+    def mutate(self, info, title, content, image):
         user = info.context.user
         if user.is_anonymous:
-            raise GraphQLError("Log in to add a course!")
+            raise GraphQLError("Log in to add a post!")
 
-        course = Course(
+        post = post(
             title=title,
-            description=description,
-            price=price,
-            level=level,
-            thumbnail=thumbnail,
-            language=language,
-            teacher=user
+            content=content,
+            image=image,
+            author=user
         )
-        course.save()
-        return CreateCourse(course=course)
+        post.save()
+        return CreatePost(post=post)
 
-# update track
+# update post
 
 
-class UpdateCourse(graphene.Mutation):
-    course = graphene.Field(CourseType)
+class UpdatePost(graphene.Mutation):
+    post = graphene.Field(PostType)
 
     class Arguments:
-        courseId = graphene.Int(required=True)
+        postId = graphene.Int(required=True)
         title = graphene.String()
-        description = graphene.Int()
-        price = graphene.Float()
-        level = graphene.String()
-        thumbnail = graphene.String()
-        language = graphene.String()
+        content = graphene.Int()
+        image = graphene.String()
 
-    def mutate(self, info,  courseId, title, description, price, level, thumbnail, language):
+    def mutate(self, info,  postId, title, description, image):
         user = info.context.user
         if user.is_anonymous:
-            raise GraphQLError("Log in to edit a track!")
-        course = Course.objects.get(id=courseId)
-        if course.owner != user:
-            raise GraphQLError("Not permited to update this track")
-        course.title = title
-        course.description = description
-        course.price = price
-        course.level = level
-        course.thumbnail = thumbnail
-        course.language = language
-        course.save()
-        return UpdateCourse(course=course)
+            raise GraphQLError("Log in to edit a post!")
+        post = Post.objects.get(id=postId)
+        if post.author != user:
+            raise GraphQLError("Not permited to update this post")
+        post.title = title
+        post.description = description
+        post.image = image
+        post.save()
+        return UpdatePost(post=post)
 
 
-# delete course
+# delete post
 
 
-class DeleteCourse(graphene.Mutation):
-    courseId = graphene.Int()
+class DeletePost(graphene.Mutation):
+    postId = graphene.Int()
 
     class Arguments:
-        courseId = graphene.Int(required=True)
+        postId = graphene.Int(required=True)
 
-    def mutate(self, info, courseId):
+    def mutate(self, info, postId):
         user = info.context.user
-        course = Course.objects.get(id=courseId)
-        if course.teacher != user:
-            raise GraphQLError("Not permited to update this course")
-        Course.objects.filter(id=courseId).update(
+        post = Post.objects.get(id=postId)
+        if post.author != user:
+            raise GraphQLError("Not permited to update this post")
+        Post.objects.filter(id=postId).update(
             drafted=True
         )
-        return DeleteCourse(courseId=courseId)
+        return DeletePost(postId=postId)
 
 
 class Mutation(graphene.ObjectType):
-    create_course = CreateCourse.Field()
-    update_course = UpdateCourse.Field()
-    delete_course = DeleteCourse.Field()
+    create_post = CreatePost.Field()
+    update_post = UpdatePost.Field()
+    delete_post = DeletePost.Field()
