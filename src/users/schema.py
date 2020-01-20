@@ -27,11 +27,11 @@ class CreateUser(graphene.Mutation):
     user = graphene.Field(CustomUserType)
 
     class Arguments:
-        phone = graphene.String(required=True)
+        email = graphene.String(required=True)
         password = graphene.String(required=True)
 
-    def mutate(self, info, phone, password):
-        user = CustomUser(phone=phone)
+    def mutate(self, info, email, password):
+        user = CustomUser(email=email)
         user.set_password(password)
         user.save()
         return CreateUser(user)
