@@ -33,7 +33,8 @@ class CourseDetailView(DetailView):
     template_name = "course/course_detail.html"
 
     def get_context_data(self, **kwargs):
-        lesson = Lesson.objects.get(slug=self.request.GET.get('lecture'))
+        slug = self.request.GET.get('lecture')
+        lesson = Lesson.objects.get(slug=slug)
         context = super().get_context_data(**kwargs)
         context['lesson'] = lesson
         return context

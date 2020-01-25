@@ -78,6 +78,7 @@ a {
 .l-container {
   margin: auto;
   width: auto;
+  padding: 15px;
   text-align: left;
 }
 
@@ -86,6 +87,11 @@ a {
   padding: 5px 0;
   border-bottom: 1px solid #999;
   font-weight: bold;
+}
+
+.c-pager {
+  padding-left: 0px;
+  margin-left: -50px;
 }
 
 /*c-pager ------------------------------------------------------------*/
@@ -168,4 +174,9 @@ a {
 .plyr--video {
   background: #000;
   overflow: hidden;
+}
+
+.chapter {
+  color: #10a8e5ff;
+  font-weight: bold;
 }

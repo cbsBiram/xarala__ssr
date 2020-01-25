@@ -128,6 +128,9 @@ class Chapter(models.Model):
             self.slug = self._get_unique_slug()
         super().save(*args, **kwargs)
 
+    class Meta:
+        ordering = ['id']
+
 
 class Lesson(models.Model):
     # platform
@@ -182,6 +185,9 @@ class Lesson(models.Model):
             return Lesson.objects.get(pk=self.pk-1)
         except Exception as e:
             return None
+
+    class Meta:
+        ordering = ['id']
 
     def save(self, *args, **kwargs):
         if not self.slug:
