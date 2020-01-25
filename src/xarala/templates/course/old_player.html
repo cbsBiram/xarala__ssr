@@ -1,0 +1,98 @@
+<section class="courses">
+  <div class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <!--offset-md-2  -->
+          <h2 class="course-title text-center"> <span class="lesson-title">{{ lesson.title }}</span>
+          </h2>
+          <!-- /.course-title -->
+          <div class="course-meta">
+            <div class="course-video">
+              <div class="embed-responsive embed-responsive-16by9 mb-4 rounded bg-light" id="videoWrapper">
+                <iframe id="jsVimeoFrame" class="embed-responsive-item"
+                  src="https://www.youtube.com/embed/{{ lesson.video_id }}?rel=0" frameborder="0" allowfullscreen=""
+                  allow="autoplay; fullscreen"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="course-single-details">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-1" data-toggle="tab" href="#description" role="tab"
+                aria-controls="description" aria-selected="true">Description</a>
+
+            </div>
+
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description">
+                <h4 class="title">Description du cours</h4>
+                {{ lesson.text|safe }}
+              </div>
+
+
+              <!-- reviewss -->
+            </div>
+          </div><!-- /.course-single-details -->
+
+
+
+          <!-- related course -->
+          <!-- <p><a href="/courses/{{ object.slug }}/?lecture={{lesson.next.slug}}">{{ lesson.next }}</a> </p> -->
+          <div class="l-container">
+            <div class="c-pager">
+              <ul class="c-page__numbers">
+
+                {% if lesson.previous %}
+
+                <li class="c-page__prev c-page__btn"><a
+                    href="/courses/{{ object.slug }}/?lecture={{lesson.previous.slug}}" rel="next"><i
+                      class="fa fa-chevron-left"></i>
+                    {{ lesson.previous }}</a></li>
+                {% endif %}
+
+                {% if lesson.next %}
+
+                <li class="c-page__next c-page__btn"><a href="/courses/{{ object.slug }}/?lecture={{lesson.next.slug}}"
+                    rel="prev">{{ lesson.next }} <i class="fa fa-chevron-right"></i> </a></li>
+                {% endif %}
+
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- new row -->
+        <div class="col-md-4">
+          <aside class="sidebar">
+            <div class="info">
+              {% if object.course_chapters.all %}
+              {% for chapter in object.course_chapters.all %}
+              <div class="content-table">
+                <span class="title">{{ chapter.name }}</span>
+                <ul class="info-list">
+                  {% if chapter.course_lessons.all  %}
+                  {% for course in chapter.course_lessons.all  %}
+                  {% if course.chapter.id == chapter.id %}
+                  <li {% if course.id == lesson.id %} class="active-course" {% else %} class="" {% endif %}>
+                    <a href="/courses/{{ object.slug }}/?lecture={{course.slug}}">
+                      {{ course.title }}
+                    </a>
+                  </li>
+                  {% endif %}
+                  {% endfor %}
+                  {% endif %}
+                </ul>
+              </div><!-- /.content-table -->
+              {% endfor %}
+              {% endif %}
+
+              </ul>
+            </div>
+          </aside><!-- /.sidebar -->
+        </div>
+
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+  </div><!-- /.section-padding -->
+</section><!-- /.courses -->

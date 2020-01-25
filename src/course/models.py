@@ -76,11 +76,12 @@ class Course(models.Model):
         return lesson
 
     def get_chapters(self):
-        chapters = Chapter.objects.filter(course=self)
+        chapters = Chapter.objects.filter(course=self).order_by('id')
         return chapters
 
     def get_lessons(self):
-        lessons = Lesson.objects.filter(chapter__in=self.get_chapters())
+        lessons = Lesson.objects.filter(
+            chapter__in=self.get_chapters()).order_by('id')
         return lessons
 
     def count_lessons(self):
@@ -143,6 +144,7 @@ class Lesson(models.Model):
         (CLOUDINARY, CLOUDINARY)
     )
     title = models.CharField(max_length=200)
+    is_video = models.BooleanField(default=True)
     text = models.TextField(blank=True)
     slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
     file = models.FileField(upload_to=upload_image_path, blank=True, null=True)
