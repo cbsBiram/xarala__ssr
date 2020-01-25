@@ -6,7 +6,7 @@ from .query_types import CourseType, ChapterType, LessonType, Q
 
 class Query(graphene.ObjectType):
     courses = graphene.List(CourseType, search=graphene.String())
-    course = graphene.Field(CourseType, courseId=graphene.Int())
+    course = graphene.Field(CourseType, courseSlug=graphene.String())
     chapters = graphene.List(ChapterType, search=graphene.String())
     chapter = graphene.Field(ChapterType, chapterId=graphene.Int())
     lessons = graphene.List(LessonType, search=graphene.String())
@@ -21,8 +21,8 @@ class Query(graphene.ObjectType):
             return Course.objects.filter(filter)
         return Course.objects.all()
 
-    def resolve_course(self, info, courseId):
-        course = Course.objects.get(pk=courseId)
+    def resolve_course(self, info, courseSlug):
+        course = Course.objects.get(slug=courseSlug)
         return course
 
     def resolve_chapters(self, info, search=None):
