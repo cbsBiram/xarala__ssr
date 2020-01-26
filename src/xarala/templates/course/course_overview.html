@@ -59,11 +59,10 @@
 
             <div class="tab-content" id="nav-tabContent">
               <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description">
-                <h4 class="title">Description du cours</h4>
                 {{ course.description }}
               </div>
               <div class="tab-pane fade" id="curriculum" role="tabpanel" aria-labelledby="curriculum">
-                <h4 class="title">Contenu du cours</h4>
+                
                 <div class="curriculum-details">
 
                   {% if object.course_chapters.all %}
@@ -92,7 +91,7 @@
 
               <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor">
                 <div class="author-bio">
-                  <h3 class="title">Votre Instructeur</h3>
+                
                   <div class="author-contents media">
                     <div class="author-avatar float-left"><img class="radius"
                         src="{% if object.teacher.avatar %} {{ object.teacher.avatar.url }} {% else %}  {% endif %}"

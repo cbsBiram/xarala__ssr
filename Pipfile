@@ -23,6 +23,7 @@ graphene-django = "*"
 django-graphql-jwt = "*"
 django-cors-headers = "*"
 django-markdownx = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.7"
