@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'events',
     'pages',
     'users',
-    'mentorship',
+    # 'mentorship',
 ]
 
 MIDDLEWARE = [
