@@ -78,7 +78,7 @@ a {
 .l-container {
   margin: auto;
   width: auto;
-  padding: 30px;
+  padding: 15px;
   text-align: left;
 }
 
@@ -87,6 +87,11 @@ a {
   padding: 5px 0;
   border-bottom: 1px solid #999;
   font-weight: bold;
+}
+
+.c-pager {
+  padding-left: 0px;
+  margin-left: -50px;
 }
 
 /*c-pager ------------------------------------------------------------*/
@@ -147,4 +152,31 @@ a {
   .report-card {
     margin-bottom: .5rem;
   }
+}
+
+
+/* courses details */
+#content {
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.content-wrap {
+  padding: 50px 0;
+  position: relative;
+}
+
+#content .container {
+  position: relative;
+}
+
+.plyr--video {
+  background: #000;
+  overflow: hidden;
+}
+
+.chapter {
+  color: #10a8e5ff;
+  font-weight: bold;
 }
