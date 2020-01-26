@@ -42,6 +42,7 @@ class Course(models.Model):
     is_free = models.BooleanField(default=True)
     price = models.DecimalField(default=0, max_digits=13, decimal_places=2)
     level = models.CharField(max_length=150, choices=LEVEL, default=BEGINNER)
+    featured = models.BooleanField(default=False)
     slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
     thumbnail = models.ImageField(
         upload_to=upload_image_path, null=True, blank=True)
