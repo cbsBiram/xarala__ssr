@@ -10,8 +10,7 @@ from blog.models import Post
 
 def home(request):
     courses = Course.objects.all()[:10]
-    posts = Post.objects.all()[:4]
-    return render(request, "pages/index.html", {"courses": courses, "posts": posts})
+    return render(request, "pages/index.html", {"courses": courses})
 
 
 def subscribe(request):
