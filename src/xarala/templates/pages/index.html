@@ -79,54 +79,5 @@
   </div>
 </section>
 
-<section class="recent-posts black-bg">
-  <div class="section-padding">
-    <div class="container">
-      <div class="top-content">
-        <div class="left-content float-left">
-          <h2 class="section-title">Derniere minute</h2>
-          <p>Derniere publication de Xarala</p>
-        </div>
-        <!-- /.left-content -->
-        <div class="owl-controls float-right"></div>
-        <!-- /.owl-controls -->
-      </div>
-      <!-- /.top-content -->
-
-      <div id="post-slider" class="post-slider owl-carousel">
-        {% if posts %} {% for post in posts %}
-
-        <div class="item">
-          <article class="post">
-            <div class="entry-thumbnail radius">
-              <img src="{{ post.image.url }}" alt="Post Thumbnail" />
-            </div>
-            <!-- /.entry-thumbnail -->
-            <div class="entry-content">
-              <h3 class="entry-title">
-                <a href="{% url 'blog-detail' post.slug %}">{{ post.title }}</a>
-              </h3>
-              <!-- /.entry-title -->
-              <div class="entry-meta">
-                <span class="author"><i class="icon-user"></i>
-                  <a href="#">{{ post.author.get_full_name }}</a></span><!-- /.author -->
-                <span class="time"><i class="icon-calendar"></i> {{ post.date_created|date:'d/m/Y' }}</span>
-                <!-- /.time -->
-              </div>
-              <!-- /.entry-meta -->
-            </div>
-            <!-- /.entry-content -->
-          </article>
-          <!-- /.post -->
-        </div>
-        {% endfor %} {% endif %}
-      </div>
-      <!-- /.row -->
-    </div>
-    <!-- /.container -->
-  </div>
-  <!-- /.section-padding -->
-</section>
-<!-- /.recent-posts -->
 
 {% endblock %}
