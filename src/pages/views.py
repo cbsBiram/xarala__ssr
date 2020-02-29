@@ -33,3 +33,7 @@ def about(request):
 
 def privacy_policy(request):
     return render(request, "pages/privacy_policy.html")
+
+
+def community_page(request):
+    return render(request, "pages/community.html")
