@@ -34,5 +34,5 @@ class SendSubscribeMail(object):
         api = mailchimp.Mailchimp(API_KEY)
         try:
             api.lists.subscribe(LIST_ID, {'email': self.email})
-        except:
+        except Exception as e:
             return False
