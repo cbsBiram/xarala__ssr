@@ -227,3 +227,17 @@ a {
   background-color: #4078c0;
   color: #fff;
 }
+
+/* dashboard */
+.bg__card__navbar {
+  background-color: #000000;
+}
+
+.bg__card__footer {
+  background-color: #000000 !important;
+}
+
+#add__new__list {
+  top: -38px;
+  right: 0px;
+}

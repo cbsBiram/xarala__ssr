@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+<!--  -->
+{% load crispy_forms_tags %}
+<!--  -->
+
+{% block banner %} {% endblock %}
+<!--  -->
+{% block content %}
+<!--  -->
+
+<main>
+  <div class="container my-5">
+    <div class="card-body text-center">
+      <h4 class="card-title">Gestion des formations</h4>
+      <p class="card-text">
+        Gerez vos formations
+      </p>
+    </div>
+    <div class="card">
+      <button
+        id="add__new__list"
+        type="button"
+        class="btn btn-success position-absolute"
+        data-toggle="modal"
+        data-target=".bd-example-modal-lg"
+      >
+        <i class="fas fa-plus"></i> Nouvelle formation
+      </button>
+
+      {% if courses %}
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Date de creation</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for course in courses %}
+          <tr>
+            <th scope="row">{{ course.id }}</th>
+            <td>{{ course.title }}</td>
+            <td>{{ course.date_created|date:'d-M-Y' }}</td>
+            <td>
+              <a class="btn btn-sm btn-primary" href="#"
+                ><i class="far fa-edit"></i> Modifier</a
+              >
+
+              <a class="btn btn-sm btn-info" href="#"
+                ><i class="fas fa-info-circle"></i> Details</a
+              >
+              <a class="btn btn-sm btn-danger" href="#"
+                ><i class="fas fa-trash-alt"></i> Archiver</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="alert alert-warning">Pas de formation</div>
+      {% endif %}
+    </div>
+    <!-- Large modal -->
+
+    <div
+      class="modal fade bd-example-modal-lg"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myLargeModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="card-body text-center">
+            <h4 class="card-title">Ajouter une nouvelle formation</h4>
+            <p class="card-text">
+              Merci de remplir les champs requises
+            </p>
+          </div>
+          <div class=" card col-8 offset-2 my-2 p-3">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ form.title|as_crispy_field }}
+              </div>
+              <div class="form-group">
+                {{ form.description|as_crispy_field }}
+              </div>
+              <div class="form-group">
+                {{ form.level|as_crispy_field }}
+              </div>
+              <div class="form-group">
+                {{ form.thumbnail|as_crispy_field }}
+              </div>
+              <div class="form-group">
+                {{ form.language|as_crispy_field }}
+              </div>
+              <div class="form-group">
+                {{ form.published|as_crispy_field }}
+              </div>
+
+              <!-- <div class="form-group">
+                <label for="listname">List name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="listname"
+                  id="listname"
+                  placeholder="Enter your listname"
+                />
+              </div>
+              <div class="form-group">
+                <label for="datepicker">Deadline</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="datepicker"
+                  id="datepicker"
+                  placeholder="Pick up a date"
+                />
+              </div>
+              <div class="form-group">
+                <label for="datepicker">Add a list item</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Add an item"
+                    aria-label="Search for..."
+                  />
+                  <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="button">Go!</button>
+                  </span>
+                </div>
+              </div> -->
+              <div class="form-group text-center">
+                <button type="submit" class="btn btn-block btn-primary">
+                  Ajouter
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

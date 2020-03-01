@@ -65,8 +65,15 @@
                 ><i class="fa fa- user"></i>Notifications
                 <span class="count">13</span></a
               >
-              <a class="nav-link" href="{% url 'dashboard' %}"
-                ><i class="fa fa -cog"></i>Dashboard</a
+              
+             
+                
+              
+   
+              <a 
+                class="nav-link"
+                href="{% if user.user_type == "TC" %}{% url "created-courses" %} {% elif user.user_type == "ST" %}{% url "enrolled-courses" %} {% endif %}"
+              ><i class="fa fa -cog"></i>Dashboard</a
               >
               <a
                 class="nav-link"
