@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'crispy_forms',
     'cloudinary',
+    'podcast',
 
     # custom app
     'blog',

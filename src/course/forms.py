@@ -1,5 +1,5 @@
 from django import forms
-from .models import (Course, Language, BEGINNER, MEDIUM, INTERMEDIATE)
+from .models import (Course, Chapter, Language, BEGINNER, MEDIUM, INTERMEDIATE)
 
 LEVEL = (
         (BEGINNER, BEGINNER),
@@ -29,3 +29,15 @@ class CreateCourse(forms.ModelForm):
         model = Course
         fields = ("title", "level", "published",
                   "language", "description", "thumbnail")
+
+
+class CreateChapter(forms.ModelForm):
+    name = forms.CharField(
+        max_length=254,
+        label='Titre de la chapittre',
+        widget=forms.TextInput(
+              {'placeholder': 'Titre'}))
+
+    class Meta:
+        model = Chapter
+        fields = ("name",)

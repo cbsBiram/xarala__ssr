@@ -4,9 +4,9 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponseRedirect
 from django.core import serializers
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, View
 from .models import Course, Chapter, Lesson, CustomUser
-from .forms import CreateCourse
+from .forms import (CreateCourse, CreateChapter)
 
 
 def profile_check(user):
@@ -106,30 +106,28 @@ class TeacherCourseListView(ListView, CreateView):
         return render(request, self.template_name, {'form': form})
 
 
-# class TeacherChapterListCreateView(ListView, CreateView):
-#     form_class = CreateCourse
-#     template_name = "dashboard/teacher/course-admin.html"
+class TeacherChapterListCreateView(DetailView, CreateView):
+    form_class = CreateChapter
+    template_name = "dashboard/teacher/add-chapter.html"
 
-#     def get(self, request, *args, **kwargs):
-#         teacher = self.request.user
-#         courses = teacher.courses_created.all()
-#         form = self.form_class()
-#         return render(request, self.template_name, {'form': form, 'courses': courses})
+    def get(self, request, *args, **kwargs):
+        teacher = self.request.user
+        course_id = request.GET.get('course_id')
+        course = Course.objects.get(pk=int(course_id))
+        chapters = course.course_chapters.all()
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form, "chapters": chapters})
 
-#     def post(self, request, *args, **kwargs):
-#         form = self.form_class(request.POST)
-#         teacher = self.request.user
-#         if form.is_valid():
-#             title = form.cleaned_data.get('title')
-#             level = form.cleaned_data.get('level')
-#             language = form.cleaned_data.get('language')
-#             published = form.cleaned_data.get('published')
-#             course = Course(title=title,
-#                             level=level,
-#                             language=language,
-#                             published=published,
-#                             teacher=teacher)
-#             course.save()
-#             return redirect('/courses/dashboard/teacher/')
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        teacher = self.request.user
+        if form.is_valid():
+            name = form.cleaned_data.get('name')
+            course_id = request.GET.get('course_id')
+            chapter = Chapter(name=name)
+            chapter.save()
+            Course.objects.get(
+                pk=int(course_id)).course_chapters.add(chapter)
+            # return redirect('/courses/dashboard/teacher/')
 
-#         return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form})

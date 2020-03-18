@@ -11,9 +11,9 @@
 <main>
   <div class="container my-5">
     <div class="card-body text-center">
-      <h4 class="card-title">Gestion des formations</h4>
+      <!-- <h4 class="card-title">Gestion des formations</h4> -->
       <p class="card-text">
-        Gerez vos formations
+        Gestion vos formations
       </p>
     </div>
     <div class="card">
@@ -44,7 +44,9 @@
             <td>{{ course.title }}</td>
             <td>{{ course.date_created|date:'d-M-Y' }}</td>
             <td>
-              <a class="btn btn-sm btn-primary" href="#"
+              <a
+                class="btn btn-sm btn-primary"
+                href="{% url 'add-chapter' course.slug %}?course_id={{course.id}}"
                 ><i class="far fa-edit"></i> Modifier</a
               >
 

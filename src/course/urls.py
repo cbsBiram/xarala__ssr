@@ -18,4 +18,6 @@ urlpatterns = [
          user_passes_test(lambda teacher: teacher.user_type == "TC")
          (views.TeacherCourseListView.as_view()),
          name="created-courses"),
+    path('dashboard/teacher/<slug:slug>/',
+         views.TeacherChapterListCreateView.as_view(), name="add-chapter"),
 ]
