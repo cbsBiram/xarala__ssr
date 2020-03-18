@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %}
 <!--  -->
 {% block content %}
 <!--  -->
@@ -18,66 +18,9 @@
         <!-- /.owl-controls -->
       </div>
       <!-- /.top-content -->
-
-      {% if courses %}
-
-      <div class="course-items with-slider">
-        <div id="course-slider" class="course-slider owl-carousel">
-          {% for course in courses %}
-
-          <div class="item">
-            <div class="item-thumb">
-              <img src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %}  {% endif %}" alt="Item Thumbnail" />
-              <div class="avatar">
-                <img class="rounded-circle" src="{% if course.teacher.avatar %} {{ course.teacher.avatar.url }} {% else %} {% endif %}" alt="Avatar Image" />
-              </div>
-              <!-- /.avatar -->
-            </div>
-            <!-- /.item-thumb -->
-            <div class="item-details">
-              <h3 class="item-title">
-                <a href="{% url 'course-overview'  course.slug %}">
-                  {{ course.title }}</a>
-              </h3>
-              <!-- /.item-title -->
-              <span class="instructor"><a href="#">{{ course.teacher.get_full_name }}</a></span><!-- /.instructor -->
-              <div class="details-bottom">
-                <div class="course-price float-left">
-                  <span class="currency">$ </span><span class="price">{{ course.price }}</span>
-                </div>
-                <!-- /.course-price -->
-                <!-- <div class="rating float-right">
-                  <input type="hidden" class="rating-tooltip-manual" data-filled="fas fa-star" data-empty="far fa-star"
-                    data-fractions="2" />
-                </div> -->
-                <!-- /.rating -->
-              </div>
-              <!-- /.details-bottom -->
-
-              <div class="item-meta">
-                <span><i class="icons icon-people"></i>
-                  {{ course.students.all.count }}</span>
-                <span><i class="icons icon-clock"></i> {{ course.count_duration }}</span>
-                <span><i class="icons icon-bubble"></i> 0</span>
-              </div>
-              <!-- /.item-meta -->
-            </div>
-            <!-- /.item-details -->
-          </div>
-          <!-- /.item -->
-          {% endfor %}
-        </div>
-      </div>
-      {% else %}
-
-      <div class="alert alert-info text-center">
-        <p class="lead">Pas de formation disponible!</p>
-      </div>
-
-      {% endif %}
+      {% include "partials/_course-card.html" %}
     </div>
   </div>
 </section>
-
 
 {% endblock %}

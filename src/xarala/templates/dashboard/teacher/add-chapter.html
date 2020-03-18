@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+<!--  -->
+{% load crispy_forms_tags %}
+<!--  -->
+
+{% block banner %} {% endblock %}
+<!--  -->
+{% block content %}
+<!--  -->
+
+<main>
+  <div class="container my-5">
+    <div class="card-body text-center">
+      <!-- <h4 class="card-title">Gestion des formations</h4> -->
+      <p class="card-text">
+        Gestion les chapitres
+      </p>
+    </div>
+    <div class="card">
+      <button
+        id="add__new__list"
+        type="button"
+        class="btn btn-success position-absolute"
+        data-toggle="modal"
+        data-target=".bd-example-modal-lg"
+      >
+        <i class="fas fa-plus"></i> Nouvelle chapitre
+      </button>
+
+      {% if chapters %}
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Date de creation</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for chapter in chapters %}
+          <tr>
+            <th scope="row">{{ chapter.id }}</th>
+            <td>{{ chapter.name }}</td>
+            <td>{{ chapter.date_created|date:'d-M-Y' }}</td>
+            <td>
+              <a class="btn btn-sm btn-primary" href="#"
+                ><i class="far fa-edit"></i> Modifier</a
+              >
+
+              <a class="btn btn-sm btn-info" href="#"
+                ><i class="fas fa-info-circle"></i> Details</a
+              >
+              <a class="btn btn-sm btn-danger" href="#"
+                ><i class="fas fa-trash-alt"></i> Archiver</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="alert alert-warning">Pas de chapitres</div>
+      {% endif %}
+    </div>
+    <!-- Large modal -->
+
+    <div
+      class="modal fade bd-example-modal-lg"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myLargeModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="card-body text-center">
+            <h4 class="card-title">Ajouter une nouvelle chapitre</h4>
+            <p class="card-text">
+              Merci de remplir les champs requises
+            </p>
+          </div>
+          <div class=" card col-8 offset-2 my-2 p-3">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ form.name|as_crispy_field }}
+              </div>
+              <div class="form-group text-center">
+                <button type="submit" class="btn btn-block btn-primary">
+                  Ajouter
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

@@ -1,5 +1,6 @@
 import cloudinary
 from django.db import models
+from django.urls import reverse
 from cloudinary.models import CloudinaryField
 from django.db.models import Sum
 from django.db.models.signals import pre_save
@@ -27,11 +28,13 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 
+# Niveaux
+BEGINNER = "Débutant"
+MEDIUM = "Moyen"
+INTERMEDIATE = "Intermédiaire"
+
+
 class Course(models.Model):
-    # Niveaux
-    BEGINNER = "Débutant"
-    MEDIUM = "Moyen"
-    INTERMEDIATE = "Intermédiaire"
     LEVEL = (
         (BEGINNER, BEGINNER),
         (MEDIUM, MEDIUM),
@@ -54,6 +57,7 @@ class Course(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     language = models.ForeignKey(Language, models.SET_NULL, null=True)
     drafted = models.BooleanField(default=False)
+    published = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -102,6 +106,9 @@ class Course(models.Model):
         else:
             get_duration = 0
         return f"{get_duration} {text}"
+
+    def get_absolute_url(self):
+        return reverse('course-detail', kwargs={'slug': self.slug})
 
 
 class Chapter(models.Model):

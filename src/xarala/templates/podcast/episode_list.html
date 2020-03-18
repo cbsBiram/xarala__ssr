@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+<!--  -->
+{% block title %} Podcast {% endblock %}
+<!--  -->
+
+{% block banner %}
+<!--  -->
+{% endblock %}
+<!--  -->
+{% block content %}
+
+<section class="podcast">
+  <div class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="m-2">
+           
+           {% if episods %}
+            
+           {% for episod in episods %}
+             {{ episod.embed|safe }}
+           {% endfor %}
+
+           {% endif %}
+             
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
