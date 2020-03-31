@@ -1,57 +1,45 @@
 {% load static %}
-{% if courses %}
 
-<div class="course-items with-slider">
-  <div id="course-slider" class="course-slider owl-carousel">
+<div class="container mx-auto flex flex-wrap pb-20">
+  <div class="flex flex-wrap -m-3">
+    {% if courses %}
+    <!--  -->
     {% for course in courses %}
 
-    <div class="item">
-      <div class="item-thumb">
-        <img src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %}" alt="course Thumbnail" />
-        <div class="avatar">
-          <img class="rounded-circle" src="{% if course.teacher.avatar %} {{ course.teacher.avatar.url }} {% else %} {% static 'images/mix/avatar-default-icon.png'  %} {% endif %}" alt="user image" />
-        </div>
-        <!-- /.avatar -->
-      </div>
-      <!-- /.item-thumb -->
-      <div class="item-details">
-        <h3 class="item-title">
-          <a href="{% url 'course-overview'  course.slug %}">
-            {{ course.title }}</a>
-        </h3>
-        <!-- /.item-title -->
-        <span class="instructor"><a href="#">{{ course.teacher.get_full_name }}</a></span><!-- /.instructor -->
-        <div class="details-bottom">
-          <div class="course-price float-left">
-            <span class="currency">$ </span><span class="price">{{ course.price }}</span>
+    
+    <div class="w-full sm:w-1/2 md:w-1/4 flex flex-col  px-6 mb-12">
+      <div
+        class="bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col"
+      >
+        <div
+          class="bg-cover h-48"
+          style="background-image: url({% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %});"
+        ></div>
+        <div class="p-4 flex-1 flex flex-col">
+          <h3 class="mb-4 text-2xl">
+            <a href="{% url 'course-overview'  course.slug %}">
+            {{ course.title }}
+          </a>
+          </h3>
+          <div class="mb-4 text-grey-darker text-sm flex-1">
+            <p>
+              <a href="{% url 'course-overview'  course.slug %}">
+                {{ course.description }}
+            </a>
+            </p>
           </div>
-          <!-- /.course-price -->
-          <!-- <div class="rating float-right">
-            <input type="hidden" class="rating-tooltip-manual" data-filled="fas fa-star" data-empty="far fa-star"
-              data-fractions="2" />
-          </div> -->
-          <!-- /.rating -->
+        
+          <div class="flex items-center mt-4">
+            <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-300">
+              <img class="rounded-circle" src="{% if course.teacher.avatar %} {{ course.teacher.avatar.url }} {% else %} {% static 'images/mix/avatar-default-icon.png'  %} {% endif %}" alt="user image" />
+            </div>
+            <div class="ml-4">
+              <p class="text-gray-600">Par <a href="#" class="text-gray-900 font-semibold">{{ course.teacher.get_full_name }}</a></p>
+            </div>
+          </div>
         </div>
-        <!-- /.details-bottom -->
-
-        <div class="item-meta">
-          <span><i class="icons icon-people"></i>
-            {{ course.students.all.count }}</span>
-          <span><i class="icons icon-clock"></i> {{ course.count_duration }}</span>
-          <span><i class="icons icon-bubble"></i> 0</span>
-        </div>
-        <!-- /.item-meta -->
       </div>
-      <!-- /.item-details -->
     </div>
-    <!-- /.item -->
-    {% endfor %}
+    {% endfor %} {% endif %}
   </div>
 </div>
-{% else %}
-
-<div class="alert alert-info text-center">
-  <p class="lead">Pas de formation disponible!</p>
-</div>
-
-{% endif %}

@@ -1,102 +1,66 @@
-{% load static %}
-
-<footer class="site-footer">
-  <div class="footer-top light-black">
-    <div class="section-padding">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="widget widget_about_us">
-              <h4>Xarala</h4>
-              <img class="footer-logo" src="{% static 'images/logo/logo.png' %}" width="120" alt="Site Logo">
-              <div class="widget-details">
-
-                <ul>
-                  <li> <i class="fa fa-phone-square"></i> +221 77 992 99 52</li>
-                  <li> <i class="fa fa-envelope-square"></i> <a href="#"> contact@xarala.tech</a></li>
-                </ul>
-                <div class="widget-social text-center">
-                  <a href="https://www.facebook.com/profile.php?id=100042450277524" target="_blank"><i
-                      class="fab fa-facebook-f"></i></a>
-                  <a href="https://twitter.com/xarala221" target="_blank"><i class="fab fa-twitter"></i></a>
-                  <a href="https://www.youtube.com/c/xaralaAcademy" target="_blank"><i class="fab fa-youtube"></i></a>
-                </div><!-- /.widget-social -->
-              </div><!-- /.widget-details -->
-            </div><!-- /.widget -->
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="widget widget_nav_menu">
-              <h4>Liens rapides</h4>
-              <div class="widget-details">
-                <ul class="menu">
-                  <li class="menu-item"><a href="#"><i class="fa fa-angle-double-right"></i> Formation</a></li>
-                  <li class="menu-item"><a href="#"><i class="fa fa-angle-double-right"></i> Events</a></li>
-                  <li class="menu-item"><a href="{% url 'about' %}"><i class="fa fa-angle-double-right"></i> A propos</a></li>
-                  <li class="menu-item"><a href="#"><i class="fa fa-angle-double-right"></i> Blog</a></li>
-
-                  <li class="menu-item"><a href="#"><i class="fa fa-angle-double-right"></i> Contact</a></li>
-                </ul>
-              </div><!-- /.widget-details -->
-            </div><!-- /.widget -->
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="widget widget_nav_menu">
-              <h4>La plateforme</h4>
-              <div class="widget-details">
-                <ul class="menu">
-                  <li class="menu-item"><a href="#"><i class="fa fa-angle-double-right"></i> Devenir Mentor</a></li>
-                  <li class="menu-item"><a href="{% url 'about' %}"><i class="fa fa-angle-double-right"></i> Qui sommes nous</a></li>
-                  <li class="menu-item"><a href="#"><i class="fa fa-angle-double-right"></i> Nos
-                      professeurs</a></li>
-                  <li class="menu-item"><a href="#"><i class="fa fa-angle-double-right"></i> Gallery</a></li>
-                  <li class="menu-item"><a href="#"><i class="fa fa-angle-double-right"></i> Devenir professeur</a></li>
-
-                </ul>
-              </div><!-- /.widget-details -->
-            </div><!-- /.widget -->
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="widget widget_nav_menu">
-              <h4>Support</h4>
-              <div class="widget-details">
-                <ul class="menu">
-                  <li class="menu-item"><a href="{% url 'privacy_policy' %}"><i class="fa fa-angle-double-right"></i>
-                      CGU</a></li>
-                  <li class="menu-item"><a href="#"><i class="fa fa-angle-double-right"></i> Documentation</a></li>
-                  <li class="menu-item"><a href="#"><i class="fa fa-angle-double-right"></i> Forums</a></li>
-                  <li class="menu-item"><a href="#"><i class="fa fa-angle-double-right"></i> Carriere</a></li>
-                  <li class="menu-item"><a href="#"><i class="fa fa-angle-double-right"></i> Communauté</a></li>
-                </ul>
-              </div><!-- /.widget-details -->
-            </div><!-- /.widget -->
-          </div>
-        </div><!-- /.row -->
-      </div><!-- /.container -->
-    </div><!-- /.section-padding -->
-  </div><!-- /.footer-top -->
-
-  <div class="footer-bottom black-bg">
-    <div class="section-padding">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8">
-            <div class="copy-right float-left">
-              <span> Copyright © 2019 <a href="https://ousseynoudiop.com" target="_blank" rel="nofollow">Xarala</a>, All
-                rights reservs </span>
-            </div><!-- /.copy-right -->
-          </div>
-          <div class="col-md-4">
-            <ul class="menu float-right">
-              <li class="menu-item"><a href="#"> Privacy</a></li>
-              <li class="menu-item"><a href="#"> Terms</a></li>
-              <li class="menu-item"><a href="#"> Sitemap</a></li>
-            </ul>
-          </div>
-        </div><!-- /.row -->
-      </div><!-- /.container -->
-    </div><!-- /.section-padding -->
-  </div><!-- /.footer-bottom -->
-</footer><!-- /.site-footer -->
+<section class="bg-white py-8 w-full">
+  <div class="container mx-auto px-8">
+    <div class="table w-full">
+      <div class="block sm:table-cell">
+        <p class="uppercase text-grey text-sm sm:mb-6">Liens rapides</p>
+        <ul class="list-reset text-xs mb-6">
+          <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
+            <a href="#" class="text-grey hover:text-grey-dark">Formation</a>
+          </li>
+          <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
+            <a href="#" class="text-grey hover:text-grey-dark">Blog</a>
+          </li>
+          <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
+            <a href="#" class="text-grey hover:text-grey-dark">Aide</a>
+          </li>
+        </ul>
+      </div>
+      <div class="block sm:table-cell">
+        <p class="uppercase text-grey text-sm sm:mb-6">Rejoignez-nous</p>
+        <ul class="list-reset text-xs mb-6">
+          <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
+            <a href="#" class="text-grey hover:text-grey-dark"
+              >Devenir Formateur</a
+            >
+          </li>
+          <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
+            <a href="{% url 'register' %}" class="text-grey hover:text-grey-dark">Inscription</a>
+          </li>
+          <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
+            <a href="{% url 'login' %}" class="text-grey hover:text-grey-dark">Connexion</a>
+          </li>
+        </ul>
+      </div>
+      <div class="block sm:table-cell">
+        <p class="uppercase text-grey text-sm sm:mb-6">Suivez-nous</p>
+        <ul class="list-reset text-xs mb-6">
+          <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
+            <a href="#" class="text-grey hover:text-grey-dark">Facebook</a>
+          </li>
+          <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
+            <a href="#" class="text-grey hover:text-grey-dark">Linkedin</a>
+          </li>
+          <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
+            <a href="https://twitter.com/xarala221" class="text-grey hover:text-grey-dark">Twitter</a>
+          </li>
+        </ul>
+      </div>
+      <div class="block sm:table-cell">
+        <p class="uppercase text-grey text-sm sm:mb-6">La plateforme</p>
+        <ul class="list-reset text-xs mb-6">
+          <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
+            <a href="{% url 'about' %}" class="text-grey hover:text-grey-dark"
+              >Qui sommes nous ?</a
+            >
+          </li>
+          <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
+            <a href="{% url 'community' %}" class="text-grey hover:text-grey-dark">Communauté</a>
+          </li>
+          <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
+            <a href="#" class="text-grey hover:text-grey-dark">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

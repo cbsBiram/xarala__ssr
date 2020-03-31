@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends '_base.html' %}
 {% load static %}
 
 {% block title %}
@@ -141,5 +141,6 @@
     </div><!-- /.container -->
   </div><!-- /.section-padding -->
 </section><!-- /.courses -->
+{% include "partials/_course_tab.html" %}
 
 {% endblock %}
