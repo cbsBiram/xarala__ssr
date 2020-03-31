@@ -27,7 +27,7 @@
           <a
             href="{% if button_text == 'S\'inscrire'  %}{% url 'subscribe_user_to_course' course.slug %}{% else %}/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}{% endif %}"
             class="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded"
-            >Commencer</a
+            >{{ button_text }}</a
           >
         </div>
       </div>
