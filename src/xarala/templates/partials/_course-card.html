@@ -24,7 +24,7 @@
           <div class="mb-4 text-grey-darker text-sm flex-1">
             <p>
               <a href="{% url 'course-overview'  course.slug %}">
-                {{ course.description }}
+                {{ course.description|truncatewords:15 }}
             </a>
             </p>
           </div>

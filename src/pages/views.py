@@ -9,7 +9,7 @@ from blog.models import Post
 
 
 def home(request):
-    courses = Course.objects.all()[:8]
+    courses = Course.objects.order_by('-id')[:8]
     return render(request, "pages/index.html", {"courses": courses})
 
 

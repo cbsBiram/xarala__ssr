@@ -1,7 +1,7 @@
 {% load static %}
 <header class="bg-white">
   <div
-    class="sm:p-2 p-6 container mx-auto flex flex-wrap items-center justify-between"
+    class="sm:p-2 p-6 container mx-auto flex flex-wrap items-center justify-between pl-0"
   >
     <a
       href="/"
@@ -16,7 +16,7 @@
     </a>
 
     <ul class="justify-center md:justify-end flex-1 flex list-reset">
-      <li>
+      <li class="ml-4">
         <a
           href="{% url 'courses' %}"
           class="text-sm text-grey-800 no-underline hover:text-black"
@@ -25,14 +25,14 @@
       </li>
       
       {% if request.user.is_authenticated %}
-      <li class="ml-6">
+      <li class="ml-4">
         <a
           href="javascript:{document.getElementById('logout').submit()}"
           class="text-sm text-grey-800 no-underline hover:text-black"
           >Déconnexion</a
         >
       </li>
-      <li class="ml-6">
+      <li class="ml-4">
         <a href="{% if user.user_type == "TC" %}{% url "created-courses" %} {% elif user.user_type == "ST" %}{% url "enrolled-courses" %} {% endif %}" class="text-sm bg-blue-600 text-white py-3 px-6"
           >Dashboard</a
         >
@@ -44,14 +44,14 @@
       </li>
       {% else %}
         
-      <li class="ml-6">
+      <li class="ml-4">
         <a
           href="{% url 'login' %}"
           class="text-sm text-grey-800 no-underline hover:text-black"
           >Connexion</a
         >
       </li>
-      <li class="ml-6">
+      <li class="ml-4">
         <a href="{% url 'register' %}" class="text-sm bg-blue-600 text-white py-3 px-6"
           >Inscription</a
         >
