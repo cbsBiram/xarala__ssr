@@ -1,0 +1,69 @@
+<div class="w-full h-full">
+  <div class="bg-gray-100 lg:py-12 lg:flex lg:justify-center">
+    <div
+      class="bg-white lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg"
+    >
+      <div class="lg:w-1/2">
+        <div
+          class="h-64 bg-cover lg:rounded-lg lg:h-full"
+        >
+        <div class="w-full h-full" id="videoWrapper">
+          <iframe id="jsVimeoFrame" class="embed-responsive-item w-full h-full"
+            src="https://www.youtube.com/embed/{{ course.get_introudction.video_id }}?rel=0" frameborder="0"
+            allowfullscreen="" allow="autoplay; fullscreen"></iframe>
+        </div>
+
+      </div>
+      </div>
+      <div class="py-6 px-6 max-w-xl lg:max-w-5xl lg:w-1/2">
+        <h2 class="text-3xl text-gray-800 font-bold">
+          {{ course.title }}
+        </h2>
+        <p class="mt-4 text-gray-600">
+          {{ course.description|truncatewords:35 }}
+          
+        </p>
+        <div class="mt-8">
+          <a
+            href="{% if button_text == 'S\'inscrire'  %}{% url 'subscribe_user_to_course' course.slug %}{% else %}/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}{% endif %}"
+            class="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded"
+            >Commencer</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" flex items-center justify-center bg-blue-darker w-full py-2">
+    <div class="overflow-hidden bg-white rounded max-w-xs w-full shadow-lg  leading-normal">
+      <h4 class="text-center">Contenu de la formation</h4>
+
+      {% if object.course_chapters.all %}
+
+      {% for chapter in object.course_chapters.all %}
+
+      <a role="button" class="block group hover:bg-blue p-4 border-b">
+        <p class="font-bold text-lg mb-1 text-black group-hover:text-white">{{ chapter.name }}</p>
+
+
+        {% if chapter.course_lessons.all  %}
+        {% for lesson in chapter.course_lessons.all  %}
+        {% if lesson.chapter.id == chapter.id %}
+              <p class="text-grey-darker mb-2 group-hover:text-white">
+            {{ lesson.title }}
+          </p>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+
+    </a>
+
+      {% endfor %}
+
+
+      {% endif %}
+
+       
+       
+    </div>
+</div>
+</div>

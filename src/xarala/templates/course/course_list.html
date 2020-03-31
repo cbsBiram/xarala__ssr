@@ -1,33 +1,26 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}
-Liste des cours
-{% endblock %}
-
+{% extends '_base.html' %}
 
 {% block banner %}
-
+  
 {% endblock %}
 
+{% block title %}
+  Liste des Cours
+{% endblock %}
+
+<!--  -->
 {% block content %}
-<section class="popular-courses">
-  <div class="section-padding">
-
-
-    <div class="container">
-      <div class="top-content">
-        <div class="left-content float-left">
-          <h2 class="section-title">Formation populaire</h2>
-          <p>Les compétences les plus attendues</p>
-        </div><!-- /.left-content -->
-
-        <div class="owl-controls float-right"></div><!-- /.owl-controls -->
-      </div><!-- /.top-content -->
-
-      {% include "partials/_course-card.html" %}
-    </div>
-  </div>
-</section>
-
+<!--  -->
+{% include 'partials/alerts.html'%}
+        <div class="max-w-5xl mx-auto flex justify-end">
+          <h3
+            class="font-display-italic font-bold text-5xl md:text-6xl italic leading-none mb-6 mt-2 ml-2"
+          >
+            Les cours disponbiles
+          </h3>
+        </div>
+<!--  -->
+{% include 'partials/_course-card.html'%}
+<!--  -->
 {% endblock %}
+

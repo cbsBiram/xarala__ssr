@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %} Accueil {% endblock title %} | Xarala Academy
+    </title>
+    <meta
+      name="description"
+      content="xarala Academy - Cours en ligne - La technologie dans votre langue"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/all.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}" />
+    <!-- favicon -->
+    <link rel="icon" href="{% static 'images/logo/logo.png' %}" sizes="32x32" />
+    <link
+      rel="icon"
+      href="{% static 'images/logo/logo.png' %}"
+      sizes="192x192"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      href="{% static 'images/logo/logo.png' %}"
+    />
+  </head>
+
+  <body class="font-sans">
+    <div class="container mx-auto">
+      <!-- Put the sections here -->
+      {% include "partials/header.html" %}
+      <!--  -->
+      {% block banner %}
+
+      <div class="w-full bg-blue-600">
+        <div
+          class="w-full h-full relative flex items-center justify-center py-24"
+        >
+          <img
+            src="{% static 'images/banner/5.jpg' %}"
+            class="absolute top-0 left-0 w-full h-full object-cover opacity-50"
+          />
+
+          <div class="px-6 max-w-4xl relative z-10 text-center">
+            <h1
+              class="text-3xl md:text-4xl font-black text-white leading-tight mb-2"
+            >
+              LA TECHNOLOGIE DANS VOTRE LANGUE.
+            </h1>
+            <h2
+              class="text-lg md:text-2xl font-condensed text-white leading-tight mb-8"
+            >
+              Des compétences qui n'attendent que vous
+            </h2>
+            <a
+              href="#"
+              class="inline-block bg-white font-condensed text-primary py-2 px-5 text-base rounded-full hover:shadow-lg hover:bg-blue-600 hover:text-white"
+              >Bien débuter</a
+            >
+          </div>
+        </div>
+      </div>
+      {% endblock banner %}
+
+     
+
+      
+      <div class="container mx-auto flex flex-wrap pb-20">
+        {% block content %}
+
+        <div class="flex flex-wrap -m-3">
+          <div class="w-full sm:w-1/2 md:w-1/3 flex flex-col  px-6 mb-12">
+            <div
+              class="bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col"
+            >
+              <div
+                class="bg-cover h-48"
+                style="background-image: url(https://images.unsplash.com/photo-1523978591478-c753949ff840?w=900);"
+              ></div>
+              <div class="p-4 flex-1 flex flex-col">
+                <h3 class="mb-4 text-2xl">My heading</h3>
+                <div class="mb-4 text-grey-darker text-sm flex-1">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  </p>
+                </div>
+                <a
+                  href="#"
+                  class="border-t border-grey-light pt-2 text-xs text-grey hover:text-red uppercase no-underline tracking-wide"
+                  >Par : Ousseynou Diop</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="w-full sm:w-1/2 md:w-1/3 flex flex-col  px-6 mb-12">
+            <div
+              class="bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col"
+            >
+              <div
+                class="bg-cover h-48"
+                style="background-image: url(https://xarala.tech/media/9064549144736/9064549144736.png);"
+              ></div>
+              <div class="p-4 flex-1 flex flex-col">
+                <h3 class="mb-4 text-2xl">My much longer heading</h3>
+                <div class="mb-4 text-grey-darker text-sm flex-1">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Quasi, tempore sapiente eveniet quibusdam ab ea, quaerat
+                    placeat numquam aspernatur, accusamus magnam neque.
+                  </p>
+                </div>
+                <a
+                  href="#"
+                  class="border-t border-grey-light pt-2 text-xs text-grey hover:text-red uppercase no-underline tracking-wide"
+                  >Twitter</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="w-full sm:w-1/2 md:w-1/3 flex flex-col  px-6 mb-12">
+            <div
+              class="bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col"
+            >
+              <div
+                class="bg-cover h-48"
+                style="background-image: url(https://images.unsplash.com/photo-1503863937795-62954a3c0f05?w=900);"
+              ></div>
+              <div class="p-4 flex-1 flex flex-col">
+                <h3 class="mb-4 text-2xl">My heading</h3>
+                <div class="mb-4 text-grey-darker text-sm flex-1">
+                  <p>Shorter text.</p>
+                </div>
+                <a
+                  href="#"
+                  class="border-t border-grey-light pt-2 text-xs text-grey hover:text-red uppercase no-underline tracking-wide"
+                  >Twitter</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% endblock content %}
+      </div>
+      <!--  -->
+      <!-- {% include "partials/newsletter.html" %} -->
+      <!--  -->
+      {% include "partials/footer.html" %}
+
+      <div class="bg-black text-white text-center text-sm py-6">
+        <p>Copyright &copy; 2020 Xarala.</p>
+      </div>
+    </div>
+
+    
+ 
+    {% block extrajs %}
+
+    {% endblock %}
+
+  </body>
+</html>

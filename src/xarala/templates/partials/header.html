@@ -1,166 +1,64 @@
 {% load static %}
-<header class="masthead">
-  <div class="header-top">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="top-contact">
-            <div class="trggericon"><i class="fas fa-at"></i></div>
-            <div class="close"><i class="far fa-times-circle"></i></div>
-            <div class="contacts">
-              <span
-                ><i class="fas fa-phone"></i>
-                <a href="tel:+221779929952">(+221) 779929952</a></span
-              >
-              <span
-                ><i class="fas fa-envelope"></i>
-                <a href="#">support@xarala.tech</a></span
-              >
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="menu-search-form dropdown float-right">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <span>Recherche</span> <i class="fas fa-search"></i>
-            </a>
-            <div class="dropdown-menu">
-              <form action="#" class="menu-search">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Je veux un cours sur.... ..."
-                  name="s"
-                  title="Search here"
-                  required
-                />
-                <input type="submit" class="form-control" />
-              </form>
-            </div>
-          </div>
+<header class="bg-white">
+  <div
+    class="sm:p-2 p-6 container mx-auto flex flex-wrap items-center justify-between pl-0"
+  >
+    <a
+      href="/"
+      class="mb-6 md:mb-0 w-full text-center sm:text-center md:text-left md:w-auto font-display font-black text-3xl text-black uppercase"
+    >
+      <img
+        src="{% static 'images/logo/logo.png' %}"
+        alt="Logo Xarala"
+        width="80"
+        class="inline-block"
+      />
+    </a>
 
-          <div class="user-area dropdown float-right">
-            <a
-              href="#"
-              class="dropdown-toggle btn btn-lg banner-btn"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Mon espace
-            </a>
-
-            {% if request.user.is_authenticated %}
-            <div class="user-menu dropdown-menu">
-              <a class="nav-link" href="#"
-                ><i class="fa fa- user"></i>Mon Profile</a
-              >
-              <a class="nav-link" href="#"
-                ><i class="fa fa- user"></i>Notifications
-                <span class="count">13</span></a
-              >
-              
-             
-                
-              
-   
-              <a 
-                class="nav-link"
-                href="{% if user.user_type == "TC" %}{% url "created-courses" %} {% elif user.user_type == "ST" %}{% url "enrolled-courses" %} {% endif %}"
-              ><i class="fa fa -cog"></i>Dashboard</a
-              >
-              <a
-                class="nav-link"
-                href="javascript:{document.getElementById('logout').submit()}"
-                ><i class="fa fa-power -off"></i>Déconnexion</a
-              >
-              <form action="{% url 'logout' %}" method="POST" id="logout">
-                {% csrf_token %}
-                <input type="hidden" />
-              </form>
-            </div>
-            {% else %}
-            <div class="user-menu dropdown-menu">
-              <a class="nav-link" href="{% url 'login' %}"
-                ><i class="fa fa-power -on"></i>Se connecter</a
-              >
-            </div>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- /.header-top -->
-
-  <div class="header-bottom">
-    <div class="container">
-      <nav class="navbar navbar-expand-md m-0">
-        <a class="navbar-brand" href="{% url 'home' %}"
-          ><img
-            class="logo"
-            src="{% static 'images/logo/logo.png' %}"
-            alt="Logo"
-        /></a>
-
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#main-menu"
-          aria-controls="main-menu"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+    <ul class="justify-center md:justify-end flex-1 flex list-reset">
+      <li class="ml-4">
+        <a
+          href="{% url 'courses' %}"
+          class="text-sm text-grey-800 no-underline hover:text-black"
+          >Formation</a
         >
-          <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-        </button>
-        <div class="collapse navbar-collapse" id="main-menu">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'home' %}"
-                ><i class="fas fa-home"></i> Accueil</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'courses' %}"
-                ><i class="fas fa-laptop"></i> Formation</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                target="_blank"
-                href="https://blog.xarala.tech/"
-                ><i class="fab fa-blogger-b"></i> Blog</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'community' %}"
-                ><i class="fas fa-users"></i> Communauté</a
-              >
-            </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#"
-                ><i class="fas fa-terminal"></i> Lab</a
-              >
-            </li> -->
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'episodes' %}"
-                ><i class="fas fa-podcast"></i> Podcast</a
-              >
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-    <!-- /.container -->
+      </li>
+      
+      {% if request.user.is_authenticated %}
+      <li class="ml-4">
+        <a
+          href="javascript:{document.getElementById('logout').submit()}"
+          class="text-sm text-grey-800 no-underline hover:text-black"
+          >Déconnexion</a
+        >
+      </li>
+      <li class="ml-4">
+        <a href="{% if user.user_type == "TC" %}{% url "created-courses" %} {% elif user.user_type == "ST" %}{% url "enrolled-courses" %} {% endif %}" class="text-sm bg-blue-600 text-white py-3 px-6"
+          >Dashboard</a
+        >
+        <form action="{% url 'logout' %}" method="POST" id="logout">
+          {% csrf_token %}
+          <input type="hidden" />
+        </form>
+
+      </li>
+      {% else %}
+        
+      <li class="ml-4">
+        <a
+          href="{% url 'login' %}"
+          class="text-sm text-grey-800 no-underline hover:text-black"
+          >Connexion</a
+        >
+      </li>
+      <li class="ml-4">
+        <a href="{% url 'register' %}" class="text-sm bg-blue-600 text-white py-3 px-6"
+          >Inscription</a
+        >
+      </li>
+      {% endif %}
+        
+
+    </ul>
   </div>
-  <!-- /.header-bottom -->
 </header>
-<!-- /.masthead -->

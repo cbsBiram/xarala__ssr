@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends '_base.html' %}
 
 
 {% block title %}
@@ -11,56 +11,33 @@ Authentification
 {% endblock %}
 
 {% block content %}
+  <section class="auth-section max-w-sm mx-auto px-6">
+            <!-- Alerts -->
+{% include 'partials/alerts.html' %}
+    <div class="text-center font-semibold text-black">
+      Connectez vous, pour continuer!
+    </div>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-4">
+        <label class="block text-md font-light mb-2" for="username">Email</label>
+        <input class="w-full bg-drabya-gray border-gray-500 appearance-none border p-4 font-light leading-tight focus:outline-none focus:shadow-outline" type="email" name="email" id="email" placeholder="me@gmail.com" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-md font-light mb-2" for="password">Mot de passe</label>
+        <input class="w-full bg-drabya-gray border-gray-500 appearance-none border p-4 font-light leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" id="password" placeholder="*********">
+      </div>
+    
+      <div class="flex items-center justify-between mb-5">
+        <button class="bg-indigo-600 hover:bg-blue-700 text-white font-light py-2 px-6 rounded focus:outline-none focus:shadow-outline" type="submit">
+          Connexion
+        </button>
+        <a class="inline-block align-baseline font-light text-sm text-indigo-600 hover:text-indigo-500" href="{% url 'password_reset' %}">
+          Mot de passe oublié ?
+        </a>
+      </div>
+      <p class="text-center text-md font-light">Pas encore membre ? <a class="font-light text-md text-indigo-600" href="{% url 'register' %}?next={{ next|default_if_none:'/' }}">Inscrivez-vous</a></p>
+    </form>
 
-
-
-<section class="login-register">
-  <div class="section-padding">
-    <div class="container">
-      <div class="contents text-center">
-        <!-- Alerts -->
-        {% include 'partials/alerts.html' %}
-        <h2 class="section-title">Connectez vous, pour continuer!</h2>
-
-        <form class="sign-in-form" id="sign-in-form" method="post">
-          {% csrf_token %}
-          <p class="form-input">
-            <input type="email" name="email" id="user_login" class="input" placeholder="Email" required>
-          </p>
-
-          <p class="form-input">
-            <input type="password" name="password" id="user_pass" class="input" placeholder="Password" required="">
-          </p>
-
-          <p class="checkbox">
-            <input name="rememberme" type="checkbox" class="rememberme float-left" value="Remember Me">
-            Rester connecté
-            <a href="{% url 'password_reset' %}" class="float-right" title="Récupérez votre mot de passe perdu">Mot de
-              passe
-              oublié?</a>
-          </p>
-
-          <p class="form-input">
-            <input type="submit" name="wp-submit" id="wp-submit" class="btn" value="Connexion">
-          </p>
-
-        </form>
-
-        <!-- <div class="login-social">
-          <h2 class="section-title">Connexion avec</h2>
-          <button class="btn facebook"><i class="fab fa-facebook"></i> Facebook</button>
-          <button class="btn twitter"><i class="fab fa-twitter"></i> Twitter</button>
-          <button class="btn google"><i class="fab fa-google-plus"></i> Google</button>
-        </div> -->
-        <!-- /.login-social -->
-
-        <p class="register">
-          Pas encore membre ? <a href="{% url 'register' %}?next={{ next|default_if_none:'/' }}">Inscrivez-vous.</a>
-        </p>
-      </div><!-- /.contents -->
-    </div><!-- /.container -->
-  </div><!-- /.section-padding -->
-</section><!-- /.login-register -->
-
-
+  </section>
 {% endblock %}

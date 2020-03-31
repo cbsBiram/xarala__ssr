@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends '_base.html' %}
 {% load static %}
 
 {% block title %}
@@ -11,135 +11,9 @@
 {% endblock %}
 
 {% block content %}
-
-<section class="courses">
-  <div class="section-padding">
-    {% include 'partials/alerts.html' %}
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <h2 class="course-title">{{ object.title }}</h2><!-- /.course-title -->
-          <div class="course-meta">
-            <span class="meta-details">
-              <img class="rounded-circle float-left"
-                src="{% if object.teacher.avatar %} {{ object.teacher.avatar.url }} {% else %} {% endif %}"
-                alt="Avatar">
-
-              <span class="meta-id">Instructeur</span>
-              <a class="name" href="#">{{ object.teacher.get_full_name }}</a>
-            </span>
-            <span class="meta-details">
-              <span class="meta-id">Categorie</span>
-              <span>{{ object.categories.first|default_if_none:"" }}</span>
-            </span>
-            <span class="meta-details">
-              <span class="meta-id">Langue</span>
-
-              <span> {{ object.language|default_if_none:"Wolof" }}</span>
-
-            </span>
-          </div>
-          <div class="course-video">
-            <div class="embed-responsive embed-responsive-16by9 mb-4 rounded bg-light radius" id="videoWrapper">
-              <iframe id="jsVimeoFrame" class="embed-responsive-item"
-                src="https://www.youtube.com/embed/{{ object.get_introudction.video_id }}?rel=0" frameborder="0"
-                allowfullscreen="" allow="autoplay; fullscreen"></iframe>
-            </div>
-          </div>
-          <div class="course-single-details">
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-1" data-toggle="tab" href="#description" role="tab"
-                aria-controls="description" aria-selected="true">Description</a>
-              <a class="nav-item nav-link" id="nav-2" data-toggle="tab" href="#curriculum" role="tab"
-                aria-controls="curriculum" aria-selected="false">Contenu</a>
-              <a class="nav-item nav-link" id="nav-3" data-toggle="tab" href="#instructor" role="tab"
-                aria-controls="instructor" aria-selected="false">Instructeur</a>
-
-            </div>
-
-            <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description">
-                {{ course.description }}
-              </div>
-              <div class="tab-pane fade" id="curriculum" role="tabpanel" aria-labelledby="curriculum">
-                
-                <div class="curriculum-details">
-
-                  {% if object.course_chapters.all %}
-
-                  {% for chapter in object.course_chapters.all %}
-                  <div class="content-table">
-                    <span class="title">{{ chapter.name }}</span>
-                    <ul class="content-list">
-                      {% if chapter.course_lessons.all  %}
-                      {% for lesson in chapter.course_lessons.all  %}
-                      {% if lesson.chapter.id == chapter.id %}
-                      <li>
-                        <span class="float-left"><a href="#"><i class="fa fa-play-circle"></i> {{ lesson.title }}
-                          </a></span>
-                        <!-- <span class=" float-right">1.5MB</span> -->
-                      </li>
-                      {% endif %}
-                      {% endfor %}
-                      {% endif %}
-                    </ul>
-                  </div><!-- /.content-table -->
-                  {% endfor %}
-                  {% endif %}
-                </div><!-- /.curriculum-details -->
-              </div>
-
-              <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor">
-                <div class="author-bio">
-                
-                  <div class="author-contents media">
-                    <div class="author-avatar float-left"><img class="radius"
-                        src="{% if object.teacher.avatar %} {{ object.teacher.avatar.url }} {% else %}  {% endif %}"
-                        alt="Avatar"></div>
-                    <!-- /.author-avatar -->
-                    <div class="author-details media-body">
-                      <h3 class="name"><a href="#">{{ object.teacher }}</a></h3>
-                      <span>{{ object.}}</span>
-                      <p>
-                        {{ object.teacher.bio | default_if_none:"" }}
-                      </p>
-                      <a href="#" class="load-more">Voir plus <i class="fa fa-angle-double-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- reviewss -->
-            </div>
-          </div><!-- /.course-single-details -->
-
-
-          <!-- related course -->
-        </div>
-
-        <div class="col-md-4">
-          <aside class="sidebar">
-            <button class="btn btn-lg enroll-btn"> <a
-                href="/courses/{{ object.slug }}/?lecture={{object.get_introudction.slug}}">Voir le cours</a>
-            </button>
-
-            <div class="info">
-              <ul class="info-list">
-                <li>
-                  <span class="price"> {% if object.is_free %}Gratuit{% else %}{{ object.price }}{% endif %}
-                  </span></li>
-                <li><span>{{ course.count_duration }} de vidéos</span></li>
-                <li><span>{{ object.count_lessons }} Lectures</span></li>
-                <li><span>0 Quizes</span></li>
-                <li><span>{{ object.students.all.count }} Etudiants inscrits</span></li>
-                <li><span>Certificat de complétion</span></li>
-              </ul>
-            </div>
-          </aside><!-- /.sidebar -->
-        </div>
-      </div><!-- /.row -->
-    </div><!-- /.container -->
-  </div><!-- /.section-padding -->
-</section><!-- /.courses -->
-
+<!--  -->
+{% include 'partials/alerts.html' %}
+<!--  -->
+{% include "partials/_course_grid.html" with course=object %}
+<!--  -->
 {% endblock %}

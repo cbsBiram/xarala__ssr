@@ -14,7 +14,7 @@ def profile_check(user):
 
 
 class CourseListView(ListView):
-    queryset = Course.objects.order_by('-date_created')
+    queryset = Course.objects.order_by('-id')
     context_object_name = 'courses'
 
 
@@ -25,7 +25,7 @@ class CourseOverviewView(DetailView):
     def get_context_data(self, **kwargs):
         student = self.request.user
         context = super().get_context_data(**kwargs)
-        button_text = "Voir la formation"
+        button_text = "Commencer"
         if student.is_authenticated and context.get("course") in student.courses_enrolled.all():
             pass
         else:

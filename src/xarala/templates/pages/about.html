@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends '_base.html' %}
 {% load static %}
 {% block title %}
 A propos de Xarala
@@ -12,209 +12,18 @@ A propos de Xarala
 
 {% block content %}
 
+<div class="mx-auto max-w-6xl bg-white py-20 px-12 lg:px-24 shadow-xl mb-24">
+  <div class="mb-12">
+    <h1 class="text-3xl lg:text-4xl text-center mb-6 tracking-wider">Qui sommes nous ?</h1>
 
+    <p class="tracking-wide text-sm mb-6 leading-relaxed mx-auto max-w-xl text-center">Xarala Acadmey<br class="hidden md:block" />La technologie dans votre langue.</p>
 
-<section class="about-us text-center">
-  <div class="section-padding">
-    <div class="container">
-
-      <div class="top-content">
-        <h2 class="section-title">Xarala</h2><!-- /.section-title -->
-        <p>
-          Qui sommes nous ?
-        </p>
-      </div><!-- /.top-content -->
-
-      <p>
-        <strong>
-          Xarala, la technologie dans votre langue, est une plateforme d'apprentissage en ligne(E-Learning) qui
-        permet à toute personne d'apprendre les nouvells technologies.
-        </strong>
-      </p>
-
-      <p>
-         <br>
-        Nous sommes une équipe de différents professionnels qui croient en la production de cours de haute
-        qualité et de catégories basées sur meilleures vidéos.
-      </p>
-
-      <img src="{% static 'images/banner/xarala.png' %}" alt="About Image">
-
-      <div class="row">
-        <div class="col-md-6">
-          <h2 class="section-title">Notre mission</h2>
-          <p>
-            <strong>
-              Gregor said his father now from the room to his left, the chief clerk has come round and wants to know why
-              you didn’t leave on the early train.
-            </strong>
-          </p>
-
-          <p>
-            We don’t know what to say to him. And anyway, he wants to speak to you. So please open up this door. I’m
-            sure he’ll be good enough to forgive the untidiness of your room. Then the chief clerk called - Good
-            morning, Mr. Samsa, he isn’t well while his father continued to speak through the door. Why else would
-            Gregor have missed a train! The lad only ever thinks about the business.
-          </p>
-        </div>
-        <div class="col-md-6">
-          <h2 class="section-title">Notre visioin</h2>
-          <p>
-            <strong>
-              It nearly makes me cross the way he never goes out in the evenings. He’s been in town for a week now but
-              stayed home every evening
-            </strong>
-          </p>
-
-          <p>
-            He sits with us in the kitchen and just reads the paper or train timetables. His idea of relaxation is
-            working with his fretsaw. He’s made a little frame, it only took him two or three evenings, you’ll be amazed
-            how nice it is. It’s hanging up in his room, you’ll see it as soon as Gregor opens the door. Anyway, I’m
-            glad you’re here, we wouldn’t have been able to get Gregor to open the door by ourselves.
-          </p>
-        </div>
-      </div><!-- /.row -->
-    </div><!-- /.container -->
-  </div><!-- /.section-padding -->
-</section><!-- /.about-us -->
-
-
-
-
-<section class="facts facts-02 background-bg" data-image-src="{% static 'images/banner/1.jpeg' %}">
-  <div class="overlay">
-    <div class="section-padding">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="item media">
-              <div class="item-icon mr-3"><i class="icons icon-book-open"></i></div><!-- /.item-icon -->
-              <div class="item-details">
-                <span class="count">765</span><!-- /.count -->
-                <h3 class="item-title">Cours publiés</h3><!-- /.item-title -->
-              </div><!-- /.item-details -->
-            </div><!-- /.item -->
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="item media">
-              <div class="item-icon mr-3"><i class="icons icon-eyeglass"></i></div><!-- /.item-icon -->
-              <div class="item-details">
-                <span class="count">249</span><!-- /.count -->
-                <h3 class="item-title">Prfesseurs</h3><!-- /.item-title -->
-              </div><!-- /.item-details -->
-            </div><!-- /.item -->
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="item media">
-              <div class="item-icon mr-3"><i class="icons icon-people"></i></div><!-- /.item-icon -->
-              <div class="item-details">
-                <span class="count">8348</span><!-- /.count -->
-                <h3 class="item-title">Apprenants</h3><!-- /.item-title -->
-              </div><!-- /.item-details -->
-            </div><!-- /.item -->
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="item media">
-              <div class="item-icon mr-3"><i class="icons icon-trophy"></i></div><!-- /.item-icon -->
-              <div class="item-details">
-                <span class="count">99</span><!-- /.count -->
-                <h3 class="item-title">Trophés</h3><!-- /.item-title -->
-              </div><!-- /.item-details -->
-            </div><!-- /.item -->
-          </div>
-        </div><!-- /.row -->
-      </div><!-- /.container -->
-    </div><!-- /.section-padding -->
-  </div><!-- /.overlay -->
-</section><!-- /.facts -->
-
-
-
-<section class="team text-center">
-  <div class="section-padding">
-    <div class="container">
-      <div class="top-content">
-        <h2 class="section-title">Notre équipe</h2><!-- /.section-title -->
-        <p>
-          Une équipe jeune et dynamique...
-        </p>
-      </div><!-- /.top-content -->
-
-      <div class="row">
-        <div class="col-md-3">
-          <div class="member">
-            <div class="member-avatar">
-              <img src="{% static 'images/member/no-image-icon.png' %}" alt="Member Avatar">
-              <div class="member-social">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-tumblr"></i></a>
-                <a href="#"><i class="fab fa-pinterest"></i></a>
-              </div>
-            </div>
-            <div class="member-details">
-              <h4 class="name"><a href="#">Ousseynou Diop</a></h4><!-- /.name -->
-              <span class="designation">Mentor</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="member">
-            <div class="member-avatar">
-              <img src="{% static 'images/member/no-image-icon.png' %}" alt="Member Avatar">
-              <div class="member-social">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-tumblr"></i></a>
-                <a href="#"><i class="fab fa-pinterest"></i></a>
-              </div>
-            </div>
-            <div class="member-details">
-              <h4 class="name"><a href="#">Samba Bery Kaan</a></h4><!-- /.name -->
-              <span class="designation">Mentor</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="member">
-            <div class="member-avatar">
-              <img src="{% static 'images/member/no-image-icon.png' %}" alt="Member Avatar">
-              <div class="member-social">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-tumblr"></i></a>
-                <a href="#"><i class="fab fa-pinterest"></i></a>
-              </div>
-            </div>
-            <div class="member-details">
-              <h4 class="name"><a href="#">Cherif Diallo</a></h4><!-- /.name -->
-              <span class="designation">Developer</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="member">
-            <div class="member-avatar">
-              <img src="{% static 'images/member/no-image-icon.png' %}" alt="Member Avatar">
-              <div class="member-social">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-tumblr"></i></a>
-                <a href="#"><i class="fab fa-pinterest"></i></a>
-              </div>
-            </div>
-            <div class="member-details">
-              <h4 class="name"><a href="#">Makhtar</a></h4><!-- /.name -->
-              <span class="designation">Designer</span>
-            </div>
-          </div>
-        </div>
-
-
-      </div>
-    </div>
+    <p class="tracking-wide text-xs text-gray-600 leading-loose mx-auto max-w-xl text-center">Xarala, la technologie dans votre langue, est une plateforme d'apprentissage en ligne(E-Learning) qui
+      permet à toute personne d'apprendre les nouvells technologies.</p>
   </div>
-</section>
+
+</div>
+</div>
 
 
 
