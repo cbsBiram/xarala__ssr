@@ -15,8 +15,8 @@ def send_new_register_email(user):
         user.email,
     ]
     subject, from_email = (
-        'Merci d\'avoir utilisé Xarala',
-        'mstspr1155@gmail.com'
+        'Bienvenue chez Xarala',
+        'contact@xarala.tech'
     )
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(
