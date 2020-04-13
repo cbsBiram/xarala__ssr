@@ -1,3 +1,7 @@
+/* navbar */
+.navbar-burger {
+  background-color: #4c505f;
+}
 /* course page */
 .active-course {
   background-color: #10a8e5ff;
@@ -40,4 +44,24 @@
 .bg-github {
   background-color: #4078c0;
   color: #fff;
+}
+
+/* footer */
+.footer-copyright {
+  background-color: #a4b0bd;
+}
+
+/* xarala Framework */
+.bg-blue {
+  background-color: #10a8e5ff;
+}
+.bg-dark {
+  background-color: #4c505f;
+}
+
+.text-blue {
+  color: #10a8e5ff;
+}
+.text-dark {
+  color: #4c505f;
 }

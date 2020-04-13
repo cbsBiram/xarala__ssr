@@ -33,9 +33,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # third party app
-    # 'jet.dashboard',
-    # 'jet',
     # django default apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,8 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django.contrib.sites',
     # third party apps
-    # 'social_django',
+    # 3rd part apps
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
     'corsheaders',
     'graphene_django',
     'django_summernote',
@@ -52,13 +53,10 @@ INSTALLED_APPS = [
     'cloudinary',
     'podcast',
 
-    # custom app
-    'blog',
-    'course',
-    # 'comments',
-    'events',
-    'pages',
-    'users',
+    'course.apps.CourseConfig',
+    'pages.apps.PagesConfig',
+    'users.apps.UsersConfig',
+    'logs.apps.LogsConfig'
     # 'mentorship',
 ]
 
@@ -134,6 +132,8 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = [
     'graphql_jwt.backends.JSONWebTokenBackend',
     'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    # 'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 # add this
@@ -192,6 +192,13 @@ MESSAGE_TAGS = {
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+# SITE_ID = 1
+# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
 
 try:
     from .local_settings import *

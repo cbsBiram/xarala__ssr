@@ -7,6 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, View
 from .models import Course, Chapter, Lesson, CustomUser
 from .forms import (CreateCourse, CreateChapter)
+from logs.models import UserLog
 
 
 def profile_check(user):
@@ -29,7 +30,7 @@ class CourseOverviewView(DetailView):
         if student.is_authenticated and context.get("course") in student.courses_enrolled.all():
             pass
         else:
-            button_text = "S'inscrire"
+            button_text = "Enroller"
         context['button_text'] = button_text
         return context
 
@@ -55,8 +56,12 @@ def subscribe_user_to_course(request, course_slug):
         if student.is_authenticated:
             if course not in student.courses_enrolled.all():
                 student.courses_enrolled.add(course)
+                UserLog.objects.create(
+                    action=f'Enrolled {course} course',
+                    user_type='Student',
+                    user=student)
                 messages.success(
-                    request, "Vous êtes inscrit avec succes...")
+                    request, "Formation enrollée...")
                 return redirect(f"/courses/{course.slug}/overview")
             else:
                 return redirect(f"/courses/{course.slug}/overview")

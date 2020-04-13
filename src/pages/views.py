@@ -3,13 +3,13 @@ from .models import Subscribe
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from course.models import Course
-from blog.models import Post
+
 
 # Create your views here.
 
 
 def home(request):
-    courses = Course.objects.order_by('-id')[:8]
+    courses = Course.objects.order_by('-id')[:4]
     return render(request, "pages/index.html", {"courses": courses})
 
 

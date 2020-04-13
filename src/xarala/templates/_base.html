@@ -41,10 +41,10 @@
     />
   </head>
 
-  <body class="font-sans">
+  <body class="font-sans" style="background-image: url({% static 'images/mix/bg.png' %}); background-attachment:fixed">
     <div class="container mx-auto">
-      <!-- Put the sections here -->
       {% include "partials/header.html" %}
+      <!-- Put the sections here -->
       <!--  -->
       {% block banner %}
 
@@ -165,12 +165,12 @@
       <!--  -->
       {% include "partials/footer.html" %}
 
-      <div class="bg-black text-white text-center text-sm py-6">
+      <div class="footer-copyright text-white text-center text-sm py-6">
         <p>Copyright &copy; 2020 Xarala.</p>
       </div>
     </div>
 
-    
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
  
     {% block extrajs %}
 

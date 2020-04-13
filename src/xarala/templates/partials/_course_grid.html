@@ -25,7 +25,7 @@
         </p>
         <div class="mt-8">
           <a
-            href="{% if button_text == 'S\'inscrire'  %}{% url 'subscribe_user_to_course' course.slug %}{% else %}/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}{% endif %}"
+            href="{% if button_text == 'Enroller'  %}{% url 'subscribe_user_to_course' course.slug %}{% else %}/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}{% endif %}"
             class="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded"
             >{{ button_text }}</a
           >
