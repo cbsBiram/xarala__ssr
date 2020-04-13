@@ -38,8 +38,8 @@ def login(request):
                     request, "Information incorrect")
                 UserLog.objects.create(
                     action=f'Have problem to login',
-                    user_type=user.user_type,
-                    user=user)
+                    user_type="None",
+                    user=email)
                 return redirect(f'/users/login/?next={redirect_path}')
         else:
             return render(request, "users/login.html", {"next": next_})
