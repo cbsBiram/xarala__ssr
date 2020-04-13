@@ -4,9 +4,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 from django.utils.http import is_safe_url
+from django.views.generic import TemplateView
 from .models import CustomUser
 from .forms import CustomUserLoginForm
 from send_mail.views import send_new_register_email
+from course.models import Course
+from logs.models import UserLog
 
 
 def login(request):
@@ -25,7 +28,7 @@ def login(request):
             user = authenticate(request, email=email, password=password)
             if user is not None:
                 auth_login(request, user)
-                # messages.success(request, f"Bienvenue {user}, chez Xarala")
+
                 if is_safe_url(redirect_path, request.get_host()):
                     return redirect(redirect_path)
                 else:
@@ -33,6 +36,10 @@ def login(request):
             else:
                 messages.error(
                     request, "Information incorrect")
+                UserLog.objects.create(
+                    action=f'Have problem to login',
+                    user_type=user.user_type,
+                    user=user)
                 return redirect(f'/users/login/?next={redirect_path}')
         else:
             return render(request, "users/login.html", {"next": next_})
@@ -54,7 +61,7 @@ def register(request):
             # check if password much
             if password == password2:
                 if CustomUser.objects.filter(email=email).exists():
-                    messages.error(request, "Le email est deja utilisé")
+                    messages.error(request, "Cet Email est déja utilisé")
                     return redirect(f'/users/register/?next={redirect_path}')
                 else:
                     # looks good
@@ -64,6 +71,10 @@ def register(request):
                     )
                     user.save()
                     send_new_register_email(user)
+                    UserLog.objects.create(
+                        action=f'Created account',
+                        user_type=user.user_type,
+                        user=user)
                     messages.success(
                         request, "compte crée avec succes...")
                     if is_safe_url(redirect_path, request.get_host()):
@@ -89,3 +100,19 @@ def dashboard(request):
         {"student": student,
          "courses_enrolled": courses_enrolled}
     )
+
+
+class AdminView(TemplateView):
+    template_name = "dashboard/admin.html"
+    total_courses = Course.objects.all().count()
+    total_users = CustomUser.objects.all().count()
+    total_students = CustomUser.objects.filter(user_type="ST").count()
+    logs = UserLog.objects.all()[:3]
+
+    extra_context = {
+        'title': 'Staff',
+        'total_courses': total_courses,
+        'total_users': total_users,
+        'total_students': total_students,
+        'logs': logs,
+    }

@@ -17,7 +17,7 @@
       <div class="flex mt-3">
         {% if lesson.previous %}
         <a
-          class="border border-teal-500 text-teal-500 block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-teal-500 hover:text-white"
+          class="border border-teal-500 text-blue block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-teal-500 hover:text-white"
           href="/courses/{{ object.slug }}/?lecture={{lesson.previous.slug}}"
         >
           <svg
@@ -42,7 +42,7 @@
         {% endif %}
         {% if lesson.next %}
         <a
-          class="border border-teal-500 bg-teal-500 text-white block rounded-sm font-bold py-4 px-6 ml-2 flex items-center"
+          class="border border-teal-500 bg-blue text-white block rounded-sm font-bold py-4 px-6 ml-2 flex items-center"
           href="/courses/{{ object.slug }}/?lecture={{lesson.next.slug}}"
         >
           Suivant

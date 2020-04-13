@@ -1,4 +1,5 @@
 from django.urls import path, include
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import views as auth_views
 from . import views
 
@@ -8,7 +9,9 @@ urlpatterns = [
     path('register/', views.register, name="register"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("dashboard/", views.dashboard, name="dashboard"),
-    # path('social-auth/', include('social_django.urls', namespace="social")),
+    path('dashboard/staff/',
+         user_passes_test(lambda user: user.is_superuser)
+         (views.AdminView.as_view())),
     # change password
     path('password_change/',
          auth_views.PasswordChangeView.as_view(
