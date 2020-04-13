@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, View
 from .models import Course, Chapter, Lesson, CustomUser
 from .forms import (CreateCourse, CreateChapter)
-from logs.models import UserLog
+from userlogs.models import UserLog
 
 
 def profile_check(user):

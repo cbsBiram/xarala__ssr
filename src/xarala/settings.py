@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'course.apps.CourseConfig',
     'pages.apps.PagesConfig',
     'users.apps.UsersConfig',
-    'logs.apps.LogsConfig'
+    'userlogs.apps.LogsConfig'
     # 'mentorship',
 ]
 
