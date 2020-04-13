@@ -9,7 +9,7 @@ from .models import CustomUser
 from .forms import CustomUserLoginForm
 from send_mail.views import send_new_register_email
 from course.models import Course
-from logs.models import UserLog
+from userlogs.models import UserLog
 
 
 def login(request):
