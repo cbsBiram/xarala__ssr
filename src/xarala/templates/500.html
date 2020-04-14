@@ -1,0 +1,35 @@
+{% extends '_base.html' %}
+
+{% block style %}
+<style>
+    .error-text {
+      font-size: 130px;
+    }
+
+    @media (min-width: 768px) {
+      .error-text {
+        font-size: 220px;
+      }
+    }
+
+</style>
+{% endblock style %}
+
+{% block banner %}
+  
+{% endblock banner %}
+  
+{% block content %}
+<div
+class="h-screen w-screen bg-red-600 flex justify-center content-center flex-wrap"
+>
+<p class="font-sans text-white error-text">500</p>
+</div>
+
+<div
+class="absolute w-screen bottom-0 mb-6 text-white text-center font-sans text-xl"
+>
+<span class="opacity-50">Retour</span>
+<a class="border-b" href="/">xarala.tech</a>
+</div>
+{% endblock content %}

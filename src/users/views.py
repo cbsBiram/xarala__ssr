@@ -37,9 +37,9 @@ def login(request):
                 messages.error(
                     request, "Information incorrect")
                 UserLog.objects.create(
-                    action=f'Have problem to login',
+                    action=f'{email}Have problem to login',
                     user_type="None",
-                    user=email)
+                    user=None)
                 return redirect(f'/users/login/?next={redirect_path}')
         else:
             return render(request, "users/login.html", {"next": next_})
