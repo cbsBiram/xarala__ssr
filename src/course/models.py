@@ -106,6 +106,11 @@ class Course(models.Model):
         else:
             get_duration = 0
         return f"{get_duration} {text}"
+    
+    def count_students(self):
+        total_students = self.students.count()
+        return total_students
+
 
     def get_absolute_url(self):
         return reverse('course-detail', kwargs={'slug': self.slug})

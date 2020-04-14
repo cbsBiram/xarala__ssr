@@ -1,15 +1,11 @@
 {% extends '_base.html' %}
 <!--  -->
+{% block banner %}
+{% include "partials/_slider.html" with carousel=carousel %}
+{% endblock banner %}
 {% block content %}
 <!--  -->
 {% include 'partials/alerts.html'%}
-        <div class="max-w-5xl mx-auto flex justify-end">
-          <h3
-            class="font-display-italic font-semibold text-4xl md:text-4xl italic leading-none mb-8 mt-6 ml-2"
-          >
-            Formations disponibles
-          </h3>
-        </div>
 <!--  -->
 {% include 'partials/_course-card.html'%}
 <!--  -->

@@ -1,5 +1,5 @@
 from xarala.utils import SendSubscribeMail
-from .models import Subscribe
+from .models import Subscribe, Carousel
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from course.models import Course
@@ -10,7 +10,8 @@ from course.models import Course
 
 def home(request):
     courses = Course.objects.order_by('-id')[:4]
-    return render(request, "pages/index.html", {"courses": courses})
+    carousel = Carousel.objects.last()
+    return render(request, "pages/index.html", {"courses": courses, 'carousel': carousel})
 
 
 def subscribe(request):

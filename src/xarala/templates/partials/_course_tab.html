@@ -1,23 +1,75 @@
-<!-- <nav class="bg-white px-8 pt-2 shadow-md">
-  <div class="-mb-px flex justify-center tabs-menu">
-      <a class="no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3 mr-8 is-active" href="#" data-target="first-tab">
-          Home
-      </a>
-      <a class="no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="#" data-target="second-tab">
-          Products
-      </a>
-      <a class="no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="#">
-          Discounts
-      </a>
-      <a class="no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3" href="#">
-          Customers
-      </a>
-  </div>
-  <div class="tab-content" id="first-tab">
-    <p>tab 1</p>
-  </div>
-  <div class="tab-content" id="second-tab">
-    <p>tab 2</p>
+<div class="w-full h-full">
+  <div class="bg-gray-100 lg:py-12 lg:flex lg:justify-center">
+    <div
+      class="bg-white lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg"
+    >
+      <div class="lg:w-1/2">
+        <div
+          class="h-64 bg-cover lg:rounded-lg lg:h-full"
+        >
+        <div class="w-full h-full" id="videoWrapper">
+          <iframe id="jsVimeoFrame" class="embed-responsive-item w-full h-full"
+            src="https://www.youtube.com/embed/{{ course.get_introudction.video_id }}?rel=0" frameborder="0"
+            allowfullscreen="" allow="autoplay; fullscreen"></iframe>
+        </div>
+
+      </div>
+      </div>
+      <div class="py-6 px-6 max-w-xl lg:max-w-5xl lg:w-1/2">
+        <h2 class="text-3xl text-gray-800 font-bold">
+          {{ course.title }}
+        </h2>
+        <p class="mt-4 text-gray-600">
+          {{ course.description|truncatewords:35 }}
+          
+        </p>
+        <div class="mt-8">
+          <a
+            href="{% if button_text == 'Enroller'  %}{% url 'subscribe_user_to_course' course.slug %}{% else %}/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}{% endif %}"
+            class="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded"
+            >{{ button_text }}</a
+          >
+        </div>
+      </div>
+    </div>
   </div>
 
-</nav> -->
+
+  <div class="w-full md:w-3/5 mx-auto p-8">
+    <h2 class="m-2">Contenu de la formation</h2>
+    <div class="shadow-md">
+      {% if object.course_chapters.all %}
+      {% for chapter in object.course_chapters.all %}
+      <div class="tab w-full overflow-hidden border-t">
+        <input
+          class="absolute opacity-0"
+          id="tab-single-{{ chapter.id }}"
+          type="radio"
+          name="tabs2"
+        />
+        <label
+          class="block p-5 leading-normal cursor-pointer"
+          for="tab-single-{{ chapter.id }}"
+          >{{ chapter.name }}</label
+        >
+        {% if chapter.course_lessons.all  %}
+        {% for lesson in chapter.course_lessons.all  %}
+        {% if lesson.chapter.id == chapter.id %}
+        <div
+        class="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal"
+      >
+        <p class="px-5">
+          {{ lesson.title }}
+        </p>
+      </div>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+

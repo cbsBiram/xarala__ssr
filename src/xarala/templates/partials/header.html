@@ -18,12 +18,15 @@
           </div>
           <div id="main-nav" class="w-full flex-grow sm:flex items-center sm:w-auto hidden mt-2">
               <div class="text-sm sm:flex-grow">
-                  <a href="{% url 'courses' %}" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-grey-light mr-4">
-                      Formation
-                  </a>
-                  <a href="#" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-grey-light mr-4">
+                <a href="{% url 'courses' %}" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-grey-light mr-4">
+                  Tutoriels
+              </a>
+                  <!-- <a href="{% url 'courses' %}" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-grey-light mr-4">
+                      Formations
+                  </a> -->
+                  <!-- <a href="#" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-grey-light mr-4">
                       Parcours
-                  </a>
+                  </a> -->
               </div>
               <div>
                 {% if request.user.is_authenticated %}
