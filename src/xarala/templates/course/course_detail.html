@@ -7,6 +7,9 @@
 {{ object.title }}
 
 {% endblock %}
+{% block header %}
+  
+{% endblock header %}
 
 {% block banner %}
 {% endblock %} 
@@ -14,6 +17,7 @@
 
 {% block content %}
 
-{% include "partials/_course_player.html" with lesson=lesson %}
+<!-- {% include "partials/_course_player.html" with lesson=lesson %} -->
+{% include "partials/_course_lesson.html" with lesson=lesson %}
 
 {% endblock %}

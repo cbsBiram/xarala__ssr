@@ -22,3 +22,45 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 });
+
+// course tabs
+var myRadios = document.getElementsByName("tabs2");
+var setCheck;
+
+var x = 0;
+for (x = 0; x < myRadios.length; x++) {
+  myRadios[x].onclick = function () {
+    if (setCheck != this) {
+      setCheck = this;
+    } else {
+      this.checked = false;
+      setCheck = null;
+    }
+  };
+}
+
+// less tabs
+var myLessons = document.getElementsByName("tabs");
+var setCheck;
+
+var x = 0;
+for (x = 0; x < myLessons.length; x++) {
+  myRadios[x].onclick = function () {
+    if (setCheck != this) {
+      setCheck = this;
+    } else {
+      this.checked = false;
+      setCheck = null;
+    }
+  };
+}
+
+// course lesson
+
+document.getElementById('menuBtn').addEventListener('click', function () {
+  document.getElementById('app').classList.add('opened');
+});
+
+document.getElementById('sideNavBg').addEventListener('click', function () {
+  document.getElementById('app').classList.remove('opened');
+});

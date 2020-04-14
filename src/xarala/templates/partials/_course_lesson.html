@@ -1,0 +1,111 @@
+{% load static %}
+<div id="app" class="container mx-auto lg:mx-0">
+  <div id="sideNavBg" class="fixed inset-0 w-full h-full"></div>
+  <!-- Side Nav -->
+  <div
+    id="sideNav"
+    class="w-64 -ml-64 lg:ml-0 bg-white lg:bg-gray-100 h-full min-h-screen fixed overflow-y-scroll block left-0 z-50"
+  >
+    <div class="h-24 flex flex-col justify-center relative">
+      <a href="/">
+        <img
+        src="{% static 'images/logo/logo.png' %}"
+        alt="Logo"
+        class="w-16 mx-auto -mt-2"
+      />
+      </a>
+      <div
+        id="closeSideNav"
+        class="fixed right-0 bg-gray-100 h-8 w-8 flex justify-center items-center rounded-full text-2xl pt-0 pb-1 lg:hidden cursor-pointer mr-10"
+      >
+        &times;
+      </div>
+    </div>
+    
+
+    {% if object.course_chapters.all %}
+    {% for chapter in object.course_chapters.all %}
+    <div
+      class="bg-gray-300 p-3 mr-3 rounded-r-full text-sm uppercase font-medium text-gray-600 pl-8 hover:bg-gray-800 hover:text-white cursor-pointer transition hover-invert-img"
+    >
+      <img
+        src="{% static 'images/svgs/arrow-down.svg' %}"
+        alt="down arrow"
+        class="float-left mt-2 mr-2 invert-me"
+      />
+  
+       {{  chapter.name }}
+
+    </div>
+
+    {% if chapter.course_lessons.all  %}
+    {% for course in chapter.course_lessons.all  %}
+    {% if course.chapter.id == chapter.id %}
+    <ul>
+      <li>
+        <a
+          href="/courses/{{ object.slug }}/?lecture={{course.slug}}"
+          {% if course.id == lesson.id %} class="text-xs p-3 pr-0 pl-8 mt-2 mr-10 block text-white rounded-r-full active-course" {% else %} class="text-xs p-3 pr-0 pl-8 mt-2 mr-10 block text-dark rounded-r-full" {% endif %}
+        >
+          <img
+            src="{% static 'images/svgs/dot.svg' %}"
+            alt="dot"
+            class="float-left mt-1 mr-2"
+          />
+        {{ lesson.title }}
+        </a>
+      </li>
+    </ul>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+  </div>
+  <!-- Side Nav -->
+  <!-- Main Content -->
+  <div class="lg:ml-64 lg:pl-10 mb-12">
+    <div class="flex flex-col justify-center h-24 py-2">
+      <div class="flex space-around">
+        <h1 class="flex-1 text-xl font-bold justify-center">
+          <span
+            id="menuBtn"
+            class="inline-block lg:hidden mr-2 h-10 w-8 float-left rounded-full flex justify-center cursor-pointer"
+          >
+            <img
+              src="{% static 'images/svgs/menu.svg' %}"
+              alt="menu icon"
+            />
+          </span>
+          {{ lesson.title }}
+        </h1>
+        <div class="ml-8 -mt-2 flex cursor-pointer relative">
+          <img
+            src="{% static 'images/mix/avatar-default-icon.png' %}"
+            alt="User Avatar"
+            class="w-12 rounded-full border-3 border-purple-400"
+          />
+          <img
+            src="{% static 'images/svgs/angle-down.svg' %}"
+            alt="angle down"
+            class="pl-2"
+          />
+        </div>
+      </div>
+    </div>
+    <!-- Video Container -->
+    <div class="relative rounded-lg cursor-pointer">
+      <div class="w-full h-full" id="videoWrapper">
+        <iframe
+          id="jsVimeoFrame"
+          class="embed-responsive-item w-full"
+          src="https://www.youtube.com/embed/{{ lesson.video_id }}?rel=0"
+          frameborder="0"
+          allowfullscreen=""
+          allow="autoplay; fullscreen"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+  <!-- Main Content -->
+</div>
