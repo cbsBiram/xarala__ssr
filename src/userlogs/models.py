@@ -15,4 +15,4 @@ class UserLog(models.Model):
         null=True, blank=True, related_name='user_logs')
 
     def __str__(self):
-        return f'{self.user.email}: {self.action}'
+        return f'{self.user}: {self.action}'
