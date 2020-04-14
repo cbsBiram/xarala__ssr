@@ -24,7 +24,7 @@
             <img class="rounded-circle" src="{% if course.teacher.avatar %} {{ course.teacher.avatar.url }} {% else %} {% static 'images/mix/avatar-default-icon.png'  %} {% endif %}" alt="user image" />
           </div>
           <div class="ml-4">
-            <p class="text-gray-600"><a href="#" class="text-gray-900 ">{{ course.teacher.get_full_name }}</a></p>
+            <p class="text-gray-600">Formateur : <a href="#" class="text-gray-900 ">{{ course.teacher.get_full_name }}</a></p>
           </div>
         </div>
         <a href="{% url 'course-overview'  course.slug %}">
