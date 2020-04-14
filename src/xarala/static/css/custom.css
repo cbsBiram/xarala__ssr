@@ -204,21 +204,6 @@
   background-color: #a4b0bd;
 }
 
-/* xarala Framework */
-.bg-blue {
-  background-color: #10a8e5ff;
-}
-.bg-dark {
-  background-color: #4c505f;
-}
-
-.text-blue {
-  color: #10a8e5ff;
-}
-.text-dark {
-  color: #4c505f;
-}
-
 .embed-responsive-item {
   height: 32rem;
 }
@@ -284,4 +269,25 @@
   transform: rotateX(180deg);
   background-color: #10a8e5ff; /*.bg-indigo*/
   color: #f8fafc; /*.text-grey-lightest*/
+}
+
+/* xarala Framework */
+.bg-blue {
+  background-color: #10a8e5ff;
+}
+.bg-dark {
+  background-color: #4c505f;
+}
+
+.text-blue {
+  color: #10a8e5ff;
+}
+.text-dark {
+  color: #4c505f;
+}
+.border-blue {
+  border: 1px solid #10a8e5ff;
+}
+.hover-bg-blue:hover {
+  background-color: #10a8e5ff;
 }
