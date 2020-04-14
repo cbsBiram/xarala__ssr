@@ -13,13 +13,18 @@
 .active-course a {
   color: #ffffff;
 }
-
-.course-title,
 .course-price {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02rem;
   font-size: 1.6rem;
+}
+
+.course-title {
+  margin: 1rem 0 1rem 0;
+  font-weight: 700;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 /* course lesson */
