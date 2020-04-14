@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="19px" viewBox="0 0 20 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Dashboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="saasadventure-dashboard" transform="translate(-1018.000000, -39.000000)" fill="#000000">
+            <g id="main" transform="translate(-10.000000, -5.000000)">
+                <g id="header" transform="translate(298.000000, 31.000000)">
+                    <g id="right-actions" transform="translate(730.000000, 0.000000)">
+                        <g id="Group" transform="translate(0.000000, 13.000000)">
+                            <path d="M18.0694981,0 L1.93050193,0 C0.875160875,0 0,0.906666667 0,2 C0,3.09333333 0.875160875,4 1.93050193,4 L18.0694981,4 C19.1248391,4 20,3.09333333 20,2 C20,0.906666667 19.1248391,0 18.0694981,0 Z" id="Path"></path>
+                            <path d="M1.88679245,12 L10.1132075,12 C11.1446541,12 12,11.0933333 12,10 C12,8.90666667 11.1446541,8 10.1132075,8 L1.88679245,8 C0.855345912,8 0,8.90666667 0,10 C0,11.0933333 0.855345912,12 1.88679245,12 Z" id="Path"></path>
+                            <path d="M15.1166913,15 L1.88330871,15 C0.853766617,15 0,15.9066667 0,17 C0,18.0933333 0.853766617,19 1.88330871,19 L15.1166913,19 C16.1462334,19 17,18.0933333 17,17 C17,15.9066667 16.1462334,15 15.1166913,15 Z" id="Path"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
