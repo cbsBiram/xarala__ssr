@@ -2,7 +2,17 @@
 
 <div class="">
   <div class="mt-3 ml-8 mb-0 pt-2">
-    <span class="text-lg text-gray-700 font-medium text-3xl">Derniers Tutoriels</span>
+    <span class="text-lg text-gray-700 font-medium text-3xl">
+      
+      {% if title %}
+        {{ title }}
+
+        {% else %}
+        Derniers Tutoriels
+
+      {% endif %}
+        
+    </span>
   </div>
   <div class="flex flex-wrap w-full h-full -mt-4">
     
@@ -30,6 +40,7 @@
         <a href="{% url 'course-overview'  course.slug %}">
           <img class="h-auto w-full object-cover mt-2" src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %}" alt="{{ course.title }}">
         </a>
+        
         <div class="flex items-center justify-between px-4 py-2 bg-dark">
           <h2 class="text-gray-200 course-price">
             

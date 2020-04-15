@@ -20,4 +20,6 @@ urlpatterns = [
          name="created-courses"),
     path('dashboard/teacher/<slug:slug>/',
          views.TeacherChapterListCreateView.as_view(), name="add-chapter"),
+    path('dashboard/teacher/<slug:slug>/lesson/',
+         views.TeacherLessonListCreateView.as_view(), name="add-lesson"),
 ]

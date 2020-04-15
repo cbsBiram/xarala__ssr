@@ -59,6 +59,9 @@ class Course(models.Model):
     drafted = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['-date_created']
+
     def __str__(self):
         return self.title
 
@@ -106,11 +109,10 @@ class Course(models.Model):
         else:
             get_duration = 0
         return f"{get_duration} {text}"
-    
+
     def count_students(self):
         total_students = self.students.count()
         return total_students
-
 
     def get_absolute_url(self):
         return reverse('course-detail', kwargs={'slug': self.slug})
@@ -145,13 +147,16 @@ class Chapter(models.Model):
         ordering = ['id']
 
 
+# platform
+YOUTUBE = "Youtube"
+VIMEO = "Vimeo"
+WISTA = "Wista"
+CUSTOM = "Custom"
+CLOUDINARY = "CloudiNary"
+
+
 class Lesson(models.Model):
-    # platform
-    YOUTUBE = "Youtube"
-    VIMEO = "Vimeo"
-    WISTA = "Wista"
-    CUSTOM = "Custom"
-    CLOUDINARY = "CloudiNary"
+
     PLATFORM = (
         (YOUTUBE, YOUTUBE),
         (VIMEO, VIMEO),
@@ -174,6 +179,7 @@ class Lesson(models.Model):
         Chapter, models.SET_NULL, null=True, blank=True,
         related_name="course_lessons")
     drafted = models.BooleanField(default=False)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.title

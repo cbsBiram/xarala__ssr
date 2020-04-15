@@ -6,7 +6,7 @@ from django.core import serializers
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, View
 from .models import Course, Chapter, Lesson, CustomUser
-from .forms import (CreateCourse, CreateChapter)
+from .forms import (CreateCourse, CreateChapter, CreateLesson)
 from userlogs.models import UserLog
 
 
@@ -86,7 +86,8 @@ class TeacherCourseListView(ListView, CreateView):
         teacher = self.request.user
         courses = teacher.courses_created.all()
         form = self.form_class()
-        return render(request, self.template_name, {'form': form, 'courses': courses})
+        title = "Vos Formations"
+        return render(request, self.template_name, {'form': form, 'courses': courses, 'title': title})
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
@@ -106,6 +107,10 @@ class TeacherCourseListView(ListView, CreateView):
                             thumbnail=thumbnail,
                             teacher=teacher)
             course.save()
+            UserLog.objects.create(
+                action=f'Created {title} course',
+                user_type='Instructeur',
+                user=teacher)
             return redirect('/courses/dashboard/teacher/')
 
         return render(request, self.template_name, {'form': form})
@@ -131,8 +136,41 @@ class TeacherChapterListCreateView(DetailView, CreateView):
             course_id = request.GET.get('course_id')
             chapter = Chapter(name=name)
             chapter.save()
-            Course.objects.get(
-                pk=int(course_id)).course_chapters.add(chapter)
-            # return redirect('/courses/dashboard/teacher/')
+            course = Course.objects.get(
+                pk=int(course_id))
+            course.course_chapters.add(chapter)
+            return redirect(f'/courses/dashboard/teacher/{course.slug}/?course_id={course_id}')
+
+        return render(request, self.template_name, {'form': form})
+
+
+class TeacherLessonListCreateView(DetailView, CreateView):
+    form_class = CreateLesson
+    template_name = "dashboard/teacher/add-lesson.html"
+
+    def get(self, request, *args, **kwargs):
+        teacher = self.request.user
+        chapter_id = request.GET.get('chapter_id')
+        chapter = Chapter.objects.get(pk=int(chapter_id))
+        lessons = chapter.course_lessons.all()
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form, "lessons": lessons})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        teacher = self.request.user
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            video_id = form.cleaned_data.get('video_id')
+            text = form.cleaned_data.get('text')
+            platform = form.cleaned_data.get('platform')
+            chapter_id = request.GET.get('chapter_id')
+            lesson = Lesson(title=title, video_id=video_id,
+                            text=text, platform=platform)
+            lesson.save()
+            chapter = Chapter.objects.get(
+                pk=int(chapter_id))
+            chapter.course_lessons.add(lesson)
+            return redirect(f'/courses/dashboard/teacher/{chapter.slug}/lesson/?chapter_id={chapter_id}')
 
         return render(request, self.template_name, {'form': form})
