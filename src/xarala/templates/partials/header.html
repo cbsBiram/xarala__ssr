@@ -38,7 +38,7 @@
                   </form>
               </a>
               
-                <a href="{% if user.user_type == 'TC' %}{% url 'created-courses' %} {% elif user.user_type == 'ST' %}{% url 'enrolled-courses' %} {% endif %}" class="no-underline inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent bg-blue hover:text-blue-600 hover:bg-white lg:mt-0">Dashboard</a>
+                <a href="{% url 'dashboard' %}" class="no-underline inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent bg-blue hover:text-blue-600 hover:bg-white lg:mt-0">Dashboard</a>
                 {% else %}
                 <a href="{% url 'login' %}" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-grey-light mr-4">
                   Connexion

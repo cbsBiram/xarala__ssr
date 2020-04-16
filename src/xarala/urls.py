@@ -12,6 +12,7 @@ urlpatterns = [
     path('podcasts/', include("podcast.urls")),
     path('users/', include("users.urls")),
     path('summernote/', include('django_summernote.urls')),
+    path('dashboard/', include("dashboard.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(
