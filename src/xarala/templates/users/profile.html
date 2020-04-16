@@ -21,14 +21,14 @@
 {% block content %}
 <div class="h-screen overflow-hidden flex items-center justify-center">
   <div class="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4">
-    <img
+    <!-- <img
       class="w-full h-56 object-cover object-center"
       src="
         {% if user.avatar %} {{ user.avatar.url }}
         {% else %} {% static 'images/mix/avatar-default-icon.png'  %}
         {% endif %}"
       alt="avatar"
-    />
+    /> -->
     <div class="flex items-center px-6 py-3 bg-dark">
       <img
         class="h-6 w-6 fill-current"
@@ -60,7 +60,7 @@
           class="h-6 w-6 fill-current"
         />
         <h1 class="px-2 text-sm">
-          {{ user.phone|default_if_none:"Adresse vide" }}
+          {{ user.address|default_if_none:"Adresse vide" }}
         </h1>
       </div>
       <div class="flex items-center mt-4 text-gray-700">
@@ -133,9 +133,6 @@
           </div>
           <div class="m-2">
             {{ form.address|as_crispy_field }}
-          </div>
-          <div class="m-2">
-            {{ form.avatar|as_crispy_field }}
           </div>
         </div>
 

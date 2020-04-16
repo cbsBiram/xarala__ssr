@@ -51,7 +51,7 @@ class CustomUserProfileForm(forms.ModelForm):
 
 
 class CustomUserUpdateForm(forms.ModelForm):
-    avatar = forms.ImageField(label="Photo de profile", required=False,)
+    # avatar = forms.ImageField(label="Photo de profile", required=False,)
     email = forms.EmailField(
         label="Email", widget=forms.TextInput(
             attrs={'placeholder': 'me@gmail.com',
@@ -89,4 +89,4 @@ class CustomUserUpdateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ('email', 'first_name',
-                  'last_name', 'avatar', 'bio', 'phone', 'address')
+                  'last_name', 'bio', 'phone', 'address')
