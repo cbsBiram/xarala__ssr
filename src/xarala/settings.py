@@ -51,13 +51,14 @@ INSTALLED_APPS = [
     'django_summernote',
     'crispy_forms',
     'cloudinary',
-    'podcast',
-
+    # custom apps
+    'podcast.apps.PodcastConfig',
     'course.apps.CourseConfig',
     'pages.apps.PagesConfig',
     'users.apps.UsersConfig',
-    'userlogs.apps.LogsConfig'
-    # 'mentorship',
+    'userlogs.apps.LogsConfig',
+    'dashboard.apps.DashboardConfig',
+    # 'mentorship.apps.MentorshipConfig',
 ]
 
 MIDDLEWARE = [

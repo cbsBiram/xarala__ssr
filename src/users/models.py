@@ -38,6 +38,8 @@ class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
     scoial = models.ForeignKey(Social, models.SET_NULL, null=True, blank=True)
+    phone = models.CharField(max_length=150, blank=True, null=True)
+    address = models.CharField(max_length=250, blank=True, null=True)
     avatar = models.ImageField(
         upload_to=upload_image_path, null=True, blank=True)
     bio = models.TextField(blank=True)
@@ -51,4 +53,3 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
-

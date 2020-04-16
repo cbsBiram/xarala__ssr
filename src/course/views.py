@@ -1,5 +1,8 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
+from users.decorators import (teacher_required, student_required)
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponseRedirect
 from django.core import serializers
@@ -35,6 +38,7 @@ class CourseOverviewView(DetailView):
         return context
 
 
+@method_decorator([login_required], name='dispatch')
 class CourseDetailView(DetailView):
     model = Course
     template_name = "course/course_detail.html"
@@ -70,6 +74,7 @@ def subscribe_user_to_course(request, course_slug):
         return JsonResponse(values)
 
 
+@method_decorator([student_required], name='dispatch')
 class StudentCourseListView(ListView):
     def get_queryset(self):
         student = self.request.user
@@ -77,7 +82,7 @@ class StudentCourseListView(ListView):
     context_object_name = 'courses'
 
 
-# @method_decorator(login_required, name='dispatch')
+@method_decorator([teacher_required], name='dispatch')
 class TeacherCourseListView(ListView, CreateView):
     form_class = CreateCourse
     template_name = "dashboard/teacher/course-admin.html"
@@ -144,6 +149,7 @@ class TeacherChapterListCreateView(DetailView, CreateView):
         return render(request, self.template_name, {'form': form})
 
 
+@method_decorator([teacher_required], name='dispatch')
 class TeacherLessonListCreateView(DetailView, CreateView):
     form_class = CreateLesson
     template_name = "dashboard/teacher/add-lesson.html"
