@@ -3,6 +3,7 @@
 {% block banner %} {% endblock banner %}
 <!--  -->
 {% block content %}
+{% include "partials/_breadcrumbs.html" with previous=None previous_url="courses" current="Dashboard" %}
 <h2 class="text-center mt-2">
   Bienvenue M. {{ user.get_full_name }}
 </h2>

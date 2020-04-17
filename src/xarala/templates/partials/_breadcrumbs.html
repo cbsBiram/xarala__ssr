@@ -1,0 +1,17 @@
+<nav class="bg-grey-light p-1 rounded font-sans w-full m-1">
+  <ol class="list-reset flex text-grey-dark">
+    <li><a href="{% url 'home' %}" class="text-blue font-bold">Accueil</a></li>
+    <li><span class="mx-2">/</span></li>
+
+    {% if previous %}
+    <li>
+      <a href="{% url previous_url %}" class="text-blue font-bold"
+        >{{ previous }}</a
+      >
+    </li>
+    <li><span class="mx-2">/</span></li>
+    {% endif %}
+
+    <li>{{ current }}</li>
+  </ol>
+</nav>

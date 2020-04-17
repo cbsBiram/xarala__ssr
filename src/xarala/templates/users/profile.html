@@ -19,7 +19,9 @@
 {% block banner %} {% endblock banner %}
 <!--  -->
 {% block content %}
-<div class="h-screen overflow-hidden flex items-center justify-center">
+<!--  -->
+{% include "partials/_breadcrumbs.html" with previous="Dashboard" previous_url="dashboard" current="Profile" %}
+<div class="h-auto overflow-hidden flex items-center justify-center">
   <div class="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4">
     <!-- <img
       class="w-full h-56 object-cover object-center"
