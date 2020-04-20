@@ -14,5 +14,8 @@ class UserLog(models.Model):
         models.SET_NULL,
         null=True, blank=True, related_name='user_logs')
 
+    class Meta:
+        ordering = ['-id']
+
     def __str__(self):
         return f'{self.user}: {self.action}'

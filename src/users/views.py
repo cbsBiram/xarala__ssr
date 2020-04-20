@@ -42,7 +42,7 @@ def login(request):
                 messages.error(
                     request, "Information incorrect")
                 UserLog.objects.create(
-                    action=f'{email}Have problem to login',
+                    action=f'{email} Have problem to login',
                     user_type="None",
                     user=None)
                 if redirect_path:
@@ -95,21 +95,6 @@ def register(request):
         else:
             return render(request, "users/register.html", {"next": next_})
 
-
-class AdminView(TemplateView):
-    template_name = "dashboard/admin.html"
-    total_courses = Course.objects.all().count()
-    total_users = CustomUser.objects.all().count()
-    total_students = CustomUser.objects.filter(user_type="ST").count()
-    logs = UserLog.objects.all()[:3]
-
-    extra_context = {
-        'title': 'Staff',
-        'total_courses': total_courses,
-        'total_users': total_users,
-        'total_students': total_students,
-        'logs': logs,
-    }
 
 # update user
 
