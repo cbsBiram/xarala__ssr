@@ -29,14 +29,46 @@
             </a>
           </h2>
         </div>
-        <div class="flex items-center">
-          <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-300">
-            <img class="rounded-circle" src="{% if course.teacher.avatar %} {{ course.teacher.avatar.url }} {% else %} {% static 'images/mix/avatar-default-icon.png'  %} {% endif %}" alt="user image" />
+        <div class="course-meta m-2">
+
+          <div class="flex items-center mt-2 mb-2 text-gray-700">
+            <img
+              class="h-6 w-6 fill-current"
+              src="{% static 'images/svgs/language.svg' %}"
+              alt="Langue"
+            />
+            <h1 class="px-2 text-sm">
+              Langue : <strong>{{ course.language.name|default_if_none:"Wolof" }}</strong>
+            </h1>
           </div>
-          <div class="ml-4">
-            <p class="text-gray-600">Formateur : <a href="#" class="text-gray-900 ">{{ course.teacher.get_full_name }}</a></p>
+          <div class="flex items-center mt-2 mb-2 text-gray-700">
+            <img
+              class="h-6 w-6 fill-current"
+              src="{% static 'images/svgs/teacher.svg' %}"
+              alt="Teacher"
+            />
+            <h1 class="px-2 text-sm">
+              Formateur : <strong>{{ course.teacher.get_full_name|default_if_none:"Xarala" }}</strong>
+            </h1>
+          </div>
+          <div class="flex items-center mt-2 mb-2 text-gray-700">
+            <img
+              class="h-6 w-6 fill-current"
+              src="{% static 'images/svgs/students.svg' %}"
+              alt="Students"
+            />
+            <h1 class="px-2 text-sm">
+              Enrollée par : 
+              <strong>
+                {{ course.count_students|default_if_none:"10" }}
+                {% if course.count_students > 1 %} Étudiants {% else %} Étudiant
+                {% endif %}
+              </strong>
+            </h1>
           </div>
         </div>
+        
+
         <a href="{% url 'course-overview'  course.slug %}">
           <img class="h-auto w-full object-cover mt-2" src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %}" alt="{{ course.title }}">
         </a>
