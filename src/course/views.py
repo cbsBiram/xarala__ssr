@@ -116,7 +116,7 @@ class TeacherCourseListView(ListView, CreateView):
                 action=f'Created {title} course',
                 user_type='Instructeur',
                 user=teacher)
-            return redirect('/courses/dashboard/teacher/')
+            return redirect('created-courses')
 
         return render(request, self.template_name, {'form': form})
 
@@ -144,7 +144,7 @@ class TeacherChapterListCreateView(DetailView, CreateView):
             course = Course.objects.get(
                 pk=int(course_id))
             course.course_chapters.add(chapter)
-            return redirect(f'/courses/dashboard/teacher/{course.slug}/?course_id={course_id}')
+            return redirect(f'/dashboard/teacher/{course.slug}/?course_id={course_id}')
 
         return render(request, self.template_name, {'form': form})
 
@@ -167,7 +167,11 @@ class TeacherLessonListCreateView(DetailView, CreateView):
         teacher = self.request.user
         if form.is_valid():
             title = form.cleaned_data.get('title')
-            video_id = form.cleaned_data.get('video_id')
+            video_link = form.cleaned_data.get('video_id')
+            if "www.youtube.com/" or "https://youtu.be/" in video_link:
+                video_id = video_link[-11:]
+            else:
+                video_id = form.cleaned_data.get('video_id')
             text = form.cleaned_data.get('text')
             platform = form.cleaned_data.get('platform')
             chapter_id = request.GET.get('chapter_id')
@@ -177,6 +181,6 @@ class TeacherLessonListCreateView(DetailView, CreateView):
             chapter = Chapter.objects.get(
                 pk=int(chapter_id))
             chapter.course_lessons.add(lesson)
-            return redirect(f'/courses/dashboard/teacher/{chapter.slug}/lesson/?chapter_id={chapter_id}')
+            return redirect(f'/dashboard/teacher/{chapter.slug}/lesson/?chapter_id={chapter_id}')
 
         return render(request, self.template_name, {'form': form})
