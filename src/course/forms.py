@@ -70,7 +70,7 @@ class CreateLesson(forms.ModelForm):
             attrs={'class': 'form-textarea mt-1 block w-full border', 'rows': '3'}))
     video_id = forms.CharField(
         max_length=254,
-        label='Video ID',
+        label='URL de YouTube',
         widget=forms.TextInput(
               {'placeholder': 'Cours..',  'class': ' border w-full py-2 px-3 text-grey-darker mt-2'}))
     platform = forms.ChoiceField(
