@@ -200,6 +200,9 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 # ACCOUNT_USERNAME_REQUIRED = False
 # ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
+# django summernot
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+SUMMERNOTE_THEME = 'lite'
 
 try:
     from .local_settings import *

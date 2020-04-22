@@ -81,13 +81,13 @@
     {% endif %}
   </div>
   <div
-    class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center"
+    class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex animated fadeIn fixed z-50 pin overflow-auto bg-smoke-dark flex"
   >
     <div
       class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"
     ></div>
     <div
-      class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto"
+      class="modal-container bg-white w-11/12  mx-auto rounded shadow-lg z-50 overflow-y-auto"
     >
       <!-- Add margin if you want to see some of the overlay behind the modal-->
       <div class="modal-content py-4 text-left px-6">
@@ -128,15 +128,15 @@
           </div>
 
           <!--Footer-->
-          <div class="flex justify-end pt-2">
+          <div class="inline-flex justify-center pt-2">
             <button
-              class="px-4 bg-blue p-3 rounded-lg text-white hover:bg-gray-100 hover:text-indigo-400 mr-2"
+              class="px-4 bg-blue p-3 rounded-lg text-white hover:bg-gray-100 hover:text-indigo-400 mr-2 bg-grey-lighter flex-1 border-b-2 md:flex-none border-green ml-2 hover:bg-green-lightest text-grey-darkest font-bold py-4 px-6 rounded"
               type="submit"
             >
               Ajouter
             </button>
             <button
-              class="modal-close px-4 bg-transparent p-3 rounded-lg text-dark hover:bg-indigo-400"
+              class="modal-close px-4 bg-transparent p-3 rounded-lg text-dark hover:bg-indigo-400 bg-grey-lighter flex-1 md:flex-none border-b-2 border-red ml-2 hover:bg-red-lightest text-grey-darkest font-bold py-4 px-6 rounded"
               type="button"
             >
               Fermer

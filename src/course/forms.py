@@ -1,4 +1,5 @@
 from django import forms
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from .models import (Course, Chapter, Language, Lesson,
                      BEGINNER, MEDIUM, INTERMEDIATE,
                      YOUTUBE, VIMEO, CLOUDINARY, CUSTOM
@@ -66,8 +67,10 @@ class CreateLesson(forms.ModelForm):
               {'placeholder': 'Cours..',  'class': ' border w-full py-2 px-3 text-grey-darker mt-2'}))
     text = forms.CharField(
         label="Description",
-        widget=forms.Textarea(
-            attrs={'class': 'form-textarea mt-1 block w-full border', 'rows': '3'}))
+        widget=SummernoteWidget(),
+    )
+    # widget=forms.Textarea(
+    # attrs={'class': 'form-textarea mt-1 block w-full border', 'rows': '3'})
     video_id = forms.CharField(
         max_length=254,
         label='URL de YouTube',
