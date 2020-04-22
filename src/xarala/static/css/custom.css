@@ -206,7 +206,7 @@
 }
 
 .embed-responsive-item {
-  height: 32rem;
+  height: 25rem;
 }
 /* course overview tabs */
 /* Tab content - closed */
@@ -291,4 +291,12 @@
 }
 .hover-bg-blue:hover {
   background-color: #10a8e5ff;
+}
+
+/* mobile */
+
+@media screen and (max-width: 600px) {
+  .embed-responsive-item {
+    height: 10rem;
+  }
 }
