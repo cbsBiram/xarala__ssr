@@ -28,7 +28,7 @@ class DashboardView(View):
 class StaffView(TemplateView):
     template_name = "dashboard/staff.html"
     total_courses = Course.objects.all().count()
-    total_users = CustomUser.objects.all().count()
+    total_users =  CustomUser.objects.all().count()
     total_students = CustomUser.objects.filter(user_type="ST").count()
     logs = UserLog.objects.all()[:3]
 
