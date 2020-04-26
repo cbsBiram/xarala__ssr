@@ -4,13 +4,15 @@ from .models import Subscribe, Carousel, Contact
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import TemplateView, CreateView
 from course.models import Course
+from blog.models import Post
 from .forms import ContactForm
 
 
 def home(request):
     courses = Course.objects.order_by('-id')[:4]
+    posts = Post.objects.order_by('-id')[:4]
     carousel = Carousel.objects.last()
-    return render(request, "pages/index.html", {"courses": courses, 'carousel': carousel})
+    return render(request, "pages/index.html", {"courses": courses, 'carousel': carousel, "posts": posts})
 
 
 def subscribe(request):
