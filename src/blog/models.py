@@ -1,5 +1,6 @@
 import cloudinary
 from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 from django.utils import timezone
 from xarala.utils import upload_image_path
@@ -54,3 +55,6 @@ class Post(models.Model):
         if not self.slug:
             self.slug = self._get_unique_slug()
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('blog-detail', kwargs={'slug': self.slug})

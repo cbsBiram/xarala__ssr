@@ -22,7 +22,6 @@ sentry-sdk = "*"
 graphene-django = "*"
 django-graphql-jwt = "*"
 django-cors-headers = "*"
-django-markdownx = "*"
 whitenoise = "*"
 django-allauth = "*"
 

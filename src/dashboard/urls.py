@@ -2,6 +2,7 @@ from django.urls import path
 from course import views as course_views
 from users import views as users_views
 from .views import DashboardView, UserLogList, StaffView
+from blog import views as blog_views
 
 urlpatterns = [
     path("", DashboardView.as_view(), name="dashboard"),
@@ -19,4 +20,6 @@ urlpatterns = [
          course_views.TeacherChapterListCreateView.as_view(), name="add-chapter"),
     path('teacher/<slug:slug>/lesson/',
          course_views.TeacherLessonListCreateView.as_view(), name="add-lesson"),
+    path('author/posts/',
+         blog_views.PostListCreateView.as_view(), name="posts-management"),
 ]

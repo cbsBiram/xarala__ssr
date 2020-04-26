@@ -11,8 +11,9 @@ urlpatterns = [
     path('courses/', include("course.urls")),
     path('podcasts/', include("podcast.urls")),
     path('users/', include("users.urls")),
-    path('summernote/', include('django_summernote.urls')),
+    path('blog/', include("blog.urls")),
     path('dashboard/', include("dashboard.urls")),
+    path('summernote/', include('django_summernote.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(

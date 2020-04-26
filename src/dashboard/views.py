@@ -6,6 +6,7 @@ from django.shortcuts import render
 from course.models import Course
 from userlogs.models import UserLog
 from users.models import CustomUser
+from blog.models import Post
 
 
 @method_decorator([login_required], name="dispatch")
@@ -15,12 +16,13 @@ class DashboardView(View):
     def get(self, request, *args, **kwargs):
         user = self.request.user
         total_courses = 0
+        total_posts = Post.objects.all().count()
         if user.user_type == "ST":
             total_courses = user.courses_enrolled.all().count()
         elif user.user_type == "TC":
             total_courses = user.courses_created.all().count()
 
-        context = {"total_courses": total_courses}
+        context = {"total_courses": total_courses, "total_posts": total_posts}
         return render(request, self.template_name, context)
 
 
@@ -28,7 +30,7 @@ class DashboardView(View):
 class StaffView(TemplateView):
     template_name = "dashboard/staff.html"
     total_courses = Course.objects.all().count()
-    total_users =  CustomUser.objects.all().count()
+    total_users = CustomUser.objects.all().count()
     total_students = CustomUser.objects.filter(user_type="ST").count()
     logs = UserLog.objects.all()[:3]
 

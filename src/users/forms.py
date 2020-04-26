@@ -55,7 +55,7 @@ class CustomUserUpdateForm(forms.ModelForm):
     email = forms.EmailField(
         label="Email", widget=forms.TextInput(
             attrs={'placeholder': 'me@gmail.com',
-                   'class': 'border w-full py-2 px-3 text-grey-darker mt-2'}))
+                   'class': 'border w-full py-2 px-3 text-grey-darker mt-2', 'disabled': ''}))
     first_name = forms.CharField(
         max_length=80,
         label='Prénom',

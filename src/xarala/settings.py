@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'userlogs.apps.LogsConfig',
     'dashboard.apps.DashboardConfig',
+    'blog.apps.BlogConfig',
     # 'mentorship.apps.MentorshipConfig',
 ]
 
