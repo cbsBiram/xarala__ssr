@@ -1,18 +1,9 @@
 {% load static %}
 
-<div class="">
-  <div class="mt-3 ml-8 mb-0 pt-2">
-    <span class="text-lg text-gray-700 font-medium text-3xl">
-      
-      {% if title %}
-        {{ title }}
-
-        {% else %}
-        Derniers Tutoriels
-
-      {% endif %}
-        
-    </span>
+<div class="courses">
+  <div class="mt-3 ml-8 mb-0 pt-2 text-center">
+    <h2 class="text-6xl">Tutoriels populaires</h2>
+    <p class="text-2xl text-grey leading-tight tracking-wide">Les compétences demandées par les recruteurs.</p>
   </div>
   <div class="flex flex-wrap w-full h-full -mt-4">
     
@@ -22,13 +13,19 @@
     <div class="w-full sm:w-1/2 md:w-1/4  my-10 px-2">
 
       <div class="course-items bg-white shadow-lg rounded-lg overflow-hidden m-0 p-1">
-        <div class="">
-          <h2 class="text-lg text-gray-700 font-medium text-3xl text-center">
+       
+        <a href="{% url 'course-overview'  course.slug %}">
+          <img class="object-contain h-48 w-full " src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %}" alt="{{ course.title }}">
+        </a>
+
+        <div class="courses-title-section">
+          <h2 class="text-lg text-blue font-medium text-2xl text-center">
             <a href="{% url 'course-overview'  course.slug %}">
               {{ course.title }}
             </a>
           </h2>
         </div>
+
         <div class="course-meta m-2">
 
           <div class="flex items-center mt-2 mb-2 text-gray-700">
@@ -68,24 +65,48 @@
           </div>
         </div>
         
+        <div class="flex items-center py-2 course-buttons">
 
-        <a href="{% url 'course-overview'  course.slug %}">
-          <img class="h-auto w-full object-cover mt-2" src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %}" alt="{{ course.title }}">
-        </a>
-        
-        <div class="flex items-center justify-between px-4 py-2 bg-dark">
-          <h2 class="text-gray-200 course-price">
-            
-            {% if course.price %}
-            {{ course.price }}
-            {% else %}
-            Gratuit
+          <div class="inline-flex" title="">
+            <img
+              class="w-6"
+              src="{% static 'images/svgs/currency.svg' %}"
+              alt="Teacher"
+            />
+            <span class="courses-price ml-2">
+              {% if course.price %}
+              {{ course.price }}
+              {% else %}
+              0
             {% endif %}
-              
-          </h2>
-          <a href="{% url 'course-overview'  course.slug %}" class="px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded">Voir</a>
+            </span>
+          </div>
+
+          <div class="inline-flex px-2 py-1 mx-2" title="">
+            <img
+              class="w-6"
+              src="{% static 'images/svgs/university.svg' %}"
+              alt="Teacher"
+            /> 
+            <span class="ml-1 text-blue">
+              Enroller
+            </span>
+          </div>
+          
+         
+          
+          <div class="inline-flex px-2 py-1 mx-2" title="">
+            <img
+              class="w-6"
+              src="{% static 'images/svgs/eye.svg' %}"
+              alt="Teacher"
+            /> 
+            <span class="ml-1 text-green">
+              Voir
+            </span>
+          </div>
         </div>
-  
+        
       </div>
 
     </div>
@@ -93,44 +114,5 @@
 
     {% endif %}
 
-    <!-- {% if courses %}
-    
-    {% for course in courses %}
-
-    
-    <div class="w-full sm:w-1/2 md:w-1/4 px-3 flex flex-col  px-6 mb-12">
-      <div
-        class="bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col"
-      >
-        <div
-          class="bg-cover h-48"
-          style="background-image: url({% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %});"
-        ></div>
-        <div class="p-4 flex-1 flex flex-col">
-          <h3 class="mb-4 text-2xl">
-            <a href="{% url 'course-overview'  course.slug %}">
-            {{ course.title }}
-          </a>
-          </h3>
-          <div class="mb-4 text-grey-darker text-sm flex-1">
-            <p>
-              <a href="{% url 'course-overview'  course.slug %}">
-                {{ course.description|truncatewords:15 }}
-            </a>
-            </p>
-          </div>
-        
-          <div class="flex items-center mt-4">
-            <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-300">
-              <img class="rounded-circle" src="{% if course.teacher.avatar %} {{ course.teacher.avatar.url }} {% else %} {% static 'images/mix/avatar-default-icon.png'  %} {% endif %}" alt="user image" />
-            </div>
-            <div class="ml-4">
-              <p class="text-gray-600">Par <a href="#" class="text-gray-900 font-semibold">{{ course.teacher.get_full_name }}</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% endfor %} {% endif %} -->
   </div>
 </div>

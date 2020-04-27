@@ -1,10 +1,9 @@
 {% load static %}
 
-<div class="">
-  <div class="mt-3 ml-8 mb-0 pt-2">
-    <span class="text-lg text-gray-700 font-medium text-3xl">
-      {% if title %} {{ title }} {% else %} Derniers articles {% endif %}
-    </span>
+<div class="posts">
+  <div class="mt-3 ml-8 mb-0 pt-2 text-center">
+    <h2 class="text-6xl">Derniers articles</h2>
+    <p class="text-2xl text-grey leading-tight tracking-wide">Des bonnes pratiques de développement.</p>
   </div>
   <div class="flex flex-wrap w-full h-full -mt-4">
     {% if posts %} {% for post in posts %}
@@ -13,7 +12,7 @@
         class="post-items bg-white shadow-lg rounded-lg overflow-hidden m-0 p-1"
       >
         <div class="">
-          <h2 class="text-lg text-gray-700 font-medium text-3xl text-center">
+          <h2 class="text-lg text-blue font-medium text-3xl text-center">
             <a href="{{ post.get_absolute_url }}">
               {{ post.title }}
             </a>
@@ -37,7 +36,7 @@
 
         <a href="{{ post.get_absolute_url }}">
           <img
-            class="h-auto w-full object-cover mt-2"
+            class="object-contain h-48 w-full  mt-2"
             src="
               {% if post.image %}
                 {{ post.image.url }}

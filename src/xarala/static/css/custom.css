@@ -3,6 +3,11 @@
   background-color: #4c505f;
 }
 
+/* home page */
+.courses {
+  background-color: #eaf0f1;
+}
+
 #menu-toggle:checked + #menu {
   display: block;
 }
@@ -286,6 +291,11 @@
 .text-dark {
   color: #4c505f;
 }
+
+.text-green {
+  color: #2ecc72;
+}
+
 .border-blue {
   border: 1px solid #10a8e5ff;
 }
@@ -299,4 +309,18 @@
   .embed-responsive-item {
     height: 10rem;
   }
+}
+
+/* from  */
+.h-without-header {
+  height: calc(100vh - 9rem);
+}
+.h-1\/4 {
+  height: 25%;
+}
+.h-2\/4 {
+  height: 50%;
+}
+.h-3\/4 {
+  height: 75%;
 }

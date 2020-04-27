@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'graphene_django',
     'django_summernote',
+
     'crispy_forms',
     'cloudinary',
     # custom apps
