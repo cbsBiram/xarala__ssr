@@ -2,7 +2,7 @@
 
 <div class="courses">
   <div class="mt-3 ml-8 mb-0 pt-2 text-center">
-    <h2 class="text-6xl">Tutoriels populaires</h2>
+    <h2 class="text-3xl">Tutoriels populaires</h2>
     <p class="text-2xl text-grey leading-tight tracking-wide">Les compétences demandées par les recruteurs.</p>
   </div>
   <div class="flex flex-wrap w-full h-full -mt-4">
@@ -10,104 +10,78 @@
     {% if courses %}
     
     {% for course in courses %}
-    <div class="w-full sm:w-1/2 md:w-1/4  my-10 px-2">
-
-      <div class="course-items bg-white shadow-lg rounded-lg overflow-hidden m-0 p-1">
-       
-        <a href="{% url 'course-overview'  course.slug %}">
-          <img class="object-contain h-48 w-full " src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %}" alt="{{ course.title }}">
-        </a>
-
-        <div class="courses-title-section">
-          <h2 class="text-lg text-blue font-medium text-2xl text-center">
-            <a href="{% url 'course-overview'  course.slug %}">
+    <div class=" w-full sm:w-1/2 md:w-1/4  lg:my-5 my-4 px-2">
+      
+      <div class="course-items bg-white border shadow rounded-lg overflow-hidden m-0 p-1">
+        <a href="{% url 'course-overview' course.slug %}">
+        <img src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %}" />
+      </a>
+        <div class="ml-3">
+          <a href="{% url 'course-overview' course.slug %}">
+            <h1 class="font-bold mb-2">
               {{ course.title }}
-            </a>
-          </h2>
-        </div>
-
-        <div class="course-meta m-2">
-
-          <div class="flex items-center mt-2 mb-2 text-gray-700">
-            <img
-              class="h-6 w-6 fill-current"
-              src="{% static 'images/svgs/language.svg' %}"
-              alt="Langue"
-            />
-            <h1 class="px-2 text-sm">
-              Langue : <strong>{{ course.language.name|default_if_none:"Wolof" }}</strong>
             </h1>
+          </a>
+          <!-- <h2 class="text-sm text-gray-800 mb-2">{{ course.teacher.get_full_name }}</h2> -->
+          <div class="mb-2 text-sm text-gray-800">
+            <div class="flex items-center mt-2 mb-2 text-gray-700">
+              <img
+                class="h-6 w-6 fill-current"
+                src="{% static 'images/svgs/students.svg' %}"
+                alt="Students"
+              />
+              <h1 class="px-2 text-sm text-gray-800">
+                 
+                
+                  {{ course.count_students|default_if_none:"10" }}
+                  {% if course.count_students > 1 %} Étudiants {% else %} Étudiant
+                  {% endif %}
+               
+              </h1>
+            </div>
+            <div class="flex items-center mt-2 mb-2 text-gray-700">
+              <img
+                class="h-6 w-6 fill-current"
+                src="{% static 'images/svgs/teacher.svg' %}"
+                alt="Teacher"
+              />
+              <h1 class="px-2 text-sm text-gray-800">
+                {{ course.teacher.get_full_name|default_if_none:"Xarala" }}
+              </h1>
+            </div>
+            <!-- <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <span class="font-bold">4.5</span>
+            <span class="">(166,325)</span> -->
+            <div class="flex items-center mt-2 mb-2 text-gray-700">
+              <img
+                class="h-6 w-6 fill-current"
+                src="{% static 'images/svgs/language.svg' %}"
+                alt="Langue"
+              />
+              <h1 class="px-2 text-sm text-gray-800">
+                {{ course.language.name|default_if_none:"Wolof" }}
+              </h1>
+            </div>
           </div>
-          <div class="flex items-center mt-2 mb-2 text-gray-700">
-            <img
-              class="h-6 w-6 fill-current"
-              src="{% static 'images/svgs/teacher.svg' %}"
-              alt="Teacher"
-            />
-            <h1 class="px-2 text-sm">
-              Formateur : <strong>{{ course.teacher.get_full_name|default_if_none:"Xarala" }}</strong>
-            </h1>
-          </div>
-          <div class="flex items-center mt-2 mb-2 text-gray-700">
-            <img
-              class="h-6 w-6 fill-current"
-              src="{% static 'images/svgs/students.svg' %}"
-              alt="Students"
-            />
-            <h1 class="px-2 text-sm">
-              Enrollée par : 
-              <strong>
-                {{ course.count_students|default_if_none:"10" }}
-                {% if course.count_students > 1 %} Étudiants {% else %} Étudiant
-                {% endif %}
-              </strong>
-            </h1>
-          </div>
-        </div>
-        
-        <div class="flex items-center py-2 course-buttons">
-
-          <div class="inline-flex" title="">
-            <img
-              class="w-6"
-              src="{% static 'images/svgs/currency.svg' %}"
-              alt="Teacher"
-            />
-            <span class="courses-price ml-2">
+          <div class="flex justify-end mr-4 mb-4">
+            <span class="text-sm  mr-3 mt-1 line-through">{{ course.original_price }} FCFA</span>
+            <h1 class="text-lg font-bold"">
               {% if course.price %}
               {{ course.price }}
               {% else %}
               0
-            {% endif %}
-            </span>
-          </div>
-
-          <div class="inline-flex px-2 py-1 mx-2" title="">
-            <img
-              class="w-6"
-              src="{% static 'images/svgs/university.svg' %}"
-              alt="Teacher"
-            /> 
-            <span class="ml-1 text-blue">
-              Enroller
-            </span>
-          </div>
-          
-         
-          
-          <div class="inline-flex px-2 py-1 mx-2" title="">
-            <img
-              class="w-6"
-              src="{% static 'images/svgs/eye.svg' %}"
-              alt="Teacher"
-            /> 
-            <span class="ml-1 text-green">
-              Voir
-            </span>
+              {% endif %}
+              FCFA
+          </h1>
           </div>
         </div>
-        
+
       </div>
+
 
     </div>
     {% endfor %}

@@ -1,0 +1,32 @@
+<div class="top-categories py-10">
+  <div class="mt-3 ml-8 mb-0 pt-2 text-center">
+    <h2 class="text-3xl">Top Catégories</h2>
+    <p class="text-2xl text-grey leading-tight tracking-wide">
+      Les participants consultent
+    </p>
+  </div>
+  
+  
+  {% if categories %}
+    
+  <div class="flex flex-wrap w-full h-full mt-4">
+    {% for category in categories %}
+    <div class="w-full sm:w-1/2 md:w-1/4 mb-4 cursor-pointer">
+      <div class="border shadow m-2">
+        <div class=" py-5 flex pl-5 pr-32">
+          <i class="fa fa-music mr-3 text-2xl"></i>
+          <a href="#">
+            <h2>{{ category.name }}</h2>
+          </a>
+        </div>
+      </div>
+      
+    </div>
+    
+    {% endfor %}
+  </div>
+  
+  {% endif %}
+    
+  
+</div>
