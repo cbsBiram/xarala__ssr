@@ -8,7 +8,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.core import serializers
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, View
-from .models import Course, Chapter, Lesson, CustomUser
+from .models import (Course, Chapter, Lesson, CustomUser, Category)
 from .forms import (CreateCourse, CreateChapter, CreateLesson)
 from userlogs.models import UserLog
 
@@ -19,6 +19,7 @@ def profile_check(user):
 
 class CourseListView(ListView):
     queryset = Course.objects.order_by('-id')
+    paginate_by = 4
     context_object_name = 'courses'
 
 
@@ -184,3 +185,22 @@ class TeacherLessonListCreateView(DetailView, CreateView):
             return redirect(f'/dashboard/teacher/{chapter.slug}/lesson/?chapter_id={chapter_id}')
 
         return render(request, self.template_name, {'form': form})
+
+# categories
+
+
+class CategoryCourseList(ListView):
+
+    template_name = 'course/courses_by_category.html'
+
+    def get_queryset(self):
+        self.category = get_object_or_404(
+            Category, name=self.kwargs['category'])
+        return Course.objects.filter(categories=self.category)
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in the publisher
+        context['category'] = self.category
+        return context

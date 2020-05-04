@@ -12,4 +12,6 @@ urlpatterns = [
     path('subscribe_user_to_course/<slug:course_slug>/',
          views.subscribe_user_to_course,
          name="subscribe_user_to_course"),
+    path('category/<category>/', views.CategoryCourseList.as_view(),
+         name="course-by-category"),
 ]

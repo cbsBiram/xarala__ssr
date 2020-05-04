@@ -1,9 +1,9 @@
 {% load static %}
 
-<div class="courses">
-  <div class="mt-3 ml-8 mb-0 pt-2 text-center">
-    <h2 class="text-3xl">Tutoriels populaires</h2>
-    <p class="text-2xl text-grey leading-tight tracking-wide">Les compétences demandées par les recruteurs.</p>
+<div class="course-card">
+  <div class="mt-0 ml-8 mb-8 pt-2 text-center">
+    <h2 class="text-3xl">{% if title %} {{ title }} {% else %} Tutoriels populaires {% endif %}</h2>
+    <p class="text-2xl text-grey leading-tight tracking-wide">{% if title %} Les Tutoriels de {{ title }} {% else %}Les compétences demandées par les recruteurs.{% endif %}</p>
   </div>
   <div class="flex flex-wrap w-full h-full -mt-4">
     

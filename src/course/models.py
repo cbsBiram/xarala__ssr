@@ -20,6 +20,8 @@ class Language(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
+    thumbnail = models.FileField(
+        upload_to=upload_image_path, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -42,7 +44,7 @@ class Course(models.Model):
     )
     title = models.CharField(max_length=200)
     description = models.TextField()
-    is_free = models.BooleanField(default=True)
+    is_tutorial = models.BooleanField(default=True)
     original_price = models.DecimalField(
         default=0, max_digits=13, decimal_places=2)
     price = models.DecimalField(default=0, max_digits=13, decimal_places=2)

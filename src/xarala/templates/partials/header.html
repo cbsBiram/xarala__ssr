@@ -18,20 +18,20 @@
           </div>
           <div id="main-nav" class="w-full flex-grow sm:flex items-center sm:w-auto hidden mt-2">
               <div class="text-sm sm:flex-grow">
-                <a href="{% url 'courses' %}" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-grey-light mr-4">
+                <a href="{% url 'courses' %}" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-blue mr-4">
                   Tutoriels
               </a>
              
-                  <!-- <a href="{% url 'courses' %}" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-grey-light mr-4">
+                  <!-- <a href="{% url 'courses' %}" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-blue mr-4">
                       Formations
                   </a> -->
-                  <!-- <a href="#" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-grey-light mr-4">
+                  <!-- <a href="#" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-blue mr-4">
                       Parcours
                   </a> -->
               </div>
               <div>
                 {% if request.user.is_authenticated %}
-                <a href="javascript:{document.getElementById('logout').submit()}" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-grey-light mr-4">
+                <a href="javascript:{document.getElementById('logout').submit()}" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-blue mr-4">
                   Déconnexion
                   <form action="{% url 'logout' %}" method="POST" id="logout">
                     {% csrf_token %}
@@ -41,7 +41,7 @@
               
                 <a href="{% url 'dashboard' %}" class="no-underline inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent bg-blue hover:text-blue-600 hover:bg-white lg:mt-0">Dashboard</a>
                 {% else %}
-                <a href="{% url 'login' %}" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-grey-light mr-4">
+                <a href="{% url 'login' %}" class="no-underline  block mt-4 sm:inline-block sm:mt-0 text-dark hover:text-blue mr-4">
                   Connexion
               </a>
                 <a href="{% url 'register' %}" class="no-underline inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent bg-blue hover:text-blue-600 hover:bg-white lg:mt-0">Inscription</a>
