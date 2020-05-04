@@ -16,7 +16,7 @@
 
 
   <div class="w-full md:w-3/5 mx-auto p-8">
-    <h2 class="m-2">Contenu de la formation</h2>
+    <h2 class="m-2 text-2xl">Contenu de la formation</h2>
     <div class="shadow-md">
       {% if object.course_chapters.all %}
       {% for chapter in object.course_chapters.all %}
@@ -38,9 +38,7 @@
         <div
         class="tab-content overflow-hidden border-l-2 bg-gray-100 border-indigo-500 leading-normal"
       >
-        <p class="px-5">
-          {{ lesson.title }}
-        </p>
+        <li class=" rounded-t relative -mb-px block border p-4 border-grey">{{ lesson.title }}</li>
       </div>
           {% endif %}
           {% endfor %}

@@ -1,0 +1,20 @@
+{% if is_paginated %}
+<ul class="flex list-reset border border-grey-light rounded w-auto  justify-center mx-4">
+  {% if page_obj.has_previous %}
+  <li><a class="block hover:text-white hover-bg-blue text-blue border-r border-grey-light px-3 py-2" href="?page={{page_obj.previous_page_number}}">&laquo; Précédent</a></li>
+  {% endif %}
+  {% for i in paginator.page_range %}
+  {% if page_obj.number == i %}
+
+  <li><a class="block  hover:text-blue hover:bg-white text-white border-r border-grey-light px-3 py-2 bg-blue" href="#">{{ i }}</a></li>
+  {% else %}
+
+  <li><a class="block  hover:text-white hover-bg-blue text-blue border-r border-grey-light px-3 py-2" href="?page={{ i }}">{{ i }}</a></li>
+  {% endif %}
+   {% endfor %}
+
+  {% if page_obj.has_next %}
+  <li><a class="block  hover:text-white hover-bg-blue text-blue px-3 py-2" href="?page={{page_obj.next_page_number}}">Suivant &raquo;</a></li>
+  {% endif %}
+</ul>
+{% endif %}
