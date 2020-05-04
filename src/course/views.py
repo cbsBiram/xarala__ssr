@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponseRedirect
 from django.core import serializers
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView, View
+from django.views.generic import (
+    ListView, DetailView, CreateView, View, TemplateView)
 from .models import (Course, Chapter, Lesson, CustomUser, Category)
 from .forms import (CreateCourse, CreateChapter, CreateLesson)
 from userlogs.models import UserLog
@@ -204,3 +205,11 @@ class CategoryCourseList(ListView):
         # Add in the publisher
         context['category'] = self.category
         return context
+
+
+class LearningPathView(TemplateView):
+    template_name = "course/learning_path.html"
+
+
+class ProfessionalTrainingView(TemplateView):
+    template_name = "course/professional_training.html"
