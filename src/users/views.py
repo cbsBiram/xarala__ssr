@@ -29,8 +29,13 @@ def login(request):
             next_post = request.POST.get('next')
             redirect_path = next_ or next_post
             email = request.POST['email']
+            mail_to_lower = email.lower()
             password = request.POST['password']
-            user = authenticate(request, email=email, password=password)
+            user = authenticate(
+                request,
+                email=mail_to_lower,
+                password=password
+            )
             if user is not None:
                 auth_login(request, user)
 
@@ -63,17 +68,18 @@ def register(request):
         if request.method == "POST":
             # Get form values
             email = request.POST['email']
+            mail_to_lower = email.lower()
             password = request.POST['password']
             password2 = request.POST['password2']
             # check if password much
             if password == password2:
-                if CustomUser.objects.filter(email=email).exists():
+                if CustomUser.objects.filter(email=mail_to_lower).exists():
                     messages.error(request, "Cet Email est déja utilisé")
                     return redirect(f'/users/register/?next={redirect_path}')
                 else:
                     # looks good
                     user = CustomUser.objects.create_user(
-                        email=email,
+                        email=mail_to_lower,
                         password=password,
                     )
                     user.save()
