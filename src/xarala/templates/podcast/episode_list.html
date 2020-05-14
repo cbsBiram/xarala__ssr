@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends '_base.html' %}
 
 <!--  -->
 {% block title %} Podcast {% endblock %}
@@ -10,26 +10,30 @@
 <!--  -->
 {% block content %}
 
-<section class="podcast">
-  <div class="section-padding">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <div class="m-2">
-           
-           {% if episods %}
-            
-           {% for episod in episods %}
-             {{ episod.embed|safe }}
-           {% endfor %}
-
-           {% endif %}
-             
+{% if episods %}
+<div class="w-full flex justify-center">
+  <div class=" bg-white w-full border-b flex justify-center">
+    <div class="h-full flex flex-col items-center justify-between w-full">
+      {% for episod in episods %}
+      
+      <div class="w-full mb-12">
+        <div class="text-3xl font-bold text-blue-800 my-3">
+          {{ episod.title }}
+        </div>
+        <div class="text-xl text-blue-800 leading-tight my-1">
+          {{ episod.embed|safe }}
+        </div>
+        <div class="text-lg text-blue-800 leading-tight mt-2 flex items-center">
+          <div>
+            <span>{{ episod.published_at }} </span> • <span>Invité : {{ episod.guest }}</span>
           </div>
         </div>
       </div>
+      
+      {% endfor %} 
     </div>
   </div>
-</section>
+</div>
+{% endif %}
 
 {% endblock %}

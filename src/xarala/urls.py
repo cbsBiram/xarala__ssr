@@ -8,7 +8,7 @@ urlpatterns = [
     path('x_yarou/', admin.site.urls),
     path('', include("pages.urls")),
     # path('accounts/', include('allauth.urls')),
-    path('courses/', include("course.urls")),
+    path('', include("course.urls")),
     path('podcasts/', include("podcast.urls")),
     path('users/', include("users.urls")),
     path('blog/', include("blog.urls")),

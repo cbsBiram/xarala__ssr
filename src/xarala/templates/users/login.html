@@ -11,7 +11,7 @@ Authentification
 {% endblock %}
 
 {% block content %}
-  <section class="auth-section max-w-sm mx-auto px-6">
+  <section class="auth-section max-w-sm mx-auto px-6 my-10">
             <!-- Alerts -->
 {% include 'partials/alerts.html' %}
     <div class="text-center font-semibold text-black">
@@ -29,14 +29,14 @@ Authentification
       </div>
     
       <div class="flex items-center justify-between mb-5">
-        <button class="bg-indigo-600 hover:bg-blue-700 text-white font-light py-2 px-6 rounded focus:outline-none focus:shadow-outline" type="submit">
+        <button class="bg-blue hover:bg-blue-700 text-white font-light py-2 px-6 rounded focus:outline-none focus:shadow-outline" type="submit">
           Connexion
         </button>
-        <a class="inline-block align-baseline font-light text-sm text-indigo-600 hover:text-indigo-500" href="{% url 'password_reset' %}">
+        <a class="inline-block align-baseline font-light text-sm text-blue hover:text-indigo-500" href="{% url 'password_reset' %}">
           Mot de passe oublié ?
         </a>
       </div>
-      <p class="text-center text-md font-light">Pas encore membre ? <a class="font-light text-md text-indigo-600" href="{% url 'register' %}?next={{ next|default_if_none:'/' }}">Inscrivez-vous</a></p>
+      <p class="text-center text-md font-light">Pas encore membre ? <a class="font-light text-md text-blue" href="{% url 'register' %}?next={{ next|default_if_none:'/' }}">Inscrivez-vous</a></p>
     </form>
 
   </section>

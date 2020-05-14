@@ -41,7 +41,7 @@
     />
   </head>
 
-  <body class="font-sans" style="background-image: url({% static 'images/mix/bg.png' %}); background-attachment:fixed">
+  <body class="font-sans">
     <div class="container mx-auto">
       
       {% block header %}
@@ -52,10 +52,9 @@
       <!--  -->
       {% block banner %}
 
-      {% include "partials/_slider.html" %}
+      {% include "partials/_heros_message.html" %}
       
       {% endblock banner %}
-
      
       
       <div class="container mx-auto ">
@@ -68,7 +67,7 @@
       <!--  -->
       {% include "partials/footer.html" %}
 
-      <div class="footer-copyright text-white text-center text-sm py-6">
+      <div class="bg-dark text-white text-center text-sm py-6">
         <p>Copyright &copy; 2020 Xarala.</p>
       </div>
     </div>

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from .models import Episode
 
 
@@ -12,3 +12,7 @@ class EpisodeListView(ListView):
 class EpisodeDetail(DetailView):
     model = Episode
     # template_name=''
+
+
+class HowWePodcast(TemplateView):
+    template_name = 'podcast/how-we-podcast.html'
