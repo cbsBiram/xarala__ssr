@@ -1,22 +1,11 @@
-from django.core.mail import send_mail
-from django.http import JsonResponse
-from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 from django.utils.http import is_safe_url
-from django.views.generic import TemplateView, UpdateView, DetailView
+from django.views.generic import UpdateView, DetailView
 from .models import CustomUser
-from .forms import (
-    CustomUserLoginForm,
-    CustomUserUpdateForm,
-    CustomUserProfileForm,
-    CustomUserChangeForm,
-)
+from .forms import CustomUserUpdateForm
 from send_mail.views import send_new_register_email
-from course.models import Course
 from userlogs.models import UserLog
 
 
@@ -116,13 +105,3 @@ class CustomUserUpdateDetailView(UpdateView, DetailView):
             return redirect("profile")
         return render(request, self.template_name, {"form": form})
 
-
-def update_data(request):
-    users = CustomUser.objects.all()
-    for user in users:
-        user_to_update = CustomUser.objects.filter(pk=user.id)
-        if is_student:
-            user_to_update.update(is_student=True)
-        if is_teacher:
-            user_to_update.update(is_teacher=True)
-    return JsonResponse({"data": True})

@@ -6,7 +6,7 @@ from django.views.generic import TemplateView, CreateView
 from course.models import Course, Category
 from .forms import ContactForm, BecomeTeacherForm
 
-from .mails import become_teacher_mail
+from send_mail.views import become_teacher_mail
 
 
 def home(request):

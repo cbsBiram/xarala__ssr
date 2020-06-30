@@ -1,13 +1,10 @@
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.contrib.auth.views import PasswordChangeView
-from django.urls import reverse_lazy
 from users.decorators import teacher_required, student_required
 from django.contrib import messages
-from django.http import JsonResponse, HttpResponseRedirect
-from django.core import serializers
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView, View, TemplateView
+from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from .models import Course, Chapter, Lesson, Category
 from .forms import CreateCourse, CreateChapter, CreateLesson
 from userlogs.models import UserLog
@@ -132,7 +129,6 @@ class TeacherChapterListCreateView(DetailView, CreateView):
     template_name = "dashboard/teacher/add-chapter.html"
 
     def get(self, request, *args, **kwargs):
-        teacher = self.request.user
         course_id = request.GET.get("course_id")
         course = Course.objects.get(pk=int(course_id))
         chapters = course.course_chapters.all()
@@ -141,7 +137,6 @@ class TeacherChapterListCreateView(DetailView, CreateView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        teacher = self.request.user
         if form.is_valid():
             name = form.cleaned_data.get("name")
             course_id = request.GET.get("course_id")
@@ -160,7 +155,6 @@ class TeacherLessonListCreateView(DetailView, CreateView):
     template_name = "dashboard/teacher/add-lesson.html"
 
     def get(self, request, *args, **kwargs):
-        teacher = self.request.user
         chapter_id = request.GET.get("chapter_id")
         chapter = Chapter.objects.get(pk=int(chapter_id))
         lessons = chapter.course_lessons.all()
@@ -169,7 +163,6 @@ class TeacherLessonListCreateView(DetailView, CreateView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        teacher = self.request.user
         if form.is_valid():
             title = form.cleaned_data.get("title")
             video_link = form.cleaned_data.get("video_id")

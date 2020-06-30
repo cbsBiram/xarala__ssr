@@ -4,7 +4,7 @@ from .models import Post, Tag
 
 
 class PostAdmin(SummernoteModelAdmin):
-    summernote_fields = ('content',)
+    summernote_fields = ("content",)
 
 
 admin.site.register(Post, PostAdmin)

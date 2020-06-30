@@ -1,7 +1,8 @@
 import graphene
+from django.db.models import Q
 from graphql import GraphQLError
 from .models import Course, Chapter, Lesson
-from .query_types import CourseType, ChapterType, LessonType, Q
+from .query_types import CourseType, ChapterType, LessonType
 
 
 class Query(graphene.ObjectType):
@@ -14,10 +15,7 @@ class Query(graphene.ObjectType):
 
     def resolve_courses(self, info, search=None):
         if search:
-            filter = (
-                Q(title__icontains=search) |
-                Q(description__icontains=search)
-            )
+            filter = Q(title__icontains=search) | Q(description__icontains=search)
             return Course.objects.filter(filter)
         return Course.objects.all()
 
@@ -27,10 +25,7 @@ class Query(graphene.ObjectType):
 
     def resolve_chapters(self, info, search=None):
         if search:
-            filter = (
-                Q(name__icontains=search) |
-                Q(course__title__icontains=search)
-            )
+            filter = Q(name__icontains=search) | Q(course__title__icontains=search)
             return Chapter.objects.filter(filter)
         return Chapter.objects.all()
 
@@ -40,16 +35,14 @@ class Query(graphene.ObjectType):
 
     def resolve_lessons(self, info, search=None):
         if search:
-            filter = (
-                Q(title__icontains=search) |
-                Q(chapter__name__icontains=search)
-            )
+            filter = Q(title__icontains=search) | Q(chapter__name__icontains=search)
             return Lesson.objects.filter(filter)
         return Lesson.objects.all()
 
     def resolve_lesson(self, info, lessonId):
         lesson = Lesson.objects.get(pk=lessonId)
         return lesson
+
 
 # new product
 
@@ -77,10 +70,11 @@ class CreateCourse(graphene.Mutation):
             level=level,
             thumbnail=thumbnail,
             language=language,
-            teacher=user
+            teacher=user,
         )
         course.save()
         return CreateCourse(course=course)
+
 
 # update track
 
@@ -97,7 +91,9 @@ class UpdateCourse(graphene.Mutation):
         thumbnail = graphene.String()
         language = graphene.String()
 
-    def mutate(self, info,  courseId, title, description, price, level, thumbnail, language):
+    def mutate(
+        self, info, courseId, title, description, price, level, thumbnail, language
+    ):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to edit a track!")
@@ -128,13 +124,12 @@ class DeleteCourse(graphene.Mutation):
         course = Course.objects.get(id=courseId)
         if course.teacher != user:
             raise GraphQLError("Not permited to update this course")
-        Course.objects.filter(id=courseId).update(
-            drafted=True
-        )
+        Course.objects.filter(id=courseId).update(drafted=True)
         return DeleteCourse(courseId=courseId)
 
 
 # subscribe user to course
+
 
 class SubscribeUserToCourse(graphene.Mutation):
     course = graphene.Field(CourseType)
@@ -147,8 +142,8 @@ class SubscribeUserToCourse(graphene.Mutation):
         if not user:
             raise GraphQLError("Vous n'etes pas connecté")
         course = Course.objects.get(pk=courseId)
-        if course not in student.courses_enrolled.all():
-            student.courses_enrolled.add(course)
+        if course not in user.courses_enrolled.all():
+            user.courses_enrolled.add(course)
 
 
 class Mutation(graphene.ObjectType):

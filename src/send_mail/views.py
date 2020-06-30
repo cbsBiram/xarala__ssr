@@ -1,25 +1,36 @@
-from django.core.mail import EmailMultiAlternatives, send_mail, send_mass_mail
-from django.http import HttpResponse, JsonResponse
-from django.contrib import messages
-from django.template.loader import get_template, render_to_string
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
 
 # email apres la creation de compte
 
 
 def send_new_register_email(user):
-    htmly = get_template('email/thanks_new_register.html')
-    context = {
-        'user': user
-    }
+    htmly = get_template("email/thanks_new_register.html")
+    context = {"user": user}
     to_emails = [
         user.email,
     ]
-    subject, from_email = (
-        'Bienvenue chez Xarala',
-        'contact@xarala.tech'
-    )
+    subject, from_email = ("Bienvenue chez Xarala", "contact@xarala.tech")
     html_content = htmly.render(context)
-    msg = EmailMultiAlternatives(
-        subject, html_content, from_email, to_emails, )
-    msg.attach_alternative(html_content, "text/html",)
+    msg = EmailMultiAlternatives(subject, html_content, from_email, to_emails,)
+    msg.attach_alternative(
+        html_content, "text/html",
+    )
+    msg.send(fail_silently=False)
+
+
+def become_teacher_mail(email, message):
+    htmly = get_template("email/become-teacher.html")
+    context = {"email": email, "message": message}
+    to_emails = [
+        email,
+        "mstspr1155@gmail.com",
+        "xaralaxarala@gmail.com",
+    ]
+    subject, from_email = ("Xarala - Devenir instructeur", "contact@xarala.tech")
+    html_content = htmly.render(context)
+    msg = EmailMultiAlternatives(subject, html_content, from_email, to_emails,)
+    msg.attach_alternative(
+        html_content, "text/html",
+    )
     msg.send(fail_silently=False)

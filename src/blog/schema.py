@@ -1,7 +1,8 @@
 import graphene
 from graphql import GraphQLError
+from django.db.models import Q
 from .models import Post, Tag
-from .query_types import PostType, TagType, Q
+from .query_types import PostType, TagType
 
 
 class Query(graphene.ObjectType):
@@ -12,10 +13,7 @@ class Query(graphene.ObjectType):
 
     def resolve_posts(self, info, search=None):
         if search:
-            filter = (
-                Q(title__icontains=search) |
-                Q(content__icontains=search)
-            )
+            filter = Q(title__icontains=search) | Q(content__icontains=search)
             return Post.objects.filter(filter)
         return Post.objects.all()
 
@@ -25,10 +23,7 @@ class Query(graphene.ObjectType):
 
     def resolve_tags(self, info, search=None):
         if search:
-            filter = (
-                Q(name__icontains=search) |
-                Q(description__icontains=search)
-            )
+            filter = Q(name__icontains=search) | Q(description__icontains=search)
             return Tag.objects.filter(filter)
         return Tag.objects.all()
 
@@ -53,14 +48,10 @@ class CreatePost(graphene.Mutation):
         if user.is_anonymous:
             raise GraphQLError("Log in to add a post!")
 
-        post = post(
-            title=title,
-            content=content,
-            image=image,
-            author=user
-        )
+        post = post(title=title, content=content, image=image, author=user)
         post.save()
         return CreatePost(post=post)
+
 
 # update post
 
@@ -74,7 +65,7 @@ class UpdatePost(graphene.Mutation):
         content = graphene.Int()
         image = graphene.String()
 
-    def mutate(self, info,  postId, title, description, image):
+    def mutate(self, info, postId, title, description, image):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to edit a post!")
@@ -102,9 +93,7 @@ class DeletePost(graphene.Mutation):
         post = Post.objects.get(id=postId)
         if post.author != user:
             raise GraphQLError("Not permited to update this post")
-        Post.objects.filter(id=postId).update(
-            drafted=True
-        )
+        Post.objects.filter(id=postId).update(drafted=True)
         return DeletePost(postId=postId)
 
 
