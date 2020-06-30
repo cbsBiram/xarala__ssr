@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from users.decorators import staff_required
-from django.views.generic import (View, ListView, TemplateView)
+from django.views.generic import View, ListView, TemplateView
 from django.shortcuts import render
 from course.models import Course
 from userlogs.models import UserLog
@@ -17,9 +17,9 @@ class DashboardView(View):
         user = self.request.user
         total_courses = 0
         total_posts = Post.objects.all().count()
-        if user.user_type == "ST":
+        if user.is_student:
             total_courses = user.courses_enrolled.all().count()
-        elif user.user_type == "TC":
+        elif user.is_teacher:
             total_courses = user.courses_created.all().count()
 
         context = {"total_courses": total_courses, "total_posts": total_posts}
@@ -31,18 +31,18 @@ class StaffView(TemplateView):
     template_name = "dashboard/staff.html"
     total_courses = Course.objects.all().count()
     total_users = CustomUser.objects.all().count()
-    total_students = CustomUser.objects.filter(user_type="ST").count()
+    total_students = CustomUser.objects.filter(is_student=True).count()
     logs = UserLog.objects.all()[:3]
 
     extra_context = {
-        'title': 'Staff',
-        'total_courses': total_courses,
-        'total_users': total_users,
-        'total_students': total_students,
-        'logs': logs,
+        "title": "Staff",
+        "total_courses": total_courses,
+        "total_users": total_users,
+        "total_students": total_students,
+        "logs": logs,
     }
 
 
 class UserLogList(ListView):
     model = UserLog
-    context_object_name = 'logs'
+    context_object_name = "logs"

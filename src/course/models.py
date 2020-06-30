@@ -1,9 +1,6 @@
-import cloudinary
 from django.db import models
 from django.urls import reverse
-from cloudinary.models import CloudinaryField
 from django.db.models import Sum
-from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from users.models import CustomUser
 from xarala.utils import upload_image_path
@@ -20,8 +17,7 @@ class Language(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
-    thumbnail = models.FileField(
-        upload_to=upload_image_path, null=True, blank=True)
+    thumbnail = models.FileField(upload_to=upload_image_path, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -37,26 +33,22 @@ INTERMEDIATE = "Intermédiaire"
 
 
 class Course(models.Model):
-    LEVEL = (
-        (BEGINNER, BEGINNER),
-        (MEDIUM, MEDIUM),
-        (INTERMEDIATE, INTERMEDIATE)
-    )
+    LEVEL = ((BEGINNER, BEGINNER), (MEDIUM, MEDIUM), (INTERMEDIATE, INTERMEDIATE))
     title = models.CharField(max_length=200)
     description = models.TextField()
     is_tutorial = models.BooleanField(default=True)
-    original_price = models.DecimalField(
-        default=0, max_digits=13, decimal_places=2)
+    original_price = models.DecimalField(default=0, max_digits=13, decimal_places=2)
     price = models.DecimalField(default=0, max_digits=13, decimal_places=2)
     level = models.CharField(max_length=150, choices=LEVEL, default=BEGINNER)
     featured = models.BooleanField(default=False)
     slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
-    thumbnail = models.ImageField(
-        upload_to=upload_image_path, null=True, blank=True)
+    thumbnail = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     teacher = models.ForeignKey(
-        CustomUser, models.SET_NULL, null=True, related_name='courses_created')
+        CustomUser, models.SET_NULL, null=True, related_name="courses_created"
+    )
     students = models.ManyToManyField(
-        CustomUser, related_name='courses_enrolled', blank=True)
+        CustomUser, related_name="courses_enrolled", blank=True
+    )
     categories = models.ManyToManyField(Category, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     language = models.ForeignKey(Language, models.SET_NULL, null=True)
@@ -64,7 +56,7 @@ class Course(models.Model):
     published = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['-date_created']
+        ordering = ["-date_created"]
 
     def __str__(self):
         return self.title
@@ -74,7 +66,7 @@ class Course(models.Model):
         unique_slug = slug
         num = 1
         while Course.objects.filter(slug=unique_slug).exists():
-            unique_slug = '{}-{}'.format(slug, num)
+            unique_slug = "{}-{}".format(slug, num)
             num += 1
         return unique_slug
 
@@ -88,27 +80,24 @@ class Course(models.Model):
         return lesson
 
     def get_chapters(self):
-        chapters = Chapter.objects.filter(course=self).order_by('id')
+        chapters = Chapter.objects.filter(course=self).order_by("id")
         return chapters
 
     def get_lessons(self):
-        lessons = Lesson.objects.filter(
-            chapter__in=self.get_chapters()).order_by('id')
+        lessons = Lesson.objects.filter(chapter__in=self.get_chapters()).order_by("id")
         return lessons
 
     def count_lessons(self):
-        lessons = Lesson.objects.filter(
-            chapter__in=self.get_chapters()).count()
+        lessons = Lesson.objects.filter(chapter__in=self.get_chapters()).count()
         return lessons
 
     def count_duration(self):
         text = "Mns"
-        lessons = Lesson.objects.filter(
-            chapter__in=self.get_chapters())
-        get_duration = lessons.aggregate(Sum('duration'))['duration__sum']
+        lessons = Lesson.objects.filter(chapter__in=self.get_chapters())
+        get_duration = lessons.aggregate(Sum("duration"))["duration__sum"]
         if get_duration:
             if get_duration >= 60:
-                get_duration = get_duration/60
+                get_duration = get_duration / 60
                 text = " Hrs"
         else:
             get_duration = 0
@@ -119,13 +108,14 @@ class Course(models.Model):
         return total_students
 
     def get_absolute_url(self):
-        return reverse('course-detail', kwargs={'slug': self.slug})
+        return reverse("course-detail", kwargs={"slug": self.slug})
 
 
 class Chapter(models.Model):
     name = models.CharField(max_length=150)
     course = models.ForeignKey(
-        Course, models.SET_NULL, null=True, related_name="course_chapters")
+        Course, models.SET_NULL, null=True, related_name="course_chapters"
+    )
     slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     drafted = models.BooleanField(default=False)
@@ -138,7 +128,7 @@ class Chapter(models.Model):
         unique_slug = slug
         num = 1
         while Chapter.objects.filter(slug=unique_slug).exists():
-            unique_slug = '{}-{}'.format(slug, num)
+            unique_slug = "{}-{}".format(slug, num)
             num += 1
         return unique_slug
 
@@ -148,7 +138,7 @@ class Chapter(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        ordering = ['id']
+        ordering = ["id"]
 
 
 # platform
@@ -166,7 +156,7 @@ class Lesson(models.Model):
         (VIMEO, VIMEO),
         (WISTA, WISTA),
         (CUSTOM, CUSTOM),
-        (CLOUDINARY, CLOUDINARY)
+        (CLOUDINARY, CLOUDINARY),
     )
     title = models.CharField(max_length=200)
     is_video = models.BooleanField(default=True)
@@ -177,11 +167,10 @@ class Lesson(models.Model):
     video_id = models.CharField(max_length=150, null=True, blank=True)
     # cloudinary_file = CloudinaryField(null=True, blank=True)
     duration = models.IntegerField(default=0)
-    platform = models.CharField(
-        max_length=50, choices=PLATFORM, default=YOUTUBE)
+    platform = models.CharField(max_length=50, choices=PLATFORM, default=YOUTUBE)
     chapter = models.ForeignKey(
-        Chapter, models.SET_NULL, null=True, blank=True,
-        related_name="course_lessons")
+        Chapter, models.SET_NULL, null=True, blank=True, related_name="course_lessons"
+    )
     drafted = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
@@ -193,24 +182,26 @@ class Lesson(models.Model):
         unique_slug = slug
         num = 1
         while Lesson.objects.filter(slug=unique_slug).exists():
-            unique_slug = '{}-{}'.format(slug, num)
+            unique_slug = "{}-{}".format(slug, num)
             num += 1
         return unique_slug
 
     def next(self):
         try:
-            return Lesson.objects.get(pk=self.pk+1)
+            return Lesson.objects.get(pk=self.pk + 1)
         except Exception as e:
+            print("E ", e)
             return None
 
     def previous(self):
         try:
-            return Lesson.objects.get(pk=self.pk-1)
+            return Lesson.objects.get(pk=self.pk - 1)
         except Exception as e:
+            print("E ", e)
             return None
 
     class Meta:
-        ordering = ['id']
+        ordering = ["id"]
 
     def save(self, *args, **kwargs):
         if not self.slug:

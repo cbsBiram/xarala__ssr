@@ -13,7 +13,6 @@ class CustomUserAdmin(UserAdmin):
         "email",
         "is_staff",
         "is_active",
-        "user_type",
         "is_student",
         "is_teacher",
     )
@@ -21,11 +20,13 @@ class CustomUserAdmin(UserAdmin):
         "email",
         "is_staff",
         "is_active",
-        "user_type",
+        "is_student",
+        "is_teacher",
     )
     list_editable = (
-        "user_type",
         "is_active",
+        "is_student",
+        "is_teacher",
     )
     fieldsets = (
         (
@@ -36,7 +37,6 @@ class CustomUserAdmin(UserAdmin):
                     "password",
                     "avatar",
                     "bio",
-                    "user_type",
                     "first_name",
                     "last_name",
                 )

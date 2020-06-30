@@ -76,14 +76,14 @@ def register(request):
                 else:
                     # looks good
                     user = CustomUser.objects.create_user(
-                        email=mail_to_lower, password=password,
+                        email=mail_to_lower, password=password, is_student=True
                     )
                     user.save()
                     send_new_register_email(user)
                     UserLog.objects.create(
-                        action=f"Created account", user_type=user.user_type, user=user
+                        action="Created account", user_type="Student", user=user
                     )
-                    messages.success(request, "compte crée avec succes...")
+                    messages.success(request, "Compte crée avec succes...")
                     if is_safe_url(redirect_path, request.get_host()):
                         return redirect(redirect_path)
                     else:
@@ -121,8 +121,8 @@ def update_data(request):
     users = CustomUser.objects.all()
     for user in users:
         user_to_update = CustomUser.objects.filter(pk=user.id)
-        if user.user_type == "ST":
+        if is_student:
             user_to_update.update(is_student=True)
-        if user.user_type == "TC":
+        if is_teacher:
             user_to_update.update(is_teacher=True)
     return JsonResponse({"data": True})
