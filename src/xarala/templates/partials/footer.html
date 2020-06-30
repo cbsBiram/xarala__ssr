@@ -19,9 +19,7 @@
         <p class="uppercase text-grey text-sm sm:mb-6">Rejoignez-nous</p>
         <ul class="list-reset text-xs mb-6">
           <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
-            <a href="#" class="text-grey hover-text-blue"
-              >Devenir Formateur</a
-            >
+            <a href="{% url 'become-teacher' %}" class="text-grey hover-text-blue">Devenir Formateur</a>
           </li>
           <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
             <a href="{% url 'register' %}" class="text-grey hover-text-blue">Inscription</a>
@@ -49,14 +47,10 @@
         <p class="uppercase text-grey text-sm sm:mb-6">La plateforme</p>
         <ul class="list-reset text-xs mb-6">
           <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
-            <a href="{% url 'about' %}" class="text-grey hover-text-blue"
-              >Qui sommes nous ?</a
-            >
+            <a href="{% url 'about' %}" class="text-grey hover-text-blue">Qui sommes nous ?</a>
           </li>
           <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
-            <a href="{% url 'how-we-podcast' %}" class="text-grey hover-text-blue"
-              >Processus d'entrevue</a
-            >
+            <a href="{% url 'how-we-podcast' %}" class="text-grey hover-text-blue">Processus d'entrevue</a>
           </li>
           <li class="mt-2 inline-block mr-2 sm:block sm:mr-0">
             <a href="{% url 'community' %}" class="text-grey hover-text-blue">Communauté</a>
