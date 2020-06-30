@@ -1,0 +1,24 @@
+[MASTER]
+
+# C0330: Wrong hanging indentation before block (add 4 spaces).
+# Incompatible with black (https://github.com/psf/black/issues/48)
+
+disable=C0330
+
+# we do not  want to check for migrations
+ignore=migrations
+
+[MESSAGES CONTROL]
+[REPORTS]
+[TYPECHECK]
+[VARIABLES]
+[BASIC]
+[DESIGN]
+[CLASSES]
+[IMPORTS]
+[MISCELLANEOUS]
+[SIMILARITIES]
+[FORMAT]
+max-line-length=88
+max-module-lines=1000
+indent-string='    '

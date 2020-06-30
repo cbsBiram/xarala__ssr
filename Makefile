@@ -46,3 +46,19 @@ clean:
 dockerclean:
 	docker system prune -f
 	docker system prune -f --volumes
+
+runserver:
+	python src/manage.py runserver
+
+migration:
+	python src/manage.py makemigrations
+
+migratedb:
+	python src/manage.py migrate
+
+superuser:
+	python src/manage.py createsuperuser
+
+codestyle:
+	pipenv run flake8
+	pipenv run black --check .
