@@ -5,32 +5,12 @@ from .managers import CustomUserManager
 from xarala.utils import upload_image_path
 
 
-class Social(models.Model):
-    # facebook
-    facebook = models.CharField(max_length=150, null=True, blank=True)
-    # twitter
-    twitter = models.CharField(max_length=150, null=True, blank=True)
-    # instagram
-    instagram = models.CharField(max_length=150, null=True, blank=True)
-    # github
-    github = models.CharField(max_length=150, null=True, blank=True)
-    # siteweb
-    website = models.CharField(max_length=150, null=True, blank=True)
-    # linkedin
-    linkedin = models.CharField(max_length=150, null=True, blank=True)
-    # stack
-    stackoverflow = models.CharField(max_length=150, null=True, blank=True)
-    # whatsapp
-    whatsapp = models.CharField(max_length=150, null=True, blank=True)
-
-
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(_("email address"), unique=True)
     is_student = models.BooleanField(default=False)
     is_teacher = models.BooleanField(default=False)
     is_writer = models.BooleanField(default=False)
-    scoial = models.ForeignKey(Social, models.SET_NULL, null=True, blank=True)
     phone = models.CharField(max_length=150, blank=True, null=True)
     address = models.CharField(max_length=250, blank=True, null=True)
     avatar = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
@@ -43,3 +23,14 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+class Social(models.Model):
+    user = models.ForeignKey(
+        CustomUser, models.SET_NULL, null=True, blank=True, related_name="socials"
+    )
+    title = models.CharField(max_length=50, null=True, blank=True)
+    link = models.URLField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return self.title
