@@ -23,7 +23,7 @@ class CourseOverviewView(DetailView):
     def get_context_data(self, **kwargs):
         student = self.request.user
         context = super().get_context_data(**kwargs)
-        button_text = "Commencer"
+        button_text = "Continuer"
         if (
             student.is_authenticated
             and context.get("course") in student.courses_enrolled.all()
