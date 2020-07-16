@@ -3,19 +3,21 @@
 <div class="course-card">
   <div class="mt-0 ml-8 mb-8 pt-2 text-center">
     <h2 class="text-3xl">{% if title %} {{ title }} {% else %} Tutoriels populaires {% endif %}</h2>
-    <p class="text-2xl text-grey leading-tight tracking-wide">{% if title %} Les Tutoriels de {{ title }} {% else %}Les compétences demandées par les recruteurs.{% endif %}</p>
+    <p class="text-2xl text-grey leading-tight tracking-wide">{% if title %} Les Tutoriels de {{ title }} {% else %}Les
+      compétences demandées par les recruteurs.{% endif %}</p>
   </div>
   <div class="flex flex-wrap w-full h-full -mt-4">
-    
+
     {% if courses %}
-    
+
     {% for course in courses %}
     <div class=" w-full sm:w-1/2 md:w-1/4  lg:my-5 my-4 px-2">
-      
-      <div class="course-items bg-white border shadow rounded-lg overflow-hidden m-0 p-1">
+
+      <div class="course-items bg-white border rounded-b-md shadow-lg overflow-hidden m-0 p-0">
         <a href="{% url 'course-overview' course.slug %}">
-        <img src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %}" />
-      </a>
+          <img
+            src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %}" />
+        </a>
         <div class="ml-3">
           <a href="{% url 'course-overview' course.slug %}">
             <h1 class="font-bold mb-2">
@@ -25,26 +27,18 @@
           <!-- <h2 class="text-sm text-gray-800 mb-2">{{ course.teacher.get_full_name }}</h2> -->
           <div class="mb-2 text-sm text-gray-800">
             <div class="flex items-center mt-2 mb-2 text-gray-700">
-              <img
-                class="h-6 w-6 fill-current"
-                src="{% static 'images/svgs/students.svg' %}"
-                alt="Students"
-              />
+              <img class="h-6 w-6 fill-current" src="{% static 'images/svgs/students.svg' %}" alt="Students" />
               <h1 class="px-2 text-sm text-gray-800">
-                 
-                
-                  {{ course.count_students|default_if_none:"10" }}
-                  {% if course.count_students > 1 %} Étudiants {% else %} Étudiant
-                  {% endif %}
-               
+
+
+                {{ course.count_students|default_if_none:"10" }}
+                {% if course.count_students > 1 %} Étudiants {% else %} Étudiant
+                {% endif %}
+
               </h1>
             </div>
             <div class="flex items-center mt-2 mb-2 text-gray-700">
-              <img
-                class="h-6 w-6 fill-current"
-                src="{% static 'images/svgs/teacher.svg' %}"
-                alt="Teacher"
-              />
+              <img class="h-6 w-6 fill-current" src="{% static 'images/svgs/teacher.svg' %}" alt="Teacher" />
               <h1 class="px-2 text-sm text-gray-800">
                 {{ course.teacher.get_full_name|default_if_none:"Xarala" }}
               </h1>
@@ -57,11 +51,7 @@
             <span class="font-bold">4.5</span>
             <span class="">(166,325)</span> -->
             <div class="flex items-center mt-2 mb-2 text-gray-700">
-              <img
-                class="h-6 w-6 fill-current"
-                src="{% static 'images/svgs/language.svg' %}"
-                alt="Langue"
-              />
+              <img class="h-6 w-6 fill-current" src="{% static 'images/svgs/language.svg' %}" alt="Langue" />
               <h1 class="px-2 text-sm text-gray-800">
                 {{ course.language.name|default_if_none:"Wolof" }}
               </h1>
@@ -69,16 +59,28 @@
           </div>
           <div class="flex justify-end mr-4 mb-4">
             <span class="text-sm  mr-3 mt-1 line-through">{{ course.original_price }} FCFA</span>
-            <h1 class="text-lg font-bold"">
+            <h1 class="text-lg font-bold">
               {% if course.price %}
               {{ course.price }}
               {% else %}
               0
               {% endif %}
               FCFA
-          </h1>
+            </h1>
           </div>
         </div>
+        <button
+          class="bg-blue w-full flex justify-center py-2 text-white font-semibold transition duration-300 hover:bg-teal-500">
+          <!-- <svg fill="currentColor" viewBox="0 0 20 20" class="h-6 mr-1 text-white">
+            <path
+              d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
+              clip-rule="evenodd" fill-rule="evenodd"></path>
+            <path
+              d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z">
+            </path>
+          </svg>Enroller -->
+          Enroller
+        </button>
 
       </div>
 

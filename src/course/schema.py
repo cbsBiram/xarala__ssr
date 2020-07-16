@@ -1,8 +1,8 @@
 import graphene
 from django.db.models import Q
 from graphql import GraphQLError
-from .models import Course, Chapter, Lesson
-from .query_types import CourseType, ChapterType, LessonType
+from .models import Category, Course, Chapter, Lesson
+from .query_types import CourseType, ChapterType, LessonType, CategoryType
 
 
 class Query(graphene.ObjectType):
@@ -12,6 +12,8 @@ class Query(graphene.ObjectType):
     chapter = graphene.Field(ChapterType, chapterId=graphene.Int())
     lessons = graphene.List(LessonType, search=graphene.String())
     lesson = graphene.Field(LessonType, lessonId=graphene.Int())
+    categories = graphene.List(CategoryType, search=graphene.String())
+    category = graphene.Field(CategoryType, categoryName=graphene.Int())
 
     def resolve_courses(self, info, search=None):
         if search:
@@ -42,6 +44,16 @@ class Query(graphene.ObjectType):
     def resolve_lesson(self, info, lessonId):
         lesson = Lesson.objects.get(pk=lessonId)
         return lesson
+
+    def resolve_categories(self, info, search=None):
+        if search:
+            filter = Q(name__icontains=search) | Q(description__icontains=search)
+            return Category.objects.filter(filter)
+        return Category.objects.all()
+
+    def resolve_category(self, info, categoryName):
+        category = Category.objects.filter(name=categoryName)
+        return category
 
 
 # new product

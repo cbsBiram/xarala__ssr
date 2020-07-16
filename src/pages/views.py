@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from xarala.utils import SendSubscribeMail
-from .models import Subscribe, Carousel
+from .models import Subscribe, Carousel, Team
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import TemplateView, CreateView
 from course.models import Course, Category
@@ -44,6 +44,11 @@ def privacy_policy(request):
 
 def community_page(request):
     return render(request, "pages/community.html")
+
+
+def team_page(request):
+    teams = Team.objects.all()
+    return render(request, "pages/team.html", {"teams": teams})
 
 
 class ContactUsView(TemplateView, CreateView):
