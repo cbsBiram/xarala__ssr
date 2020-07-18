@@ -5,7 +5,6 @@ from .forms import CreatePostForm
 
 
 class PostListView(ListView):
-    # model = Post
     queryset = Post.objects.order_by("-date_published")
     context_object_name = "posts"
     paginate_by = 2
@@ -52,6 +51,6 @@ class PostListCreateView(ListView, CreateView):
                 title=title, content=content, published=published, author=author
             )
             post.save()
-            return redirect("posts-management")
+            return redirect("blog:posts-management")
 
         return render(request, self.template_name, {"form": form})

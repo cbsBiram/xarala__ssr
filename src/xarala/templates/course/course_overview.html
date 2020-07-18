@@ -8,22 +8,9 @@
 {% block content %}
 
 
-<div class="padding-y-60 bg-cover" data-dark-overlay="6" style="background:url(assets/img/breadcrumb-bg.jpg) no-repeat">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-6 my-2 text-white">
-        <ol class="breadcrumb breadcrumb-double-angle bg-transparent p-0">
-          <li class="breadcrumb-item"><a href="/">Accueil</a></li>
-          <li class="breadcrumb-item"><a href="{% url 'courses' %}">Cours</a></li>
-          <li class="breadcrumb-item">Détails</li>
-        </ol>
-        <h2 class="h1">
-          Détails cours
-        </h2>
-      </div>
-    </div>
-  </div>
-</div>
+
+
+{% include "partials/_breadcrumbs.html" with previous="Cours" previous_url="course:courses" current="Détails" text="Details cours" %}
 
 
 
@@ -88,23 +75,24 @@
           </div>
           <div class="col-lg-3 col-md-6 my-2">
             <div class="border-right height-100p">
-              <span class="text-gray">Notes:</span>
-              <p class="mb-0">
-                <i class="fas fa-star text-warning small"></i>
-                <i class="fas fa-star text-warning small"></i>
-                <i class="fas fa-star text-warning small"></i>
-                <i class="fas fa-star text-warning small"></i>
-                <i class="fas fa-star-half small"></i>
-                <span class="text-dark">4.9</span>
-                <span>({{ course.count_students }})</span>
-              </p>
+              <span class="text-gray">Niveau:</span>
+              <h6 class="mb-0">
+                {{ course.level }}
+              </h6>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 my-2">
             <div class="text-md-right height-100p">
-              <h2 class="font-weight-bold text-primary mb-2">{{ course.price }} XOF</h2>
+
+              {% if course.price %}
+              <h2 class="font-weight-bold text-primary mb-2">
+                {{ course.price }} XOF</h2>
+              {% else %}
+              <h2 class="font-weight-bold text-success mb-2">
+                Gratuit</h2>
+              {% endif %}
               <a class="btn btn-primary"
-                href="{% if button_text == 'Enroller'  %}{% url 'subscribe_user_to_course' course.slug %}{% else %}/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}{% endif %}">{{ button_text }}</a>
+                href="{% if button_text == 'Enroller'  %}{% url 'course:subscribe_user_to_course' course.slug %}{% else %}/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}{% endif %}">{{ button_text }}</a>
             </div>
           </div>
         </div> <!-- END row-->
@@ -120,15 +108,11 @@
           <ul class="list-inline mb-0 mt-2">
             <li class="list-inline-item my-2 pr-md-4">
               <i class="ti-headphone small text-primary"></i>
-              <span class="ml-2">246 lectures</span>
-            </li>
-            <li class="list-inline-item my-2 pr-md-4">
-              <i class="ti-time small text-primary"></i>
-              <span class="ml-2">27.5 Hours</span>
+              <span class="ml-2">{{ course.count_lessons }} lectures</span>
             </li>
             <li class="list-inline-item my-2 pr-md-4">
               <i class="ti-user small text-primary"></i>
-              <span class="ml-2">course.count_students Étudiants</span>
+              <span class="ml-2">{{ course.count_students }} Étudiants</span>
             </li>
             <li class="list-inline-item my-2 pr-md-4">
               <i class="ti-reload small text-primary"></i>

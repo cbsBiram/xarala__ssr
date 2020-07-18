@@ -14,7 +14,7 @@ def login(request):
     next_post = request.POST.get("next")
     redirect_path = next_ or next_post
     if request.user.is_authenticated:
-        return redirect("dashboard")
+        return redirect("dashboard:dashbaord")
     else:
         if request.method == "POST":
             next_ = request.GET.get("next")
@@ -99,9 +99,7 @@ class CustomUserUpdateDetailView(UpdateView, DetailView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, instance=request.user)
-        user = CustomUser.objects.filter(pk=request.user.id)
         if form.is_valid():
             form.save()
             return redirect("profile")
         return render(request, self.template_name, {"form": form})
-

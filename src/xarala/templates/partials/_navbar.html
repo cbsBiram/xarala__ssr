@@ -3,8 +3,8 @@
   <div class="container">
     <div class="navbar p-0 navbar-expand-lg">
       <div class="navbar-brand">
-        <a class="logo-default" href="index.html"><img alt="Logo xarala" src="{% static 'assets/img/logo.png' %}"
-            height="70"></a>
+        <a class="logo-default" href="{% url 'pages:home' %}"><img alt="Logo xarala"
+            src="{% static 'assets/img/logo.png' %}" height="70"></a>
       </div>
       <span aria-expanded="false" class="navbar-toggler ml-auto collapsed" data-target="#ec-nav__collapsible"
         data-toggle="collapse">
@@ -18,40 +18,40 @@
         <ul class="nav navbar-nav ec-nav__navbar ml-auto">
 
           <li class="nav-item">
-            <a class="nav-link" href="/">Accueil</a>
+            <a class="nav-link" href="{% url 'pages:home' %}">Accueil</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'courses' %}">Formation</a>
+            <a class="nav-link" href="{% url 'course:courses' %}">Formation</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'learning-path' %}">Parcours</a>
+            <a class="nav-link" href="{% url 'course:learning-path' %}">Parcours</a>
           </li>
 
           <li class="nav-item nav-item__has-dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{% url 'about' %}">La plateforme</a>
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{% url 'pages:about' %}">La plateforme</a>
             <div class="dropdown-menu">
               <ul class="list-unstyled">
-                <li><a class="nav-link__list" href="{% url 'about' %}">A propos</a></li>
+                <li><a class="nav-link__list" href="{% url 'pages:about' %}">A propos</a></li>
                 <li>
-                  <a class="nav-link__list" href="{% url 'community' %}">Communauté</a>
+                  <a class="nav-link__list" href="{% url 'pages:community' %}">Communauté</a>
                 </li>
                 <li>
                   <a class="nav-link__list" href="#"> FAQs </a>
                 </li>
                 <li>
-                  <a class="nav-link__list" href="{% url 'contact' %}">Nous contacter</a>
+                  <a class="nav-link__list" href="{% url 'pages:contact' %}">Nous contacter</a>
                 </li>
                 <li>
-                  <a class="nav-link__list" href="{% url 'team' %}"> L'équipe </a>
+                  <a class="nav-link__list" href="{% url 'pages:team' %}"> L'équipe </a>
                 </li>
               </ul>
             </div>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'blog' %}"> Blog </a>
+            <a class="nav-link" href="{% url 'blog:posts' %}"> Blog </a>
           </li>
 
           <li class="nav-item">

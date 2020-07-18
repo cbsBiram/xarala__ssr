@@ -9,13 +9,13 @@ from django.views.decorators.csrf import csrf_exempt
 urlpatterns = [
     path("x-yarou/", admin.site.urls),
     path("graphql/", csrf_exempt(GraphQLView.as_view(graphiql=True))),
-    path("", include("pages.urls")),
+    path("", include("pages.urls", namespace="pages")),
     # path('accounts/', include('allauth.urls')),
-    path("", include("course.urls")),
-    path("podcasts/", include("podcast.urls")),
-    path("users/", include("users.urls")),
-    path("blog/", include("blog.urls")),
-    path("dashboard/", include("dashboard.urls")),
+    path("", include("course.urls", namespace="course")),
+    path("podcasts/", include("podcast.urls", namespace="podcast")),
+    path("users/", include("users.urls", namespace="users")),
+    path("blog/", include("blog.urls", namespace="blog")),
+    path("dashboard/", include("dashboard.urls", namespace="dashboard")),
     path("summernote/", include("django_summernote.urls")),
 ]
 if settings.DEBUG:

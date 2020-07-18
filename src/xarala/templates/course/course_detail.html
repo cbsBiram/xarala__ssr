@@ -38,7 +38,7 @@
                 <div class="list-group-item">
                   <span class="row">
                     <a class="col-9 col-md-8 {% if lesson.slug in request.get_full_path %} active {% endif %}"
-                      href="{% url 'course-detail' object.slug %}?lecture={{lesson.slug}}">
+                      href="{% url 'course:course-detail' object.slug %}?lecture={{lesson.slug}}">
                       <i class="ti-control-play small mr-1 text-primary"></i>
                       {{ lesson.title }}
                     </a>
@@ -72,7 +72,7 @@
               {% if lesson.previous %}
               <li class="page-item">
                 <a class="page-link width-8rem text-center"
-                  href="{% url 'course-detail' object.slug %}?lecture={{lesson.previous.slug}}">
+                  href="{% url 'course:course-detail' object.slug %}?lecture={{lesson.previous.slug}}">
                   <i class="ti-arrow-left small mr-0"></i>
                   Précédent
                 </a>
@@ -81,7 +81,7 @@
               {% if lesson.next %}
               <li class="page-item">
                 <a class="page-link width-8rem text-center"
-                  href="{% url 'course-detail' object.slug %}?lecture={{lesson.next.slug}}">
+                  href="{% url 'course:course-detail' object.slug %}?lecture={{lesson.next.slug}}">
                   Suivant
                   <i class="ti-arrow-right small ml-2"></i>
                 </a>

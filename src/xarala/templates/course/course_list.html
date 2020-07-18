@@ -6,43 +6,8 @@ Tous les cours
 {% endblock title %}
 
 {% block content %}
-<div class="padding-y-60 bg-cover" data-dark-overlay="6" style="background:url(assets/img/breadcrumb-bg.jpg) no-repeat">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-6 my-2 text-white">
-        <ol class="breadcrumb breadcrumb-double-angle bg-transparent p-0">
-          <li class="breadcrumb-item"><a href="/">Accueil</a></li>
-          <li class="breadcrumb-item"><a href="{% url 'courses' %}">Cours</a></li>
-          <li class="breadcrumb-item">Tous les cours</li>
-        </ol>
-        <h2 class="h1">
-          Tous les cours
-        </h2>
-        <p class="lead">
-          <span class="text-primary">{{ courses.count }}</span> cours disponibles
-        </p>
-      </div>
-      <form class="col-lg-5 my-2 ml-auto">
-        <div class="input-group bg-white rounded p-1">
-          <input type="text" class="form-control border-white" placeholder="Que voulez-vous apprendre?" required="">
-          <div class="input-group-append">
-            <button class="btn btn-info rounded" type="submit">
-              rechercher
-              <i class="ti-angle-right small"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 
-
-
-
-
-
-
+{% include "partials/_breadcrumbs.html" with previous="Accueil" previous_url="pages:home" current="Cours" text="Tous les cours" %}
 
 <section class="py-3 position-relative shadow-v1">
   <div class="container">
@@ -105,7 +70,7 @@ Tous les cours
       {% for course in courses %}
 
       <div class="col-lg-4 col-md-6 marginTop-30">
-        <div href="{% url 'course-overview' course.slug %}" class="card height-100p text-gray shadow-v1">
+        <div href="{% url 'course:course-overview' course.slug %}" class="card height-100p text-gray shadow-v1">
           <img class="card-img-top"
             src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %}"
             alt="{{ course.title }}">
@@ -113,7 +78,7 @@ Tous les cours
             <span class="badge position-absolute top-0 bg-success text-white" data-offset-top="-13">
               {{ course.categories.first }}
             </span>
-            <a href="{% url 'course-overview' course.slug %}" class="h5">
+            <a href="{% url 'course:course-overview' course.slug %}" class="h5">
               {{ course.title }}
             </a>
             <p class="my-3">

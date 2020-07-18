@@ -93,6 +93,10 @@ class Course(models.Model):
         return lessons
 
     def count_lessons(self):
+        count_lesson = Lesson.objects.filter(chapter__in=self.get_chapters()).count()
+        return count_lesson
+
+    def count_lessons(self):
         lessons = Lesson.objects.filter(chapter__in=self.get_chapters()).count()
         return lessons
 
@@ -113,7 +117,7 @@ class Course(models.Model):
         return total_students
 
     def get_absolute_url(self):
-        return reverse("course-detail", kwargs={"slug": self.slug})
+        return reverse("course:course-detail", kwargs={"slug": self.slug})
 
 
 class Chapter(models.Model):

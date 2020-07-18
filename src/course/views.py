@@ -124,7 +124,7 @@ class TeacherCourseListView(ListView, CreateView):
             UserLog.objects.create(
                 action=f"Created {title} course", user_type="Instructeur", user=teacher
             )
-            return redirect("created-courses")
+            return redirect("course:created-courses")
 
         return render(request, self.template_name, {"form": form})
 

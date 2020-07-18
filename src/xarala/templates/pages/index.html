@@ -81,7 +81,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4 mt-4">
-        <a href="{% url 'courses' %}" class="card rounded overflow-hidden hover:parent">
+        <a href="{% url 'course:courses' %}" class="card rounded overflow-hidden hover:parent">
           <img class="hover:zoomin" src="{% static 'assets/img/360x220/6.jpg' %}" alt="cours les mieux notés">
           <div class="card-img-overlay flex-center bg-primary-0_7 text-white text-center">
             <p class="mb-1">
@@ -94,7 +94,7 @@
         </a>
       </div>
       <div class="col-md-4 mt-4">
-        <a href="{% url 'courses' %}" class="card rounded overflow-hidden hover:parent">
+        <a href="{% url 'course:courses' %}" class="card rounded overflow-hidden hover:parent">
           <img class="hover:zoomin" src="{% static 'assets/img/360x220/5.jpg' %}" alt="cours les plus vendus">
           <div class="card-img-overlay flex-center bg-info-0_7 text-white text-center">
             <p class="mb-1">
@@ -107,7 +107,7 @@
         </a>
       </div>
       <div class="col-md-4 mt-4">
-        <a href="{% url 'courses' %}" class="card rounded overflow-hidden hover:parent">
+        <a href="{% url 'course:courses' %}" class="card rounded overflow-hidden hover:parent">
           <img class="hover:zoomin" src="{% static 'assets/img/360x220/4.jpg' %}" alt="Nouveau cours">
           <div class="card-img-overlay flex-center bg-success-0_7 text-white text-center">
             <p class="mb-1">
@@ -183,7 +183,7 @@
       </div>
       {% include "partials/_course-card.html" %}
       <div class="col-12 text-center mt-5">
-        <a href="{% url 'courses' %}" class="btn btn-primary btn-icon">
+        <a href="{% url 'course:courses' %}" class="btn btn-primary btn-icon">
           Tous les cours
         </a>
       </div>
@@ -205,7 +205,7 @@
         </h3>
       </div>
       <div class="col-md-6 my-2 text-md-right">
-        <a href="{% url 'courses' %}" class="btn btn-outline-primary">Tous les cours</a>
+        <a href="{% url 'course:courses' %}" class="btn btn-outline-primary">Tous les cours</a>
       </div>
 
       {% include "partials/_course-card.html" with courses=top_developement %}
@@ -219,7 +219,7 @@
         </h3>
       </div>
       <div class="col-md-6 my-2 text-md-right">
-        <a href="{% url 'courses' %}" class="btn btn-outline-primary">Tous les cours</a>
+        <a href="{% url 'course:courses' %}" class="btn btn-outline-primary">Tous les cours</a>
       </div>
       {% include "partials/_course-card.html" with courses=top_python %}
     </div> <!-- END row-->
@@ -231,7 +231,7 @@
         </h3>
       </div>
       <div class="col-md-6 my-2 text-md-right">
-        <a href="{% url 'courses' %}" class="btn btn-outline-primary">Tous les cours</a>
+        <a href="{% url 'course:courses' %}" class="btn btn-outline-primary">Tous les cours</a>
       </div>
 
 
@@ -311,7 +311,7 @@
           Voulez-vous gagner de l'argent en formant les autres et en communiquant
           vos compétences aux autres ? Devenez instructeur Xarala!
         </p>
-        <a href="{% url 'become-teacher' %}" class="btn btn-white">Postuler</a>
+        <a href="{% url 'pages:become-teacher' %}" class="btn btn-white">Postuler</a>
       </div>
     </div>
   </div>
