@@ -75,7 +75,7 @@ MIDDLEWARE = [
 
 GRAPHENE = {
     "SCHEMA": "xarala.schema.schema",
-    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware",],
+    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware"],
 }
 
 ROOT_URLCONF = "xarala.urls"

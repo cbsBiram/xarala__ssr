@@ -1,83 +1,77 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-     <!-- Global site tag (gtag.js) - Google Analytics -->
-     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143511541-1"></script>
-     <script>
-         window.dataLayer = window.dataLayer || [];
- 
-         function gtag() {
-             dataLayer.push(arguments);
-         }
-         gtag('js', new Date());
- 
-         gtag('config', 'UA-143511541-1');
-     </script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      {% block title %} Accueil {% endblock title %} | Xarala Academy
-    </title>
-    <meta
-      name="description"
-      content="xarala Academy - Cours en ligne - La technologie dans votre langue"
-    />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/all.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}" />
-    {% block style %}
 
-    {% endblock style %}
-    <!-- favicon -->
-    <link rel="icon" href="{% static 'images/logo/logo.png' %}" sizes="32x32" />
-    <link
-      rel="icon"
-      href="{% static 'images/logo/logo.png' %}"
-      sizes="192x192"
-    />
-    <link
-      rel="apple-touch-icon-precomposed"
-      href="{% static 'images/logo/logo.png' %}"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8">
 
-  <body class="font-sans">
-    <div class="container mx-auto">
-      
-      {% block header %}
-      {% include "partials/_navbar.html" %}
-      {% endblock header %}
-        
-      <!-- Put the sections here -->
-      <!--  -->
-      {% block banner %}
+  <!-- Title-->
+  <title>Complete education theme for School, College, University, E-learning</title>
 
-      {% include "partials/_heros_message.html" %}
-      
-      {% endblock banner %}
-     
-      
-      <div class="container mx-auto ">
-        {% block content %}
+  <!-- SEO Meta-->
+  <meta name="description" content="Education theme by EchoTheme">
+  <meta name="keywords" content="HTML5 Education theme, responsive HTML5 theme, bootstrap 4, Clean Theme">
+  <meta name="author" content="education">
 
-        {% endblock content %}
+  <!-- viewport scale-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+  <!-- Favicon and Apple Icons-->
+  <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon/favicon.ico' %}">
+  <link rel="shortcut icon" href="{% static 'assets/img/logo.png' %}">
+  <link rel="apple-touch-icon-precomposed" href="{% static 'assets/img/logo.png' %}">
+
+
+  <!--Google fonts-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700%7CWork+Sans:400,500">
+
+
+  <!-- Icon fonts -->
+  <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome/css/all.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/fonts/themify-icons/css/themify-icons.css' %}">
+
+
+  <!-- stylesheet-->
+  <link rel="stylesheet" href="{% static 'assets/css/vendors.bundle.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+</head>
+
+<body>
+
+
+  {% include "partials/_header.html" %}
+
+  {% include "partials/_navbar.html" %}
+
+
+
+  <div class="site-search">
+    <div class="site-search__close bg-black-0_8"></div>
+    <form class="form-site-search" action="#" method="POST">
+      <div class="input-group">
+        <input type="text" placeholder="Search" class="form-control py-3 border-white" required="">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit"><i class="ti-search"></i></button>
+        </div>
       </div>
-      <!--  -->
-      <!-- {% include "partials/newsletter.html" %} -->
-      <!--  -->
-      {% include "partials/footer.html" %}
+    </form>
+  </div> <!-- END site-search-->
 
-      <div class="bg-dark text-white text-center text-sm py-6">
-        <p>Copyright &copy; 2020 Xarala.</p>
-      </div>
-    </div>
+  {% block content %}
 
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
-    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
- 
-    {% block extrajs %}
+  {% endblock content %}
 
-    {% endblock %}
 
-  </body>
+  {% include "partials/_footer.html" %}
+
+  <div class="scroll-top">
+    <i class="ti-angle-up"></i>
+  </div>
+
+  <script src="{% static 'assets/js/vendors.bundle.js ' %}"></script>
+  <script src="{% static 'assets/js/scripts.js ' %}"></script>
+</body>
+
 </html>

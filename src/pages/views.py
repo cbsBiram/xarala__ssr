@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from blog.models import Post
 from xarala.utils import SendSubscribeMail
 from .models import Subscribe, Carousel, Team
 from django.http import HttpResponse, JsonResponse
@@ -10,13 +11,33 @@ from send_mail.views import become_teacher_mail
 
 
 def home(request):
-    courses = Course.objects.order_by("-id")[:4]
+    course_counts = Course.objects.count()
+    courses = Course.objects.order_by("-id")[:8]
+    posts = Post.objects.order_by("-id")[:8]
+    top_python = Course.objects.filter(
+        categories__name__in=["Python", "Django", "Flask"]
+    )
+    top_developement = Course.objects.filter(
+        categories__name__in=["Javascript", "React", "Développement Web", "Html", "Css"]
+    )
+    top_design = Course.objects.filter(
+        categories__name__in=["Design", "Adobe XD", "Figma", "Sketch"]
+    )
     categories = Category.objects.order_by("-id")
     carousel = Carousel.objects.last()
     return render(
         request,
         "pages/index.html",
-        {"courses": courses, "carousel": carousel, "categories": categories},
+        {
+            "courses": courses,
+            "top_python": top_python,
+            "top_developement": top_developement,
+            "top_design": top_design,
+            "carousel": carousel,
+            "categories": categories,
+            "posts": posts,
+            "course_counts": course_counts,
+        },
     )
 
 
