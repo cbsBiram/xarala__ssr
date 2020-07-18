@@ -54,6 +54,11 @@ class Course(models.Model):
     language = models.ForeignKey(Language, models.SET_NULL, null=True)
     drafted = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
+    promote_video = models.TextField(default="")
+    projects = models.TextField(default="")
+    what_will_i_learn = models.TextField(default="")
+    requirements = models.TextField(default="")
+    target_audience = models.TextField(default="")
 
     class Meta:
         ordering = ["-date_created"]
@@ -161,6 +166,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=200)
     is_video = models.BooleanField(default=True)
     text = models.TextField(blank=True)
+    lecture_number = models.IntegerField(default=1)
     slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
     file = models.FileField(upload_to=upload_image_path, blank=True, null=True)
     resource_link = models.CharField(max_length=240, null=True, blank=True)
@@ -172,6 +178,7 @@ class Lesson(models.Model):
         Chapter, models.SET_NULL, null=True, blank=True, related_name="course_lessons"
     )
     drafted = models.BooleanField(default=False)
+    preview = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):

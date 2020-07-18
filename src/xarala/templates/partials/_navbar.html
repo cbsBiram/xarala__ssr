@@ -18,40 +18,40 @@
         <ul class="nav navbar-nav ec-nav__navbar ml-auto">
 
           <li class="nav-item">
-            <a class="nav-link" href="#">Accueil</a>
+            <a class="nav-link" href="/">Accueil</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">Formation</a>
+            <a class="nav-link" href="{% url 'courses' %}">Formation</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">Parcours</a>
+            <a class="nav-link" href="{% url 'learning-path' %}">Parcours</a>
           </li>
 
           <li class="nav-item nav-item__has-dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">La plateforme</a>
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{% url 'about' %}">La plateforme</a>
             <div class="dropdown-menu">
               <ul class="list-unstyled">
-                <li><a class="nav-link__list" href="page-about.html">A propos</a></li>
+                <li><a class="nav-link__list" href="{% url 'about' %}">A propos</a></li>
                 <li>
-                  <a class="nav-link__list" href="page-sp-vc.html">Communauté</a>
+                  <a class="nav-link__list" href="{% url 'community' %}">Communauté</a>
                 </li>
                 <li>
-                  <a class="nav-link__list" href="page-faq.html"> FAQs </a>
+                  <a class="nav-link__list" href="#"> FAQs </a>
                 </li>
                 <li>
-                  <a class="nav-link__list" href="page-contact.html">Nous contacter</a>
+                  <a class="nav-link__list" href="{% url 'contact' %}">Nous contacter</a>
                 </li>
                 <li>
-                  <a class="nav-link__list" href="page-404.html"> L'équipe </a>
+                  <a class="nav-link__list" href="{% url 'team' %}"> L'équipe </a>
                 </li>
               </ul>
             </div>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#"> Blog </a>
+            <a class="nav-link" href="{% url 'blog' %}"> Blog </a>
           </li>
 
           <li class="nav-item">

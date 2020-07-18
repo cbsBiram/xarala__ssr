@@ -12,8 +12,13 @@ from userlogs.models import UserLog
 
 class CourseListView(ListView):
     queryset = Course.objects.order_by("-id")
-    paginate_by = 4
+    paginate_by = 6
     context_object_name = "courses"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        return context
 
 
 class CourseOverviewView(DetailView):

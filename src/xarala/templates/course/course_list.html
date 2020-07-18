@@ -1,0 +1,167 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+Tous les cours
+{% endblock title %}
+
+{% block content %}
+<div class="padding-y-60 bg-cover" data-dark-overlay="6" style="background:url(assets/img/breadcrumb-bg.jpg) no-repeat">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 my-2 text-white">
+        <ol class="breadcrumb breadcrumb-double-angle bg-transparent p-0">
+          <li class="breadcrumb-item"><a href="/">Accueil</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'courses' %}">Cours</a></li>
+          <li class="breadcrumb-item">Tous les cours</li>
+        </ol>
+        <h2 class="h1">
+          Tous les cours
+        </h2>
+        <p class="lead">
+          <span class="text-primary">{{ courses.count }}</span> cours disponibles
+        </p>
+      </div>
+      <form class="col-lg-5 my-2 ml-auto">
+        <div class="input-group bg-white rounded p-1">
+          <input type="text" class="form-control border-white" placeholder="Que voulez-vous apprendre?" required="">
+          <div class="input-group-append">
+            <button class="btn btn-info rounded" type="submit">
+              rechercher
+              <i class="ti-angle-right small"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<section class="py-3 position-relative shadow-v1">
+  <div class="container">
+    <form class="row">
+      <div class="col-md-6 my-2">
+        <ul class="list-inline">
+          <li class="list-inline-item my-2">
+            <select class="form-control">
+              <option selected default>Catégorie</option>
+              {% for category in categories %}
+              <option>{{ category.name }}</option>
+              {% endfor %}
+            </select>
+          </li>
+          <li class="list-inline-item my-2">
+            <select class="form-control">
+              <option selected default>Filtrer</option>
+              <option>Meilleure vente</option>
+              <option>Le plus récent</option>
+              <option>Les mieux notés</option>
+              <option>Gratuit</option>
+            </select>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-6 my-2 text-md-right">
+        <div class="d-inline-flex justify-md-content-end">
+          <!-- <select class="form-control my-2">
+            <option selected default>elements par page</option>
+            <option>8</option>
+            <option>12</option>
+            <option>16</option>
+            <option>20</option>
+            <option>24</option>
+          </select> -->
+          <div class="d-flex rounded border ml-3 px-2 my-2">
+            <a href="#" class="btn px-1 active">
+              <ti class="ti-layout-grid2"></ti>
+            </a>
+            <!-- <a href="#" class="active btn px-1">
+              <ti class="ti-view-list"></ti>
+            </a> -->
+          </div>
+        </div>
+      </div>
+    </form> <!-- END row-->
+  </div> <!-- END container-->
+</section>
+
+
+
+
+<section class="paddingTop-50 paddingBottom-100 bg-light-v2">
+  <div class="container">
+    <div class="row">
+
+
+      {% if courses %}
+
+      {% for course in courses %}
+
+      <div class="col-lg-4 col-md-6 marginTop-30">
+        <div href="{% url 'course-overview' course.slug %}" class="card height-100p text-gray shadow-v1">
+          <img class="card-img-top"
+            src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %}"
+            alt="{{ course.title }}">
+          <div class="card-body">
+            <span class="badge position-absolute top-0 bg-success text-white" data-offset-top="-13">
+              {{ course.categories.first }}
+            </span>
+            <a href="{% url 'course-overview' course.slug %}" class="h5">
+              {{ course.title }}
+            </a>
+            <p class="my-3">
+              <i class="ti-user mr-2"></i>
+              {{ course.teacher.get_full_name|default_if_none:"Xarala" }}
+            </p>
+            <p class="mb-0">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <span class="text-dark">5</span>
+              <span>({{ course.count_students }})</span>
+            </p>
+          </div>
+          <div class="card-footer media align-items-center justify-content-between">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-1">
+                <i class="ti-headphone small mr-2"></i>
+                46 lectures
+              </li>
+              <li class="mb-1">
+                <i class="ti-time small mr-2"></i>
+                27.5 hours
+              </li>
+            </ul>
+            <h4 class="h5 text-right">
+
+              {% if course.price %}
+              <span class="text-primary"> {{ course.price }} XOF</span>
+              {% else %}
+              <span class="text-success">Gratuit</span>
+
+              {% endif %}
+            </h4>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+
+      {% endif %}
+
+    </div>
+
+    {% include "partials/_pagination.html" %}
+
+  </div> <!-- END container-->
+</section>
+{% endblock content %}
