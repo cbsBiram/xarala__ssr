@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "userlogs.apps.LogsConfig",
     "dashboard.apps.DashboardConfig",
     "blog.apps.BlogConfig",
+    "shop.apps.ShopConfig",
     # "mentorship.apps.MentorshipConfig",
 ]
 
@@ -138,9 +139,9 @@ AUTHENTICATION_BACKENDS = [
 ]
 """
 LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "pages:home"
 LOGOUT_URL = "logout"
-LOGOUT_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "pages:home"
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 

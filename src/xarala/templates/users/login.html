@@ -1,0 +1,75 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+Authentification
+{% endblock title %}
+
+
+{% block content %}
+<section class="padding-y-100 bg-light">
+  {% include "partials/_alerts.html" %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 mx-auto">
+        <div class="card shadow-v2">
+          <div class="card-header border-bottom">
+            <h4 class="mt-4">
+              Connectez-vous à votre compte <span class="text-primary">Xarala</span>!
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col my-2">
+                <button class="btn btn-block btn-facebook">
+                  <i class="ti-facebook mr-1"></i>
+                  <span>Connexion avec Facebook</span>
+                </button>
+              </div>
+              <div class="col my-2">
+                <button class="btn btn-block btn-google-plus">
+                  <i class="ti-google mr-1"></i>
+                  <span>Connexion avec Google</span>
+                </button>
+              </div>
+            </div>
+            <p class="text-center my-4">
+              OU
+            </p>
+            <form method="POST" class="px-lg-4">
+              {% csrf_token %}
+              <div class="input-group input-group--focus mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white ti-email"></span>
+                </div>
+                <input type="email" name="email" class="form-control border-left-0 pl-0" placeholder="Email" required>
+              </div>
+              <div class="input-group input-group--focus mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white ti-lock"></span>
+                </div>
+                <input type="password" name="password" class="form-control border-left-0 pl-0"
+                  placeholder="Mot de passe" required>
+              </div>
+              <div class="d-md-flex justify-content-between my-4">
+                <!-- <label class="ec-checkbox check-sm my-2 clearfix">
+                  <input type="checkbox" name="checkbox">
+                  <span class="ec-checkbox__control"></span>
+                  <span class="ec-checkbox__lebel">Remember Me</span>
+                </label> -->
+                <a href="{% url 'password_reset' %}" class="text-primary my-2 d-block"> Mot de passe oublié?</a>
+              </div>
+              <button type="submit" class="btn btn-block btn-primary">Connexion</button>
+              <p class="my-5 text-center">
+                Don’t have an account? <a href="{% url 'register' %}?next={{ next|default_if_none:'/' }}"
+                  class="text-primary">Inscription</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> <!-- END row-->
+  </div> <!-- END container-->
+</section>
+
+{% endblock content %}

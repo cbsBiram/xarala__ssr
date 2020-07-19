@@ -2,27 +2,24 @@
 
 {% for message in messages %}
 
-<section class="padding-y-80  border-bottom border-light">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 mx-auto">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
 
-        <div class="alert alert-{{ message.tags }} px-4 py-3 alert-dismissible fade show" role="alert">
-          <strong> {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-            Erreur:
-            {% else %}
-            {{ message.tags|title }}
-            {% endif %}!</strong> {{ message }}.
-          <button type="button" class="close font-size-14 absolute-center-y" data-dismiss="alert" aria-label="Close">
-            <i class="ti-close"></i>
-          </button>
-        </div>
-
+      <div class="alert alert-{{ message.tags }} px-4 py-3 alert-dismissible fade show" role="alert">
+        <strong> {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+          Erreur:
+          {% else %}
+          {{ message.tags|title }}
+          {% endif %}!</strong> {{ message }}.
+        <button type="button" class="close font-size-14 absolute-center-y" data-dismiss="alert" aria-label="Close">
+          <i class="ti-close"></i>
+        </button>
       </div>
+
     </div>
   </div>
-</section>
-
+</div>
 
 {% endfor %}
 {% endif %}

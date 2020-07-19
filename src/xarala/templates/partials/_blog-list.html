@@ -7,9 +7,13 @@
 
   <div class="col-md-4 px-md-0">
     <a href="{{ post.get_absolute_url }}">
-      <img class="w-100"
-        src="{% if post.thumbnail %} {{ post.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %}g"
-        alt="{{ post.title }}">
+      <img class="w-100" src="
+          {% if post.image %}
+          {{ post.image.url }}
+          {% elif post.image_url %}
+          {{ post.image_url }}
+          {% else %}{% static 'assets/img/placeholder-1.jpg'  %}
+          {% endif %}" alt="{{ post.title }}">
     </a>
   </div>
 

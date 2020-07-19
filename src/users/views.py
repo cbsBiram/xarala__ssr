@@ -14,9 +14,9 @@ from userlogs.models import UserLog
 def login(request):
     next_ = request.GET.get("next")
     next_post = request.POST.get("next")
-    redirect_path = next_ or next_post
+    redirect_path = next_ or next_post if next_ or next_post else "/"
     if request.user.is_authenticated:
-        return redirect("dashboard:dashbaord")
+        return redirect("dashboard:dashboard")
     else:
         if request.method == "POST":
             next_ = request.GET.get("next")
@@ -28,7 +28,6 @@ def login(request):
             user = authenticate(request, email=mail_to_lower, password=password)
             if user is not None:
                 auth_login(request, user)
-
                 if is_safe_url(redirect_path, request.get_host()):
                     return redirect(redirect_path)
                 else:
@@ -49,9 +48,9 @@ def login(request):
 def register(request):
     next_ = request.GET.get("next")
     next_post = request.POST.get("next")
-    redirect_path = next_ or next_post
+    redirect_path = next_ or next_post if next_ or next_post else "/"
     if request.user.is_authenticated:
-        return redirect("dashboard")
+        return redirect("dashboard:dashboard")
     else:
         if request.method == "POST":
             # Get form values
@@ -71,6 +70,9 @@ def register(request):
                     )
                     user.save()
                     send_new_register_email(user)
+                    user = authenticate(request, email=mail_to_lower, password=password)
+                    if user is not None:
+                        auth_login(request, user)
                     UserLog.objects.create(
                         action="Created account", user_type="Student", user=user
                     )
@@ -113,5 +115,5 @@ class CustomUserUpdateDetailView(UpdateView, DetailView):
         form = self.form_class(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect("users:profile")
+            return redirect("profile")
         return render(request, self.template_name, {"form": form})
