@@ -34,16 +34,25 @@
         {% if request.user.is_authenticated %}
 
         <li class="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
-          <a href="page-login.html">Dashboard</a>
+          <a href="{% url 'dashboard:dashboard' %}">Dashboard</a>
+        </li>
+
+        <li class="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
+          <a href="javascript:{document.getElementById('logout').submit()}">Déconnexion
+            <form action="{% url 'users:logout' %}" method="POST" id="logout">
+              {% csrf_token %}
+              <input type="hidden" />
+            </form>
+          </a>
         </li>
 
         {% else %}
 
         <li class="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
-          <a href="page-login.html">Connexion</a>
+          <a href="{% url 'users:login' %}">Connexion</a>
         </li>
         <li class="list-inline-item mr-0 p-md-3 p-2 border-right border-white-0_1">
-          <a href="page-signup.html">Inscription</a>
+          <a href="{% url 'users:register' %}">Inscription</a>
         </li>
 
         {% endif %}

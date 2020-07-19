@@ -93,10 +93,6 @@ class Course(models.Model):
         return lessons
 
     def count_lessons(self):
-        count_lesson = Lesson.objects.filter(chapter__in=self.get_chapters()).count()
-        return count_lesson
-
-    def count_lessons(self):
         lessons = Lesson.objects.filter(chapter__in=self.get_chapters()).count()
         return lessons
 

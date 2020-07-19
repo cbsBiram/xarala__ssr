@@ -1,0 +1,57 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+Tableau de bord
+{% endblock title %}
+
+{% block content %}
+
+<section class="padding-y-100 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mt-4">
+        <a href="{% url 'users:profile' %}" class="card rounded overflow-hidden hover:parent">
+          <img class="hover:zoomin" src="{% static 'assets/img/360x220/course-1.jpg' %}"
+            alt="Personnalisez votre profile">
+          <div class="card-img-overlay flex-center bg-primary-0_7 text-white text-center">
+            <p class="mb-1">
+              Personnalisez
+            </p>
+            <h6>
+              Votre profile
+            </h6>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 mt-4">
+        <a href="#" class="card rounded overflow-hidden hover:parent">
+          <img class="hover:zoomin" src="{% static 'assets/img/360x220/course-2.jpg' %}" alt="cours les plus vendus">
+          <div class="card-img-overlay flex-center bg-info-0_7 text-white text-center">
+            <p class="mb-1">
+              Vos
+            </p>
+            <h6>
+              projets(bientot disponible)
+            </h6>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 mt-4">
+        <a href="#" class="card rounded overflow-hidden hover:parent">
+          <img class="hover:zoomin" src="{% static 'assets/img/360x220/course-1.jpg' %}" alt="Nouveau cours">
+          <div class="card-img-overlay flex-center bg-success-0_7 text-white text-center">
+            <p class="mb-1">
+              Total cours
+            </p>
+            <h6>
+              {{ total_courses }}
+            </h6>
+          </div>
+        </a>
+      </div>
+    </div> <!-- END row-->
+  </div> <!-- END container-->
+</section>
+
+{% endblock content %}

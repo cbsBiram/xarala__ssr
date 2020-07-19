@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 from django.utils.http import is_safe_url
 from django.views.generic import UpdateView, DetailView
+
+from course.models import Course
 from .models import CustomUser
 from .forms import CustomUserUpdateForm
 from send_mail.views import send_new_register_email
@@ -93,13 +95,23 @@ class CustomUserUpdateDetailView(UpdateView, DetailView):
     template_name = "users/profile.html"
 
     def get(self, request, *args, **kwargs):
-        form = self.form_class(instance=request.user)
+        user = request.user
+        form = self.form_class(instance=user)
+        courses = Course.objects.all()
+        if user.is_student:
+            courses = user.courses_enrolled.all()
+        elif user.is_teacher:
+            courses = user.courses_created.all()
 
-        return render(request, self.template_name, {"form": form})
+        return render(
+            request,
+            self.template_name,
+            {"form": form, "user": user, "courses": courses},
+        )
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect("profile")
+            return redirect("users:profile")
         return render(request, self.template_name, {"form": form})
