@@ -10,8 +10,8 @@
       src="{% if post.thumbnail %} {{ post.thumbnail.url }} {% else %} {% static 'assets/img/placeholder-1.jpg'  %} {% endif %}"
       alt="{{ post.title }}">
     <div class="card-body px-0">
-      <a href="#" class="text-primary">{{ post.tags.first }}</a>
-      <a href="#" class="h4 my-2">
+      <a href="{% url 'blog:blog_tag' post.tags.first %}" class="text-primary">{{ post.tags.first }}</a>
+      <a href="{{ post.get_absolute_url }}" class="h4 my-2">
         {{ post.title }}
       </a>
       <p>

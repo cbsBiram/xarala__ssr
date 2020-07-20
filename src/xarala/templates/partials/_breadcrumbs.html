@@ -16,12 +16,13 @@
         <p class="lead">{{ text }}
         </p>
       </div>
-      <form class="col-lg-5 my-2 ml-auto">
+      <form class="col-lg-5 my-2 ml-auto" method='GET' action="{% url 'search:results' %}">
         <div class="input-group bg-white rounded p-1">
-          <input type="text" class="form-control border-white" placeholder="Que voulez-vous apprendre?" required="">
+          <input type="text" class="form-control border-white" placeholder="Que voulez-vous apprendre?" name="q"
+            required>
           <div class="input-group-append">
-            <button class="btn btn-info rounded" type="submit">
-              rechercher
+            <button class="btn btn-primary rounded" type="submit">
+              Rechercher
               <i class="ti-angle-right small"></i>
             </button>
           </div>

@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.db.models import Sum
 from django.utils.text import slugify
+from course.managers import CourseManager, LessonManager
 from users.models import CustomUser
 from xarala.utils import upload_image_path
 
@@ -54,11 +55,14 @@ class Course(models.Model):
     language = models.ForeignKey(Language, models.SET_NULL, null=True)
     drafted = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
+    publish_date = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     promote_video = models.TextField(default="")
     projects = models.TextField(default="")
     what_will_i_learn = models.TextField(default="")
     requirements = models.TextField(default="")
     target_audience = models.TextField(default="")
+
+    objects = CourseManager()
 
     class Meta:
         ordering = ["-date_created"]
@@ -113,7 +117,7 @@ class Course(models.Model):
         return total_students
 
     def get_absolute_url(self):
-        return reverse("course:course-detail", kwargs={"slug": self.slug})
+        return reverse("course:course-overview", kwargs={"slug": self.slug})
 
 
 class Chapter(models.Model):
@@ -180,6 +184,8 @@ class Lesson(models.Model):
     drafted = models.BooleanField(default=False)
     preview = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
+
+    objects = LessonManager()
 
     def __str__(self):
         return self.title

@@ -5,7 +5,7 @@ from .forms import CreatePostForm
 
 
 class PostListView(ListView):
-    queryset = Post.objects.order_by("-date_published")
+    queryset = Post.objects.all().published()
     context_object_name = "posts"
     paginate_by = 2
 
@@ -25,7 +25,7 @@ class PostDetailView(DetailView):
 
 
 def blog_tag(request, tag):
-    posts = Post.objects.filter(tags__name__contains=tag).order_by("-date_created")
+    posts = Post.objects.filter(tags__name__contains=tag).published()
     context = {"tag": tag, "posts": posts}
     return render(request, "blog/post_tag.html", context)
 

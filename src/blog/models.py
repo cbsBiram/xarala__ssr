@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 from xarala.utils import upload_image_path
 from users.models import CustomUser
+from .managers import BlogPostManager
 
 
 class Tag(models.Model):
@@ -24,12 +25,17 @@ class Post(models.Model):
     image = models.ImageField(upload_to=upload_image_path, blank=True, null=True)
     image_url = models.URLField(max_length=255, blank=True, null=True)
     published = models.BooleanField(default=False)
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_published = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    date_updated = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    publish_date = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    updated = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     featured = models.BooleanField(default=False)
     drafted = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tag, blank=True)
+
+    objects = BlogPostManager()
+
+    class Meta:
+        ordering = ["-publish_date", "-updated", "-timestamp"]
 
     def __str__(self):
         return self.title

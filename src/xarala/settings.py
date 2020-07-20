@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "dashboard.apps.DashboardConfig",
     "blog.apps.BlogConfig",
     "shop.apps.ShopConfig",
+    "search.apps.SearchConfig",
     # "mentorship.apps.MentorshipConfig",
 ]
 
