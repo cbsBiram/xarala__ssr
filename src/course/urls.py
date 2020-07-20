@@ -20,7 +20,7 @@ urlpatterns = [
         name="subscribe_user_to_course",
     ),
     path(
-        "courses/category/<category>/",
+        "courses/category/<str:category>/",
         views.CategoryCourseList.as_view(),
         name="course-by-category",
     ),

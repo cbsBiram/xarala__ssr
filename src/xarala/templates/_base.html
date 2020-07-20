@@ -67,6 +67,7 @@
   <div class="site-search">
     <div class="site-search__close bg-black-0_8"></div>
     <form class="form-site-search" action="#" method="POST">
+      {% csrf_token %}
       <div class="input-group">
         <input type="text" placeholder="Je cherche un cours sur..." class="form-control py-3 border-white" required="">
         <div class="input-group-append">
@@ -89,6 +90,7 @@
 
   <script src="{% static 'assets/js/vendors.bundle.js ' %}"></script>
   <script src="{% static 'assets/js/scripts.js ' %}"></script>
+  <script src="{% static 'assets/js/customize.js ' %}"></script>
 </body>
 
 </html>

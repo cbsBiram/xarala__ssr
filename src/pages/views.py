@@ -63,6 +63,10 @@ def privacy_policy(request):
     return render(request, "pages/privacy_policy.html")
 
 
+def faq(request):
+    return render(request, "pages/faq.html")
+
+
 def community_page(request):
     return render(request, "pages/community.html")
 
@@ -86,7 +90,7 @@ class ContactUsView(TemplateView, CreateView):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("thanks")
+            return redirect("pages:thanks")
 
         return render(request, self.template_name, {"form": form})
 

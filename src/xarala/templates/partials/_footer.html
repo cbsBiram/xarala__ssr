@@ -13,7 +13,7 @@
           </div>
           <ul class="list-inline">
             <li class="list-inline-item"><a class="iconbox bg-white-0_2 hover:primary"
-                href="https://web.facebook.com/xarala"><i class="ti-facebook">
+                href="http://bit.ly/xaralaYouTube"><i class="ti-youtube">
                 </i></a></li>
             <li class="list-inline-item"><a class="iconbox bg-white-0_2 hover:primary"
                 href="http://bit.ly/xaralaTwitter"><i class="ti-twitter">
@@ -59,11 +59,14 @@
           <div class="marginTop-40">
             <p class="mb-4">Abonnez-vous pour obtenir des mises à jour et des informations. Ne vous inquiétez pas, nous
               n'enverrons pas de spam!</p>
-            <form class="marginTop-30" action="#" method="POST">
+            <form class="marginTop-30 mc4wp-form mc4wp-form-1971 bm8" action="#" method="POST" id="subscribe"
+              ata-id="1971" data-name="Mail Form">
+              {% csrf_token %}
               <div class="input-group">
-                <input type="text" placeholder="Enter your email" class="form-control py-3 border-white" required="">
+                <input type="email" placeholder="Votre email" class="form-control py-3 border-white" required
+                  id="email_id" name="email_id">
                 <div class="input-group-append">
-                  <button class="btn btn-primary" type="submit">S'inscrire</button>
+                  <button class="btn btn-primary subscribe-submit" id="email_submit" type="submit">S'inscrire</button>
                 </div>
               </div>
             </form>
@@ -74,7 +77,7 @@
     </div> <!-- END container-->
   </div> <!-- END footer-top-->
 
-  <div class="footer-bottom bg-black-0_9 py-5 text-center">
+  <div class="footer-bottom bg-dark py-5 text-center" data-dark-overlay="6">
     <div class="container">
       <p class="text-white-0_5 mb-0">&copy; 2020 Xarala. All rights reserved. Created by <a
           href="https://twitter.com/xarala221" target="_blunk">Xarala221</a></p>

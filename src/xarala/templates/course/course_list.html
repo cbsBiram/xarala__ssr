@@ -9,57 +9,6 @@ Tous les cours
 
 {% include "partials/_breadcrumbs.html" with previous="Accueil" previous_url="pages:home" current="Cours" text="Tous les cours" %}
 
-<section class="py-3 position-relative shadow-v1">
-  <div class="container">
-    <form class="row">
-      <div class="col-md-6 my-2">
-        <ul class="list-inline">
-          <li class="list-inline-item my-2">
-            <select class="form-control">
-              <option selected default>Catégorie</option>
-              {% for category in categories %}
-              <option>{{ category.name }}</option>
-              {% endfor %}
-            </select>
-          </li>
-          <li class="list-inline-item my-2">
-            <select class="form-control">
-              <option selected default>Filtrer</option>
-              <option>Meilleure vente</option>
-              <option>Le plus récent</option>
-              <option>Les mieux notés</option>
-              <option>Gratuit</option>
-            </select>
-          </li>
-        </ul>
-      </div>
-      <div class="col-md-6 my-2 text-md-right">
-        <div class="d-inline-flex justify-md-content-end">
-          <!-- <select class="form-control my-2">
-            <option selected default>elements par page</option>
-            <option>8</option>
-            <option>12</option>
-            <option>16</option>
-            <option>20</option>
-            <option>24</option>
-          </select> -->
-          <div class="d-flex rounded border ml-3 px-2 my-2">
-            <a href="#" class="btn px-1 active">
-              <ti class="ti-layout-grid2"></ti>
-            </a>
-            <!-- <a href="#" class="active btn px-1">
-              <ti class="ti-view-list"></ti>
-            </a> -->
-          </div>
-        </div>
-      </div>
-    </form> <!-- END row-->
-  </div> <!-- END container-->
-</section>
-
-
-
-
 <section class="paddingTop-50 paddingBottom-100 bg-light-v2">
   <div class="container">
     <div class="row">
@@ -99,11 +48,11 @@ Tous les cours
             <ul class="list-unstyled mb-0">
               <li class="mb-1">
                 <i class="ti-headphone small mr-2"></i>
-                46 lectures
+                {{ course.count_lessons }} lectures
               </li>
               <li class="mb-1">
                 <i class="ti-time small mr-2"></i>
-                27.5 hours
+                {{ course.count_duration }}
               </li>
             </ul>
             <h4 class="h5 text-right">

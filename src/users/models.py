@@ -43,3 +43,17 @@ class Experience(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Education(models.Model):
+    user = models.ForeignKey(
+        CustomUser, models.SET_NULL, null=True, blank=True, related_name="educations"
+    )
+    begin_at = models.DateField(auto_now=False, blank=True, null=True)
+    end_at = models.DateField(auto_now=False, blank=True, null=True)
+    title = models.CharField(max_length=50, null=True, blank=True)
+    school = models.CharField(max_length=50, null=True, blank=True)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.title

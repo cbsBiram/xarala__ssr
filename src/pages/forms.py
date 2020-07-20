@@ -13,126 +13,66 @@ RULES = (
 class ContactForm(forms.ModelForm):
     first_name = forms.CharField(
         max_length=150,
-        label="Votre Prénom",
+        label="Nom complet",
         widget=forms.TextInput(
-            {
-                "placeholder": "Ex: Modou",
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
-            }
-        ),
-    )
-    last_name = forms.CharField(
-        max_length=150,
-        label="Votre Nom",
-        widget=forms.TextInput(
-            {
-                "placeholder": "Ex: Diop",
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
-            }
+            {"placeholder": "Ex: Modou Diop", "class": "form-control"}
         ),
     )
     email = forms.EmailField(
         max_length=150,
         label="Email",
         widget=forms.EmailInput(
-            {
-                "placeholder": "monmail@gmail.com",
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
-            }
+            {"placeholder": "monmail@gmail.com", "class": "form-control"}
         ),
     )
     phone = forms.CharField(
         max_length=150,
-        label="Telephone",
+        label="Téléphone",
         widget=forms.TextInput(
-            {
-                "placeholder": "77 992 88 98",
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
-            }
+            {"placeholder": "77 992 88 98", "class": "form-control"}
         ),
-    )
-    enterprise = forms.CharField(
-        max_length=150,
-        label="Enterprise ou École..",
-        widget=forms.TextInput(
-            {
-                "placeholder": "Ex: Xarala",
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
-            }
-        ),
-    )
-    rule = forms.ChoiceField(
-        choices=RULES,
-        label="Votre rôle",
-        widget=forms.Select(attrs={"class": "form-select block w-full mt-1"}),
     )
     message = forms.CharField(
-        label="Description",
-        required=False,
+        label="Votre Message",
         widget=forms.Textarea(
-            attrs={
-                "class": "no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none",
-                "rows": "3",
-            }
+            attrs={"class": "form-control", "rows": "7", "placeholder": "Votre message"}
         ),
     )
 
     class Meta:
         model = Contact
-        fields = ("first_name", "last_name", "email", "phone", "rule", "message")
+        fields = ("first_name", "email", "phone", "message")
 
 
 class BecomeTeacherForm(forms.ModelForm):
     first_name = forms.CharField(
         max_length=150,
-        label="Votre Prénom",
+        label="Nom Complet",
         widget=forms.TextInput(
-            {
-                "placeholder": "Ex: Modou",
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
-            }
-        ),
-    )
-    last_name = forms.CharField(
-        max_length=150,
-        label="Votre Nom",
-        widget=forms.TextInput(
-            {
-                "placeholder": "Ex: Diop",
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
-            }
+            {"placeholder": "Ex: Modou Diop", "class": "form-control"}
         ),
     )
     email = forms.EmailField(
         max_length=150,
         label="Email",
         widget=forms.EmailInput(
-            {
-                "placeholder": "monmail@gmail.com",
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
-            }
+            {"placeholder": "monmail@gmail.com", "class": "form-control"}
         ),
     )
     phone = forms.CharField(
         max_length=150,
         label="Téléphone(Whatsapp si possible)",
         widget=forms.TextInput(
-            {
-                "placeholder": "77 992 88 98",
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
-            }
+            {"placeholder": "77 992 88 98", "class": "form-control"}
         ),
     )
     message = forms.CharField(
         label="Parlez-nous un peu de vous et de votre motivation pour enseigner sur Xarala",
         widget=forms.Textarea(
-            attrs={
-                "class": "no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none",
-                "rows": "3",
-            }
+            attrs={"class": "form-control", "rows": "7", "placeholder": "Votre message"}
         ),
     )
 
     class Meta:
         model = Contact
-        fields = ("first_name", "last_name", "email", "phone", "message")
+        fields = ("first_name", "email", "phone", "message")

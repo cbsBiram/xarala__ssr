@@ -195,18 +195,19 @@ class TeacherLessonListCreateView(DetailView, CreateView):
 
 
 class CategoryCourseList(ListView):
-
     template_name = "course/courses_by_category.html"
+    paginate_by = 2
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, name=self.kwargs["category"])
-        return Course.objects.filter(categories=self.category)
+        return Course.objects.filter(categories__name=self.category)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in the publisher
         context["category"] = self.category
+        print(context)
         return context
 
 
