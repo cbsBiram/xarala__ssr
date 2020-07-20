@@ -116,6 +116,6 @@ class BecomeTeacherView(TemplateView, CreateView):
             message = form.cleaned_data.get("message")
             form.save()
             become_teacher_mail(email, message)
-            return redirect("thanks")
+            return redirect("pages:thanks")
 
         return render(request, self.template_name, {"form": form})
