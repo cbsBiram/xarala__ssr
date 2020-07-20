@@ -19,23 +19,6 @@ Authentification
             </h4>
           </div>
           <div class="card-body">
-            <div class="row">
-              <div class="col my-2">
-                <button class="btn btn-block btn-facebook">
-                  <i class="ti-facebook mr-1"></i>
-                  <span>Connexion avec Facebook</span>
-                </button>
-              </div>
-              <div class="col my-2">
-                <button class="btn btn-block btn-google-plus">
-                  <i class="ti-google mr-1"></i>
-                  <span>Connexion avec Google</span>
-                </button>
-              </div>
-            </div>
-            <p class="text-center my-4">
-              OU
-            </p>
             <form method="POST" class="px-lg-4">
               {% csrf_token %}
               <div class="input-group input-group--focus mb-3">
@@ -52,16 +35,11 @@ Authentification
                   placeholder="Mot de passe" required>
               </div>
               <div class="d-md-flex justify-content-between my-4">
-                <!-- <label class="ec-checkbox check-sm my-2 clearfix">
-                  <input type="checkbox" name="checkbox">
-                  <span class="ec-checkbox__control"></span>
-                  <span class="ec-checkbox__lebel">Remember Me</span>
-                </label> -->
                 <a href="{% url 'password_reset' %}" class="text-primary my-2 d-block"> Mot de passe oublié?</a>
               </div>
               <button type="submit" class="btn btn-block btn-primary">Connexion</button>
               <p class="my-5 text-center">
-                Don’t have an account? <a href="{% url 'register' %}?next={{ next|default_if_none:'/' }}"
+                Pas encore membre? <a href="{% url 'register' %}?next={{ next|default_if_none:'/' }}"
                   class="text-primary">Inscription</a>
               </p>
             </form>

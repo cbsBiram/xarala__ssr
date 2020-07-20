@@ -1,5 +1,6 @@
 {% extends "_base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}
 {{ user }}
@@ -13,13 +14,16 @@
       <div class="col-lg-4 mt-4">
         <div class="card shadow-v1">
           <div class="card-header text-center border-bottom pt-5 mb-4">
-            <img class="rounded-circle mb-4" src="{% static 'assets/img/262x230/6.jpg' %}" width="200" height="200"
-              alt="{{ user }}">
+            <img class="rounded-circle mb-4 profile-pic" src="
+            {% if user.avatar %} {{ user.avatar.url }}
+            {% else %} {% static 'assets/img/262x230/6.jpg' %}
+            {% endif %}
+            " width="200" height="200" alt="{{ user }}">
             <h4>
               {{ user.get_full_name }}
             </h4>
             <p>
-              {{ user.title }}
+              {{ user.title|default_if_none:"Pas de titre" }}
             </p>
             <ul class="list-inline mb-0">
               <li class="list-inline-item m-2">
@@ -61,22 +65,22 @@
             </p>
             <ul class="list-inline mb-0">
               <li class="list-inline-item">
-                <a href="#" class="btn btn-outline-facebook iconbox iconbox-sm">
+                <a href="{{ user.facebook }}" class="btn btn-outline-facebook iconbox iconbox-sm">
                   <i class="ti-facebook"></i>
                 </a>
               </li>
               <li class="list-inline-item">
-                <a href="#" class="btn btn-outline-twitter iconbox iconbox-sm">
+                <a href="{{ user.twitter }}" class="btn btn-outline-twitter iconbox iconbox-sm">
                   <i class="ti-twitter"></i>
                 </a>
               </li>
               <li class="list-inline-item">
-                <a href="#" class="btn btn-outline-google-plus iconbox iconbox-sm">
-                  <i class="ti-google"></i>
+                <a href="{{ user.github }}" class="btn btn-outline-google-plus iconbox iconbox-sm">
+                  <i class="ti-github"></i>
                 </a>
               </li>
               <li class="list-inline-item">
-                <a href="#" class="btn btn-outline-linkedin iconbox iconbox-sm">
+                <a href="{{ user.linkedin }}" class="btn btn-outline-linkedin iconbox iconbox-sm">
                   <i class="ti-linkedin"></i>
                 </a>
               </li>
@@ -127,73 +131,27 @@
               <p>
                 {{ user.bio }}
               </p>
-
-              <hr class="my-4">
-              <div class="border-bottom mb-4 pb-4">
-                <h4 class="mb-4">
-                  Expérience
-                </h4>
-                <ul class="ec-timeline-portlet list-unstyled bullet-line-list">
-                  <li class="ec-timeline-portlet__item mb-4">
-                    <small>2000-2004</small>
-                    <h6 class="mb-0">Full Stack Developer</h6>
-                    <p class="mb-2">Apple Inc.</p>
-                    <p>
-                      Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty
-                      conctetur they kedadip lectores legee sicing. legee lrus quodk legunt.
-                    </p>
-                  </li>
-                  <li class="ec-timeline-portlet__item">
-                    <small>2004-2018</small>
-                    <h6 class="mb-0">Project Manager</h6>
-                    <p class="mb-2">Google</p>
-                    <p>
-                      Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty
-                      conctetur they kedadip lectores legee sicing. legee lrus quodk legunt.
-                    </p>
-                  </li>
-                </ul>
-              </div>
-              <div class="mb-4">
-                <h4 class="mb-4">
-                  Education
-                </h4>
-                <ul class="ec-timeline-portlet list-unstyled bullet-line-list">
-                  <li class="ec-timeline-portlet__item mb-4">
-                    <small>2000-2004</small>
-                    <h6 class="mb-0">Full Stack Developer</h6>
-                    <p class="mb-2">Apple Inc.</p>
-                    <p>
-                      Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty
-                      conctetur they kedadip lectores legee sicing. legee lrus quodk legunt.
-                    </p>
-                  </li>
-                  <li class="ec-timeline-portlet__item">
-                    <small>2004-2018</small>
-                    <h6 class="mb-0">Project Manager</h6>
-                    <p class="mb-2">Google</p>
-                    <p>
-                      Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty
-                      conctetur they kedadip lectores legee sicing. legee lrus quodk legunt.
-                    </p>
-                  </li>
-                </ul>
-              </div>
             </div>
             <div class="tab-pane fade" id="Tabs_1-2" role="tabpanel">
               <div class="row">
+
+                {% if courses %}
+
+                {% for course in courses %}
                 <div class="col-md-6 mt-4">
-                  <a href="page-course-details.html"
+                  <a href="{% url 'course:course-overview' course.slug %}"
                     class="card text-gray overflow-hidden height-100p shadow-v1 border">
                     <span class="ribbon-badge font-size-sm bg-success text-white">Best selling</span>
-                    <img class="card-img-top" src="assets/img/360x220/1.jpg" alt="">
+                    <img class="card-img-top"
+                      src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'assets/img/placeholder-1.jpg'  %} {% endif %}"
+                      alt="{{ course.title }}">
                     <div class="card-body">
                       <h4 class="h5">
-                        The Web Developer Bootcamp
+                        {{ course.title }}
                       </h4>
                       <p class="my-3">
                         <i class="ti-user mr-2"></i>
-                        Andrew Mead
+                        {{ course.teacher.get_full_name|default_if_none:"Xarala" }}
                       </p>
                       <p class="mb-0">
                         <i class="fas fa-star text-warning"></i>
@@ -202,569 +160,142 @@
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
                         <span class="text-dark">5</span>
-                        <span>(4578)</span>
+                        <span>({{ course.count_students }})</span>
                       </p>
                     </div>
                     <div class="card-footer media align-items-center justify-content-between">
                       <ul class="list-unstyled mb-0">
                         <li class="mb-1">
                           <i class="ti-headphone small mr-2"></i>
-                          46 lectures
+                          {{ course.count_lessons }} lectures
                         </li>
                         <li class="mb-1">
                           <i class="ti-time small mr-2"></i>
-                          27.5 hours
+                          {{ course.count_duration }}
                         </li>
                       </ul>
                       <h4 class="h5">
-                        <span class="text-primary">$180</span>
+                        {% if course.price %}
+                        <span class="text-primary"> {{ course.price }} XOF</span>
+                        {% else %}
+                        <span class="text-success">Gratuit</span>
+
+                        {% endif %}
                       </h4>
                     </div>
                   </a>
                 </div>
-                <div class="col-md-6 mt-4">
-                  <a href="page-course-details.html"
-                    class="card text-gray overflow-hidden height-100p shadow-v1 border">
-                    <img class="card-img-top" src="assets/img/360x220/2.jpg" alt="">
-                    <div class="card-body">
-                      <h4 class="h5">
-                        C++ Essential Training
-                      </h4>
-                      <p class="my-3">
-                        <i class="ti-user mr-2"></i>
-                        Andrew Mead, John Doe
-                      </p>
-                      <p class="mb-0">
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star-half"></i>
-                        <span class="text-dark">4.9</span>
-                        <span>(8793)</span>
-                      </p>
-                    </div>
-                    <div class="card-footer media align-items-center justify-content-between">
-                      <ul class="list-unstyled mb-0">
-                        <li class="mb-1">
-                          <i class="ti-headphone small mr-2"></i>
-                          46 lectures
-                        </li>
-                        <li class="mb-1">
-                          <i class="ti-time small mr-2"></i>
-                          27.5 hours
-                        </li>
-                      </ul>
-                      <h4 class="h5 text-right">
-                        <span class="text-primary d-block">$10</span>
-                        <s class="small">$129</s>
-                      </h4>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-md-6 mt-4">
-                  <a href="page-course-details.html"
-                    class="card text-gray overflow-hidden height-100p shadow-v1 border">
-                    <img class="card-img-top" src="assets/img/360x220/3.jpg" alt="">
-                    <div class="card-body">
-                      <h4 class="h5">
-                        Programming Real-World Examples
-                      </h4>
-                      <p class="my-3">
-                        <i class="ti-user mr-2"></i>
-                        Adam Kury
-                      </p>
-                      <p class="mb-0">
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span class="text-dark">3.4</span>
-                        <span>(7)</span>
-                      </p>
-                    </div>
-                    <div class="card-footer media align-items-center justify-content-between">
-                      <ul class="list-unstyled mb-0">
-                        <li class="mb-1">
-                          <i class="ti-headphone small mr-2"></i>
-                          46 lectures
-                        </li>
-                        <li class="mb-1">
-                          <i class="ti-time small mr-2"></i>
-                          27.5 hours
-                        </li>
-                      </ul>
-                      <h4 class="h5">
-                        <span class="text-primary">$249</span>
-                      </h4>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-md-6 mt-4">
-                  <a href="page-course-details.html"
-                    class="card text-gray overflow-hidden height-100p shadow-v1 border shadow-v1">
-                    <img class="card-img-top" src="assets/img/360x220/4.jpg" alt="">
-                    <div class="card-body">
-                      <h4 class="h5">
-                        Java 8 Essential Training
-                      </h4>
-                      <p class="my-3">
-                        <i class="ti-user mr-2"></i>
-                        Anthony Brooks
-                      </p>
-                      <p class="mb-0">
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <span class="text-dark">5</span>
-                        <span>(4578)</span>
-                      </p>
-                    </div>
-                    <div class="card-footer media align-items-center justify-content-between">
-                      <ul class="list-unstyled mb-0">
-                        <li class="mb-1">
-                          <i class="ti-headphone small mr-2"></i>
-                          46 lectures
-                        </li>
-                        <li class="mb-1">
-                          <i class="ti-time small mr-2"></i>
-                          27.5 hours
-                        </li>
-                      </ul>
-                      <h4 class="h5">
-                        <span class="text-success">Free</span>
-                      </h4>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-12 text-center mt-5">
-                  <a href="#" class="btn btn-icon btn-outline-primary">
-                    <i class="ti-reload mr-2"></i>
-                    Load More
-                  </a>
-                </div>
-              </div> <!-- END row-->
+                {% endfor %}
+
+                {% endif %}
+
+              </div>
             </div> <!-- END tab-pane -->
             <div class="tab-pane fade" id="Tabs_1-3" role="tabpanel">
-              <div class="row mx-0 py-4 border-bottom mt-4">
-                <div class="col-md-4 media">
-                  <img class="iconbox iconbox-xl" src="assets/img/avatar/4.jpg" alt="">
-                  <div class="media-body ml-4 mb-4 mb-md-0">
-                    <small class="text-gray">7 min ago</small>
-                    <h6>
-                      Anthony Forsey
-                    </h6>
-                  </div>
-                </div>
-                <div class="col-md-8">
-                  <p>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                  </p>
-                  <p class="font-size-18">
-                    Awesome course
-                  </p>
-                  <p>
-                    Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty they
-                    conctetur they kedadip lectores legee sicing.
-                  </p>
-                </div>
-              </div> <!-- END d-flex-->
-
-              <div class="row mx-0 py-4 border-bottom mt-4">
-                <div class="col-md-4 media">
-                  <img class="iconbox iconbox-xl" src="assets/img/avatar/5.jpg" alt="">
-                  <div class="media-body ml-4 mb-4 mb-md-0">
-                    <small class="text-gray">1 mon ago</small>
-                    <h6>
-                      Justin Nam
-                    </h6>
-                  </div>
-                </div>
-                <div class="col-md-8">
-                  <p class="text-light">
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </p>
-                  <p class="font-size-18">
-                    Test review lol
-                  </p>
-                  <p>
-                    Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty.
-                  </p>
-                </div>
-              </div> <!-- END d-flex-->
-
-              <div class="row mx-0 py-4 border-bottom mt-4">
-                <div class="col-md-4 media">
-                  <div class="iconbox iconbox-xl border">
-                    MD
-                  </div>
-                  <div class="media-body ml-4 mb-4 mb-md-0">
-                    <small class="text-gray">3 Mon ago</small>
-                    <h6>
-                      Murir Dokan
-                    </h6>
-                  </div>
-                </div>
-                <div class="col-md-8">
-                  <p>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                  </p>
-                  <p class="font-size-18">
-                    This is a title of review. the developer suffer from lot's of vitamin. what about you?
-                  </p>
-                  <p>
-                    Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty they
-                    conctetur they kedadip lectores legee sicing.
-                  </p>
-                </div>
-              </div> <!-- END d-flex-->
-
-
-              <div class="row mx-0 py-4 border-bottom mt-4">
-                <div class="col-md-4 media">
-                  <img class="iconbox iconbox-xl" src="assets/img/avatar/6.jpg" alt="">
-                  <div class="media-body ml-4 mb-4 mb-md-0">
-                    <small class="text-gray">1 year ago</small>
-                    <h6>
-                      John Doe
-                    </h6>
-                  </div>
-                </div>
-                <div class="col-md-8">
-                  <p>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                  </p>
-                  <p class="font-size-18">
-                    Best course ever
-                  </p>
-                  <p>
-                    Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty they
-                    conctetur they kedadip lectores legee sicing.
-                    Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty they
-                    conctetur they kedadip lectores legee sicing.
-                  </p>
-                </div>
-              </div> <!-- END d-flex-->
-              <div class="text-center mt-5">
-                <a href="#" class="btn btn-primary btn-icon">
-                  <i class="ti-reload mr-2"></i>
-                  Load More
-                </a>
+              <div class="row">
+                <p class="text-primary">En cours de conception</p>
               </div>
             </div>
             <div class="tab-pane fade" id="Tabs_1-6" role="tabpanel">
-              <div class="row mx-0 py-4 border-bottom mt-4">
-                <div class="col-md-4 media">
-                  <img class="iconbox iconbox-xl" src="assets/img/avatar/4.jpg" alt="">
-                  <div class="media-body ml-4 mb-4 mb-md-0">
-                    <small class="text-gray">7 min ago</small>
-                    <h6>
-                      Anthony Forsey
-                    </h6>
-                  </div>
-                </div>
-                <div class="col-md-8">
-                  <p>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                  </p>
-                  <p class="font-size-18">
-                    Awesome course
-                  </p>
-                  <p>
-                    Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty they
-                    conctetur they kedadip lectores legee sicing.
-                  </p>
-                </div>
-              </div> <!-- END d-flex-->
-
-              <div class="row mx-0 py-4 border-bottom mt-4">
-                <div class="col-md-4 media">
-                  <img class="iconbox iconbox-xl" src="assets/img/avatar/5.jpg" alt="">
-                  <div class="media-body ml-4 mb-4 mb-md-0">
-                    <small class="text-gray">1 mon ago</small>
-                    <h6>
-                      Justin Nam
-                    </h6>
-                  </div>
-                </div>
-                <div class="col-md-8">
-                  <p class="text-light">
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </p>
-                  <p class="font-size-18">
-                    Test review lol
-                  </p>
-                  <p>
-                    Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty.
-                  </p>
-                </div>
-              </div> <!-- END d-flex-->
-
-              <div class="row mx-0 py-4 border-bottom mt-4">
-                <div class="col-md-4 media">
-                  <div class="iconbox iconbox-xl border">
-                    MD
-                  </div>
-                  <div class="media-body ml-4 mb-4 mb-md-0">
-                    <small class="text-gray">3 Mon ago</small>
-                    <h6>
-                      Murir Dokan
-                    </h6>
-                  </div>
-                </div>
-                <div class="col-md-8">
-                  <p>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                  </p>
-                  <p class="font-size-18">
-                    This is a title of review. the developer suffer from lot's of vitamin. what about you?
-                  </p>
-                  <p>
-                    Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty they
-                    conctetur they kedadip lectores legee sicing.
-                  </p>
-                </div>
-              </div> <!-- END d-flex-->
-
-
-              <div class="row mx-0 py-4 border-bottom mt-4">
-                <div class="col-md-4 media">
-                  <img class="iconbox iconbox-xl" src="assets/img/avatar/6.jpg" alt="">
-                  <div class="media-body ml-4 mb-4 mb-md-0">
-                    <small class="text-gray">1 year ago</small>
-                    <h6>
-                      John Doe
-                    </h6>
-                  </div>
-                </div>
-                <div class="col-md-8">
-                  <p>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                  </p>
-                  <p class="font-size-18">
-                    Best course ever
-                  </p>
-                  <p>
-                    Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty they
-                    conctetur they kedadip lectores legee sicing.
-                    Investig ationes demons travge vunt lectores legee lrus quodk legunt saepius was claritas kesty they
-                    conctetur they kedadip lectores legee sicing.
-                  </p>
-                </div>
-              </div> <!-- END d-flex-->
-              <div class="text-center mt-5">
-                <a href="#" class="btn btn-primary btn-icon">
-                  <i class="ti-reload mr-2"></i>
-                  Load More
-                </a>
+              <div class="row">
+                <p class="text-primary">En cours de conception</p>
               </div>
             </div>
             <div class="tab-pane fade" id="Tabs_1-4" role="tabpanel">
-              <form action="#" method="POST" class="p-4">
-                <div class="row">
-                  <div class="col-md-6 mb-4">
-                    <input type="text" class="form-control" placeholder="Name" required>
-                  </div>
-                  <div class="col-md-6 mb-4">
-                    <input type="email" class="form-control" placeholder="Email" required>
-                  </div>
-                  <div class="col-12 mb-4">
-                    <textarea class="form-control" placeholder="Message" rows="5" required></textarea>
-                  </div>
-                  <div class="col-12 mb-4">
-                    <button class="btn btn-primary">Send Now</button>
-                  </div>
-                </div>
-              </form>
+              <p class="text-primary">En cours de conception</p>
             </div>
 
             <div class="tab-pane fade" id="Tabs_1-5" role="tabpanel">
               <div class="border-bottom mb-4 pb-4">
-                <h4>
-                  Photo profile
-                </h4>
                 <div class="media align-items-end mt-4">
-                  <div class="position-relative">
-                    <input type="file" class="opacity-0 position-absolute as-parent">
-                    <img
-                      src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'assets/img/placeholder-1.jpg' %}{% endif %}"
-                      alt="{{ user }}" width="200" height="200">
-                  </div>
-                  <div class="media-body ml-4 mb-4 mb-md-0">
-                    <p>
-                      Recommandé : JPG ou PNG 200x200 px
-                    </p>
-                    <a href=""></a>
-                    <button class="btn btn-outline-primary">
-                      <input type="file" class="opacity-0 position-absolute">
-                      Upload
-                    </button>
-                    <button class="btn btn-primary">
-                      Upload
-                    </button>
+                  <form class="avatar-form" method="POST" enctype="multipart/form-data"
+                    data-url="{% url 'update-profile-image' %}">
+                    {% csrf_token %}
+                    <div class="position-relative">
+                      {{ avatar_form.avatar|as_crispy_field }}
+                      <img
+                        src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'assets/img/placeholder-1.jpg' %}{% endif %}"
+                        class="profile-pic rounded-circle" alt="{{ user }}" width="200" height="200">
+                    </div>
+                    <div class="media-body ml-4 mb-4 mb-md-0">
+                      <p>
+                        Recommandation : JPG ou PNG 200x200 px
+                      </p>
+                      <button type="submit" class="btn btn-sm btn-outline-primary update-avatar">
+                        Modifier
+                      </button>
+                    </div>
 
-                  </div>
+                  </form>
+
                 </div>
               </div>
 
               <div class="border-bottom mb-4 pb-4">
                 <h4 class="mb-4">
-                  Manage your Account
+                  Informations personnelles
                 </h4>
-
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label text-dark">Full Name</label>
-                  <div class="col-md-9">
-                    <input type="text" class="form-control" value="John Doe">
+                <form method="POST" data-url="{% url 'update-personal-info' %}" class="personal-info-form">
+                  <div class="form-group">
+                    {{ form|crispy }}
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label text-dark">Position</label>
-                  <div class="col-md-9">
-                    <input type="text" class="form-control" value="Web Developer and Instructor">
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label text-dark">Email</label>
-                  <div class="col-md-9">
-                    <input type="email" class="form-control" value="support@echotheme.com">
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label text-dark">Phone</label>
-                  <div class="col-md-9">
-                    <input type="tel" class="form-control" value="+91 654 784 547">
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label text-dark">Location</label>
-                  <div class="col-md-9">
-                    <input type="tel" class="form-control" value="South Street, London, UK">
-                  </div>
-                </div>
+                  <button type="submit" class="btn btn-sm btn-primary">Modifier</button>
+                </form>
 
               </div>
 
               <div class="border-bottom mb-4 pb-4">
                 <h4 class="mb-4">
-                  Security Settings
+                  les paramètres de sécurité
                 </h4>
-
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label text-dark">Current Password</label>
-                  <div class="col-md-9">
-                    <input type="password" class="form-control" value="123456">
+                <form class="update-password" method="POST" data-url="{% url 'update-password' %}">
+                  <div class="form-group">
+                    {{ password_form.old_password|as_crispy_field }}
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label text-dark">New Password</label>
-                  <div class="col-md-9">
-                    <input type="password" class="form-control" placeholder="12345678">
+                  <div class="form-group">
+                    {{ password_form.new_password1|as_crispy_field }}
+                    <small id="hint_id_new_password1" class="form-text text-muted">
+                      <ul>
+                        <li>Votre mot de passe ne peut pas être trop similaire à vos autres informations personnelles.
+                        </li>
+                        <li>Votre mot de passe doit contenir au moins 8 caractères.</li>
+                        <li>Votre mot de passe ne peut pas être un mot de passe couramment utilisé.</li>
+                        <li>Votre mot de passe ne peut pas être entièrement numérique.</li>
+                      </ul>
+                    </small>
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label text-dark">Confirm Password</label>
-                  <div class="col-md-9">
-                    <input type="password" class="form-control" placeholder="12345678">
+                  <div class="form-group">
+                    {{ password_form.new_password2|as_crispy_field }}
                   </div>
-                </div>
+                  <button type="submit" class="btn btn-sm btn-primary">Modifier</button>
+                </form>
               </div>
 
               <div class="border-bottom mb-4 pb-4">
                 <h4 class="mb-4">
-                  Social Account
+                  Réseaux sociaux
                 </h4>
 
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label text-dark">Facebook</label>
-                  <div class="col-md-9">
-                    <input type="text" class="form-control" value="https://fb.com/jaman57">
+                <form method="POST" data-url="{% url 'update-social' %}" class="social-form">
+                  <div class="form-group">
+                    {{ social_form|crispy }}
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label text-dark">Twitter</label>
-                  <div class="col-md-9">
-                    <input type="text" class="form-control" value="https://Twitter.com/jaman57">
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label text-dark">Linkdin</label>
-                  <div class="col-md-9">
-                    <input type="text" class="form-control" value="https://Linkdin.com/jaman57">
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label text-dark">Google</label>
-                  <div class="col-md-9">
-                    <input type="text" class="form-control" value="https://Google.com/jaman57">
-                  </div>
-                </div>
+                  <button type="submit" class="btn btn-sm btn-primary">Modifier</button>
+                </form>
 
               </div>
 
               <div class="border-bottom mb-4 pb-4">
                 <h4 class="mb-4">
-                  About You
+                  Biographie
                 </h4>
-                <textarea rows="6" class="form-control">Dummy text of the printing and typesetting industry. It was popular ised in the kest with the release of Letraset sheets contain was luing lorem kepsum passages, and more recently with desktop publishing software.
-                 </textarea>
-              </div>
-
-              <div class="border-bottom mb-4 pb-4">
-                <h4 class="mb-4">
-                  Account Type
-                </h4>
-                <p>
-                  <span class="badge badge-danger">Free</span>
-                </p>
-              </div>
-              <div class="my-5">
-                <button class="btn btn-success m-2">Update Profile</button>
-                <button class="btn btn-danger m-2">Cancel</button>
+                <form method="post" class="update-bio-form" data-url="{% url 'update-bio' %}">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    {{ bio_form|crispy }}
+                  </div>
+                  <button type="submit" class="btn btn-sm btn-primary">Modifier</button>
+                </form>
               </div>
             </div> <!-- END tab-pane -->
           </div> <!-- END tab-content-->
@@ -777,3 +308,153 @@
 </section>
 
 {% endblock content %}
+
+{% block extrajs %}
+<script>
+  $(document).ready(function () {
+    var readURL = function (input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('.profile-pic').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+    $(".file-upload").on('change', function () {
+      readURL(this);
+    });
+    $(".upload-button").on('click', function () {
+      $(".file-upload").click();
+    });
+
+    // update profile picture
+    var $avatarForm = $('.avatar-form');
+    $avatarForm.submit(function (event) {
+      event.preventDefault();
+      var files = $("#id_avatar")[0].files[0];
+      var $formData = $avatarForm.serialize();
+      var formData = new FormData()
+      formData.append("csrfmiddlewaretoken", '{{ csrf_token }}')
+      formData.append('avatar', files);
+      var $thisURL = $avatarForm.attr('data-url') || window.loaction.href;
+      $.ajax({
+        method: 'POST',
+        url: $thisURL,
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: handleSuccess,
+        error: handleError,
+      });
+
+      function handleSuccess(data) {
+        console.log("succes", data)
+        // $avatarForm[0].reset()
+      }
+
+      function handleError(ThrowError) {
+        console.log("error", ThrowError)
+      }
+    });
+
+    // update personal info
+    var $personalInfoForm = $('.personal-info-form');
+    $personalInfoForm.submit(function (event) {
+      event.preventDefault();
+      var $formData = $personalInfoForm.serialize();
+      var $thisURL = $personalInfoForm.attr('data-url') || window.loaction.href;
+      $.ajax({
+        method: 'POST',
+        url: $thisURL,
+        data: $formData,
+        success: handleSuccess,
+        error: handleError,
+      });
+
+      function handleSuccess(data) {
+        console.log("d", data)
+        // $personalInfoForm[0].reset()
+      }
+
+      function handleError(ThrowError) {}
+    });
+
+    // update-password
+    var $updatePasswordForm = $('.update-password');
+    $updatePasswordForm.submit(function (event) {
+      event.preventDefault();
+      var $formData = $updatePasswordForm.serialize();
+      var $thisURL = $updatePasswordForm.attr('data-url') || window.loaction.href;
+      $.ajax({
+        method: 'POST',
+        url: $thisURL,
+        data: $formData,
+        success: handleSuccess,
+        error: handleError,
+      });
+
+      function handleSuccess(data) {
+        if (data.is_error) {
+          alert(data.errors)
+        }
+        // $updatePasswordForm[0].reset()
+      }
+
+      function handleError(ThrowError) {}
+    });
+
+    // update-social
+    var $updateSocialForm = $('.social-form');
+    $updateSocialForm.submit(function (event) {
+      event.preventDefault();
+      var $formData = $updateSocialForm.serialize();
+      var $thisURL = $updateSocialForm.attr('data-url') || window.loaction.href;
+      $.ajax({
+        method: 'POST',
+        url: $thisURL,
+        data: $formData,
+        success: handleSuccess,
+        error: handleError,
+      });
+
+      function handleSuccess(data) {
+        if (data.is_error) {
+          alert(data.errors)
+        }
+        // $updateSocialForm[0].reset()
+      }
+
+      function handleError(ThrowError) {}
+    });
+
+    // update-bio-form
+
+    var $updateBioForm = $('.update-bio-form');
+    $updateBioForm.submit(function (event) {
+      event.preventDefault();
+      var $formData = $updateBioForm.serialize();
+      var $thisURL = $updateBioForm.attr('data-url') || window.loaction.href;
+      $.ajax({
+        method: 'POST',
+        url: $thisURL,
+        data: $formData,
+        success: handleSuccess,
+        error: handleError,
+      });
+
+      function handleSuccess(data) {
+        if (data.is_error) {
+          alert(data.errors)
+        }
+        // $updateSocialForm[0].reset()
+      }
+
+      function handleError(ThrowError) {}
+    });
+
+
+
+  });
+</script>
+{% endblock extrajs %}

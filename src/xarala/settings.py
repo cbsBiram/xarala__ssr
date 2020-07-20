@@ -192,7 +192,8 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 # django summernot
 X_FRAME_OPTIONS = "SAMEORIGIN"
-SUMMERNOTE_THEME = "lite"
+SUMMERNOTE_THEME = "bs4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 try:
     from .local_settings import *

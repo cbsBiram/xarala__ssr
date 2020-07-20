@@ -1,5 +1,9 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    UserChangeForm,
+    PasswordChangeForm,
+)
 
 from .models import CustomUser
 
@@ -67,65 +71,68 @@ class CustomUserProfileForm(forms.ModelForm):
 
 
 class CustomUserUpdateForm(forms.ModelForm):
-    # avatar = forms.ImageField(label="Photo de profile", required=False,)
-    email = forms.EmailField(
-        label="Email",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "me@gmail.com",
-                "class": "border w-full py-2 px-3 text-grey-darker mt-2",
-                "disabled": "",
+    email = forms.EmailField(label="Email")
+    first_name = forms.CharField(max_length=80, label="Prénom")
+    last_name = forms.CharField(max_length=80, label="Nom")
+    phone = forms.CharField(max_length=80, label="Numéro de téléphone")
+    address = forms.CharField(max_length=80, label="Adresse")
+    title = forms.CharField(max_length=80, label="Titre")
+
+    class Meta:
+        model = CustomUser
+        fields = (
+            "first_name",
+            "last_name",
+            "email",
+            "title",
+            "phone",
+            "address",
+        )
+
+
+class UpdateProfileForm(forms.ModelForm):
+    avatar = forms.FileField(
+        label="Photo de profile",
+        widget=forms.FileInput(
+            {
+                "class": "opacity-0 position-absolute as-parent file-upload",
+                "accept": "image/*",
             }
-        ),
-    )
-    first_name = forms.CharField(
-        max_length=80,
-        label="Prénom",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Modou",
-                "class": "border w-full py-2 px-3 text-grey-darker mt-2",
-            }
-        ),
-    )
-    last_name = forms.CharField(
-        max_length=80,
-        label="Nom",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Diop",
-                "class": "border w-full py-2 px-3 text-grey-darker mt-2",
-            }
-        ),
-    )
-    phone = forms.CharField(
-        max_length=80,
-        label="Numéro téléphone",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "778828878",
-                "class": "border w-full py-2 px-3 text-grey-darker mt-2",
-            }
-        ),
-    )
-    address = forms.CharField(
-        max_length=80,
-        label="Adresse",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Dakar, Senegal",
-                "class": "border w-full py-2 px-3 text-grey-darker mt-2",
-            }
-        ),
-    )
-    bio = forms.CharField(
-        label="Description",
-        required=False,
-        widget=forms.Textarea(
-            attrs={"class": "form-textarea mt-1 block w-full border", "rows": "3"}
         ),
     )
 
     class Meta:
         model = CustomUser
-        fields = ("email", "first_name", "last_name", "bio", "phone", "address")
+        fields = ("avatar",)
+
+
+class ChangePasswordForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        max_length=80, label="Mot de passe actuel", widget=forms.PasswordInput()
+    )
+    new_password1 = forms.CharField(
+        max_length=80, label="Nouveau mot de passe", widget=forms.PasswordInput()
+    )
+    new_password2 = forms.CharField(
+        max_length=80, label="Confirmation mot de passe", widget=forms.PasswordInput()
+    )
+
+    class Meta:
+        model = CustomUser
+
+
+class UpdateSocialForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = (
+            "facebook",
+            "twitter",
+            "linkedin",
+            "github",
+        )
+
+
+class UpdateBioForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ("bio",)
