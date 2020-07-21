@@ -12,7 +12,7 @@ from send_mail.views import become_teacher_mail
 
 def home(request):
     course_counts = Course.objects.count()
-    courses = Course.objects.order_by("-id")[:8]
+    courses = Course.objects.order_by("-id")
     posts = Post.objects.order_by("-id")[:8]
     top_python = Course.objects.filter(
         categories__name__in=["Python", "Django", "Flask"]

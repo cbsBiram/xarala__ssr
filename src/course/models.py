@@ -110,7 +110,7 @@ class Course(models.Model):
                 text = " Hrs"
         else:
             get_duration = 0
-        return f"{get_duration} {text}"
+        return f"{round(get_duration,2)} {text}"
 
     def count_students(self):
         total_students = self.students.count()
