@@ -58,9 +58,8 @@ INSTALLED_APPS = [
     "userlogs.apps.LogsConfig",
     "dashboard.apps.DashboardConfig",
     "blog.apps.BlogConfig",
-    "shop.apps.ShopConfig",
     "search.apps.SearchConfig",
-    # "mentorship.apps.MentorshipConfig",
+    "quiz.apps.QuizConfig",
 ]
 
 MIDDLEWARE = [

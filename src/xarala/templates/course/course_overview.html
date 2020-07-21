@@ -7,22 +7,7 @@
 
 {% block content %}
 
-
-
-
 {% include "partials/_breadcrumbs.html" with previous="Cours" previous_url="course:courses" current="Détails" text="Details cours" %}
-
-
-
-
-<!-- <section class="py-3">
-  <div class="container">
-    <div class="row">
-      {% include "partials/_animated-share.html" with title=course.title description=course.description|safe|truncatewords:20 %}
-    </div> 
-  </div>
-</section> -->
-
 
 <section class="paddingBottom-100">
   <div class="container">
@@ -47,8 +32,8 @@
           </div>
           <div class="col-lg-3 col-md-6 my-2">
             <div class="border-right height-100p">
-              <span class="text-gray d-block">Catégories:</span>
-              <a href="#" class="h6">{{ course.categories.fisrt }}</a>
+              <span class="text-gray d-block">Langue:</span>
+              <h6 class="mb-0">{{ course.language.name }}</h6>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 my-2">

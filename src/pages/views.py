@@ -1,13 +1,14 @@
-from django.shortcuts import render, redirect
-from blog.models import Post
-from xarala.utils import SendSubscribeMail
-from .models import Subscribe, Carousel, Team
 from django.http import HttpResponse, JsonResponse
-from django.views.generic import TemplateView, CreateView
-from course.models import Course, Category
-from .forms import ContactForm, BecomeTeacherForm
+from django.shortcuts import redirect, render
+from django.views.generic import CreateView, TemplateView
 
+from blog.models import Post
+from course.models import Category, Course
 from send_mail.views import become_teacher_mail
+from xarala.utils import SendSubscribeMail
+
+from .forms import BecomeTeacherForm, ContactForm
+from .models import Carousel, Subscribe, Team
 
 
 def home(request):
@@ -119,3 +120,7 @@ class BecomeTeacherView(TemplateView, CreateView):
             return redirect("pages:thanks")
 
         return render(request, self.template_name, {"form": form})
+
+
+class ShopHomePage(TemplateView):
+    template_name = "shop/product_list.html"

@@ -14,4 +14,5 @@ urlpatterns = [
     path("contact/", views.ContactUsView.as_view(), name="contact"),
     path("become-teacher/", views.BecomeTeacherView.as_view(), name="become-teacher"),
     path("thanks/", views.ThanksView.as_view(), name="thanks"),
+    path("shop/", views.ShopHomePage.as_view(), name="shop"),
 ]
