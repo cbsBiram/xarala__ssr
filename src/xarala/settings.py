@@ -196,6 +196,7 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SUMMERNOTE_THEME = "bs4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+CELERY_BROKER_URL = "amqp://dbadmin:abc123!@127.0.0.1:5672//"
 
 try:
     from .local_settings import *
