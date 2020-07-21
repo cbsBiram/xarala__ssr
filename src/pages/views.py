@@ -4,7 +4,7 @@ from django.views.generic import CreateView, TemplateView
 
 from blog.models import Post
 from course.models import Category, Course
-from send_mail.views import become_teacher_mail
+from .tasks import become_teacher
 from xarala.utils import SendSubscribeMail
 
 from .forms import BecomeTeacherForm, ContactForm
@@ -116,7 +116,7 @@ class BecomeTeacherView(TemplateView, CreateView):
             email = form.cleaned_data.get("email")
             message = form.cleaned_data.get("message")
             form.save()
-            become_teacher_mail(email, message)
+            become_teacher.delay(email, message)
             return redirect("pages:thanks")
 
         return render(request, self.template_name, {"form": form})

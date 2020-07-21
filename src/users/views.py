@@ -16,8 +16,9 @@ from .forms import (
     UpdateSocialForm,
     UpdateBioForm,
 )
-from send_mail.views import send_new_register_email
+
 from userlogs.models import UserLog
+from .tasks import account_created
 
 
 def login(request):
@@ -78,7 +79,8 @@ def register(request):
                         email=mail_to_lower, password=password, is_student=True
                     )
                     user.save()
-                    send_new_register_email(user)
+                    # launch asynchronous tasks
+                    account_created.delay(mail_to_lower)
                     user = authenticate(request, email=mail_to_lower, password=password)
                     if user is not None:
                         auth_login(request, user)

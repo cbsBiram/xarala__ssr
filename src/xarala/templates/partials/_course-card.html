@@ -9,13 +9,13 @@
 
     {% for course in courses %}
     <div class="card text-gray height-100p shadow-v2">
-      <a href="{% url 'course:course-overview' course.slug %}">
+      <a href="{{ course.get_absolute_url }}">
         <img class="card-img-top"
           src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'assets/img/placeholder-1.jpg'  %} {% endif %}"
           alt="{{ course.title }}">
       </a>
       <div class="p-4">
-        <a href="{% url 'course:course-overview' course.slug %}" class="h6">
+        <a href="{{ course.get_absolute_url }}" class="h6">
           {{ course.title }}
         </a>
         <p class="my-3">

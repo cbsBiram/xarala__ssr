@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "graphene_django",
     "django_summernote",
     "crispy_forms",
+    "celery",
     # "cloudinary",
     # custom apps
     "podcast.apps.PodcastConfig",

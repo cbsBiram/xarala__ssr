@@ -24,6 +24,8 @@ django-graphql-jwt = "*"
 django-cors-headers = "*"
 whitenoise = "*"
 django-allauth = "*"
+celery = "==4.4.2"
+flower = "==0.9.3"
 
 [requires]
 python_version = "3.8"

@@ -14,7 +14,7 @@
   <div class="col-lg-7 pr-lg-4 my-4">
     <div class="media justify-content-between">
       <div class="group">
-        <a href="{% url 'course:course-overview' course.slug %}" class="h4">
+        <a href="{{ course.get_absolute_url }}" class="h4">
           {{ course.title }}
         </a>
         <ul class="list-inline mt-2">
@@ -33,10 +33,7 @@
           </li>
         </ul>
       </div>
-      <a href="#" class="btn btn-opacity-primary iconbox iconbox-sm" data-container="body" data-toggle="tooltip"
-        data-placement="top" data-skin="light" title="" data-original-title="Partager">
-        <i class="ti-share"></i>
-      </a>
+      {% include "partials/_animated-share.html" with title=course.title %}
     </div>
     <p>
       {{ course.description|safe|truncatewords:20 }}

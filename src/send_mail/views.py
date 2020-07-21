@@ -4,13 +4,13 @@ from django.template.loader import get_template
 # email apres la creation de compte
 
 
-def send_new_register_email(user):
+def send_new_register_email(email):
     htmly = get_template("email/thanks_new_register.html")
-    context = {"user": user}
+    context = {"email": email}
     to_emails = [
-        user.email,
+        email,
     ]
-    subject, from_email = ("Bienvenue chez Xarala", "contact@xarala.tech")
+    subject, from_email = ("Bienvenue chez Xarala", "contact@xarala.co")
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(subject, html_content, from_email, to_emails,)
     msg.attach_alternative(
@@ -24,10 +24,9 @@ def become_teacher_mail(email, message):
     context = {"email": email, "message": message}
     to_emails = [
         email,
-        "mstspr1155@gmail.com",
         "xaralaxarala@gmail.com",
     ]
-    subject, from_email = ("Xarala - Devenir instructeur", "contact@xarala.tech")
+    subject, from_email = ("Xarala - Devenir instructeur", "contact@xarala.co")
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(subject, html_content, from_email, to_emails,)
     msg.attach_alternative(
