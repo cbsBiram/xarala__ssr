@@ -29,10 +29,13 @@
       </div>
       <div class="card-footer">
         <div class="media">
-          <img class="iconbox" src="{% static 'images/svgs/teacher.svg' %}" alt="{{ post.author.get_full_name }}">
+          <img class="iconbox"
+            src="{% if post.author.avatar %} {{ post.author.avatar.url }} {% else %} {% static 'assets/img/262x230/1.jpg' %} {% endif %}"
+            alt="{{ post.author.get_full_name }}">
           <div class="media-body ml-4">
             <a href="#" class="text-primary"> {{ post.author.get_full_name }}</a> <br>
-            {{ post.date_created|date:"d, M, Y" }} - <a href="#" class="text-primary">dans {{ post.tags.first }}</a>
+            {{ post.date_created|date:"d, M, Y" }} - <a href="{% url 'blog:blog_tag' post.tags.first  %}"
+              class="text-primary">dans {{ post.tags.first }}</a>
           </div>
         </div>
       </div>

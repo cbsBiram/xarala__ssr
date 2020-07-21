@@ -43,10 +43,7 @@
           {% endif %}
 
         </h4>
-        <a href="#" class="btn btn-opacity-primary iconbox iconbox-sm" data-container="body" data-toggle="tooltip"
-          data-placement="top" data-skin="light" title="Partagez">
-          <i class="ti-share"></i>
-        </a>
+        {% include "partials/_animated-share.html" with title=course.title %}
       </div>
     </div>
     {% endfor %}

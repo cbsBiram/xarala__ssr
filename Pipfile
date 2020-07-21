@@ -24,6 +24,7 @@ django-graphql-jwt = "*"
 django-cors-headers = "*"
 whitenoise = "*"
 django-allauth = "*"
+django-compressor = "*"
 
 [requires]
 python_version = "3.8"

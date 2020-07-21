@@ -21,7 +21,7 @@ Tous les cours
       <div class="col-lg-4 col-md-6 marginTop-30">
         <div href="{% url 'course:course-overview' course.slug %}" class="card height-100p text-gray shadow-v1">
           <img class="card-img-top"
-            src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/mix/no-image-icon.png'  %} {% endif %}"
+            src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'assets/img/placeholder-1.jpg' %} {% endif %}"
             alt="{{ course.title }}">
           <div class="card-body">
             <span class="badge position-absolute top-0 bg-success text-white" data-offset-top="-13">
