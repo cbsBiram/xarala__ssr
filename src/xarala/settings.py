@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     "django_summernote",
     "crispy_forms",
     # "cloudinary",
-    "compressor",
     # custom apps
     "podcast.apps.PodcastConfig",
     "course.apps.CourseConfig",
@@ -170,12 +169,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-STATICFILES_FINDERS = (
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    # other finders..
-    "compressor.finders.CompressorFinder",
-)
 
 AUTH_USER_MODEL = "users.CustomUser"
 
