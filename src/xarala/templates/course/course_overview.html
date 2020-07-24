@@ -1,5 +1,6 @@
 {% extends "_base.html" %}
 {% load static %}
+{% load embed_video_tags %}
 
 {% block title %}
 {{ course.title }}
@@ -61,7 +62,13 @@
         </div> <!-- END row-->
 
         <div class="ec-video-container my-4">
+
+          {% if course.promote_video %}
+          {% video course.promote_video 'small' %}
+          {% else %}
           <iframe src="https://www.youtube.com/embed/{{ course.get_introudction.video_id }}?rel=0"></iframe>
+          {% endif %}
+
         </div>
 
         <div class="card padding-30 shadow-v3">

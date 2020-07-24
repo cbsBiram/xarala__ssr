@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "django_summernote",
     "crispy_forms",
     "celery",
+    "embed_video",
     # "cloudinary",
     # custom apps
     "podcast.apps.PodcastConfig",

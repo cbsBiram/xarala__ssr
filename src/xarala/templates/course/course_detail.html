@@ -1,7 +1,10 @@
 {% extends "_base.html" %}
+{% load embed_video_tags %}
+
 {% block title %}
 {{ lesson.title }}
 {% endblock title %}
+
 {% block content %}
 <section class="paddingBottom-100">
   <div class="container">
@@ -12,7 +15,11 @@
     <div class="row">
       <div class="col-lg-8 ">
         <div class="ec-video-container my-4">
+          {% if lesson.video_url %}
+          {% video lesson.video_url 'small' %}
+          {% else %}
           <iframe src="https://www.youtube.com/embed/{{ lesson.video_id }}?rel=0"></iframe>
+          {% endif %}
         </div>
         <p>
           {{ lesson.text|safe }}

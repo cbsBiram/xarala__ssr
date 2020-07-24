@@ -5,6 +5,7 @@ from django.utils.text import slugify
 from course.managers import CourseManager, LessonManager
 from users.models import CustomUser
 from xarala.utils import upload_image_path
+from xarala.constants import YOUTUBE, VIMEO, CLOUDINARY, CUSTOM, WISTA
 
 
 class Language(models.Model):
@@ -150,14 +151,6 @@ class Chapter(models.Model):
         ordering = ["id"]
 
 
-# platform
-YOUTUBE = "Youtube"
-VIMEO = "Vimeo"
-WISTA = "Wista"
-CUSTOM = "Custom"
-CLOUDINARY = "CloudiNary"
-
-
 class Lesson(models.Model):
 
     PLATFORM = (
@@ -173,9 +166,8 @@ class Lesson(models.Model):
     lecture_number = models.IntegerField(default=1)
     slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
     file = models.FileField(upload_to=upload_image_path, blank=True, null=True)
-    resource_link = models.CharField(max_length=240, null=True, blank=True)
+    video_url = models.CharField(max_length=240, null=True, blank=True)
     video_id = models.CharField(max_length=150, null=True, blank=True)
-    # cloudinary_file = CloudinaryField(null=True, blank=True)
     duration = models.IntegerField(default=0)
     platform = models.CharField(max_length=50, choices=PLATFORM, default=YOUTUBE)
     chapter = models.ForeignKey(
