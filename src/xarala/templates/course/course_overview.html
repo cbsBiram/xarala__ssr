@@ -56,10 +56,10 @@
                 Gratuit</h2>
               {% endif %}
 
-              {% if request.user.is_student %}
+
               <a class="btn btn-primary"
                 href="{% if button_text == 'Enroller'  %}{% url 'course:subscribe_user_to_course' course.slug %}{% else %}/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}{% endif %}">{{ button_text }}</a>
-              {% endif %}
+
 
             </div>
           </div>
