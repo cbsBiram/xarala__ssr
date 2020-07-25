@@ -169,8 +169,8 @@ class SubscribeUserToCourse(graphene.Mutation):
         course = Course.objects.get(pk=courseId)
         if course not in user.courses_enrolled.all():
             user.courses_enrolled.add(course)
-            return course
-        return course
+            return SubscribeUserToCourse(course=course)
+        return SubscribeUserToCourse(course=course)
 
 
 class Mutation(graphene.ObjectType):
