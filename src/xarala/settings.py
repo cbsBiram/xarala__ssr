@@ -178,7 +178,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 """
 LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "pages:home"
+LOGIN_REDIRECT_URL = "profile"
 LOGOUT_URL = "logout"
 LOGOUT_REDIRECT_URL = "pages:home"
 # Internationalization

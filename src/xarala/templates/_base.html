@@ -66,16 +66,31 @@
 
   <div class="site-search">
     <div class="site-search__close bg-black-0_8"></div>
-    <form class="form-site-search" method='GET' action="{% url 'search:results' %}">
-      <div class="input-group">
-        <input type="text" placeholder="Que souhaitez-vous apprendre?" class="form-control py-3 border-white" name="q"
-          required>
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="submit"><i class="ti-search"></i></button>
-        </div>
-      </div>
-    </form>
-  </div> <!-- END site-search-->
+    <ul class="list-group list-group-dark">
+
+      {% if request.user.is_authenticated %}
+
+      <li class="list-group-item"><i class="ti-user mr-1"></i> <a href="{% url 'profile' %}">Profile</a> </li>
+      <li class="list-group-item"><i class="ti-dashboard mr-1"></i> <a href="{% url 'dashboard:dashboard' %}">Tableau de
+          bord</a></li>
+      <li class="list-group-item"><i class="ti-unlock mr-1"></i> <a
+          href="javascript:{document.getElementById('logout').submit()}">Déconnexion
+          <form action="{% url 'logout' %}" method="POST" id="logout">
+            {% csrf_token %}
+            <input type="hidden" />
+          </form>
+        </a></li>
+
+      {% else %}
+
+
+      <li class="list-group-item"><i class="ti-user mr-1"></i> <a href="{% url 'register' %}">Inscription</a></li>
+      <li class="list-group-item"><i class="ti-lock mr-1"></i> <a href="{% url 'login' %}">Connexion</a></li>
+
+      {% endif %}
+
+    </ul>
+  </div>
 
   {% block content %}
 

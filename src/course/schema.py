@@ -25,7 +25,12 @@ class Query(graphene.ObjectType):
         return Course.objects.all()
 
     def resolve_course(self, info, courseSlug):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("Log in to continue!")
         course = Course.objects.get(slug=courseSlug)
+        if course not in user.courses_enrolled.all():
+            raise GraphQLError("You're not authorized to see this course!")
         return course
 
     def resolve_chapters(self, info, search=None):

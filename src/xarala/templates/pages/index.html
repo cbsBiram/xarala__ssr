@@ -3,42 +3,44 @@
 
 {% block content %}
 
-
-<section class="padding-y-80 flex-center bg-cover bg-dark" data-dark-overlay="2">
+<section class="padding-y-80 flex-center bg-dark" data-dark-overlay="4">
   <div class="container">
     <div class="row">
       <div class="col-12 text-white text-center">
-        <h4 class="text-primary wow slideInUp">
-          Apprenez une nouvelle compétence en ligne, à votre rythme
+        <h4 class="font-weight-bold font-primary text-primary text-uppercase wow slideInUp"
+          style="visibility: visible; animation-name: slideInUp;">
+          Apprenez une nouvelle compétence en ligne
         </h4>
-        <h1 class="display-lg-4 my-3 wow slideInUp">
-          Un expert pour chaque objectif
+        <h1 class="display-lg-3 font-weight-bold wow slideInUp" style="visibility: visible; animation-name: slideInUp;">
+          Prenez Votre carrière en main.
         </h1>
-        <p class="lead wow slideInUp">
-          Prenez Votre carrière en main, Progressez dans votre vie et améliorerz votre niveau.
+        <p class="lead wow slideInUp" style="visibility: visible; animation-name: slideInUp;">
+          Des <span class="text-primary font-weight-semiBold">formations</span> en business, développement d'application
+          web et mobile, technologie et programmation enseignées par des experts de l'industrie.
         </p>
+        <a href="{% url 'login' %}" class="btn btn-primary mt-3 wow slideInUp"
+          style="visibility: visible; animation-name: slideInUp;">Bien débuter</a>
+        <a href="{% url 'pages:become-teacher' %}" class="btn btn-outline-white mt-3 ml-sm-3 wow slideInUp"
+          style="visibility: visible; animation-name: slideInUp;">Devenir formateur</a>
       </div>
-      <div class="col-12 mt-5">
-        <p class="lead text-center text-white mb-4">
-          Catégories les plus populaires
-        </p>
-        <div class="owl-carousel arrow-on-hover text-center" data-space="10" data-items="5" data-arrow="true"
-          data-loop="true" data-tablet="4">
-          {% for category in categories %}
-          <a href="{% url 'course:course-by-category' category.name %}" class="card p-4 hover:primary">
-            <i class="ti-desktop font-size-34 text-primary"></i>
-            <h6 class="mt-2">
-              {{ category.name }}
-            </h6>
-          </a>
-          {% endfor %}
+      <form class="col-lg-7 mx-auto mt-5" method='GET' action="{% url 'search:results' %}">
+        {% csrf_token %}
+        <div class="input-group bg-white rounded p-2">
+          <input type="text" class="form-control border-white" placeholder="Que souhaitez-vous apprendre?" required
+            name="q">
+          <div class="input-group-append">
+            <button class="btn btn-info rounded" type="submit">
+              Rechercher
+              <i class="ti-angle-right small"></i>
+            </button>
+          </div>
         </div>
-      </div>
+      </form>
     </div> <!-- END row-->
   </div> <!-- END container-->
 </section>
 
-<section class="padding-y-100">
+<section class="padding-y-80">
   <div class="container">
     <div class="row">
       <div class="col-md-4 mt-4 text-center">
@@ -83,7 +85,7 @@
 
 
 
-<section class="padding-y-100 bg-dark">
+<section class="padding-y-80 bg-dark">
   <div class="container">
     <div class="row">
       <div class="col-12 text-center text-white mb-5">
@@ -157,7 +159,7 @@
 
 
 
-<section class="padding-y-100 bg-cover bg-dark" data-dark-overlay="2">
+<section class="padding-y-80 bg-cover bg-dark" data-dark-overlay="2">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-5 mr-auto text-white my-3">
@@ -201,7 +203,7 @@
 
 
 
-<section class="padding-y-100">
+<section class="padding-y-80">
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">
