@@ -1,0 +1,247 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% include "partials/_breadcrumbs.html" with previous="Accueil" previous_url="pages:home" current="Formateur" text="Devenir formateur" %}
+
+<section class="padding-y-100">
+  {% include "partials/_alerts.html" %}
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-12">
+        <h2>
+          Découvrez votre potentiel
+        </h2>
+        <div class="width-4rem height-4 bg-primary my-2 mx-auto rounded"></div>
+      </div>
+
+      <div class="col-md-4 mt-5">
+        <div class="iconbox iconbox-xxl bg-primary text-white">
+          <i class="ti-money font-size-24"></i>
+        </div>
+        <h4 class="my-4">
+          Gagnez un revenu supplémentaire
+        </h4>
+        <!-- <p>
+          Investig ationes demons travg ectores legere lruske quod legunt saepius ationes demons ectores
+        </p> -->
+      </div>
+
+      <div class="col-md-4 mt-5">
+        <div class="iconbox iconbox-xxl bg-primary text-white">
+          <i class="ti-thumb-up font-size-24"></i>
+        </div>
+        <h4 class="my-4">
+          Inspirez les apprenants
+        </h4>
+        <!-- <p>
+          Investig ationes demons travg ectores legere lruske quod legunt saepius ationes demons ectores
+        </p> -->
+      </div>
+
+      <div class="col-md-4 mt-5">
+        <div class="iconbox iconbox-xxl bg-primary text-white">
+          <i class="ti-blackboard font-size-24"></i>
+        </div>
+        <h4 class="my-4">
+          Apprentissage tout au long de la vie
+        </h4>
+        <!-- <p>
+          Investig ationes demons travg ectores legere lruske quod legunt saepius ationes demons ectores
+        </p> -->
+      </div>
+    </div> <!-- END row-->
+  </div>
+  <!--END container-->
+</section>
+
+
+
+
+<section class="padding-y-100 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h2>
+          Comment ça fonctionne
+        </h2>
+        <div class="width-4rem height-4 bg-primary my-2 mx-auto rounded"></div>
+      </div> <!-- END col-12 -->
+      <div class="col-12">
+        <ul class="nav justify-content-center text-center margin-y-40" role="tablist">
+          <li class="nav-item mx-md-4">
+            <a class="nav-link active" data-toggle="tab" href="#Tabs_1-1" role="tab" aria-selected="true">
+              <span class="iconbox iconbox-xs btn btn-outline-primary font-size-16">
+                1
+              </span>
+              <span class="d-block mt-2">
+                Choisissez votre sujet
+              </span>
+            </a>
+          </li>
+          <li class="nav-item mx-md-4">
+            <a class="nav-link" data-toggle="tab" href="#Tabs_1-2" role="tab" aria-selected="true">
+              <span class="iconbox iconbox-xs btn btn-outline-primary font-size-16">
+                2
+              </span>
+              <span class="d-block mt-2">
+                Créez un cours
+              </span>
+            </a>
+          </li>
+          <li class="nav-item mx-md-4">
+            <a class="nav-link" data-toggle="tab" href="#Tabs_1-3" role="tab" aria-selected="true">
+              <span class="iconbox iconbox-xs btn btn-outline-primary font-size-16">
+                3
+              </span>
+              <span class="d-block mt-2">
+                Connectez-vous avec les étudiants
+              </span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+
+          <div class="tab-pane fade show active" id="Tabs_1-1" role="tabpanel">
+            <div class="list-card bg-white p-4 shadow-v1">
+              <div class="col-md-6 my-4">
+                <h4>
+                  Choisissez votre sujet
+                </h4>
+                <p>
+                  Exprimez-vous librement.
+                  Partagez votre connaissance en toute liberté:
+                </p>
+                <ul class="list-unstyled list-style-icon list-icon-check font-weight-semiBold my-4">
+                  <li>Concentrations du sujet focalisées</li>
+                  <li>Choisissez des projets et cas d'utilisation réels</li>
+                  <li>Utilisez notre technologie</li>
+                </ul>
+              </div>
+              <div class="col-md-6 text-center my-4">
+                <img src="{% static 'assets/img/svg/7.png' %}" alt="Teacher">
+              </div>
+            </div>
+          </div> <!-- END tab-pane -->
+
+          <div class="tab-pane fade" id="Tabs_1-2" role="tabpanel">
+            <div class="list-card bg-white p-4 shadow-v1">
+              <div class="col-md-6 text-center my-4">
+                <img src="{% static 'assets/img/svg/7.png' %}" alt="Devenir instructeur">
+              </div>
+              <div class="col-md-6 my-4">
+                <h4>
+                  Créez un cours
+                </h4>
+                <p>
+                  Un cours = un projet ou cas d'utilisation.
+                </p>
+                <ul class="list-unstyled list-style-icon list-icon-check font-weight-semiBold my-4">
+                  <li>Prenez le temps de bien modéliser votre cours
+                  </li>
+                  <li>Nous avons des modèles déjà existants.</li>
+                  <li>Nous allons vous aider à créer votre premier cours.</li>
+                </ul>
+              </div>
+            </div>
+          </div> <!-- END tab-pane -->
+
+          <div class="tab-pane fade" id="Tabs_1-3" role="tabpanel">
+            <div class="list-card bg-white p-4 shadow-v1">
+              <div class="col-md-6 my-4">
+                <h4>
+                  Connectez-vous avec les étudiants
+                </h4>
+                <p>
+                  L'apprentissage devrait être amusant et pratique en même temps.
+                </p>
+                <ul class="list-unstyled list-style-icon list-icon-check font-weight-semiBold my-4">
+                  <li>Notre forum est ouvert 24/7</li>
+                  <li>Mentorez les apprenants</li>
+                  <li>Prenons un café ensemble</li>
+                </ul>
+              </div>
+              <div class="col-md-6 text-center my-4">
+                <img src="{% static 'assets/img/svg/7.png' %}" alt="Devenir instructeur">
+              </div>
+            </div>
+          </div> <!-- END tab-pane -->
+
+        </div> <!-- END tab-content-->
+      </div>
+    </div> <!-- END row-->
+  </div>
+  <!--END container-->
+</section>
+
+<section class="padding-y-100">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h2>
+          Commencez dès aujourd'hui
+        </h2>
+        <div class="width-4rem height-4 bg-primary my-2 mx-auto rounded"></div>
+      </div>
+      <div class="col-lg-6 mx-auto mt-5">
+        <div class="card text-center shadow-v3 p-5">
+          <h4 class="text-primary">
+            Devenir formateur Xarala
+          </h4>
+          <p>
+            Découvrez une communauté de formateurs en ligne solidaire. Accédez instantanément à toutes les ressources de
+            création de cours.
+          </p>
+          <form action="{% url 'pages:become-teacher' %}" method="POST" class="mt-4">
+            {% csrf_token %}
+            <div class="input-group input-group--focus mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-white ti-email"></span>
+              </div>
+              <input type="email" class="form-control border-left-0 pl-0" name="email" placeholder="me@gmail.com"
+                required>
+            </div>
+            <div class="input-group input-group--focus mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-white ti-lock"></span>
+              </div>
+              <input type="password" class="form-control border-left-0 pl-0" placeholder="Mot de passe" required
+                name="password1">
+            </div>
+            <div class="input-group input-group--focus mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-white ti-lock"></span>
+              </div>
+              <input type="password" class="form-control border-left-0 pl-0" placeholder="Confirmation Mot de passe"
+                required name="password2">
+            </div>
+            <div class="input-group my-4">
+              <label class="ec-checkbox">
+                <input type="checkbox" name="checkbox">
+                <span class="ec-checkbox__control"></span>
+                <span class="ec-checkbox__lebel text-left">
+                  je suis d'accord avec les
+                  <a href="#" class="text-primary" target="_blank">
+                    termes et conditions.
+                  </a>
+                </span>
+              </label>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">S'inscrire maintenant</button>
+            <p class="marginTop-40">
+              Vous avez déjà un compte? <a href="{% url 'login' %}" class="text-primary">Connexion</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div> <!-- END row-->
+  </div> <!-- END container-->
+</section>
+
+
+
+
+
+{% endblock %}

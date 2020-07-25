@@ -88,7 +88,7 @@ class StudentCourseListView(ListView):
 @method_decorator([teacher_required], name="dispatch")
 class TeacherCourseListView(ListView, CreateView):
     form_class = CreateCourse
-    template_name = "dashboard/teacher/course-admin.html"
+    template_name = "dashboard/teacher/manage-course.html"
 
     def get(self, request, *args, **kwargs):
         teacher = self.request.user
@@ -179,7 +179,11 @@ class TeacherLessonListCreateView(DetailView, CreateView):
             platform = form.cleaned_data.get("platform")
             chapter_id = request.GET.get("chapter_id")
             lesson = Lesson(
-                title=title, video_id=video_id, text=text, platform=platform
+                title=title,
+                video_id=video_id,
+                text=text,
+                platform=platform,
+                video_url=video_link,
             )
             lesson.save()
             chapter = Chapter.objects.get(pk=int(chapter_id))

@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from users.models import CustomUser
 from .models import Contact
 
 
@@ -76,3 +78,34 @@ class BecomeTeacherForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = ("first_name", "email", "phone", "message")
+
+
+class TeacherCreationForm(UserCreationForm):
+    password1 = forms.CharField(
+        label="Mot de passe",
+        widget=forms.PasswordInput(
+            {"class": "form-control border-left-0 pl-0", "placeholder": "Mot de passe",}
+        ),
+    )
+    email = forms.EmailField(
+        label="Email",
+        widget=forms.EmailInput(
+            {
+                "class": "form-control border-left-0 pl-0",
+                "placeholder": "moi@gmail.com",
+            }
+        ),
+    )
+    password2 = forms.CharField(
+        label=False,
+        widget=forms.PasswordInput(
+            {
+                "class": "form-control border-left-0 pl-0",
+                "placeholder": "Confirmation Mot de passe",
+            }
+        ),
+    )
+
+    class Meta(UserCreationForm):
+        model = CustomUser
+        fields = ("email", "password1", "password2")

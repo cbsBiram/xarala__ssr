@@ -1,41 +1,36 @@
 import graphene
-from graphene_django import DjangoObjectType
-from graphql import GraphQLError
-from .models import CustomUser
+import graphql_jwt
+from graphql_auth import mutations
+from graphql_auth.schema import UserQuery, MeQuery
 
 
-class CustomUserType(DjangoObjectType):
-    class Meta:
-        model = CustomUser
+class AuthMutation(graphene.ObjectType):
+    register = mutations.Register.Field()
+    verify_account = mutations.VerifyAccount.Field()
+    resend_activation_email = mutations.ResendActivationEmail.Field()
+    send_password_reset_email = mutations.SendPasswordResetEmail.Field()
+    password_reset = mutations.PasswordReset.Field()
+    password_change = mutations.PasswordChange.Field()
+    archive_account = mutations.ArchiveAccount.Field()
+    delete_account = mutations.DeleteAccount.Field()
+    update_account = mutations.UpdateAccount.Field()
+    # send_secondary_email_activation = mutations.SendSecondaryEmailActivation.Field()
+    # verify_secondary_email = mutations.VerifySecondaryEmail.Field()
+    # swap_emails = mutations.SwapEmails.Field()
+
+    # django-graphql-jwt inheritances
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = mutations.VerifyToken.Field()
+    refresh_token = mutations.RefreshToken.Field()
+    revoke_token = mutations.RevokeToken.Field()
 
 
-class Query(graphene.ObjectType):
-    user = graphene.Field(CustomUserType, id=graphene.Int(required=True))
-    me = graphene.Field(CustomUserType)
-
-    def resolve_user(self, info, id):
-        return CustomUser.objects.get(id=id)
-
-    def resolve_me(self, info):
-        user = info.context.user
-        if user.is_anonymous:
-            raise GraphQLError("Not loged in!")
-        return user
+class Query(UserQuery, MeQuery, graphene.ObjectType):
+    pass
 
 
-class CreateUser(graphene.Mutation):
-    user = graphene.Field(CustomUserType)
-
-    class Arguments:
-        email = graphene.String(required=True)
-        password = graphene.String(required=True)
-
-    def mutate(self, info, email, password):
-        user = CustomUser(email=email)
-        user.set_password(password)
-        user.save()
-        return CreateUser(user)
+class Mutation(AuthMutation, graphene.ObjectType):
+    pass
 
 
-class Mutation(graphene.ObjectType):
-    create_user = CreateUser.Field()
+schema = graphene.Schema(query=Query)

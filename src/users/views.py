@@ -1,23 +1,23 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
-from django.utils.http import is_safe_url
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import JsonResponse
-from django.views.generic import UpdateView, DetailView
+from django.shortcuts import redirect, render
+from django.utils.http import is_safe_url
+from django.views.generic import DetailView, UpdateView
 
 from course.models import Course
-from .models import CustomUser
-from .forms import (
-    CustomUserUpdateForm,
-    UpdateProfileForm,
-    ChangePasswordForm,
-    UpdateSocialForm,
-    UpdateBioForm,
-)
-
 from userlogs.models import UserLog
+
+from .forms import (
+    ChangePasswordForm,
+    CustomUserUpdateForm,
+    UpdateBioForm,
+    UpdateProfileForm,
+    UpdateSocialForm,
+)
+from .models import CustomUser
 from .tasks import account_created
 
 

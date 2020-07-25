@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "754ff26369e84b13f3dd7c528afed1fc0a7605cf81e99dab8e71cacb3d3557a2"
+            "sha256": "415bbe54f14752cae44c2f36b6f4f4d0d45f2796024554096134c783318a5b92"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -184,13 +184,28 @@
             "index": "pypi",
             "version": "==1.3.3"
         },
-        "django-graphql-jwt": {
+        "django-filter": {
             "hashes": [
-                "sha256:2189f6d1a13b827d486780fa74a631a15e4f7f0235a3a87a487736b5b0dc4690",
-                "sha256:468e09b8ce67324fcba21dc33b7c1ea9d234bfc10df7cbfe9c5477be0302f933"
+                "sha256:11e63dd759835d9ba7a763926ffb2662cf8a6dcb4c7971a95064de34dbc7e5af",
+                "sha256:616848eab6fc50193a1b3730140c49b60c57a3eda1f7fc57fa8505ac156c6c75"
+            ],
+            "version": "==2.3.0"
+        },
+        "django-graphql-auth": {
+            "hashes": [
+                "sha256:42e032a7e1eb9df0d12e0f88a8be0c9908776ad7eba5557eff86e53fb7817d44",
+                "sha256:890c03c72351a4b8061d7724375ef053882f891b6d663c9d36483b755980349c"
             ],
             "index": "pypi",
-            "version": "==0.3.1"
+            "version": "==0.3.11"
+        },
+        "django-graphql-jwt": {
+            "hashes": [
+                "sha256:bcf0882a492e2148cba7cba3c39cf57834f736a2c289b66852239faf9b59b61e",
+                "sha256:c9c611d98510b57146c21484478eae793249553af3766a593e8f25ce73d3255a"
+            ],
+            "index": "pypi",
+            "version": "==0.3.0"
         },
         "django-jet": {
             "hashes": [

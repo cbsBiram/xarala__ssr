@@ -2,6 +2,12 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block extrastyle %}
+<style>
+
+</style>
+{% endblock extrastyle %}
+
 {% block title %}
 {{ user }}
 {% endblock title %}
@@ -132,7 +138,11 @@
             <div class="tab-pane fade" id="Tabs_1-2" role="tabpanel">
               <div class="row">
 
-                {% include "partials/_course-table.html" with courses=courses %}
+                {% if user.is_student %}
+                {% include "partials/_student-course-table.html" with courses=courses %}
+                {% elif user.is_teacher %}
+                {% include "partials/_teacher-course-table.html" with courses=courses %}
+                {% endif %}
 
               </div>
             </div> <!-- END tab-pane -->
@@ -393,7 +403,28 @@
       function handleError(ThrowError) {}
     });
 
+    // tanle
+    // Activate tooltip
+    $('[data-toggle="tooltip"]').tooltip();
 
+    // Select/Deselect checkboxes
+    var checkbox = $('table tbody input[type="checkbox"]');
+    $("#selectAll").click(function () {
+      if (this.checked) {
+        checkbox.each(function () {
+          this.checked = true;
+        });
+      } else {
+        checkbox.each(function () {
+          this.checked = false;
+        });
+      }
+    });
+    checkbox.click(function () {
+      if (!this.checked) {
+        $("#selectAll").prop("checked", false);
+      }
+    });
 
   });
 </script>

@@ -38,60 +38,6 @@
   </div> <!-- END container-->
 </section>
 
-
-
-
-
-<section class="padding-y-100 bg-light">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mt-4">
-        <a href="{% url 'course:courses' %}" class="card rounded overflow-hidden hover:parent">
-          <img class="hover:zoomin" src="{% static 'assets/img/360x220/course-1.jpg' %}" alt="cours les mieux notés">
-          <div class="card-img-overlay flex-center bg-primary-0_7 text-white text-center">
-            <p class="mb-1">
-              parcourir nos
-            </p>
-            <h6>
-              cours les mieux notés
-            </h6>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-4 mt-4">
-        <a href="{% url 'course:courses' %}" class="card rounded overflow-hidden hover:parent">
-          <img class="hover:zoomin" src="{% static 'assets/img/360x220/course-2.jpg' %}" alt="cours les plus vendus">
-          <div class="card-img-overlay flex-center bg-info-0_7 text-white text-center">
-            <p class="mb-1">
-              parcourir nos
-            </p>
-            <h6>
-              cours les plus vendus
-            </h6>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-4 mt-4">
-        <a href="{% url 'course:courses' %}" class="card rounded overflow-hidden hover:parent">
-          <img class="hover:zoomin" src="{% static 'assets/img/360x220/course-1.jpg' %}" alt="Nouveau cours">
-          <div class="card-img-overlay flex-center bg-success-0_7 text-white text-center">
-            <p class="mb-1">
-              parcourir nos
-            </p>
-            <h6>
-              nouveaux cours
-            </h6>
-          </div>
-        </a>
-      </div>
-    </div> <!-- END row-->
-  </div> <!-- END container-->
-</section>
-
-
-
-
-
 <section class="padding-y-100">
   <div class="container">
     <div class="row">
@@ -270,26 +216,6 @@
 </section>
 
 
-
-
-<section class="padding-y-100 jarallax" data-dark-overlay="5"
-  style="background: url({% static 'assets/img/learning.jpg' %}) no-repeat">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 mx-auto text-center text-white">
-        <h2>
-          Devenez instructeur
-        </h2>
-        <p class="my-4">
-          Voulez-vous gagner de l'argent en formant les autres et en communiquant
-          vos compétences aux autres ? Devenez instructeur Xarala!
-        </p>
-        <a href="{% url 'pages:become-teacher' %}" class="btn btn-white">Je postule</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
+{% include "partials/_become_instructor.html" %}
 
 {% endblock content %}

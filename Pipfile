@@ -27,6 +27,7 @@ django-allauth = "*"
 celery = "==4.4.2"
 flower = "==0.9.3"
 django-embed-video = "*"
+django-graphql-auth = "*"
 
 [requires]
 python_version = "3.6"
