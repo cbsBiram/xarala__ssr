@@ -46,7 +46,11 @@ class Course(models.Model):
     slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
     thumbnail = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     teacher = models.ForeignKey(
-        CustomUser, models.SET_NULL, null=True, related_name="courses_created"
+        CustomUser,
+        models.SET_NULL,
+        null=True,
+        related_name="courses_created",
+        verbose_name="teacher",
     )
     students = models.ManyToManyField(
         CustomUser, related_name="courses_enrolled", blank=True

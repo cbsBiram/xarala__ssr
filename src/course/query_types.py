@@ -1,5 +1,5 @@
 from graphene_django import DjangoObjectType
-from .models import Course, Chapter, Lesson, Category
+from .models import Course, Chapter, Lesson, Category, Language
 
 
 class CourseType(DjangoObjectType):
@@ -23,3 +23,8 @@ class LessonType(DjangoObjectType):
 class CategoryType(DjangoObjectType):
     class Meta:
         model = Category
+
+
+class LanguageType(DjangoObjectType):
+    class Meta:
+        model = Language

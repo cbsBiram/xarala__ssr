@@ -1,7 +1,15 @@
 import graphene
-import graphql_jwt
+from graphene_django import DjangoObjectType
 from graphql_auth import mutations
-from graphql_auth.schema import UserQuery, MeQuery
+from graphql_auth.schema import MeQuery, UserQuery
+import graphql_jwt
+
+from .models import CustomUser as User
+
+
+class UserType(DjangoObjectType):
+    class Meta:
+        model = User
 
 
 class AuthMutation(graphene.ObjectType):
@@ -14,9 +22,6 @@ class AuthMutation(graphene.ObjectType):
     archive_account = mutations.ArchiveAccount.Field()
     delete_account = mutations.DeleteAccount.Field()
     update_account = mutations.UpdateAccount.Field()
-    # send_secondary_email_activation = mutations.SendSecondaryEmailActivation.Field()
-    # verify_secondary_email = mutations.VerifySecondaryEmail.Field()
-    # swap_emails = mutations.SwapEmails.Field()
 
     # django-graphql-jwt inheritances
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
@@ -26,7 +31,7 @@ class AuthMutation(graphene.ObjectType):
 
 
 class Query(UserQuery, MeQuery, graphene.ObjectType):
-    pass
+    me = graphene.Field(UserType)
 
 
 class Mutation(AuthMutation, graphene.ObjectType):
