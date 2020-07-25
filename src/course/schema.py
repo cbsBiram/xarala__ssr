@@ -169,9 +169,12 @@ class SubscribeUserToCourse(graphene.Mutation):
         course = Course.objects.get(pk=courseId)
         if course not in user.courses_enrolled.all():
             user.courses_enrolled.add(course)
+            return course
+        return course
 
 
 class Mutation(graphene.ObjectType):
     create_course = CreateCourse.Field()
     update_course = UpdateCourse.Field()
     delete_course = DeleteCourse.Field()
+    subscribe_user_to_course = SubscribeUserToCourse.Field()
