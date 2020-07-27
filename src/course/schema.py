@@ -1,7 +1,7 @@
 from django.db.models import Q
 import graphene
 from graphql import GraphQLError
-
+from graphql_jwt.decorators import login_required
 from .models import Category, Chapter, Course, Language, Lesson
 from .query_types import CategoryType, ChapterType, CourseType, LanguageType, LessonType
 
@@ -30,11 +30,10 @@ class Query(graphene.ObjectType):
         course = Course.objects.get(slug=courseSlug)
         return course
 
+    @login_required
     def resolve_courseLesson(self, info, courseSlug):
         """ Course Lecture, the user must be logged in and enrolled it """
         user = info.context.user
-        if user.is_anonymous:
-            raise GraphQLError("Log in to continue!")
         course = Course.objects.get(slug=courseSlug)
         if course not in user.courses_enrolled.all():
             raise GraphQLError("You're not authorized to see this course!")
