@@ -2,7 +2,7 @@
 
 <div class="col-12 mt-2">
   <div class="owl-carousel arrow-on-hover" data-items="4" data-arrow="true" data-state-outer-class="py-4"
-    data-autoplay="true" data-smartspeed="300" data-space="30" data-loop="true">
+    data-autoplay="true" data-smartspeed="300" data-space="30" data-loop="false">
 
 
     {% if courses %}
@@ -22,7 +22,11 @@
           <i class="ti-user mr-2"></i>
           {{ course.teacher.get_full_name|default_if_none:"Xarala" }}
         </p>
-        <p class="mb-0">
+        <p class="my-3">
+          <i class="ti-world mr-2"></i>
+          {{ course.language|default_if_none:"Wolof" }}
+        </p>
+        <!-- <p class="mb-0">
           <span class="text-dark">5</span>
           <i class="fas fa-star text-warning"></i>
           <i class="fas fa-star text-warning"></i>
@@ -30,7 +34,7 @@
           <i class="fas fa-star text-warning"></i>
           <i class="fas fa-star text-warning"></i>
           <span>({{ course.count_students }})</span>
-        </p>
+        </p> -->
       </div>
       <div class="media border-top p-4 align-items-center justify-content-between">
         <h4 class="h5 mb-0">
@@ -42,7 +46,7 @@
           {% endif %}
 
         </h4>
-        {% include "partials/_animated-share.html" with title=course.title %}
+        <a href="{{ course.get_absolute_url }}" class="btn btn-primary">Enroller</a>
       </div>
     </div>
     {% endfor %}

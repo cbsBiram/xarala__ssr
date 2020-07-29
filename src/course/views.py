@@ -8,6 +8,7 @@ from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from .models import Course, Chapter, Lesson, Category
 from .forms import CreateCourse, CreateChapter, CreateLesson
 from userlogs.models import UserLog
+from .tasks import enroll_course
 
 
 class CourseListView(ListView):
@@ -28,7 +29,7 @@ class CourseOverviewView(DetailView):
     def get_context_data(self, **kwargs):
         student = self.request.user
         context = super().get_context_data(**kwargs)
-        button_text = "Continuer"
+        button_text = "Poursuivre"
         if (
             student.is_authenticated
             and context.get("course") in student.courses_enrolled.all()
@@ -62,6 +63,7 @@ def subscribe_user_to_course(request, course_slug):
         if student.is_authenticated:
             if course not in student.courses_enrolled.all():
                 student.courses_enrolled.add(course)
+                enroll_course.delay(student.email, course.title)
                 UserLog.objects.create(
                     action=f"Enrolled {course} course",
                     user_type="Student",

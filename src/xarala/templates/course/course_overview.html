@@ -55,8 +55,6 @@
               <h2 class="font-weight-bold text-success mb-2">
                 Gratuit</h2>
               {% endif %}
-
-
               <a class="btn btn-primary"
                 href="{% if button_text == 'Enroller'  %}{% url 'course:subscribe_user_to_course' course.slug %}{% else %}/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}{% endif %}">{{ button_text }}</a>
 

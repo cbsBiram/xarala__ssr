@@ -1,9 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.views.generic import DetailView, UpdateView
 
@@ -102,6 +104,7 @@ def register(request):
 # update user
 
 
+@method_decorator([login_required], name="dispatch")
 class CustomUserUpdateDetailView(UpdateView, DetailView):
     model = CustomUser
     form_class = CustomUserUpdateForm

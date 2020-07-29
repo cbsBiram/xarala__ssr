@@ -33,3 +33,16 @@ def become_teacher_mail(email, message):
         html_content, "text/html",
     )
     msg.send(fail_silently=False)
+
+
+def enroll_course_mail(student_email, course_title):
+    htmly = get_template("email/enroll_course.html")
+    context = {"student_name": student_email, "course_title": course_title}
+    to_emails = [student_email]
+    subject, from_email = (f"Xarala -{course_title}", "contact@xarala.co")
+    html_content = htmly.render(context)
+    msg = EmailMultiAlternatives(subject, html_content, from_email, to_emails,)
+    msg.attach_alternative(
+        html_content, "text/html",
+    )
+    msg.send(fail_silently=False)
