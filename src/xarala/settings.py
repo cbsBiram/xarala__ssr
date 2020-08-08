@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 from django.contrib.messages import constants as messages
+from datetime import timedelta
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -87,6 +88,8 @@ GRAPHENE = {
 
 GRAPHQL_JWT = {
     "JWT_VERIFY_EXPIRATION": True,
+    "JWT_EXPIRATION_DELTA": timedelta(days=30),
+    "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=30),
     # optional
     "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
     "JWT_ALLOW_ANY_CLASSES": [
@@ -237,7 +240,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 CELERY_BROKER_URL = "amqp://dbadmin:abc123!@127.0.0.1:5672//"
 
 try:
-    from .local_settings import *
+    from .local_settings import *  # noqa
 except ImportError:
     pass
 # install djnago-redis

@@ -25,9 +25,10 @@ class AuthMutation(graphene.ObjectType):
 
     # django-graphql-jwt inheritances
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
-    verify_token = mutations.VerifyToken.Field()
-    refresh_token = mutations.RefreshToken.Field()
-    revoke_token = mutations.RevokeToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
+    revoke_token = graphql_jwt.Revoke.Field()
+    # revoke_token = mutations.RevokeToken.Field()
 
 
 class Query(UserQuery, MeQuery, graphene.ObjectType):

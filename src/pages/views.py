@@ -95,6 +95,7 @@ class ContactUsView(TemplateView, CreateView):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
+            # send mail
             return redirect("pages:thanks")
 
         return render(request, self.template_name, {"form": form})
