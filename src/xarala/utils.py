@@ -46,5 +46,5 @@ def email_validation_function(value):
 
 
 def generate_key():
-    key = "".join(random.choices(string.ascii_uppercase + string.digits, k=4))
+    key = "".join(random.choices(string.digits, k=4))
     return key

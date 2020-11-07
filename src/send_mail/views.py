@@ -1,6 +1,8 @@
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 
+from users.models import ResetCode
+
 # email apres la creation de compte
 
 
@@ -40,6 +42,24 @@ def enroll_course_mail(student_email, course_title):
     context = {"student_name": student_email, "course_title": course_title}
     to_emails = [student_email]
     subject, from_email = (f"Xarala -{course_title}", "contact@xarala.co")
+    html_content = htmly.render(context)
+    msg = EmailMultiAlternatives(subject, html_content, from_email, to_emails,)
+    msg.attach_alternative(
+        html_content, "text/html",
+    )
+    msg.send(fail_silently=False)
+
+
+def passowrd_reset_mail(user_email):
+    htmly = get_template("email/passowrd_reset.html")
+    code = ResetCode.objects.create(email=user_email)
+    code.save()
+    context = {"email": user_email, "code": code.code}
+    to_emails = [user_email]
+    subject, from_email = (
+        "Xarala - réinitialisation mot de passe",
+        "contact@xarala.co",
+    )
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(subject, html_content, from_email, to_emails,)
     msg.attach_alternative(

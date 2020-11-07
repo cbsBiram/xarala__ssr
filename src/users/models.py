@@ -64,7 +64,7 @@ class ResetCode(models.Model):
     email = models.EmailField()
     expired = models.BooleanField(default=False)
 
-    def _get_unique_label(self):
+    def _get_unique_code(self):
         unique_code = generate_key()
         while ResetCode.objects.filter(code=unique_code).exists():
             unique_code = generate_key()
