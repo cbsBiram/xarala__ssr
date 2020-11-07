@@ -3,25 +3,23 @@
 
 {% block content %}
 
-<section class="padding-y-80 flex-center bg-dark" data-dark-overlay="4">
+<section class="padding-y-80 flex-center bg-dark " data-dark-overlay="2">
   <div class="container">
     <div class="row">
       <div class="col-12 text-white text-center">
-        <h4 class="font-weight-bold font-primary text-primary text-uppercase wow slideInUp"
-          style="visibility: visible; animation-name: slideInUp;">
-          Apprenez une nouvelle compétence en ligne
-        </h4>
-        <h1 class="display-lg-3 font-weight-bold wow slideInUp" style="visibility: visible; animation-name: slideInUp;">
+        <h2 class="display-lg-3 font-weight-bold wow slideInUp" style="visibility: visible; animation-name: slideInUp;">
           Prenez Votre carrière en main.
-        </h1>
+        </h2>
         <p class="lead wow slideInUp" style="visibility: visible; animation-name: slideInUp;">
-          Des <span class="text-primary font-weight-semiBold">formations</span> en business, développement d'application
-          web et mobile, technologie et programmation enseignées par des experts de l'industrie.
+          Choisissez votre plateforme pour commencer!
         </p>
-        <a href="{% url 'login' %}" class="btn btn-primary mt-3 wow slideInUp"
-          style="visibility: visible; animation-name: slideInUp;">Bien débuter</a>
-        <a href="{% url 'pages:become-teacher' %}" class="btn btn-outline-white mt-3 ml-sm-3 wow slideInUp"
-          style="visibility: visible; animation-name: slideInUp;">Devenir formateur</a>
+        <a href="https://play.google.com/store/apps/details?id=com.xaralamobile" target="_blank">
+          <img src="{% static 'assets/img/getiton-anroid.png' %}" alt="Application Xarala">
+        </a>
+
+        <a href="#" target="_blank">
+          <img src="{% static 'assets/img/app-store-badge.svg' %}" alt="Application Xarala">
+        </a>
       </div>
       <form class="col-lg-7 mx-auto mt-5" method='GET' action="{% url 'search:results' %}">
         {% csrf_token %}
@@ -40,7 +38,30 @@
   </div> <!-- END container-->
 </section>
 
-<section class="padding-y-80">
+
+{% if user.email %}
+
+{% else %}
+<section class="padding-y-40">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mt-5">
+        <div class="bg-light-v2 p-5 rounded d-md-flex justify-content-center align-items-center">
+          <p class="mb-0 mr-4 lead">
+            Commencez ici
+          </p>
+          <a href="{% url 'register' %}" class="btn btn-primary"> Inscription</a>
+        </div>
+      </div>
+    </div> <!-- END row-->
+  </div>
+</section>
+
+{% endif %}
+
+
+
+<section class="padding-y-80 bg-white">
   <div class="container">
     <div class="row">
       <div class="col-md-4 mt-4 text-center">
@@ -80,83 +101,78 @@
   </div> <!-- END container-->
 </section>
 
-
-
-
-
-
-<section class="padding-y-80 bg-dark">
+<section class="padding-y-80">
   <div class="container">
     <div class="row">
-      <div class="col-12 text-center text-white mb-5">
+      <div class="col-12 mt-5">
+        <div class="bg-light-v2 p-5 rounded text-center">
+          <h4>
+            Êtes-vous formateur?
+          </h4>
+          <p class="mb-2">
+            <small>
+              Voulez-vous gagner de l'argent en formant les autres et en partageant vos compétences aux autres ? Devenez
+              instructeur Xarala!
+            </small>
+          </p>
+          <a href="{% url 'pages:become-teacher' %}" class="btn btn-primary"> Commencer maintenant</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="padding-y-80 bg-white text-dark">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-5">
         <h2 class="mb-4">
-          Cours en vedette
+          Pourqoui chosir Xarala?
         </h2>
         <div class="width-3rem height-4 rounded bg-primary mx-auto"></div>
       </div>
-      {% include "partials/_course-card.html" %}
+      <div class="col-md-4 mt-4 text-center">
+        <div class="iconbox iconbox-xxl font-size-26 bg-primary-0_2">
+          <i class="ti-bookmark-alt text-primary"></i>
+        </div>
+        <h4 class="my-4">
+          Projet
+        </h4>
+        <p>
+          Vous travaillez sur des projets et cas d'utilisation réels.
+        </p>
+      </div>
+      <div class="col-md-4 mt-4 text-center">
+        <div class="iconbox iconbox-xxl font-size-26 bg-primary-0_2">
+          <i class="ti-user text-primary"></i>
+        </div>
+        <h4 class="my-4">
+          Mentorat
+        </h4>
+        <p>
+          Vous serez mentorer par les meilleurs formateurs.
+        </p>
+      </div>
+      <div class="col-md-4 mt-4 text-center">
+        <div class="iconbox iconbox-xxl font-size-26 bg-primary-0_2">
+          <i class="ti-video text-primary"></i>
+        </div>
+        <h4 class="my-4">
+          Formation
+        </h4>
+        <p>
+          Des formations de qualitées, adaptées à votre besoin.
+        </p>
+      </div>
+
       <div class="col-12 text-center mt-5">
         <a href="{% url 'course:courses' %}" class="btn btn-primary btn-icon">
-          Tous les cours
+          Nos formations
         </a>
       </div>
     </div>
   </div> <!-- END container-->
 </section> <!-- END section-->
-
-
-
-
-
-<section class="paddingTop-50 paddingBottom-100 bg-light-v2">
-  <div class="container">
-
-    <div class="row marginTop-50">
-      <div class="col-md-6 my-2">
-        <h3>
-          Meilleurs cours de développemnt web
-        </h3>
-      </div>
-      <div class="col-md-6 my-2 text-md-right">
-        <a href="{% url 'course:course-by-category' 'Web' %}" class="btn btn-outline-primary">Tous les cours de
-          développemnt</a>
-      </div>
-
-      {% include "partials/_course-card.html" with courses=top_developement %}
-
-    </div> <!-- END row-->
-
-    <div class="row mt-5 marginTop-50">
-      <div class="col-md-6 my-2">
-        <h3>
-          Meilleurs cours de Python
-        </h3>
-      </div>
-      <div class="col-md-6 my-2 text-md-right">
-        <a href="{% url 'course:course-by-category' 'Python' %}" class="btn btn-outline-primary">Tous les cours
-          Python</a>
-      </div>
-      {% include "partials/_course-card.html" with courses=top_python %}
-    </div> <!-- END row-->
-
-    <div class="row mt-5 marginTop-50">
-      <div class="col-md-6 my-2">
-        <h3>
-          Meilleurs cours de Design
-        </h3>
-      </div>
-      <div class="col-md-6 my-2 text-md-right">
-        <a href="{% url 'course:course-by-category' 'Design' %}" class="btn btn-outline-primary">Tous les cours</a>
-      </div>
-
-
-      {% include "partials/_course-card.html" with courses=top_design %}
-
-
-    </div> <!-- END row-->
-  </div> <!-- END container-->
-</section> <!-- END section-->
-
 
 
 <section class="padding-y-80 bg-cover bg-dark" data-dark-overlay="2">
@@ -202,22 +218,20 @@
 </section>
 
 
-
 <section class="padding-y-80">
   <div class="container">
     <div class="row">
-      <div class="col-12 text-center">
-        <h2 class="mb-4">
-          Le blog
-        </h2>
-        <div class="width-3rem height-4 rounded bg-primary mx-auto"></div>
+      <div class="col-12">
+        <div class="bg-light-v2 p-5 rounded text-center">
+          <h4>
+            Des questions?
+          </h4>
+          <p class="lead mb-0">Appelez nous <a href="tel:+221779929952" class="text-primary">+221 77 992 99 52</a></p>
+        </div>
       </div>
-      {% include "partials/_blog-card.html" with posts=posts %}
     </div>
   </div>
 </section>
 
-
-{% include "partials/_become_instructor.html" %}
 
 {% endblock content %}

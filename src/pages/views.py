@@ -4,46 +4,19 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, TemplateView
 
-from blog.models import Post
-from course.models import Category, Course
+from course.models import Course
 from users.tasks import account_created
 from xarala.utils import SendSubscribeMail
 
 from .forms import ContactForm, TeacherCreationForm
-from .models import Carousel, Subscribe, Team
+from .models import Subscribe, Team
 from userlogs.models import UserLog
 from users.models import CustomUser
 
 
 def home(request):
     course_counts = Course.objects.count()
-    courses = Course.objects.order_by("-id")[:8]
-    posts = Post.objects.order_by("-id")[:8]
-    top_python = Course.objects.filter(
-        categories__name__in=["Python", "Django", "Flask"]
-    )
-    top_developement = Course.objects.filter(
-        categories__name__in=["Javascript", "React", "Développement Web", "Html", "Css"]
-    )
-    top_design = Course.objects.filter(
-        categories__name__in=["Design", "Adobe XD", "Figma", "Sketch"]
-    )
-    categories = Category.objects.order_by("-id")
-    carousel = Carousel.objects.last()
-    return render(
-        request,
-        "pages/index.html",
-        {
-            "courses": courses,
-            "top_python": top_python,
-            "top_developement": top_developement,
-            "top_design": top_design,
-            "carousel": carousel,
-            "categories": categories,
-            "posts": posts,
-            "course_counts": course_counts,
-        },
-    )
+    return render(request, "pages/index.html", {"course_counts": course_counts})
 
 
 def subscribe(request):
