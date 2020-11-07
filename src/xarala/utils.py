@@ -3,6 +3,7 @@ from django.core.validators import EmailValidator
 import mailchimp
 import threading
 import random
+import string
 import os
 
 
@@ -42,3 +43,8 @@ def email_validation_function(value):
     validator = EmailValidator()
     validator(value)
     return value
+
+
+def generate_key():
+    key = "".join(random.choices(string.ascii_uppercase + string.digits, k=4))
+    return key

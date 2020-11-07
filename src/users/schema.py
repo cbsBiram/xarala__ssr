@@ -78,6 +78,21 @@ class RegisterUser(graphene.Mutation):
         return RegisterUser(user)
 
 
+# class PasswordReset(graphene.Mutation):
+#     user = graphene.Field(UserType)
+
+#     class Arguments:
+#         email = graphene.String(required=True)
+
+
+#     def mutate(self, info, email):
+#         mail_to_lower = email_validation_function(email.lower())
+#         user = User.objects.get(email=mail_to_lower)
+#         #  launch asynchronous tasks
+#         account_created.delay(mail_to_lower)
+#         return PasswordReset(user)
+
+
 class Mutation(AuthMutation, graphene.ObjectType):
     update_user = UpdateUser.Field()
     register = RegisterUser.Field()

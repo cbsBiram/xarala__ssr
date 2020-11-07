@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
 from .managers import CustomUserManager
-from xarala.utils import upload_image_path
+from xarala.utils import generate_key, upload_image_path
 
 
 class CustomUser(AbstractUser):
@@ -57,3 +57,23 @@ class Education(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ResetCode(models.Model):
+    code = models.CharField(max_length=4, unique=True)
+    email = models.EmailField()
+    expired = models.BooleanField(default=False)
+
+    def _get_unique_label(self):
+        unique_code = generate_key()
+        while ResetCode.objects.filter(code=unique_code).exists():
+            unique_code = generate_key()
+        return unique_code
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = self._get_unique_code()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.code
