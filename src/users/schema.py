@@ -1,11 +1,13 @@
 import graphene
-from graphql import GraphQLError
+import graphql_jwt
 from graphene_django import DjangoObjectType
+from graphql import GraphQLError
 from graphql_auth import mutations
 from graphql_auth.schema import MeQuery, UserQuery
-import graphql_jwt
+from xarala.utils import email_validation_function
 
 from .models import CustomUser as User
+from .tasks import account_created
 
 
 class UserType(DjangoObjectType):
@@ -37,7 +39,7 @@ class UpdateUser(graphene.Mutation):
 
 
 class AuthMutation(graphene.ObjectType):
-    register = mutations.Register.Field()
+    # register = mutations.Register.Field()
     verify_account = mutations.VerifyAccount.Field()
     resend_activation_email = mutations.ResendActivationEmail.Field()
     send_password_reset_email = mutations.SendPasswordResetEmail.Field()
@@ -52,15 +54,33 @@ class AuthMutation(graphene.ObjectType):
     verify_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
     revoke_token = graphql_jwt.Revoke.Field()
-    # revoke_token = mutations.RevokeToken.Field()
 
 
 class Query(UserQuery, MeQuery, graphene.ObjectType):
     me = graphene.Field(UserType)
 
 
+class RegisterUser(graphene.Mutation):
+    user = graphene.Field(UserType)
+
+    class Arguments:
+        email = graphene.String(required=True)
+        password = graphene.String(required=True)
+
+    def mutate(self, info, email, password):
+        mail_to_lower = email_validation_function(email.lower())
+        user = User(email=mail_to_lower)
+        user.set_password(password)
+        user.is_student = True
+        user.save()
+        #  launch asynchronous tasks
+        account_created.delay(mail_to_lower)
+        return RegisterUser(user)
+
+
 class Mutation(AuthMutation, graphene.ObjectType):
     update_user = UpdateUser.Field()
+    register = RegisterUser.Field()
 
 
 schema = graphene.Schema(query=Query)
