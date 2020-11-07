@@ -1,13 +1,16 @@
 import graphene
 import graphql_jwt
+from django.db.models import Q
 from graphene_django import DjangoObjectType
 from graphql import GraphQLError
 from graphql_auth import mutations
 from graphql_auth.schema import MeQuery, UserQuery
 from xarala.utils import email_validation_function
-from django.db.models import Q
+from django.contrib.auth.forms import PasswordChangeForm
+from graphene_django.forms.mutation import DjangoFormMutation
 
-from .models import CustomUser as User, ResetCode
+from .models import CustomUser as User
+from .models import ResetCode
 from .tasks import account_created, send_password_reset_email
 
 
@@ -42,11 +45,9 @@ class UpdateUser(graphene.Mutation):
 class AuthMutation(graphene.ObjectType):
     verify_account = mutations.VerifyAccount.Field()
     resend_activation_email = mutations.ResendActivationEmail.Field()
-    password_change = mutations.PasswordChange.Field()
     archive_account = mutations.ArchiveAccount.Field()
     delete_account = mutations.DeleteAccount.Field()
     update_account = mutations.UpdateAccount.Field()
-
     # django-graphql-jwt inheritances
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
     verify_token = graphql_jwt.Verify.Field()
@@ -123,11 +124,30 @@ class PasswordReset(graphene.Mutation):
         return PasswordReset(user)
 
 
+class PasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
+        super().__init__(user, *args, **kwargs)
+
+
+class ChangePassword(DjangoFormMutation):
+    class Meta:
+        form_class = PasswordChangeForm
+
+    @classmethod
+    def get_form_kwargs(cls, root, info, **mutation_input):
+        return {
+            **super().get_form_kwargs(root, info, **mutation_input),
+            "user": info.context.user,
+        }
+
+
 class Mutation(AuthMutation, graphene.ObjectType):
     update_user = UpdateUser.Field()
     register = RegisterUser.Field()
     send_password_reset_email = PasswordResetEmail.Field()
     reset_password = PasswordReset.Field()
+    change_password = ChangePassword.Field()
 
 
 schema = graphene.Schema(query=Query)
