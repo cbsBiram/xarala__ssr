@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
+from users.services.user_svc import export_to_csv
+
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser, Experience
 
@@ -55,6 +57,7 @@ class CustomUserAdmin(UserAdmin):
     )
     search_fields = ("email",)
     ordering = ("email",)
+    actions = [export_to_csv]
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
