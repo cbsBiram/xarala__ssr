@@ -16,7 +16,7 @@ class DashboardView(View):
     def get(self, request, *args, **kwargs):
         user = self.request.user
         total_courses = 0
-        total_posts = Post.objects.all().count()
+        total_posts = Post.objects.count()
         if user.is_student:
             total_courses = user.courses_enrolled.all().count()
         elif user.is_teacher:
@@ -27,20 +27,21 @@ class DashboardView(View):
 
 
 @method_decorator([staff_required], name="dispatch")
-class StaffView(TemplateView):
-    template_name = "dashboard/staff.html"
-    total_courses = Course.objects.all().count()
-    total_users = CustomUser.objects.all().count()
-    total_students = CustomUser.objects.filter(is_student=True).count()
-    logs = UserLog.objects.all()[:3]
+class StaffView(View):
+    def get(self, request, *args, **kwargs):
+        total_courses = Course.objects.count()
+        total_users = CustomUser.objects.count()
+        total_students = CustomUser.objects.filter(is_student=True).count()
+        logs = UserLog.objects.all()[:3]
 
-    extra_context = {
-        "title": "Staff",
-        "total_courses": total_courses,
-        "total_users": total_users,
-        "total_students": total_students,
-        "logs": logs,
-    }
+        context = {
+            "title": "Staff",
+            "total_courses": total_courses,
+            "total_users": total_users,
+            "total_students": total_students,
+            "logs": logs,
+        }
+        return render(request, self.template_name, context)
 
 
 class UserLogList(ListView):

@@ -1,14 +1,14 @@
 from django.urls import path
 from course import views as course_views
-from .views import DashboardView, UserLogList, StaffView
+from dashboard import views
 from blog import views as blog_views
 
 app_name = "dashboard"
 
 urlpatterns = [
-    path("", DashboardView.as_view(), name="dashboard"),
-    path("staff/", StaffView.as_view(), name="staff"),
-    path("staff/logs/", UserLogList.as_view(), name="logs"),
+    path("", views.DashboardView.as_view(), name="dashboard"),
+    path("staff/", views.StaffView.as_view(), name="staff"),
+    path("staff/logs/", views.UserLogList.as_view(), name="logs"),
     path(
         "student/courses/",
         course_views.StudentCourseListView.as_view(),
