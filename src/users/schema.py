@@ -57,6 +57,16 @@ class AuthMutation(graphene.ObjectType):
 
 class Query(UserQuery, MeQuery, graphene.ObjectType):
     me = graphene.Field(UserType)
+    user = graphene.Field(UserType, id=graphene.Int(required=True))
+
+    def resolve_user(self, info, id):
+        return User.objects.get(id=id)
+
+    def resolve_me(self, info):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("Not loged in!")
+        return user
 
 
 class RegisterUser(graphene.Mutation):

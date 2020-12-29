@@ -158,9 +158,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -215,9 +221,13 @@ AUTH_USER_MODEL = "users.CustomUser"
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
-    "http://localhost:8000",
-    "http://localhost:8001",
     "http://127.0.0.1:3000",
+    "http://noflai.com",
+    "https://noflai.com",
+    "https://www.noflai.com",
+    "http://app.noflai.com",
+    "https://app.noflai.com",
+    "https://www.app.noflai.com",
 ]
 
 
