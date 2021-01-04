@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from users.decorators import staff_required
-from django.views.generic import View, ListView, TemplateView
+from django.views.generic import View, ListView
 from django.shortcuts import render
 from course.models import Course
 from userlogs.models import UserLog
