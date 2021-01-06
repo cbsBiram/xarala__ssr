@@ -3,8 +3,8 @@ import graphene
 from graphql import GraphQLError
 from graphql_jwt.decorators import login_required
 
-from course.services.course_svc import get_language, get_languages
-from .models import Category, Chapter, Course, Language, Lesson
+from course.services.course_svc import get_language_by_name, get_languages
+from .models import Category, Chapter, Course, Lesson
 from .query_types import CategoryType, ChapterType, CourseType, LanguageType, LessonType
 
 
@@ -75,7 +75,7 @@ class Query(graphene.ObjectType):
         return get_languages(search=search)
 
     def resolve_language(self, info, languageName):
-        return get_language(languageName)
+        return get_language_by_name(languageName)
 
 
 # new product

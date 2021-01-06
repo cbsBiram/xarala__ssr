@@ -9,5 +9,5 @@ def get_languages(search=None):
     return Language.objects.all()
 
 
-def get_language(name):
-    return Language.objects.filter(name=name)
+def get_language_by_name(name):
+    return Language.objects.get(name=name)
