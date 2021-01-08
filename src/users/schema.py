@@ -3,8 +3,6 @@ import graphql_jwt
 from django.db.models import Q
 from graphene_django import DjangoObjectType
 from graphql import GraphQLError
-from graphql_auth import mutations
-from graphql_auth.schema import MeQuery, UserQuery
 from xarala.utils import email_validation_function
 from django.contrib.auth.forms import PasswordChangeForm
 from graphene_django.forms.mutation import DjangoFormMutation
@@ -43,11 +41,6 @@ class UpdateUser(graphene.Mutation):
 
 
 class AuthMutation(graphene.ObjectType):
-    verify_account = mutations.VerifyAccount.Field()
-    resend_activation_email = mutations.ResendActivationEmail.Field()
-    archive_account = mutations.ArchiveAccount.Field()
-    delete_account = mutations.DeleteAccount.Field()
-    update_account = mutations.UpdateAccount.Field()
     # django-graphql-jwt inheritances
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
     verify_token = graphql_jwt.Verify.Field()
@@ -55,7 +48,7 @@ class AuthMutation(graphene.ObjectType):
     revoke_token = graphql_jwt.Revoke.Field()
 
 
-class Query(UserQuery, MeQuery, graphene.ObjectType):
+class Query(graphene.ObjectType):
     me = graphene.Field(UserType)
     user = graphene.Field(UserType, id=graphene.Int(required=True))
 

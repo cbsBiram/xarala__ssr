@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     "embed_video",
     # refresh tokens are optional
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
-    "graphql_auth",
     "django_filters",
     # "cloudinary",
     # custom apps
@@ -92,32 +91,8 @@ GRAPHQL_JWT = {
     "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=30),
     # optional
     "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
-    "JWT_ALLOW_ANY_CLASSES": [
-        "graphql_auth.mutations.Register",
-        "graphql_auth.mutations.VerifyAccount",
-        "graphql_auth.mutations.ResendActivationEmail",
-        "graphql_auth.mutations.SendPasswordResetEmail",
-        "graphql_auth.mutations.PasswordReset",
-        "graphql_auth.mutations.ObtainJSONWebToken",
-        "graphql_auth.mutations.VerifyToken",
-        "graphql_auth.mutations.RefreshToken",
-        "graphql_auth.mutations.RevokeToken",
-        "graphql_auth.mutations.VerifySecondaryEmail",
-    ],
 }
-GRAPHQL_AUTH = {
-    "LOGIN_ALLOWED_FIELDS": ["email"],
-    "REGISTER_MUTATION_FIELDS": ["email", "is_student"],
-    "USER_NODE_FILTER_FIELDS": {
-        "email": ["exact"],
-        "first_name": ["exact", "icontains", "istartswith"],
-        "last_name": ["exact", "icontains", "istartswith"],
-        "is_active": ["exact"],
-    },
-    "USER_NODE_EXCLUDE_FIELDS": ["username", "password", "is_superuser"],
-    "UPDATE_MUTATION_FIELDS": ["first_name", "last_name", "address", "phone", "avatar"],
-    "ALLOW_LOGIN_NOT_VERIFIED": True,
-}
+
 
 ROOT_URLCONF = "xarala.urls"
 TEMPLATE_DIR = os.path.join(BASE_DIR, "xarala", "templates")
