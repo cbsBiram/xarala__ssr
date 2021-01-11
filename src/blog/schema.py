@@ -48,7 +48,7 @@ class CreatePost(graphene.Mutation):
         if user.is_anonymous:
             raise GraphQLError("Log in to add a post!")
 
-        post = post(title=title, content=content, image=image, author=user)
+        post = Post(title=title, content=content, image=image, author=user)
         post.save()
         return CreatePost(post=post)
 
