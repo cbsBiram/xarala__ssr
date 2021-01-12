@@ -1,0 +1,33 @@
+<div class="padding-y-60 bg-cover bg-dark" data-dark-overlay="2">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 my-2 text-white">
+        <ol class="breadcrumb breadcrumb-double-angle bg-transparent p-0">
+          <li class="breadcrumb-item"><a href="{% url 'pages:home' %}">Accueil</a></li>
+          {% if previous %}
+          <li class="breadcrumb-item"><a {% if instanceid %} href="{% url previous_url instanceid %}" {% else %}
+              href="{% url previous_url %} {% endif %}">{{ previous }}</a></li>
+          {% endif %}
+          <li class="breadcrumb-item">{{ current }}</li>
+        </ol>
+        <h2 class="h1">
+          {{ current }}
+        </h2>
+        <p class="lead">{{ text }}
+        </p>
+      </div>
+      <form class="col-lg-5 my-2 ml-auto" method='GET' action="{% url 'search:results' %}">
+        <div class="input-group bg-white rounded p-1">
+          <input type="text" class="form-control border-white" placeholder="Que souhaitez-vous apprendre?" name="q"
+            required>
+          <div class="input-group-append">
+            <button class="btn btn-primary rounded" type="submit">
+              Rechercher
+              <i class="ti-angle-right small"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -111,11 +111,9 @@ snippets/
 
 .pytest_cache/
 XDG_CACHE_HOME/
-*.lock
-Pipfile.lock
 
 .vs/
 .vs/
 logs/
-media/
+# media/
 # static/

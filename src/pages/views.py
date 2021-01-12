@@ -12,22 +12,11 @@ from .forms import ContactForm, TeacherCreationForm
 from .models import Subscribe, Team
 from userlogs.models import UserLog
 from users.models import CustomUser
-from blog.models import Post
-
-
-def landing(request):
-    return render(request, "pages/landing.html")
 
 
 def home(request):
-    courses = Course.objects.all()[:3]
-    course_paths = []
-    posts = Post.objects.all()[:3]
-    return render(
-        request,
-        "pages/index.html",
-        {"courses": courses, "course_paths": course_paths, "posts": posts},
-    )
+    course_counts = Course.objects.count()
+    return render(request, "pages/index.html", {"course_counts": course_counts})
 
 
 def subscribe(request):

@@ -1,6 +1,6 @@
-<!DOCTYPE html>
 {% load static %}
-<html lang="en" dir="ltr">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -15,102 +15,100 @@
 
     gtag('config', 'UA-143511541-1');
   </script>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="UTF-8">
+
+  <!-- Title-->
+  <title>
+    Xarala Academy |
+    {% block title %} Accueil, Cours en ligne - La technologie dans votre langue
+    {% endblock title %}
+  </title>
+
   <!-- SEO Meta-->
   <meta name="description" content="Xarala Academy La technologie dans votre langue">
   <meta name="keywords"
     content="Xarala Academy, Xarala, Apprendre à coder, Apprendre Python, Formation Xarala, Formation Python">
   <meta name="author" content="xarala">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title> Xarala Academy |
-    {% block title %} Accueil, Cours en ligne - La technologie dans votre langue
-    {% endblock title %}.</title>
+  <!-- viewport scale-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 
   <!-- Favicon and Apple Icons-->
-  <link rel="icon" type="image/x-icon" href="{% static 'public/images/logo/logo.png' %}">
-  <link rel="shortcut icon" href="{% static 'public/images/logo/logo.png' %}">
-  <link rel="apple-touch-icon-precomposed" href="{% static 'public/images/logo/logo.png' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'assets/img/logo.png' %}">
+  <link rel="shortcut icon" href="{% static 'assets/img/logo.png' %}">
+  <link rel="apple-touch-icon-precomposed" href="{% static 'assets/img/logo.png' %}">
 
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CRoboto:400,500%7CExo+2:600&display=swap"
-    rel="stylesheet">
 
-  <!-- Preloader -->
-  <link type="text/css" href="{% static 'public/vendor/spinkit.css' %}" rel="stylesheet">
+  <!--Google fonts-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700%7CWork+Sans:400,500">
 
-  <!-- Perfect Scrollbar -->
-  <link type="text/css" href="{% static 'public/vendor/perfect-scrollbar.css' %}" rel="stylesheet">
+  <!-- Icon fonts -->
+  <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome/css/all.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/fonts/themify-icons/css/themify-icons.css' %}">
 
-  <!-- Material Design Icons -->
-  <link type="text/css" href="{% static 'public/css/material-icons.css' %}" rel="stylesheet">
 
-  <!-- Font Awesome Icons -->
-  <link type="text/css" href="{% static 'public/css/fontawesome.css' %}" rel="stylesheet">
-
-  <!-- Preloader -->
-  <link type="text/css" href="{% static 'public/css/preloader.css' %}" rel="stylesheet">
-
-  <!-- App CSS -->
-  <link type="text/css" href="{% static 'public/css/app.css' %}" rel="stylesheet">
+  <!-- stylesheet-->
+  <link rel="stylesheet" href="{% static 'assets/css/vendors.bundle.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/customize.css' %}">
+  {% block extrastyle %} {% endblock extrastyle %}
 
 </head>
 
-<body class="layout-sticky-subnav layout-learnly ">
+<body>
 
-  <div class="preloader">
-    <div class="sk-chase">
-      <div class="sk-chase-dot"></div>
-      <div class="sk-chase-dot"></div>
-      <div class="sk-chase-dot"></div>
-      <div class="sk-chase-dot"></div>
-      <div class="sk-chase-dot"></div>
-      <div class="sk-chase-dot"></div>
-    </div>
 
+  {% include "partials/_header.html" %}
+
+  {% include "partials/_navbar.html" %}
+
+
+
+  <div class="site-search">
+    <div class="site-search__close bg-black-0_8"></div>
+    <ul class="list-group list-group-dark">
+
+      {% if request.user.is_authenticated %}
+
+      <li class="list-group-item"><i class="ti-user mr-1"></i> <a href="{% url 'profile' %}">Profile</a> </li>
+      <li class="list-group-item"><i class="ti-dashboard mr-1"></i> <a href="{% url 'dashboard:dashboard' %}">Tableau de
+          bord</a></li>
+      <li class="list-group-item"><i class="ti-unlock mr-1"></i> <a
+          href="javascript:{document.getElementById('logout').submit()}">Déconnexion
+          <form action="{% url 'logout' %}" method="POST" id="logout">
+            {% csrf_token %}
+            <input type="hidden" />
+          </form>
+        </a></li>
+
+      {% else %}
+
+
+      <li class="list-group-item"><i class="ti-user mr-1"></i> <a href="{% url 'register' %}">Inscription</a></li>
+      <li class="list-group-item"><i class="ti-lock mr-1"></i> <a href="{% url 'login' %}">Connexion</a></li>
+
+      {% endif %}
+
+    </ul>
   </div>
 
-  <!-- Header Layout -->
-  <div class="mdk-header-layout js-mdk-header-layout">
+  {% block content %}
 
-    <!-- Header -->
+  {% endblock content %}
 
-    <div id="header" class="mdk-header js-mdk-header mb-0" data-fixed data-effects="waterfall">
-      <div class="mdk-header__content">
 
-        {% include "partials/_navbar.html" %}
+  {% include "partials/_footer.html" %}
 
-      </div>
-    </div>
-    <div class="mdk-header-layout__content page-content ">
-      {% block content %} {% endblock content %}
-    </div>
-    {% include "partials/_footer.html" %}
+  <div class="scroll-top">
+    <i class="ti-angle-up"></i>
   </div>
-  {% include "partials/_drawer.html" %}
-  <!-- jQuery -->
-  <script src=" {% static 'public/vendor/jquery.min.js' %}"></script>
 
-  <!-- Bootstrap -->
-  <script src="{% static 'public/vendor/popper.min.js' %}"></script>
-  <script src="{% static 'public/vendor/bootstrap.min.js' %}"></script>
 
-  <!-- Perfect Scrollbar -->
-  <script src="{% static 'public/vendor/perfect-scrollbar.min.js' %}">
-  </script>
-
-  <!-- DOM Factory -->
-  <script src="{% static 'public/vendor/dom-factory.js' %}"></script>
-
-  <!-- MDK -->
-  <script src="{% static 'public/vendor/material-design-kit.js' %}">
-  </script>
-
-  <!-- App JS -->
-  <script src="{% static 'public/js/app.js' %}"></script>
-
-  <!-- Preloader -->
-  <script src="{% static 'public/js/preloader.js' %}"></script>
+  <script src="{% static 'assets/js/vendors.bundle.js ' %}"></script>
+  <script src="{% static 'assets/js/scripts.js ' %}"></script>
+  <script src="{% static 'assets/js/customize.js ' %}"></script>
+  {% block extrajs %} {% endblock extrajs %}
 
 </body>
 
