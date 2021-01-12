@@ -2,26 +2,43 @@
 {% load static %}
 
 {% block title %}
-Le blog de Xarala
+Apprendre à programmer avec Le blog de Xarala
 {% endblock title %}
 
 {% block content %}
+<div class="page-section bg-alt border-bottom-2">
+  <div class="container page__container">
 
-{% include "partials/_breadcrumbs.html" with previous="Accueil" previous_url="pages:home" current="Blog" text="Le blog" %}
+    <div class="d-flex flex-column align-items-center align-items-lg-start flex text-center text-lg-left">
+      <h1 class="h2 mb-4pt">Blog</h1>
+      <div class="lead measure-lead text-70">Ressources gratuites et inspiration sur des sujets d'actualité avec des
+        articles, des conférences, des podcasts, des ressources pour les développeurs et plus encore.</div>
+    </div>
 
-<section class="pt-5 paddingBottom-100 bg-light-v2">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-9">
+  </div>
+</div>
 
-        {% include "partials/_blog-list.html" %}
+<div class="page-section bg-body border-bottom-2">
+  <div class="container page__container">
 
-        {% include "partials/_pagination.html" %}
+    <div class="text-center d-flex align-items-center flex-wrap mb-32pt" style="white-space: nowrap;">
+      <h5 class="mr-24pt mb-md-0 d-md-inline-block">Sujets populaires</h5>
 
-      </div> <!-- END col-lg-9 -->
+      {% if tags %}
+      {% for tag in tags %}
+      <a href="" class="chip mb-16pt mb-md-0 chip-secondary ">Design</a>
+      <!-- chip-outline-secondary -->
+      {% endfor %}
+      {% endif %}
 
-      {% include "partials/_blog-aside.html" %}
-    </div> <!-- END row-->
-  </div> <!-- END container-->
-</section>
+    </div>
+
+    <div class="row card-group-row">
+      {% include "partials/_post_card.html" with posts=posts %}
+    </div>
+
+    {% include "partials/_pagination.html" %}
+
+  </div>
+</div>
 {% endblock content %}

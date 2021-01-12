@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     # django default apps
     "django.contrib.admin",
@@ -55,6 +54,7 @@ INSTALLED_APPS = [
     # refresh tokens are optional
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     "django_filters",
+    "import_export",
     # "cloudinary",
     # custom apps
     "podcast.apps.PodcastConfig",

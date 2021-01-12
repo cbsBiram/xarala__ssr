@@ -1,237 +1,148 @@
 {% extends "_base.html" %}
 {% load static %}
 
+{% block title %}
+Bienvenue chez Xarala.
+{% endblock title %}
+
 {% block content %}
-
-<section class="padding-y-80 flex-center bg-dark " data-dark-overlay="2">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 text-white text-center">
-        <h2 class="display-lg-3 font-weight-bold wow slideInUp" style="visibility: visible; animation-name: slideInUp;">
-          Prenez Votre carrière en main.
-        </h2>
-        <p class="lead wow slideInUp" style="visibility: visible; animation-name: slideInUp;">
-          Choisissez votre plateforme pour commencer!
-        </p>
-        <a href="https://play.google.com/store/apps/details?id=com.xaralamobile" target="_blank">
-          <img src="{% static 'assets/img/getiton-anroid.png' %}" alt="Application Xarala">
-        </a>
-
-        <a href="#" target="_blank">
-          <img src="{% static 'assets/img/app-store-badge.svg' %}" alt="Application Xarala">
-        </a>
-      </div>
-      <form class="col-lg-7 mx-auto mt-5" method='GET' action="{% url 'search:results' %}">
-        {% csrf_token %}
-        <div class="input-group bg-white rounded p-2">
-          <input type="text" class="form-control border-white" placeholder="Que souhaitez-vous apprendre?" required
-            name="q">
-          <div class="input-group-append">
-            <button class="btn btn-info rounded" type="submit">
-              Rechercher
-              <i class="ti-angle-right small"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-    </div> <!-- END row-->
-  </div> <!-- END container-->
-</section>
-
-
-{% if user.email %}
-
-{% else %}
-<section class="padding-y-40">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 mt-5">
-        <div class="bg-light-v2 p-5 rounded d-md-flex justify-content-center align-items-center">
-          <p class="mb-0 mr-4 lead">
-            Commencez ici
-          </p>
-          <a href="{% url 'register' %}" class="btn btn-primary"> Inscription</a>
-        </div>
-      </div>
-    </div> <!-- END row-->
+<div class="mdk-box mdk-box--bg-white-35 bg-white js-mdk-box mb-0" data-effects="parallax-background blend-background">
+  <div class="mdk-box__bg">
+    <div class="mdk-box__bg-front" style="background-image: url({% static 'public/images/5.jpg' %})">
+    </div>
   </div>
-</section>
-
-{% endif %}
-
-
-
-<section class="padding-y-80 bg-white">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mt-4 text-center">
-        <div class="iconbox iconbox-xxl font-size-26 bg-primary-0_2">
-          <i class="ti-bookmark-alt text-primary"></i>
-        </div>
-        <h4 class="my-4">
-          {{ course_counts }}+ cours en ligne
-        </h4>
-        <p>
-          Choisissez parmi les meilleurs cours vidéo en ligne.
+  <div
+    class="mdk-box__content d-flex align-items-center justify-content-center container page__container text-center py-112pt"
+    style="min-height: 656px;">
+    <div class="card card--transparent mb-0">
+      <div class="card-body px-32pt py-24pt">
+        <h1>Prenez votre carrière en main.</h1>
+        <p class="lead measure-lead mx-auto mb-32pt">Choisissez Xarala et bénéficiez de l’Emploi
+          Garanti. Explorez un large éventail de compétences avec nos tutoriels professionnels..
         </p>
-      </div>
-      <div class="col-md-4 mt-4 text-center">
-        <div class="iconbox iconbox-xxl font-size-26 bg-primary-0_2">
-          <i class="ti-user text-primary"></i>
-        </div>
-        <h4 class="my-4">
-          Instructeurs expérimentés
-        </h4>
-        <p>
-          Les meilleurs cours enseignés par les meilleurs formateurs.
-        </p>
-      </div>
-      <div class="col-md-4 mt-4 text-center">
-        <div class="iconbox iconbox-xxl font-size-26 bg-primary-0_2">
-          <i class="ti-cup text-primary"></i>
-        </div>
-        <h4 class="my-4">
-          Certificats professionnels
-        </h4>
-        <p>
-          Des certificats de réussite que vous pouvez ajouter sur votre CV.
-        </p>
-      </div>
-    </div> <!-- END row-->
-  </div> <!-- END container-->
-</section>
 
-<section class="padding-y-80">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 mt-5">
-        <div class="bg-light-v2 p-5 rounded text-center">
-          <h4>
-            Êtes-vous formateur?
-          </h4>
-          <p class="mb-2">
-            <small>
-              Voulez-vous gagner de l'argent en formant les autres et en partageant vos compétences aux autres ? Devenez
-              instructeur Xarala!
-            </small>
-          </p>
-          <a href="{% url 'pages:become-teacher' %}" class="btn btn-primary"> Commencer maintenant</a>
-        </div>
+        <a href="#" class="btn btn-lg btn-accent btn--raised mb-16pt">Commencez ici</a>
+
+        <p class="mb-0"><a href="#"><strong>Êtes-vous formateur?</strong></a></p>
+
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<section class="padding-y-80 bg-white text-dark">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 text-center mb-5">
-        <h2 class="mb-4">
-          Pourqoui chosir Xarala?
-        </h2>
-        <div class="width-3rem height-4 rounded bg-primary mx-auto"></div>
-      </div>
-      <div class="col-md-4 mt-4 text-center">
-        <div class="iconbox iconbox-xxl font-size-26 bg-primary-0_2">
-          <i class="ti-bookmark-alt text-primary"></i>
-        </div>
-        <h4 class="my-4">
-          Projet
-        </h4>
-        <p>
-          Vous travaillez sur des projets et cas d'utilisation réels.
-        </p>
-      </div>
-      <div class="col-md-4 mt-4 text-center">
-        <div class="iconbox iconbox-xxl font-size-26 bg-primary-0_2">
-          <i class="ti-user text-primary"></i>
-        </div>
-        <h4 class="my-4">
-          Mentorat
-        </h4>
-        <p>
-          Vous serez mentorer par les meilleurs formateurs.
-        </p>
-      </div>
-      <div class="col-md-4 mt-4 text-center">
-        <div class="iconbox iconbox-xxl font-size-26 bg-primary-0_2">
-          <i class="ti-video-clapper text-primary"></i>
-        </div>
-        <h4 class="my-4">
-          Formation
-        </h4>
-        <p>
-          Des formations de qualitées, adaptées à votre besoin.
-        </p>
-      </div>
-
-      <div class="col-12 text-center mt-5">
-        <a href="{% url 'course:courses' %}" class="btn btn-primary btn-icon">
-          Nos formations
-        </a>
-      </div>
+<div class="page-section border-bottom-2 bg-white">
+  <div class="container page__container">
+    <div class="page-headline text-center">
+      <h2>Fonctionnalités uniques</h2>
+      <p class="lead measure-lead mx-auto text-70">Vous cherchez une carrière garantie? Choisissez
+        Xarala.</p>
     </div>
-  </div> <!-- END container-->
-</section> <!-- END section-->
 
-
-<section class="padding-y-80 bg-cover bg-dark" data-dark-overlay="2">
-  <div class="container">
     <div class="row align-items-center">
-      <div class="col-lg-5 mr-auto text-white my-3">
-        <h2 class="line-height-normal">
-          Nos partenaires et ceux qui nous soutiennent
-        </h2>
-        <a href="{% url 'pages:contact' %}" class="btn btn-primary mt-3">Sponsoriser Xarala</a>
-      </div>
-      <div class="col-lg-6 col-md-5 my-3">
-        <div class="owl-carousel dots-white-outline" data-dots="true" data-smartspeed="300" data-items-tablet="3"
-          data-items-mobile="2" data-space="15">
-          <div class="card height-6rem justify-content-center p-4">
-            <img src="{% static 'assets/img/partners/bakeli.png' %}" alt="Bakeli">
-          </div>
-          <div class="card height-6rem justify-content-center p-4">
-            <img src="{% static 'assets/img/partners/bichritech.svg' %}" width="160" alt="BichriTech">
-          </div>
-          <div class="card height-6rem justify-content-center p-4">
-            <img src="{% static 'assets/img/partners/daarait.png' %}" width="160" alt="Daara-IT">
-          </div>
-          <div class="card height-6rem justify-content-center p-4">
-            <img src="{% static 'assets/img/partners/digitalin.png' %}" width="160" alt="DigitalIn">
-          </div>
-          <div class="card height-6rem justify-content-center p-4">
-            <img src="{% static 'assets/img/partners/ideasmart.png' %}" width="160" alt="IdeaSmart">
-          </div>
-          <div class="card height-6rem justify-content-center p-4">
-            <img src="{% static 'assets/img/partners/ouicarry.png' %}" width="160" alt="Ouicarry">
-          </div>
-          <div class="card height-6rem justify-content-center p-4">
-            <img src="{% static 'assets/img/partners/senstartup.png' %}" width="160" alt="SenStartup">
-          </div>
-          <div class="card height-6rem justify-content-center p-4">
-            <img src="{% static 'assets/img/partners/volkeno.png' %}" width="160" alt="Volkeno">
-          </div>
+      <div class="d-flex col-md align-items-center border-bottom border-md-0 mb-16pt pb-16pt pb-md-0">
+        <div class="rounded-circle bg-dark w-64 h-64 d-inline-flex align-items-center justify-content-center mr-16pt">
+          <i class="material-icons text-white">subscriptions</i>
+        </div>
+        <div class="flex">
+          <div class="card-title mb-4pt">Formation pratique</div>
+          <p class="card-subtitle text-70">Explorez un large éventail de compétences.</p>
         </div>
       </div>
-    </div> <!-- END row-->
-  </div> <!-- END container-->
-</section>
-
-
-<section class="padding-y-80">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="bg-light-v2 p-5 rounded text-center">
-          <h4>
-            Des questions?
-          </h4>
-          <p class="lead mb-0">Appelez nous <a href="tel:+221779929952" class="text-primary">+221 77 992 99 52</a></p>
+      <div class="d-flex col-md align-items-center border-bottom border-md-0 mb-16pt pb-16pt pb-md-0">
+        <div class="rounded-circle bg-dark w-64 h-64 d-inline-flex align-items-center justify-content-center mr-16pt">
+          <i class="material-icons text-white">verified_user</i>
+        </div>
+        <div class="flex">
+          <div class="card-title mb-4pt">Mentorat personnalisé</div>
+          <p class="card-subtitle text-70">Soyez entourés par des coaches très expérimentés.</p>
+        </div>
+      </div>
+      <div class="d-flex col-md align-items-center border-bottom border-md-0 mb-16pt pb-16pt pb-md-0">
+        <div class="rounded-circle bg-dark w-64 h-64 d-inline-flex align-items-center justify-content-center mr-16pt">
+          <i class="material-icons text-white">update</i>
+        </div>
+        <div class="flex">
+          <div class="card-title mb-4pt">Accès illimité</div>
+          <p class="card-subtitle text-70">Personnalisez la plateforme selon votre besoin.</p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+    <div class="row align-items-center">
+      <div class="d-flex col-md align-items-center border-bottom border-md-0 mb-16pt mb-md-0 pb-16pt pb-md-0">
+        <div class="rounded-circle bg-dark w-64 h-64 d-inline-flex align-items-center justify-content-center mr-16pt">
+          <i class="material-icons text-white">code</i>
+        </div>
+        <div class="flex">
+          <div class="card-title mb-4pt">Projets réels</div>
+          <p class="card-subtitle text-70">Venez travailler sur des projets abmitieux</p>
+        </div>
+      </div>
+      <div class="d-flex col-md align-items-center border-bottom border-md-0 mb-16pt mb-md-0 pb-16pt pb-md-0">
+        <div class="rounded-circle bg-dark w-64 h-64 d-inline-flex align-items-center justify-content-center mr-16pt">
+          <i class="material-icons text-white">layers</i>
+        </div>
+        <div class="flex">
+          <div class="card-title mb-4pt">Certificat</div>
+          <p class="card-subtitle text-70">Votre certificat, vous attend.</p>
+        </div>
+      </div>
+      <div class="d-flex col-md align-items-center">
+        <div class="rounded-circle bg-dark w-64 h-64 d-inline-flex align-items-center justify-content-center mr-16pt">
+          <i class="material-icons text-white">accessibility</i>
+        </div>
+        <div class="flex">
+          <div class="card-title mb-4pt">Problem solving</div>
+          <p class="card-subtitle text-70">Soyez créative et apprenez à résoudre des problèmes.
+          </p>
+        </div>
+      </div>
+    </div>
 
+  </div>
+</div>
+
+<div class="page-section border-bottom-2">
+  <div class="container page__container">
+    <div class="page-separator">
+      <div class="page-separator__text">Dernier cours</div>
+    </div>
+
+    <div class="row card-group-row">
+
+      {% include "partials/_course_card.html" with courses=courses %}
+
+    </div>
+  </div>
+</div>
+
+<div class="page-section border-bottom-2">
+  <div class="container page__container">
+    <div class="page-separator">
+      <div class="page-separator__text">parcours d'apprentissage</div>
+    </div>
+
+
+    <div class="row card-group-row mb-lg-8pt">
+      {% include 'partials/_path_card.html' with course_paths=course_paths %}
+    </div>
+
+  </div>
+</div>
+
+<div class="page-section border-bottom-2">
+  <div class="container page__container">
+
+    <div class="page-separator">
+      <div class="page-separator__text">LE BLOG</div>
+    </div>
+
+    <div class="row card-group-row">
+
+      {% include "partials/_blog_card.html" with posts=posts %}
+
+    </div>
+
+  </div>
+</div>
 
 {% endblock content %}
