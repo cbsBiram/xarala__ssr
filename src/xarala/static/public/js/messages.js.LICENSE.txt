@@ -1,3 +1,0 @@
-/*! **VERSION FOR WEB** (For NODE.JS see http://jsviews.com/download/jsrender-node.js) */
-
-/*! JsRender v1.0.9: http://jsviews.com/#jsrender */

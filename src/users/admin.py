@@ -1,7 +1,5 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from import_export import resources
-from import_export.admin import ImportExportModelAdmin
 
 from users.services.user_svc import export_to_csv
 
@@ -9,13 +7,7 @@ from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser, Experience
 
 
-class CustomUserResource(resources.ModelResource):
-    class Meta:
-        model = CustomUser
-        exclude = ('password')
-
-class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
-    resource_class = CustomUserResource
+class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
@@ -27,6 +19,7 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
         "is_teacher",
     )
     list_filter = (
+        "email",
         "is_staff",
         "is_active",
         "is_student",

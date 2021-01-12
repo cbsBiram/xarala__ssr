@@ -6,10 +6,13 @@
 {{ title }}
 {% endblock title %}
 
+
 {% block content %}
 
-<div class="page-section border-bottom-2">
-  <div class="container page_container">
+{% include "partials/_breadcrumbs.html" with previous="Accueil" previous_url="pages:home" current="Contact" text="Nous contacter" %}
+
+<div class="py-5 shadow-v2 position-relative">
+  <div class="container">
     <div class="row">
 
       <div class="col-lg-4 col-md-6 mt-4">
@@ -49,7 +52,7 @@
 
 
 
-<section class="page-section border-bottom-2 bg-light-v2">
+<section class="padding-y-100 bg-light-v2">
   <div class="container">
     <div class="row">
       <div class="col-12 text-center mb-5">

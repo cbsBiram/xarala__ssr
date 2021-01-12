@@ -1,233 +1,66 @@
 {% load static %}
-<div class="navbar navbar-expand navbar-light bg-white navbar-shadow" id="default-navbar" data-primary>
-  <div class="container page__container">
-
-    <!-- Navbar Brand -->
-    <a href="/" class="navbar-brand mr-16pt">
-
-      <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
-
-        <span class="avatar-title rounded bg-primary"><img src="{% static 'public/images/logo/xarala-white.png' %}"
-            alt="logo" class="img-fluid" /></span>
-
+<nav class="ec-nav sticky-top bg-white">
+  <div class="container">
+    <div class="navbar p-0 navbar-expand-lg">
+      <div class="navbar-brand">
+        <a class="logo-default" href="{% url 'pages:home' %}"><img alt="Logo xarala"
+            src="{% static 'assets/img/logo.png' %}" height="70"></a>
+      </div>
+      <span aria-expanded="false" class="navbar-toggler ml-auto collapsed" data-target="#ec-nav__collapsible"
+        data-toggle="collapse">
+        <div class="hamburger hamburger--spin js-hamburger">
+          <div class="hamburger-box">
+            <div class="hamburger-inner"></div>
+          </div>
+        </div>
       </span>
+      <div class="collapse navbar-collapse when-collapsed" id="ec-nav__collapsible">
+        <ul class="nav navbar-nav ec-nav__navbar ml-auto">
 
-      <span class="d-none d-lg-block">Xarala</span>
-    </a>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'pages:home' %}">Accueil</a>
+          </li>
 
-    <!-- Navbar toggler -->
-    <button class="navbar-toggler w-auto mr-16pt d-block rounded-0" type="button" data-toggle="sidebar">
-      <span class="material-icons">short_text</span>
-    </button>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'course:courses' %}">Formation</a>
+          </li>
 
-    <ul class="nav navbar-nav d-none d-sm-flex flex justify-content-start ml-8pt">
-      <li class="nav-item active">
-        <a href="/" class="nav-link">Accueil</a>
-      </li>
-      <li class="nav-item">
-        <a href="{% url 'course:courses' %}" class="nav-link">Formation</a>
-      </li>
-      <li class="nav-item ">
-        <a href="{% url 'course:learning-path' %}" class="nav-link">Parcours</a>
-      </li>
-      <li class="nav-item ">
-        <a href="{% url 'blog:posts' %}" class="nav-link">Blog</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">La plateforme</a>
-        <div class="dropdown-menu">
-          <a href="{% url 'pages:about' %}" class="dropdown-item">À propos</a>
-          <a href="{% url 'pages:contact' %}" class="dropdown-item">Contact</a>
-          <a href="{% url 'pages:privacy_policy' %}" class="dropdown-item">Politique de confidentialité</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown" data-toggle="tooltip" data-title="Communauté" data-placement="bottom"
-        data-boundary="window">
-        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">
-          <i class="material-icons">people_outline</i>
-        </a>
-        <div class="dropdown-menu">
-          <a href="faq.html" class="dropdown-item">FAQ</a>
-          <a href="help-center.html" class="dropdown-item">Centre d'aide</a>
-          <a href="discussions.html" class="dropdown-item">Forum</a>
-          <a href="discussions-ask.html" class="dropdown-item">Besoin d'aide?</a>
-        </div>
-      </li>
-    </ul>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'course:learning-path' %}">Parcours</a>
+          </li>
 
-    <form class="search-form form-control-rounded navbar-search d-none d-lg-flex mr-16pt" method='GET'
-      action="{% url 'search:results' %}" style="max-width: 230px">
-      {% csrf_token %}
-      <button class="btn" type="submit"><i class="material-icons">search</i></button>
-      <input type="text" class="form-control" placeholder="Je veux apprendre..." name="q">
-    </form>
-
-    {% if request.user.is_authenticated %}
-    <div class="nav navbar-nav ml-auto mr-0 flex-nowrap d-flex">
-
-      <!-- Notifications dropdown -->
-      <div class="nav-item dropdown dropdown-notifications dropdown-xs-down-full" data-toggle="tooltip"
-        data-title="Messages" data-placement="bottom" data-boundary="window">
-        <button class="nav-link btn-flush dropdown-toggle" type="button" data-toggle="dropdown" data-caret="false">
-          <i class="material-icons icon-24pt">mail_outline</i>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
-          <div data-perfect-scrollbar class="position-relative">
-            <div class="dropdown-header"><strong>Messages</strong></div>
-            <div class="list-group list-group-flush mb-0">
-
-              <a href="javascript:void(0);" class="list-group-item list-group-item-action unread">
-                <span class="d-flex align-items-center mb-1">
-                  <small class="text-black-50">5 minutes ago</small>
-
-                  <span class="ml-auto unread-indicator bg-accent"></span>
-
-                </span>
-                <span class="d-flex">
-                  <span class="avatar avatar-xs mr-2">
-                    <img src="../../public/images/people/110/woman-5.jpg" alt="people"
-                      class="avatar-img rounded-circle">
-                  </span>
-                  <span class="flex d-flex flex-column">
-                    <strong class="text-black-100">Michelle</strong>
-                    <span class="text-black-70">Clients loved the new design.</span>
-                  </span>
-                </span>
-              </a>
-
-              <a href="javascript:void(0);" class="list-group-item list-group-item-action">
-                <span class="d-flex align-items-center mb-1">
-                  <small class="text-black-50">5 minutes ago</small>
-
-                </span>
-                <span class="d-flex">
-                  <span class="avatar avatar-xs mr-2">
-                    <img src="../../public/images/people/110/woman-5.jpg" alt="people"
-                      class="avatar-img rounded-circle">
-                  </span>
-                  <span class="flex d-flex flex-column">
-                    <strong class="text-black-100">Michelle</strong>
-                    <span class="text-black-70">🔥 Superb job..</span>
-                  </span>
-                </span>
-              </a>
-
+          <li class="nav-item nav-item__has-dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{% url 'pages:about' %}">La plateforme</a>
+            <div class="dropdown-menu">
+              <ul class="list-unstyled">
+                <li><a class="nav-link__list" href="{% url 'pages:about' %}">A propos</a></li>
+                <li>
+                  <a class="nav-link__list" href="{% url 'pages:community' %}">Communauté</a>
+                </li>
+                <li>
+                  <a class="nav-link__list" href="{% url 'pages:faq' %}"> FAQs </a>
+                </li>
+                <li>
+                  <a class="nav-link__list" href="{% url 'pages:contact' %}">Nous contacter</a>
+                </li>
+                <li>
+                  <a class="nav-link__list" href="{% url 'pages:team' %}"> Nos intervenants </a>
+                </li>
+              </ul>
             </div>
-          </div>
-        </div>
+          </li>
+
+        </ul>
       </div>
-      <!-- // END Notifications dropdown -->
-
-      <!-- Notifications dropdown -->
-      <div class="nav-item ml-16pt dropdown dropdown-notifications dropdown-xs-down-full" data-toggle="tooltip"
-        data-title="Notifications" data-placement="bottom" data-boundary="window">
-        <button class="nav-link btn-flush dropdown-toggle" type="button" data-toggle="dropdown" data-caret="false">
-          <i class="material-icons">notifications_none</i>
-          <span class="badge badge-notifications badge-accent">2</span>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
-          <div data-perfect-scrollbar class="position-relative">
-            <div class="dropdown-header"><strong>System notifications</strong></div>
-            <div class="list-group list-group-flush mb-0">
-
-              <a href="javascript:void(0);" class="list-group-item list-group-item-action unread">
-                <span class="d-flex align-items-center mb-1">
-                  <small class="text-black-50">3 minutes ago</small>
-
-                  <span class="ml-auto unread-indicator bg-accent"></span>
-
-                </span>
-                <span class="d-flex">
-                  <span class="avatar avatar-xs mr-2">
-                    <span class="avatar-title rounded-circle bg-light">
-                      <i class="material-icons font-size-16pt text-accent">account_circle</i>
-                    </span>
-                  </span>
-                  <span class="flex d-flex flex-column">
-
-                    <span class="text-black-70">Your profile information has not been synced correctly.</span>
-                  </span>
-                </span>
-              </a>
-
-              <a href="javascript:void(0);" class="list-group-item list-group-item-action">
-                <span class="d-flex align-items-center mb-1">
-                  <small class="text-black-50">5 hours ago</small>
-
-                </span>
-                <span class="d-flex">
-                  <span class="avatar avatar-xs mr-2">
-                    <span class="avatar-title rounded-circle bg-light">
-                      <i class="material-icons font-size-16pt text-primary">group_add</i>
-                    </span>
-                  </span>
-                  <span class="flex d-flex flex-column">
-                    <strong class="text-black-100">Adrian. D</strong>
-                    <span class="text-black-70">Wants to join your private group.</span>
-                  </span>
-                </span>
-              </a>
-
-              <a href="javascript:void(0);" class="list-group-item list-group-item-action">
-                <span class="d-flex align-items-center mb-1">
-                  <small class="text-black-50">1 day ago</small>
-
-                </span>
-                <span class="d-flex">
-                  <span class="avatar avatar-xs mr-2">
-                    <span class="avatar-title rounded-circle bg-light">
-                      <i class="material-icons font-size-16pt text-warning">storage</i>
-                    </span>
-                  </span>
-                  <span class="flex d-flex flex-column">
-
-                    <span class="text-black-70">Your deploy was successful.</span>
-                  </span>
-                </span>
-              </a>
-
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- // END Notifications dropdown -->
-
-      <div class="nav-item dropdown">
-        <a href="#" class="nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown"
-          data-caret="false">
-
-          <span class="avatar avatar-sm mr-8pt2">
-
-            <span class="avatar-title rounded-circle bg-primary"><i class="material-icons">account_box</i></span>
-
-          </span>
-
-        </a>
-        <div class="dropdown-menu dropdown-menu-right">
-          <div class="dropdown-header"><strong>Compte</strong></div>
-          <a class="dropdown-item" href="#">modifier le compte</a>
-          <a class="dropdown-item" href="#">Facturation</a>
-          <a class="dropdown-item" href="#">Paiements</a>
-          <a class="dropdown-item" href="javascript:{document.getElementById('logout').submit()}">Déconnexion
-            <form action="{% url 'logout' %}" method="POST" id="logout">
-              {% csrf_token %}
-              <input type="hidden" />
-            </form>
-          </a>
-        </div>
+      <div class="nav-toolbar">
+        <ul class="navbar-nav ec-nav__navbar">
+          <li class="nav-item">
+            <a class="nav-link site-search-toggler" href="#">
+              <i class="ti-user iconbox bg-primary text-white"></i>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
-    {% else %}
-
-    <ul class="nav navbar-nav ml-auto mr-0">
-      <li class="nav-item">
-        <a href="{% url 'login' %}" class="nav-link" data-toggle="tooltip" data-title="Connexion"
-          data-placement="bottom" data-boundary="window"><i class="material-icons">lock_open</i></a>
-      </li>
-      <li class="nav-item">
-        <a href="{% url 'register' %}" class="btn btn-outline-secondary">Commencer</a>
-      </li>
-    </ul>
-    {% endif %}
-  </div>
-</div>
+  </div> <!-- END container-->
+</nav> <!-- END ec-nav -->

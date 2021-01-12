@@ -22,13 +22,13 @@ We’re using these technologies:
 - Bootstrap 4.x
 - JQuery
 
-In order to run the application, you should have _Python-3.7 or higher_ installed in your system.
+In order to run the application, you should have *Python-3.7 or higher* installed in your system.
 
-In order to run the application you should have _Python-3.7 or higher_ installed in your system.
+In order to run the application you should have *Python-3.7 or higher* installed in your system.
 
 We use **Pipenv** as a dependency manager, you can install it [here](https://pipenv.pypa.io/en/latest/install/).
 
-\*Note: All members of the team should use it.
+*Note: All members of the team should use it.
 Once installed, you have to run these commands to setup the project:
 
 ```shell
@@ -38,7 +38,7 @@ cp src/xarala/local_settings.example src/xarala/local_settings.py
 
 ## Run the application
 
-Make sur to change the database information on `local_settings.py`
+Make sur to change the database information on ```local_settings.py```
 
 ```bash
 python src/manage.py migrate

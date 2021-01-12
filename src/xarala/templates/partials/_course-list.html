@@ -1,0 +1,65 @@
+{% load static %}
+
+{% if courses %}
+
+{% for course in courses %}
+
+<div class="list-card align-items-center shadow-v1 marginTop-30">
+
+  <div class="col-lg-5 px-lg-4 my-4">
+    <img class="w-100"
+      src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'assets/img/placeholder-1.jpg'  %} {% endif %}"
+      alt="{{ course.title }}">
+  </div>
+  <div class="col-lg-7 pr-lg-4 my-4">
+    <div class="media justify-content-between">
+      <div class="group">
+        <a href="{{ course.get_absolute_url }}" class="h4">
+          {{ course.title }}
+        </a>
+        <ul class="list-inline mt-2">
+          <li class="list-inline-item mr-2">
+            <i class="ti-user mr-2"></i>
+            {{ course.teacher.get_full_name|default_if_none:"Xarala" }}
+          </li>
+          <li class="list-inline-item mr-2">
+            <span class="text-dark">5</span>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <span>({{ course.count_students }})</span>
+          </li>
+        </ul>
+      </div>
+      {% include "partials/_animated-share.html" with title=course.title %}
+    </div>
+    <p>
+      {{ course.description|safe|truncatewords:20 }}
+    </p>
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item mr-3">
+
+        {% if course.price %}
+        <span class="h4 d-inline text-primary"> {{ course.price }} XOF</span>
+        {% else %}
+        <span class="h4 d-inline text-success">Gratuit</span>
+        {% endif %}
+      </li>
+      <li class="list-inline-item mr-3">
+        <i class="ti-headphone small mr-2"></i>
+        {{ course.count_lessons }} lectures
+      </li>
+      <li class="list-inline-item mr-3">
+        <i class="ti-time small mr-2"></i>
+        {{ course.count_duration }}
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+{% endfor %}
+
+{% endif %}

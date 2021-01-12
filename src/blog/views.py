@@ -5,7 +5,7 @@ from .forms import CreatePostForm
 
 
 class PostListView(ListView):
-    queryset = Post.objects.published()
+    queryset = Post.objects.all().published()
     context_object_name = "posts"
     paginate_by = 2
 

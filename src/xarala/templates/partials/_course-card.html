@@ -1,0 +1,58 @@
+{% load static %}
+
+<div class="col-12 mt-2">
+  <div class="owl-carousel arrow-on-hover" data-items="4" data-arrow="true" data-state-outer-class="py-4"
+    data-autoplay="true" data-smartspeed="300" data-space="30" data-loop="false">
+
+
+    {% if courses %}
+
+    {% for course in courses %}
+    <div class="card text-gray height-100p shadow-v2">
+      <a href="{{ course.get_absolute_url }}">
+        <img class="card-img-top"
+          src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'assets/img/placeholder-1.jpg'  %} {% endif %}"
+          alt="{{ course.title }}">
+      </a>
+      <div class="p-4">
+        <a href="{{ course.get_absolute_url }}" class="h6">
+          {{ course.title }}
+        </a>
+        <p class="my-3">
+          <i class="ti-user mr-2"></i>
+          {{ course.teacher.get_full_name|default_if_none:"Xarala" }}
+        </p>
+        <p class="my-3">
+          <i class="ti-world mr-2"></i>
+          {{ course.language|default_if_none:"Wolof" }}
+        </p>
+        <!-- <p class="mb-0">
+          <span class="text-dark">5</span>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <i class="fas fa-star text-warning"></i>
+          <span>({{ course.count_students }})</span>
+        </p> -->
+      </div>
+      <div class="media border-top p-4 align-items-center justify-content-between">
+        <h4 class="h5 mb-0">
+
+          {% if course.price %}
+          <span class="text-primary"> {{ course.price }} XOF</span>
+          {% else %}
+          <span class="text-success">Gratuit</span>
+          {% endif %}
+
+        </h4>
+        <a href="{{ course.get_absolute_url }}" class="btn btn-primary">Enroller</a>
+      </div>
+    </div>
+    {% endfor %}
+
+    {% endif %}
+
+
+  </div>
+</div>
