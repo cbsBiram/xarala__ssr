@@ -7,6 +7,7 @@ from .query_types import PostType, TagType
 
 class Query(graphene.ObjectType):
     posts = graphene.List(PostType, search=graphene.String())
+    latestPosts = graphene.List(PostType, search=graphene.String())
     post = graphene.Field(PostType, postSlug=graphene.String(), required=True)
     tags = graphene.List(TagType, search=graphene.String())
     tag = graphene.Field(TagType, tagId=graphene.Int())
@@ -16,6 +17,12 @@ class Query(graphene.ObjectType):
             filter = Q(title__icontains=search) | Q(content__icontains=search)
             return Post.objects.filter(filter)
         return Post.objects.all()
+
+    def resolve_latestPosts(self, info, search=None):
+        if search:
+            filter = Q(title__icontains=search) | Q(content__icontains=search)
+            return Post.objects.filter(filter)
+        return Post.objects.order_by('-id')[:3]
 
     def resolve_post(self, info, postSlug):
         post = Post.objects.get(slug=postSlug)

@@ -10,6 +10,7 @@ from .query_types import CategoryType, ChapterType, CourseType, LanguageType, Le
 
 class Query(graphene.ObjectType):
     courses = graphene.List(CourseType, search=graphene.String())
+    latestCourses = graphene.List(CourseType, search=graphene.String())
     course = graphene.Field(CourseType, courseSlug=graphene.String(), required=True)
     courseLesson = graphene.Field(CourseType, courseSlug=graphene.String())
     chapters = graphene.List(ChapterType, search=graphene.String())
@@ -26,6 +27,12 @@ class Query(graphene.ObjectType):
             filter = Q(title__icontains=search) | Q(description__icontains=search)
             return Course.objects.filter(filter)
         return Course.objects.all()
+
+    def resolve_latestCourses(self, info, search=None):
+        if search:
+            filter = Q(title__icontains=search) | Q(description__icontains=search)
+            return Course.objects.filter(filter)
+        return Course.objects.order_by('-id')[:6]
 
     def resolve_course(self, info, courseSlug):
         """ Course preview """
