@@ -10,7 +10,7 @@ from .query_types import CategoryType, ChapterType, CourseType, LanguageType, Le
 
 class Query(graphene.ObjectType):
     courses = graphene.List(CourseType, search=graphene.String())
-    course = graphene.Field(CourseType, courseSlug=graphene.String())
+    course = graphene.Field(CourseType, courseSlug=graphene.String(), required=True)
     courseLesson = graphene.Field(CourseType, courseSlug=graphene.String())
     chapters = graphene.List(ChapterType, search=graphene.String())
     chapter = graphene.Field(ChapterType, chapterId=graphene.Int())

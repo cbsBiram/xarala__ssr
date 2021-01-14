@@ -7,7 +7,7 @@ from .query_types import PostType, TagType
 
 class Query(graphene.ObjectType):
     posts = graphene.List(PostType, search=graphene.String())
-    post = graphene.Field(PostType, postId=graphene.Int())
+    post = graphene.Field(PostType, postSlug=graphene.String(), required=True)
     tags = graphene.List(TagType, search=graphene.String())
     tag = graphene.Field(TagType, tagId=graphene.Int())
 
@@ -17,8 +17,8 @@ class Query(graphene.ObjectType):
             return Post.objects.filter(filter)
         return Post.objects.all()
 
-    def resolve_post(self, info, postId):
-        post = Post.objects.get(pk=postId)
+    def resolve_post(self, info, postSlug):
+        post = Post.objects.get(slug=postSlug)
         return post
 
     def resolve_tags(self, info, search=None):
