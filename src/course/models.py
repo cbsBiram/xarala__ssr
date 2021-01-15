@@ -5,7 +5,17 @@ from django.utils.text import slugify
 from course.managers import CourseManager, LessonManager
 from users.models import CustomUser
 from xarala.utils import upload_image_path
-from xarala.constants import YOUTUBE, VIMEO, CLOUDINARY, CUSTOM, WISTA
+from xarala.constants import (
+    YOUTUBE,
+    VIMEO,
+    CLOUDINARY,
+    CUSTOM,
+    WISTA,
+    BEGINNER,
+    INTERMEDIATE,
+    MEDIUM,
+    ALL_LEVELS,
+)
 
 
 class Language(models.Model):
@@ -28,18 +38,19 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 
-# Niveaux
-BEGINNER = "Débutant"
-MEDIUM = "Moyen"
-INTERMEDIATE = "Intermédiaire"
-
-
 class Course(models.Model):
-    LEVEL = ((BEGINNER, BEGINNER), (MEDIUM, MEDIUM), (INTERMEDIATE, INTERMEDIATE))
+    LEVEL = (
+        (BEGINNER, BEGINNER),
+        (MEDIUM, MEDIUM),
+        (INTERMEDIATE, INTERMEDIATE),
+        (ALL_LEVELS, ALL_LEVELS),
+    )
     title = models.CharField(max_length=200)
     description = models.TextField()
-    is_tutorial = models.BooleanField(default=True)
-    original_price = models.DecimalField(default=0, max_digits=13, decimal_places=2)
+    short_description = models.TextField(
+        default="Dans ce cours, vous allez apprendre..."
+    )
+    discount = models.DecimalField(default=0, max_digits=13, decimal_places=2)
     price = models.DecimalField(default=0, max_digits=13, decimal_places=2)
     level = models.CharField(max_length=150, choices=LEVEL, default=BEGINNER)
     featured = models.BooleanField(default=False)
@@ -61,11 +72,7 @@ class Course(models.Model):
     drafted = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
     publish_date = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    promote_video = models.TextField(default="")
-    projects = models.TextField(default="")
-    what_will_i_learn = models.TextField(default="")
-    requirements = models.TextField(default="")
-    target_audience = models.TextField(default="")
+    promote_video = models.TextField(null=True)
 
     objects = CourseManager()
 

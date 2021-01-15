@@ -18,9 +18,15 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
-    author = models.ForeignKey(CustomUser, models.SET_NULL, null=True, blank=True,)
+    author = models.ForeignKey(
+        CustomUser,
+        models.SET_NULL,
+        null=True,
+        blank=True,
+    )
     title = models.CharField(max_length=150)
     content = models.TextField(blank=True, null=True)
+    description = models.TextField(default="dans cet article, vous allez...")
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     image = models.ImageField(upload_to=upload_image_path, blank=True, null=True)
     image_url = models.URLField(max_length=255, blank=True, null=True)
