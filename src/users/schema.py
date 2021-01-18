@@ -1,11 +1,13 @@
 import graphene
 import graphql_jwt
+from django.conf import settings
+from django.contrib.auth.forms import PasswordChangeForm
 from django.db.models import Q
 from graphene_django import DjangoObjectType
-from graphql import GraphQLError
-from xarala.utils import email_validation_function
-from django.contrib.auth.forms import PasswordChangeForm
 from graphene_django.forms.mutation import DjangoFormMutation
+from graphql import GraphQLError
+
+from xarala.utils import email_validation_function
 
 from .models import CustomUser as User
 from .models import ResetCode
@@ -75,7 +77,7 @@ class RegisterUser(graphene.Mutation):
         user.set_password(password)
         user.is_student = True
         user.save()
-        account_created.delay(mail_to_lower)
+        account_created.delay(mail_to_lower) if not settings.DEBUG else None
         return RegisterUser(user)
 
 
