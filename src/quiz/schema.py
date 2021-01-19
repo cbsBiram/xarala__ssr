@@ -116,7 +116,7 @@ class CreateAnswer(graphene.Mutation):
 
 
 class CreateUserAnswer(graphene.Mutation):
-    userAnswer = graphene.Field(userAnswerType)
+    userAnswer = graphene.Field(UserAnswerType)
 
     class Arguments:
         quizId = graphene.Int()
