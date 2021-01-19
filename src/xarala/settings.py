@@ -40,24 +40,18 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # 'django.contrib.sites',
-    # third party apps
     # 3rd part apps
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
     "corsheaders",
     "graphene_django",
     "django_summernote",
     "crispy_forms",
     "celery",
     "embed_video",
+    "import_export",
     # refresh tokens are optional
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     "django_filters",
-    # "cloudinary",
     # custom apps,
-    "import_export",
     "podcast.apps.PodcastConfig",
     "course.apps.CourseConfig",
     "pages.apps.PagesConfig",
@@ -146,22 +140,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    # "graphql_jwt.backends.JSONWebTokenBackend",
-    "graphql_auth.backends.GraphQLAuthBackend",
+    "graphql_jwt.backends.JSONWebTokenBackend",
     "django.contrib.auth.backends.ModelBackend",
-    # `allauth` specific authentication methods, such as login by e-mail
-    # 'allauth.account.auth_backends.AuthenticationBackend',
-    # add this
 ]
 
-# add this
-"""AUTHENTICATION_BACKENDS = [
-    'social_core.backends.linkedin.LinkedinOAuth2',
-    'social_core.backends.instagram.InstagramOAuth2',
-    'social_core.backends.facebook.FacebookOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-]
-"""
+
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "profile"
 LOGOUT_URL = "logout"
@@ -213,18 +196,13 @@ MESSAGE_TAGS = {messages.ERROR: "danger"}
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
-# SITE_ID = 1
-# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_USERNAME_REQUIRED = False
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 # django summernot
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SUMMERNOTE_THEME = "bs4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 # CELERY_BROKER_URL = "amqp://dbadmin:abc123!@127.0.0.1:5672//"
-CELERY_BROKER_URL = 'amqp://guest:guest@127.0.0.1:15672//'
+CELERY_BROKER_URL = "amqp://guest:guest@127.0.0.1:15672//"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 try:
     from .local_settings import *  # noqa
