@@ -3,10 +3,11 @@ import graphql_jwt
 import users.schema
 import course.schema
 import blog.schema
+import quiz.schema
 
 
 class Query(
-    users.schema.Query, course.schema.Query, blog.schema.Query, graphene.ObjectType
+    users.schema.Query, course.schema.Query, blog.schema.Query, quiz.schema.Query, graphene.ObjectType
 ):
     pass
 
@@ -14,6 +15,7 @@ class Query(
 class Mutation(
     users.schema.Mutation,
     course.schema.Mutation,
+    quiz.schema.Mutation,
     blog.schema.Mutation,
     graphene.ObjectType,
 ):
