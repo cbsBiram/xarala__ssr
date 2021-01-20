@@ -10,7 +10,7 @@ from .query_types import QuizType, QuestionType, AnswerType, UserAnswerType
 
 class Query(graphene.ObjectType):
     allQuizzesChapter = graphene.List(QuizType, chapterId=graphene.Int(), required=True)
-    allQuizzesUser = graphene.List(QuizType, userId=graphene.Int(), required=True)
+    allQuizzesUser = graphene.List(UserAnswerType)
     quizQuestions = graphene.List(QuestionType, quizId=graphene.Int(), required=True)
     quizAnswers = graphene.List(AnswerType, questionId=graphene.Int(), required=True)
     userAnswer = graphene.List(UserAnswerType, questionId=graphene.Int(), required=True)
@@ -19,12 +19,12 @@ class Query(graphene.ObjectType):
     def resolve_allQuizzesChapter(self, info, chapterId):
         return Quiz.objects.filter(chapter__id=chapterId)
 
-    @login_required
+    @login_required 
     def resolve_allQuizzesUser(self, info):
         user = info.context.user
         if not user.is_student:
             raise GraphQLError("Vous n'avez pas le droit de voir les quizzes")
-        return Quiz.objects.filter(student__id=user.id)
+        return UserAnswer.objects.filter(student__id=user.id).order_by('quiz__id').distinct('quiz__id')
 
     @login_required
     def resolve_quizQuestions(self, info, quizId):
