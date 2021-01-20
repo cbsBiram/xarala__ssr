@@ -9,11 +9,11 @@ from .query_types import QuizType, QuestionType, AnswerType, UserAnswerType
 
 
 class Query(graphene.ObjectType):
-    allQuizzesChapter = graphene.List(QuizType, chapterId=graphene.Int(required=True))
-    allQuizzesUser = graphene.List(QuizType, userId=graphene.Int(required=True))
-    quizQuestions = graphene.List(QuestionType, quizId=graphene.Int(required=True))
-    quizAnswers = graphene.List(AnswerType, questionId=graphene.Int(required=True))
-    userAnswer = graphene.List(UserAnswerType, questionId=graphene.Int(required=True))
+    allQuizzesChapter = graphene.List(QuizType, chapterId=graphene.Int(), required=True)
+    allQuizzesUser = graphene.List(QuizType, userId=graphene.Int(), required=True)
+    quizQuestions = graphene.List(QuestionType, quizId=graphene.Int(), required=True)
+    quizAnswers = graphene.List(AnswerType, questionId=graphene.Int(), required=True)
+    userAnswer = graphene.List(UserAnswerType, questionId=graphene.Int(), required=True)
 
     @login_required
     def resolve_allQuizzesChapter(self, info, chapterId):
