@@ -1,54 +1,48 @@
 import graphene
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
 from graphql import GraphQLError
 from graphql_jwt.decorators import login_required
 
 from .models import Quiz, Question, Answer, UserAnswer
-from course.models import CustomUser, Chapter
+from course.models import Chapter
 from .query_types import QuizType, QuestionType, AnswerType, UserAnswerType
 
 
-
 class Query(graphene.ObjectType):
-    allQuizzesChapter = graphene.List(QuizType, chapterId=graphene.Int())
-    allQuizzesUser = graphene.List(QuizType, userId=graphene.Int())
-    quizQuestions = graphene.List(QuestionType, quizId=graphene.Int())
-    quizAnswers = graphene.List(AnswerType, questionId=graphene.Int())
-    userAnswer = graphene.List(UserAnswerType, questionId=graphene.Int())
+    allQuizzesChapter = graphene.List(QuizType, chapterId=graphene.Int(required=True))
+    allQuizzesUser = graphene.List(QuizType, userId=graphene.Int(required=True))
+    quizQuestions = graphene.List(QuestionType, quizId=graphene.Int(required=True))
+    quizAnswers = graphene.List(AnswerType, questionId=graphene.Int(required=True))
+    userAnswer = graphene.List(UserAnswerType, questionId=graphene.Int(required=True))
 
     @login_required
     def resolve_allQuizzesChapter(self, info, chapterId):
-        quizzes = Quiz.objects.filter(chapter__id=chapterId)
-        return quizzes
+        return Quiz.objects.filter(chapter__id=chapterId)
 
     @login_required
     def resolve_allQuizzesUser(self, info):
         user = info.context.user
-        if user.is_student:
-            quizzes = Quiz.objects.filter(student__id=user.id)
-        else:
-            quizzes = {}
-        return quizzes
-    
+        if not user.is_student:
+            raise GraphQLError("Vous n'avez pas le droit de voir les quizzes")
+        return Quiz.objects.filter(student__id=user.id)
+
     @login_required
     def resolve_quizQuestions(self, info, quizId):
-        questions = Question.objects.filter(quiz__id=quizId)
-        return questions
+        return Question.objects.filter(quiz__id=quizId)
 
     @login_required
     def resolve_quizAnswers(self, info, questionId):
-        answers = Answer.objects.filter(question__id=questionId)
-        return answers
+        return Answer.objects.filter(question__id=questionId)
 
     @login_required
     def resolve_userAnswer(self, info, questionId):
         user = info.context.user
         if not user.is_anonymous and not user.is_student:
             raise GraphQLError("You must be authenticated as a student!")
-        userAnswer = Result.objects.filter(Q(student__id=user.id) & Q(question__id=questionId))
+        userAnswer = UserAnswer.objects.filter(
+            Q(student__id=user.id) & Q(question__id=questionId)
+        )
         return userAnswer
-
 
 
 class CreateQuiz(graphene.Mutation):
@@ -63,9 +57,8 @@ class CreateQuiz(graphene.Mutation):
         user = info.context.user
         if not user.is_teacher:
             raise GraphQLError("You must be a teacher to add a quiz!")
-        
-        chapter = get_object_or_404(Chapter, pk=chapterId)
 
+        chapter = Chapter.objects.get(pk=chapterId)
         quiz = Quiz(title=title, description=description, chapter=chapter)
         quiz.save()
         return CreateQuiz(quiz=quiz)
@@ -82,9 +75,8 @@ class CreateQuestion(graphene.Mutation):
         user = info.context.user
         if not user.is_teacher:
             raise GraphQLError("You must be a teacher to add a question!")
-        
-        quiz = get_object_or_404(Quiz, pk=quizId)
 
+        quiz = Quiz.objects.get(pk=quizId)
         question = Question(label=label, quiz=quiz)
         question.save()
         return CreateQuestion(question=question)
@@ -102,14 +94,9 @@ class CreateAnswer(graphene.Mutation):
         user = info.context.user
         if not user.is_teacher:
             raise GraphQLError("You must be a teacher to add an answer!")
-        
-        question = get_object_or_404(Question, pk=questionId)
 
-        all_answers = Answer.objects.filter(question__id=questionId)
-        for ans in all_answers:
-            if ans.is_correct == True:
-                raise GraphQLError("There is already a correct answer for this question!")
-        
+        question = Question.objects.get(pk=questionId)
+        Answer.objects.filter(question__id=questionId).update(is_correct=False)
         answer = Answer(label=label, is_correct=isCorrect, question=question)
         answer.save()
         return CreateAnswer(answer=answer)
@@ -132,11 +119,13 @@ class CreateUserAnswer(graphene.Mutation):
         question = Question.object.get(pk=questionId)
         answer = Answer.object.get(pk=answerId)
 
-        userAnswer = UserAnswer(student=user, quiz=quiz, question=question, answer=answer)
+        userAnswer = UserAnswer(
+            student=user, quiz=quiz, question=question, answer=answer
+        )
         userAnswer.save()
         return CreateUserAnswer(userAnswer=userAnswer)
 
-    
+
 class Mutation(graphene.ObjectType):
     create_quiz = CreateQuiz.Field()
     create_question = CreateQuestion.Field()

@@ -1,27 +1,25 @@
 from django.db import models
-from course.models import Chapter, Course, CustomUser
-
-# # Create your models here.
+from course.models import Chapter, CustomUser
 
 
 class Quiz(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     chapter = models.OneToOneField(
-        Chapter, on_delete=models.CASCADE, related_name='quizzes')
+        Chapter, on_delete=models.CASCADE, related_name="quizzes"
+    )
 
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
-        setattr(self, 'title', getattr(self, 'title', False).title())
+        setattr(self, "title", getattr(self, "title", False).title())
         super(Quiz, self).save(*args, **kwargs)
 
 
 class Question(models.Model):
-    quiz = models.ForeignKey(
-        Quiz, on_delete=models.CASCADE, related_name='questions')
-    label = models.CharField(max_length=500)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="questions")
+    label = models.TextField()
 
     def __str__(self):
         return self.label
@@ -29,8 +27,9 @@ class Question(models.Model):
 
 class Answer(models.Model):
     question = models.ForeignKey(
-        Question, on_delete=models.CASCADE, related_name='answers')
-    label = models.CharField(max_length=500)
+        Question, on_delete=models.CASCADE, related_name="answers"
+    )
+    label = models.TextField()
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):
@@ -38,11 +37,7 @@ class Answer(models.Model):
 
 
 class UserAnswer(models.Model):
-    student = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE)
-    question = models.ForeignKey(
-        Question, on_delete=models.CASCADE)
-    answer = models.ForeignKey(
-        Answer, on_delete=models.CASCADE)
-    quiz = models.ForeignKey(
-        Quiz, on_delete=models.CASCADE)
+    student = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
