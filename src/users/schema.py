@@ -43,6 +43,7 @@ class UpdateUser(graphene.Mutation):
 
 
 class AuthMutation(graphene.ObjectType):
+
     # django-graphql-jwt inheritances
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
     verify_token = graphql_jwt.Verify.Field()
