@@ -21,6 +21,7 @@ class Query(graphene.ObjectType):
     category = graphene.Field(CategoryType, categoryName=graphene.Int())
     languages = graphene.List(LanguageType, search=graphene.String())
     language = graphene.Field(LanguageType, categoryName=graphene.Int())
+    checkEnrollement = graphene.Boolean(courseId=graphene.Int(required=True))
 
     def resolve_courses(self, info, search=None):
         if search:
@@ -32,7 +33,7 @@ class Query(graphene.ObjectType):
         if search:
             filter = Q(title__icontains=search) | Q(description__icontains=search)
             return Course.objects.filter(filter)
-        return Course.objects.order_by('-id')[:3]
+        return Course.objects.order_by("-id")[:3]
 
     def resolve_course(self, info, courseSlug):
         """ Course preview """
@@ -83,6 +84,16 @@ class Query(graphene.ObjectType):
 
     def resolve_language(self, info, languageName):
         return get_language_by_name(languageName)
+
+    @login_required
+    def resolve_checkEnrollement(self, info, courseId):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("Log in to enroll this course")
+        course = Course.objects.get(pk=courseId)
+        if course not in user.courses_enrolled.all():
+            return False
+        return True
 
 
 # new product
