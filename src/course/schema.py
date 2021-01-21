@@ -32,7 +32,7 @@ class Query(graphene.ObjectType):
         if search:
             filter = Q(title__icontains=search) | Q(description__icontains=search)
             return Course.objects.filter(filter)
-        return Course.objects.order_by('-id')[:6]
+        return Course.objects.order_by('-id')[:3]
 
     def resolve_course(self, info, courseSlug):
         """ Course preview """
