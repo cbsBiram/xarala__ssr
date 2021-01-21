@@ -16,7 +16,7 @@ class Query(graphene.ObjectType):
     chapters = graphene.List(ChapterType, search=graphene.String())
     chapter = graphene.Field(ChapterType, chapterId=graphene.Int())
     lessons = graphene.List(LessonType, search=graphene.String())
-    lesson = graphene.Field(LessonType, lessonId=graphene.Int())
+    lesson = graphene.Field(LessonType, lessonSlug=graphene.Int(required=True))
     categories = graphene.List(CategoryType, search=graphene.String())
     category = graphene.Field(CategoryType, categoryName=graphene.Int())
     languages = graphene.List(LanguageType, search=graphene.String())
@@ -65,8 +65,8 @@ class Query(graphene.ObjectType):
             return Lesson.objects.filter(filter)
         return Lesson.objects.all()
 
-    def resolve_lesson(self, info, lessonId):
-        lesson = Lesson.objects.get(pk=lessonId)
+    def resolve_lesson(self, info, lessonSlug):
+        lesson = Lesson.objects.get(slug=lessonSlug)
         return lesson
 
     def resolve_categories(self, info, search=None):
