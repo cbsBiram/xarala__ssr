@@ -117,3 +117,4 @@ XDG_CACHE_HOME/
 logs/
 media/
 # static/
+*.lock
