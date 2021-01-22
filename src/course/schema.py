@@ -16,11 +16,12 @@ class Query(graphene.ObjectType):
     chapters = graphene.List(ChapterType, search=graphene.String())
     chapter = graphene.Field(ChapterType, chapterId=graphene.Int())
     lessons = graphene.List(LessonType, search=graphene.String())
-    lesson = graphene.Field(LessonType, lessonId=graphene.Int())
+    lesson = graphene.Field(LessonType, lessonSlug=graphene.String(required=True))
     categories = graphene.List(CategoryType, search=graphene.String())
     category = graphene.Field(CategoryType, categoryName=graphene.Int())
     languages = graphene.List(LanguageType, search=graphene.String())
     language = graphene.Field(LanguageType, categoryName=graphene.Int())
+    checkEnrollement = graphene.Boolean(courseId=graphene.Int(required=True))
 
     def resolve_courses(self, info, search=None):
         if search:
@@ -32,7 +33,7 @@ class Query(graphene.ObjectType):
         if search:
             filter = Q(title__icontains=search) | Q(description__icontains=search)
             return Course.objects.filter(filter)
-        return Course.objects.order_by('-id')[:3]
+        return Course.objects.order_by("-id")[:3]
 
     def resolve_course(self, info, courseSlug):
         """ Course preview """
@@ -64,8 +65,9 @@ class Query(graphene.ObjectType):
             return Lesson.objects.filter(filter)
         return Lesson.objects.all()
 
-    def resolve_lesson(self, info, lessonId):
-        lesson = Lesson.objects.get(pk=lessonId)
+    @login_required
+    def resolve_lesson(self, info, lessonSlug):
+        lesson = Lesson.objects.get(slug=lessonSlug)
         return lesson
 
     def resolve_categories(self, info, search=None):
@@ -83,6 +85,16 @@ class Query(graphene.ObjectType):
 
     def resolve_language(self, info, languageName):
         return get_language_by_name(languageName)
+
+    @login_required
+    def resolve_checkEnrollement(self, info, courseId):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("Log in to enroll this course")
+        course = Course.objects.get(pk=courseId)
+        if course not in user.courses_enrolled.all():
+            return False
+        return True
 
 
 # new product
