@@ -6,7 +6,7 @@ class Quiz(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     chapter = models.OneToOneField(
-        Chapter, on_delete=models.CASCADE, related_name="quizzes"
+        Chapter, on_delete=models.CASCADE, related_name="quiz"
     )
 
     def __str__(self):
