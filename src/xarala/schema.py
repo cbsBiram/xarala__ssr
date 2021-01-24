@@ -1,9 +1,9 @@
 import graphene
-import graphql_jwt
 import users.schema
 import course.schema
 import blog.schema
 import quiz.schema
+import pages.schema
 
 
 class Query(
@@ -17,11 +17,11 @@ class Query(
 
 
 class Mutation(
-    users.schema.Mutation,
-    course.schema.Mutation,
-    quiz.schema.Mutation,
     blog.schema.Mutation,
-    graphene.ObjectType,
+    course.schema.Mutation,
+    pages.schema.Mutation,
+    quiz.schema.Mutation,
+    users.schema.Mutation,
 ):
     pass
 
