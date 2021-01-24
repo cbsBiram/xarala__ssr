@@ -9,22 +9,28 @@ from .query_types import QuizType, QuestionType, AnswerType, UserAnswerType
 
 
 class Query(graphene.ObjectType):
-    allQuizzesChapter = graphene.List(QuizType, chapterId=graphene.Int(), required=True)
+    quiz = graphene.Field(QuizType, chapterSlug=graphene.String(), required=True)
     allQuizzesUser = graphene.List(UserAnswerType)
     quizQuestions = graphene.List(QuestionType, quizId=graphene.Int(), required=True)
     quizAnswers = graphene.List(AnswerType, questionId=graphene.Int(), required=True)
     userAnswer = graphene.List(UserAnswerType, questionId=graphene.Int(), required=True)
 
     @login_required
-    def resolve_allQuizzesChapter(self, info, chapterId):
-        return Quiz.objects.filter(chapter__id=chapterId)
+    def resolve_quiz(self, info, chapterSlug):
+        print(chapterSlug)
+        quiz = Quiz.objects.get(chapter__slug=chapterSlug)
+        return quiz
 
-    @login_required 
+    @login_required
     def resolve_allQuizzesUser(self, info):
         user = info.context.user
         if not user.is_student:
             raise GraphQLError("Vous n'avez pas le droit de voir les quizzes")
-        return UserAnswer.objects.filter(student__id=user.id).order_by('quiz__id').distinct('quiz__id')
+        return (
+            UserAnswer.objects.filter(student__id=user.id)
+            .order_by("quiz__id")
+            .distinct("quiz__id")
+        )
 
     @login_required
     def resolve_quizQuestions(self, info, quizId):
@@ -64,6 +70,26 @@ class CreateQuiz(graphene.Mutation):
         return CreateQuiz(quiz=quiz)
 
 
+class UpdateQuiz(graphene.Mutation):
+    quiz = graphene.Field(QuizType)
+
+    class Arguments:
+        quizId = graphene.Int()
+        title = graphene.String()
+        description = graphene.String()
+
+    def mutate(self, info, quizId, title, description):
+        user = info.context.user
+        if not user.is_teacher:
+            raise GraphQLError("You must be a teacher to update a quiz!")
+
+        quiz = Quiz.objects.get(pk=quizId)
+        quiz.title = title
+        quiz.description = description
+        quiz.save()
+        return UpdateQuiz(quiz=quiz)
+
+
 class CreateQuestion(graphene.Mutation):
     question = graphene.Field(QuestionType)
 
@@ -82,6 +108,24 @@ class CreateQuestion(graphene.Mutation):
         return CreateQuestion(question=question)
 
 
+class UpdateQuestion(graphene.Mutation):
+    question = graphene.Field(QuestionType)
+
+    class Arguments:
+        questionId = graphene.Int()
+        label = graphene.String()
+
+    def mutate(self, info, questionId, label):
+        user = info.context.user
+        if not user.is_teacher:
+            raise GraphQLError("You must be a teacher to update a question!")
+
+        question = Question.objects.get(pk=questionId)
+        question.label = label
+        question.save()
+        return UpdateQuestion(question=question)
+
+
 class CreateAnswer(graphene.Mutation):
     answer = graphene.Field(AnswerType)
 
@@ -96,10 +140,41 @@ class CreateAnswer(graphene.Mutation):
             raise GraphQLError("You must be a teacher to add an answer!")
 
         question = Question.objects.get(pk=questionId)
-        Answer.objects.filter(question__id=questionId).update(is_correct=False)
+        answers = question.answers
+        if answers:
+            condition = [ans for ans in answers.all() if ans.is_correct == True]
+            if condition:
+                isCorrect = False
         answer = Answer(label=label, is_correct=isCorrect, question=question)
         answer.save()
         return CreateAnswer(answer=answer)
+
+
+class UpdateAnswer(graphene.Mutation):
+    answer = graphene.Field(AnswerType)
+
+    class Arguments:
+        questionId = graphene.Int()
+        answerId = graphene.Int()
+        label = graphene.String()
+        isCorrect = graphene.Boolean()
+
+    def mutate(self, info, questionId, answerId, label, isCorrect):
+        user = info.context.user
+        if not user.is_teacher:
+            raise GraphQLError("You must be a teacher to update an answer!")
+
+        answer = Answer.objects.get(pk=answerId)
+        question = Question.objects.get(pk=questionId)
+        answers = question.answers
+        if answers:
+            condition = [ans for ans in answers.all() if ans.is_correct == True]
+            if condition:
+                isCorrect = False
+        answer.label = label
+        answer.is_correct = isCorrect
+        answer.save()
+        return UpdateAnswer(answer=answer)
 
 
 class CreateUserAnswer(graphene.Mutation):
@@ -131,3 +206,6 @@ class Mutation(graphene.ObjectType):
     create_question = CreateQuestion.Field()
     create_answer = CreateAnswer.Field()
     create_user_answer = CreateUserAnswer.Field()
+    update_quiz = UpdateQuiz.Field()
+    update_question = UpdateQuestion.Field()
+    update_answer = UpdateAnswer.Field()
