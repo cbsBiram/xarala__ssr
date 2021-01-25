@@ -13,7 +13,9 @@ class Query(graphene.ObjectType):
     allQuizzesUser = graphene.List(UserAnswerType)
     quizQuestions = graphene.List(QuestionType, quizId=graphene.Int(), required=True)
     quizAnswers = graphene.List(AnswerType, questionId=graphene.Int(), required=True)
-    userAnswer = graphene.List(UserAnswerType, questionId=graphene.Int(), required=True)
+    userAnswer = graphene.List(
+        UserAnswerType, chapterSlug=graphene.String(), required=True
+    )
 
     @login_required
     def resolve_quiz(self, info, chapterSlug):
@@ -41,14 +43,14 @@ class Query(graphene.ObjectType):
         return Answer.objects.filter(question__id=questionId)
 
     @login_required
-    def resolve_userAnswer(self, info, questionId):
-        user = info.context.user
-        if not user.is_anonymous and not user.is_student:
+    def resolve_userAnswer(self, info, chapterSlug):
+        student = info.context.user
+        if not student.is_anonymous and not student.is_student:
             raise GraphQLError("You must be authenticated as a student!")
-        userAnswer = UserAnswer.objects.filter(
-            Q(student__id=user.id) & Q(question__id=questionId)
-        )
-        return userAnswer
+
+        quiz = Quiz.objects.get(chapter__slug=chapterSlug)
+        userAnswers = UserAnswer.objects.filter(Q(student=student) & Q(quiz=quiz))
+        return userAnswers
 
 
 class CreateQuiz(graphene.Mutation):
@@ -189,10 +191,10 @@ class CreateUserAnswer(graphene.Mutation):
         user = info.context.user
         if not user.is_student:
             raise GraphQLError("You must be a student to apply to the quiz!")
-
-        quiz = Quiz.object.get(pk=quizId)
-        question = Question.object.get(pk=questionId)
-        answer = Answer.object.get(pk=answerId)
+        print(quizId, questionId, answerId)
+        quiz = Quiz.objects.get(pk=quizId)
+        question = Question.objects.get(pk=questionId)
+        answer = Answer.objects.get(pk=answerId)
 
         userAnswer = UserAnswer(
             student=user, quiz=quiz, question=question, answer=answer
