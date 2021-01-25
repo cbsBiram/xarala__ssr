@@ -4,12 +4,22 @@ from graphql import GraphQLError
 from graphql_jwt.decorators import login_required
 
 from course.services.course_svc import get_language_by_name, get_languages
+from xarala.utils import get_paginator
 from .models import Category, Chapter, Course, Lesson
-from .query_types import CategoryType, ChapterType, CourseType, LanguageType, LessonType
+from .query_types import (
+    CategoryType,
+    ChapterType,
+    CourseType,
+    LanguageType,
+    LessonType,
+    CoursePaginatedType,
+)
 
 
 class Query(graphene.ObjectType):
-    courses = graphene.List(CourseType, search=graphene.String())
+    courses = graphene.Field(
+        CoursePaginatedType, search=graphene.String(), page=graphene.Int()
+    )
     latestCourses = graphene.List(CourseType, search=graphene.String())
     course = graphene.Field(CourseType, courseSlug=graphene.String(), required=True)
     courseLesson = graphene.Field(CourseType, courseSlug=graphene.String())
@@ -23,11 +33,14 @@ class Query(graphene.ObjectType):
     language = graphene.Field(LanguageType, categoryName=graphene.Int())
     checkEnrollement = graphene.Boolean(courseId=graphene.Int(required=True))
 
-    def resolve_courses(self, info, search=None):
+    def resolve_courses(self, info, page, search=None):
+        page_size = 10
         if search:
             filter = Q(title__icontains=search) | Q(description__icontains=search)
-            return Course.objects.filter(filter)
-        return Course.objects.all()
+            courses = Course.objects.filter(filter)
+            return get_paginator(courses, page_size, page, CoursePaginatedType)
+        courses = Course.objects.all()
+        return get_paginator(courses, page_size, page, CoursePaginatedType)
 
     def resolve_latestCourses(self, info, search=None):
         if search:

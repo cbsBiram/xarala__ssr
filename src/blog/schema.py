@@ -1,28 +1,35 @@
 import graphene
 from graphql import GraphQLError
 from django.db.models import Q
+
+from xarala.utils import get_paginator
 from .models import Post, Tag
-from .query_types import PostType, TagType
+from .query_types import PostType, TagType, PostPaginatedType
 
 
 class Query(graphene.ObjectType):
-    posts = graphene.List(PostType, search=graphene.String())
+    posts = graphene.Field(
+        PostPaginatedType, search=graphene.String(), page=graphene.Int()
+    )
     latestPosts = graphene.List(PostType, search=graphene.String())
     post = graphene.Field(PostType, postSlug=graphene.String(), required=True)
     tags = graphene.List(TagType, search=graphene.String())
     tag = graphene.Field(TagType, tagId=graphene.Int())
 
-    def resolve_posts(self, info, search=None):
+    def resolve_posts(self, info, page, search=None):
+        page_size = 10
         if search:
             filter = Q(title__icontains=search) | Q(content__icontains=search)
-            return Post.objects.filter(filter)
-        return Post.objects.all()
+            posts = Post.objects.filter(filter)
+            return get_paginator(posts, page_size, page, PostPaginatedType)
+        posts = Post.objects.all()
+        return get_paginator(posts, page_size, page, PostPaginatedType)
 
     def resolve_latestPosts(self, info, search=None):
         if search:
             filter = Q(title__icontains=search) | Q(content__icontains=search)
             return Post.objects.filter(filter)
-        return Post.objects.order_by('-id')[:3]
+        return Post.objects.order_by("-id")[:3]
 
     def resolve_post(self, info, postSlug):
         post = Post.objects.get(slug=postSlug)
