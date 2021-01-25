@@ -4,6 +4,7 @@ import course.schema
 import blog.schema
 import quiz.schema
 import pages.schema
+import cart.schema
 
 
 class Query(
@@ -22,6 +23,7 @@ class Mutation(
     pages.schema.Mutation,
     quiz.schema.Mutation,
     users.schema.Mutation,
+    cart.schema.Mutation,
 ):
     pass
 

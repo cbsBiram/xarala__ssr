@@ -1,7 +1,7 @@
 from django.db.models import Q
 import graphene
 from graphql import GraphQLError
-from graphql_jwt.decorators import login_required
+from graphql_jwt.decorators import context, login_required
 
 from course.services.course_svc import get_language_by_name, get_languages
 from xarala.utils import get_paginator
@@ -34,6 +34,7 @@ class Query(graphene.ObjectType):
     checkEnrollement = graphene.Boolean(courseId=graphene.Int(required=True))
 
     def resolve_courses(self, info, page, search=None):
+        print(type(info.context))
         page_size = 10
         if search:
             filter = Q(title__icontains=search) | Q(description__icontains=search)
