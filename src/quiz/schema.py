@@ -188,19 +188,26 @@ class CreateUserAnswer(graphene.Mutation):
         answerId = graphene.Int()
 
     def mutate(self, info, quizId, questionId, answerId):
-        user = info.context.user
-        if not user.is_student:
+        student = info.context.user
+        if not student.is_student:
             raise GraphQLError("You must be a student to apply to the quiz!")
-        print(quizId, questionId, answerId)
         quiz = Quiz.objects.get(pk=quizId)
         question = Question.objects.get(pk=questionId)
         answer = Answer.objects.get(pk=answerId)
 
-        userAnswer = UserAnswer(
-            student=user, quiz=quiz, question=question, answer=answer
-        )
-        userAnswer.save()
-        return CreateUserAnswer(userAnswer=userAnswer)
+        try:
+            userAnswer = UserAnswer.objects.get(
+                Q(quiz=quiz) & Q(student=student) & Q(question=question)
+            )
+            userAnswer.answer = answer
+            userAnswer.save()
+        except UserAnswer.DoesNotExist:
+            userAnswer = UserAnswer(
+                student=student, quiz=quiz, question=question, answer=answer
+            )
+            userAnswer.save()
+        finally:
+            return CreateUserAnswer(userAnswer=userAnswer)
 
 
 class Mutation(graphene.ObjectType):

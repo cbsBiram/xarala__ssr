@@ -5,7 +5,7 @@ from graphql_jwt.decorators import context, login_required
 
 from course.services.course_svc import get_language_by_name, get_languages
 from xarala.utils import get_paginator
-from .models import Category, Chapter, Course, Lesson
+from .models import Category, Chapter, Course, Language, Lesson
 from .query_types import (
     CategoryType,
     ChapterType,
@@ -118,8 +118,8 @@ class CreateCourse(graphene.Mutation):
 
     class Arguments:
         title = graphene.String()
-        description = graphene.Int()
-        price = graphene.Float()
+        description = graphene.String()
+        price = graphene.Decimal()
         level = graphene.String()
         thumbnail = graphene.String()
         language = graphene.String()
@@ -128,18 +128,24 @@ class CreateCourse(graphene.Mutation):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to add a course!")
-
-        course = Course(
-            title=title,
-            description=description,
-            price=price,
-            level=level,
-            thumbnail=thumbnail,
-            language=language,
-            teacher=user,
-        )
-        course.save()
-        return CreateCourse(course=course)
+        try:
+            languageInstance = Language.objects.get(name=language)
+        except Language.DoesNotExist:
+            languageInstance = Language.objects.get(name="Français")
+        finally:
+            if not level:
+                level = "Débutant"
+            course = Course(
+                title=title,
+                description=description,
+                price=price,
+                level=level,
+                thumbnail=thumbnail,
+                language=languageInstance,
+                teacher=user,
+            )
+            course.save()
+            return CreateCourse(course=course)
 
 
 # update track
@@ -151,8 +157,8 @@ class UpdateCourse(graphene.Mutation):
     class Arguments:
         courseId = graphene.Int(required=True)
         title = graphene.String()
-        description = graphene.Int()
-        price = graphene.Float()
+        description = graphene.String()
+        price = graphene.Decimal()
         level = graphene.String()
         thumbnail = graphene.String()
         language = graphene.String()
@@ -164,16 +170,29 @@ class UpdateCourse(graphene.Mutation):
         if user.is_anonymous:
             raise GraphQLError("Log in to edit a track!")
         course = Course.objects.get(id=courseId)
-        if course.owner != user:
+        if course.teacher != user:
             raise GraphQLError("Not permited to update this track")
-        course.title = title
-        course.description = description
-        course.price = price
-        course.level = level
-        course.thumbnail = thumbnail
-        course.language = language
-        course.save()
-        return UpdateCourse(course=course)
+        if title:
+            course.title = title
+        if description:
+            course.description = description
+        if price:
+            course.price = price
+        if level:
+            course.level = level
+        if thumbnail:
+            course.thumbnail = thumbnail
+        try:
+            languageInstance = Language.objects.get(name=language)
+            course.language = languageInstance
+        except Language.DoesNotExist:
+            languageInstance = Language.objects.get(name="Français")
+            course.language = languageInstance
+        finally:
+            if not level:
+                level = "Débutant"
+            course.save()
+            return UpdateCourse(course=course)
 
 
 # delete course
