@@ -34,7 +34,7 @@ class Query(graphene.ObjectType):
     checkEnrollement = graphene.Boolean(courseId=graphene.Int(required=True))
 
     def resolve_courses(self, info, page, search=None):
-        print(type(info.context))
+        print(type(info.context.session), info.context.session)
         page_size = 10
         if search:
             filter = Q(title__icontains=search) | Q(description__icontains=search)

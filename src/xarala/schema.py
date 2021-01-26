@@ -12,6 +12,7 @@ class Query(
     course.schema.Query,
     blog.schema.Query,
     quiz.schema.Query,
+    cart.schema.Query,
     graphene.ObjectType,
 ):
     pass

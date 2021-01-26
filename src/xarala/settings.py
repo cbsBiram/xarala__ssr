@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "blog.apps.BlogConfig",
     "search.apps.SearchConfig",
     "quiz.apps.QuizConfig",
+    "orders.apps.OrdersConfig",
 ]
 
 MIDDLEWARE = [
@@ -211,4 +212,4 @@ except ImportError:
     pass
 # install djnago-redis
 
-CART_SESSION_ID = ""
+CART_SESSION_ID = "cart"
