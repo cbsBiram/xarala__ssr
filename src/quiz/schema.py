@@ -191,7 +191,6 @@ class CreateUserAnswer(graphene.Mutation):
         student = info.context.user
         if not student.is_student:
             raise GraphQLError("You must be a student to apply to the quiz!")
-
         quiz = Quiz.objects.get(pk=quizId)
         question = Question.objects.get(pk=questionId)
         answer = Answer.objects.get(pk=answerId)
@@ -211,30 +210,6 @@ class CreateUserAnswer(graphene.Mutation):
             return CreateUserAnswer(userAnswer=userAnswer)
 
 
-# class UpdateUserAnswer(graphene.Mutation):
-#     userAnswer = graphene.Field(UserAnswerType)
-
-#     class Arguments:
-#         quizId = graphene.Int()
-#         questionId = graphene.Int()
-#         answerId = graphene.Int()
-
-#     def mutate(self, info, quizId, questionId, answerId):
-#         student = info.context.user
-#         if not student.is_student:
-#             raise GraphQLError("You must be a student to apply again to the quiz!")
-
-#         quiz = Quiz.objects.get(pk=quizId)
-#         question = Question.objects.get(pk=questionId)
-#         answer = Answer.objects.get(pk=answerId)
-#         userAnswer = UserAnswer.objects.get(
-#             Q(quiz=quiz) & Q(student=student) & Q(question=question)
-#         )
-#         userAnswer.answer = answer
-#         userAnswer.save()
-#         return UpdateUserAnswer(userAnswer=userAnswer)
-
-
 class Mutation(graphene.ObjectType):
     create_quiz = CreateQuiz.Field()
     create_question = CreateQuestion.Field()
@@ -243,4 +218,3 @@ class Mutation(graphene.ObjectType):
     update_quiz = UpdateQuiz.Field()
     update_question = UpdateQuestion.Field()
     update_answer = UpdateAnswer.Field()
-    # update_user_answer = UpdateUserAnswer.Field()
