@@ -68,6 +68,20 @@ class CreateOrderItem(graphene.Mutation):
         return CreateOrderItem(orderItem=order_item)
 
 
+class RemoveOrderItem(graphene.Mutation):
+    isDeleted = graphene.Boolean()
+
+    class Arguments:
+        orderItemId = graphene.Int()
+        orderId = graphene.Int()
+
+    def mutate(self, info, orderItemId):
+        orderItem = OrderItem.objects.get(pk=orderItemId)
+        orderItem.delete()
+        return RemoveOrderItem(isDeleted=True)
+
+
 class Mutation(graphene.ObjectType):
     create_order = CreateOrder.Field()
     create_order_item = CreateOrderItem.Field()
+    remove_order_item = RemoveOrderItem.Field()
