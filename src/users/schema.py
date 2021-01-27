@@ -5,6 +5,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.db.models import Q
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoFormMutation
+from graphene_file_upload.scalars import Upload
 from graphql import GraphQLError
 
 from xarala.utils import email_validation_function
@@ -41,12 +42,28 @@ class UpdateUser(graphene.Mutation):
             user.last_name = lastName
         if address:
             user.address = address
-        if phone: 
+        if phone:
             user.phone = phone
-        if bio: 
+        if bio:
             user.bio = bio
         user.save()
         return UpdateUser(user=user)
+
+
+class UpdateAvatar(graphene.Mutation):
+    success = graphene.Boolean()
+
+    class Arguments:
+        file = Upload()
+
+    def mutate(self, info, file):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("Log in to edit user account!")
+        if file:
+            user.avatar = file
+            user.save()
+            return UpdateAvatar(success=True)
 
 
 class AuthMutation(graphene.ObjectType):
@@ -157,6 +174,7 @@ class ChangePassword(DjangoFormMutation):
 
 class Mutation(AuthMutation, graphene.ObjectType):
     update_user = UpdateUser.Field()
+    update_avatar = UpdateAvatar.Field()
     register = RegisterUser.Field()
     send_password_reset_email = PasswordResetEmail.Field()
     reset_password = PasswordReset.Field()
