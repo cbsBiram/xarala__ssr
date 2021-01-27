@@ -2,11 +2,12 @@ import graphene
 import graphql_jwt
 from django.conf import settings
 from django.contrib.auth.forms import PasswordChangeForm
+
 from django.db.models import Q
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoFormMutation
-from graphene_file_upload.scalars import Upload
 from graphql import GraphQLError
+from users.upload import save_base_64
 
 from xarala.utils import email_validation_function
 
@@ -54,16 +55,16 @@ class UpdateAvatar(graphene.Mutation):
     success = graphene.Boolean()
 
     class Arguments:
-        file = Upload()
+        file = graphene.String()
 
     def mutate(self, info, file):
+        final_file_url = save_base_64(file)
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to edit user account!")
-        if file:
-            user.avatar = file
-            user.save()
-            return UpdateAvatar(success=True)
+        user.avatar = final_file_url
+        user.save()
+        return UpdateAvatar(success=True)
 
 
 class AuthMutation(graphene.ObjectType):
