@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     # custom apps,
     "podcast.apps.PodcastConfig",
     "course.apps.CourseConfig",
-    "cart.apps.CartConfig",
     "pages.apps.PagesConfig",
     "users.apps.UsersConfig",
     "userlogs.apps.LogsConfig",
@@ -62,6 +61,7 @@ INSTALLED_APPS = [
     "blog.apps.BlogConfig",
     "search.apps.SearchConfig",
     "quiz.apps.QuizConfig",
+    "orders.apps.OrdersConfig",
 ]
 
 MIDDLEWARE = [
@@ -211,4 +211,4 @@ except ImportError:
     pass
 # install djnago-redis
 
-CART_SESSION_ID = ""
+CART_SESSION_ID = "cart"

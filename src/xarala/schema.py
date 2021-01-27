@@ -4,7 +4,7 @@ import course.schema
 import blog.schema
 import quiz.schema
 import pages.schema
-import cart.schema
+import orders.schema
 
 
 class Query(
@@ -12,6 +12,7 @@ class Query(
     course.schema.Query,
     blog.schema.Query,
     quiz.schema.Query,
+    orders.schema.Query,
     graphene.ObjectType,
 ):
     pass
@@ -23,7 +24,7 @@ class Mutation(
     pages.schema.Mutation,
     quiz.schema.Mutation,
     users.schema.Mutation,
-    cart.schema.Mutation,
+    orders.schema.Mutation,
 ):
     pass
 
