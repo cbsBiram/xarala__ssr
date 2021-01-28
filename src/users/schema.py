@@ -25,18 +25,17 @@ class UpdateUser(graphene.Mutation):
     user = graphene.Field(UserType)
 
     class Arguments:
-        userId = graphene.Int(required=True)
         firstName = graphene.String()
         lastName = graphene.String()
         phone = graphene.String()
         address = graphene.String()
         bio = graphene.String()
 
-    def mutate(self, info, userId, firstName, lastName, phone, address, bio):
+    def mutate(self, info, firstName, lastName, phone, address, bio):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to edit user account!")
-        user = User.objects.get(id=userId)
+        user = User.objects.get(id=user.id)
         if firstName:
             user.first_name = firstName
         if lastName:

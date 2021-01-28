@@ -24,8 +24,21 @@ class Query(graphene.ObjectType):
     course = graphene.Field(CourseType, courseSlug=graphene.String(), required=True)
     courseLesson = graphene.Field(CourseType, courseSlug=graphene.String())
     chapters = graphene.List(ChapterType, search=graphene.String())
+    chaptersCourse = graphene.List(
+        ChapterType, courseSlug=graphene.String(required=True)
+    )
+    chapterCourse = graphene.Field(
+        ChapterType,
+        courseSlug=graphene.String(required=True),
+        chapterSlug=graphene.String(required=True),
+    )
     chapter = graphene.Field(ChapterType, chapterId=graphene.Int())
     lessons = graphene.List(LessonType, search=graphene.String())
+    lessonsChapter = graphene.List(
+        LessonType,
+        courseSlug=graphene.String(required=True),
+        chapterSlug=graphene.String(required=True),
+    )
     lesson = graphene.Field(LessonType, lessonSlug=graphene.String(required=True))
     categories = graphene.List(CategoryType, search=graphene.String())
     category = graphene.Field(CategoryType, categoryName=graphene.Int())
@@ -62,11 +75,25 @@ class Query(graphene.ObjectType):
             raise GraphQLError("You're not authorized to see this course!")
         return course
 
+    def resolve_chaptersCourse(self, info, courseSlug):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("You must log in!")
+        chapters = Chapter.objects.filter(course__slug=courseSlug)
+        return chapters
+
     def resolve_chapters(self, info, search=None):
         if search:
             filter = Q(name__icontains=search) | Q(course__title__icontains=search)
             return Chapter.objects.filter(filter)
         return Chapter.objects.all()
+
+    def resolve_chapterCourse(self, info, courseSlug, chapterSlug):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("You must log in!")
+        chapter = Chapter.objects.get(Q(slug=chapterSlug) & Q(course__slug=courseSlug))
+        return chapter
 
     def resolve_chapter(self, info, chapterId):
         chapter = Chapter.objects.get(pk=chapterId)
@@ -77,6 +104,15 @@ class Query(graphene.ObjectType):
             filter = Q(title__icontains=search) | Q(chapter__name__icontains=search)
             return Lesson.objects.filter(filter)
         return Lesson.objects.all()
+
+    def resolve_lessonsChapter(self, info, courseSlug, chapterSlug):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("You must log in!")
+        lessons = Lesson.objects.filter(
+            Q(chapter__slug=chapterSlug) & Q(chapter__course__slug=courseSlug)
+        )
+        return lessons
 
     @login_required
     def resolve_lesson(self, info, lessonSlug):
@@ -111,8 +147,6 @@ class Query(graphene.ObjectType):
 
 
 # new product
-
-
 class CreateCourse(graphene.Mutation):
     course = graphene.Field(CourseType)
 
@@ -128,13 +162,13 @@ class CreateCourse(graphene.Mutation):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to add a course!")
+        if not level:
+            level = "Débutant"
         try:
             languageInstance = Language.objects.get(name=language)
         except Language.DoesNotExist:
             languageInstance = Language.objects.get(name="Français")
         finally:
-            if not level:
-                level = "Débutant"
             course = Course(
                 title=title,
                 description=description,
@@ -149,8 +183,6 @@ class CreateCourse(graphene.Mutation):
 
 
 # update track
-
-
 class UpdateCourse(graphene.Mutation):
     course = graphene.Field(CourseType)
 
@@ -196,8 +228,6 @@ class UpdateCourse(graphene.Mutation):
 
 
 # delete course
-
-
 class DeleteCourse(graphene.Mutation):
     courseId = graphene.Int()
 
@@ -214,8 +244,6 @@ class DeleteCourse(graphene.Mutation):
 
 
 # subscribe user to course
-
-
 class SubscribeUserToCourse(graphene.Mutation):
     course = graphene.Field(CourseType)
 
@@ -233,8 +261,102 @@ class SubscribeUserToCourse(graphene.Mutation):
         return SubscribeUserToCourse(course=course)
 
 
+# create a section for a specific course
+class CreateChapter(graphene.Mutation):
+    chapter = graphene.Field(ChapterType)
+
+    class Arguments:
+        courseSlug = graphene.String(required=True)
+        name = graphene.String(required=True)
+
+    def mutate(self, info, courseSlug, name):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("Log in to add a chapter/section!")
+
+        course = Course.objects.get(slug=courseSlug)
+        chapter = Chapter(name=name, course=course)
+        chapter.save()
+
+        return CreateChapter(chapter=chapter)
+
+
+# update a section for a specific course
+class UpdateChapter(graphene.Mutation):
+    chapter = graphene.Field(ChapterType)
+
+    class Arguments:
+        chapterSlug = graphene.String(required=True)
+        courseSlug = graphene.String(required=True)
+        name = graphene.String(required=True)
+
+    def mutate(self, info, chapterSlug, courseSlug, name):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("Log in to update a chapter/section!")
+
+        chapter = Chapter.objects.get(Q(slug=chapterSlug) & Q(course__slug=courseSlug))
+        chapter.name = name
+        chapter.save()
+
+        return UpdateChapter(chapter=chapter)
+
+
+# create a lesson for a specific chapter
+class CreateLesson(graphene.Mutation):
+    lesson = graphene.Field(LessonType)
+
+    class Arguments:
+        courseSlug = graphene.String(required=True)
+        chapterSlug = graphene.String(required=True)
+        title = graphene.String(required=True)
+        duration = graphene.Int()
+        platform = graphene.String()
+
+    def mutate(self, info, courseSlug, chapterSlug, title, duration, platform):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("Log in to add a lesson!")
+
+        chapter = Chapter.objects.get(Q(course__slug=courseSlug) & Q(slug=chapterSlug))
+        lesson = Lesson(
+            title=title, duration=duration, platform=platform, chapter=chapter
+        )
+        lesson.save()
+
+        return CreateLesson(lesson=lesson)
+
+
+# update a lesson for a specific chapter
+class UpdateLesson(graphene.Mutation):
+    lesson = graphene.Field(LessonType)
+
+    class Arguments:
+        lessonId = graphene.Int(required=True)
+        title = graphene.String()
+        duration = graphene.Int()
+        platform = graphene.String()
+
+    def mutate(self, info, lessonId, title, duration, platform):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("Log in to update a lesson!")
+
+        lesson = Lesson.objects.get(pk=lessonId)
+        lesson.title = title
+        lesson.duration = duration
+        lesson.platform = platform
+        lesson.save()
+
+        return UpdateLesson(lesson=lesson)
+
+
 class Mutation(graphene.ObjectType):
     create_course = CreateCourse.Field()
     update_course = UpdateCourse.Field()
     delete_course = DeleteCourse.Field()
     subscribe_user_to_course = SubscribeUserToCourse.Field()
+    create_chapter = CreateChapter.Field()
+    update_chapter = UpdateChapter.Field()
+    create_lesson = CreateLesson.Field()
+    update_lesson = UpdateLesson.Field()
