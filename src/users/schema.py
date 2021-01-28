@@ -2,10 +2,12 @@ import graphene
 import graphql_jwt
 from django.conf import settings
 from django.contrib.auth.forms import PasswordChangeForm
+
 from django.db.models import Q
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoFormMutation
 from graphql import GraphQLError
+from users.upload import save_base_64
 
 from xarala.utils import email_validation_function
 
@@ -23,30 +25,45 @@ class UpdateUser(graphene.Mutation):
     user = graphene.Field(UserType)
 
     class Arguments:
-        userId = graphene.Int(required=True)
         firstName = graphene.String()
         lastName = graphene.String()
         phone = graphene.String()
         address = graphene.String()
         bio = graphene.String()
 
-    def mutate(self, info, userId, firstName, lastName, phone, address, bio):
+    def mutate(self, info, firstName, lastName, phone, address, bio):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to edit user account!")
-        user = User.objects.get(id=userId)
+        user = User.objects.get(id=user.id)
         if firstName:
             user.first_name = firstName
         if lastName:
             user.last_name = lastName
         if address:
             user.address = address
-        if phone: 
+        if phone:
             user.phone = phone
-        if bio: 
+        if bio:
             user.bio = bio
         user.save()
         return UpdateUser(user=user)
+
+
+class UpdateAvatar(graphene.Mutation):
+    success = graphene.Boolean()
+
+    class Arguments:
+        file = graphene.String()
+
+    def mutate(self, info, file):
+        final_file_url = save_base_64(file)
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("Log in to edit user account!")
+        user.avatar = final_file_url
+        user.save()
+        return UpdateAvatar(success=True)
 
 
 class AuthMutation(graphene.ObjectType):
@@ -157,6 +174,7 @@ class ChangePassword(DjangoFormMutation):
 
 class Mutation(AuthMutation, graphene.ObjectType):
     update_user = UpdateUser.Field()
+    update_avatar = UpdateAvatar.Field()
     register = RegisterUser.Field()
     send_password_reset_email = PasswordResetEmail.Field()
     reset_password = PasswordReset.Field()
