@@ -26,14 +26,14 @@
     </div>
     <div id="company" class="clearfix">
       Apprenant : <br>
-      <p>{{ student_name }}</p>
+      <p>{{ student_email }}</p>
     </div>
     <div id="project">
       <p>Xarala Academy <br>
         Sicap Mbao Extension - N° 596 <br>
         RCCM : SN DKR-2017-M-6902 <br>
         N.I.N.E.A : 0062906892V2 <br>
-        FCT n° : {{ invoice_number|default_if_none:"Vide" }}</p>
+        FCT n° : {{ order.invoice_number|default_if_none:"Vide" }}</p>
     </div>
   </header>
   <main>
@@ -42,30 +42,26 @@
 
     <table id="customers">
       <tr class="table-row">
-        <th colspan="3">Désignation</th>
-        <th>Montant unitaire HT</th>
+        <th colspan="3">Cours</th>
+        <th>Montant unitaire</th>
         <th>Qté</th>
-        <th>Montant HT</th>
-        <th>Taux TVA</th>
-        <th>Montant TVA</th>
-        <th>Montant TTC</th>
+        <th>Montant Total</th>
       </tr>
+      {% for item in order.items.all() %}
+
       <tr class="table-data">
-        <td colspan="3">Forfait Dégroupage et Stockage</td>
-        <td>{{ folder.degrouping_and_stockage_value | intcomma }}</td>
-        <td>1</td>
-        <td>{{ folder.degrouping_and_stockage_value | intcomma }}</td>
-        <td>18%</td>
-        <td>{{ folder.degrouping_and_stockage_vat | intcomma }}</td>
-        <td>{{ folder.total_degrouping_and_stockage_ttc | intcomma }}</td>
+        <td colspan="3">{{ item.course.title }}</td>
+        <td>{{ item.price | intcomma }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.get_cost| intcomma }}</td>
       </tr>
+      {% endfor %}
 
 
 
       <tr class="total">
-        <td colspan="7">TOTAL TTC</td>
-        <td>{{ folder.total_tva | intcomma }}</td>
-        <td>{{ folder.total_ttc | intcomma }}</td>
+        <td colspan="5">TOTAL TTC</td>
+        <td>{{ order.get_total_cost | intcomma }}</td>
       </tr>
     </table>
 

@@ -210,6 +210,3 @@ try:
     from .local_settings import *  # noqa
 except ImportError:
     pass
-# install djnago-redis
-
-CART_SESSION_ID = "cart"

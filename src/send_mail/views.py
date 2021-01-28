@@ -4,6 +4,7 @@ from django.conf import settings
 from weasyprint import CSS, HTML
 from datetime import datetime
 from io import BytesIO
+from orders.models import Order
 
 from users.models import ResetCode
 
@@ -53,9 +54,14 @@ def become_teacher_mail(email, message):
     msg.send(fail_silently=False)
 
 
-def enroll_course_mail(student_email, course_title):
+def enroll_course_mail(student_email, course_title, orderId):
+    order = Order.objects.get(pk=orderId)
     htmly = get_template("email/enroll_course.html")
-    context = {"student_name": student_email, "course_title": course_title}
+    context = {
+        "student_name": student_email,
+        "course_title": course_title,
+        "order": order,
+    }
     to_emails = [student_email]
     subject, from_email = (f"Xarala -{course_title}", "contact@xarala.co")
     today = datetime.today()
@@ -70,7 +76,7 @@ def enroll_course_mail(student_email, course_title):
         html_content,
         "text/html",
     )
-    pdf_context = {"course_title": course_title, "invoice_date": today}
+    pdf_context = {"invoice_date": today, "order": order}
     html = render_to_string("invoice/enrolled_invoice.html", pdf_context)
     out = BytesIO()
     static_dir = (
