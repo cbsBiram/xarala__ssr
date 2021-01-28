@@ -30,6 +30,7 @@ django-embed-video = "*"
 django-graphql-auth = "*"
 django-import-export = "*"
 pyjwt = "==1.7.1"
+weasyprint = "*"
 
 [requires]
 python_version = "3.6"

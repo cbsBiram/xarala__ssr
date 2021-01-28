@@ -223,3 +223,21 @@ class LearningPathView(TemplateView):
 
 class ProfessionalTrainingView(TemplateView):
     template_name = "course/professional_training.html"
+
+
+def generate_course_invoice(request, id):
+    pass
+    # folder = get_object_or_404(Folder, pk=id)
+    # try:
+    #     invoice_date = datetime.now()
+    #     context = {"folder": folder, "invoice_date": invoice_date}
+    #     html_string = render_to_string("finance/generate_invoice.html", context)
+    #     response = HttpResponse(content_type="application/pdf")
+    #     response["Content-Disposition"] = f"inline; filename=invoice{folder.id}.pdf"
+    #     html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    #     html.write_pdf(
+    #         response, presentational_hints=True,
+    #     )
+    #     return response
+    # except Exception as e:
+    #     return HttpResponse(f"<h2>{e}</h2> <a href='/'>Accueil</a>")
