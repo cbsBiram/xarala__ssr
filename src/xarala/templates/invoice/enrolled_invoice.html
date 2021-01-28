@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Facture</title>
+  <link rel="stylesheet" href="{% static 'assets/css/pdf.css' %}" media="all" />
+</head>
+
+<body>
+  <header class="clearfix">
+    <h2>Facture Proforma</h2>
+    <div id="logo">
+      <img src="https://www.ouicarry.com/wp-content/uploads/2019/11/Logo-64.png" alt="Logo ouicarry">
+      <div class="text-left" style="text-align: right; margin-top: -50px; margin-bottom: 50px;">
+        <p>Date d'émission :</p>
+        <p>
+          {% language 'fr' %}
+          {{ invoice_date|date:'d.m.Y' }}
+          {% endlanguage %}
+        </p>
+      </div>
+    </div>
+    <div id="company" class="clearfix">
+      Apprenant : <br>
+      <p>{{ student_email }}</p>
+    </div>
+    <div id="project">
+      <p>Xarala Academy <br>
+        Sicap Mbao Extension - N° 596 <br>
+        RCCM : SN DKR-2017-M-6902 <br>
+        N.I.N.E.A : 0062906892V2 <br>
+        FCT n° : {{ order.invoice_number|default_if_none:"Vide" }}</p>
+    </div>
+  </header>
+  <main>
+
+
+
+    <table id="customers">
+      <tr class="table-row">
+        <th colspan="3">Cours</th>
+        <th>Montant unitaire</th>
+        <th>Qté</th>
+        <th>Montant Total</th>
+      </tr>
+      {% for item in order.items.all() %}
+
+      <tr class="table-data">
+        <td colspan="3">{{ item.course.title }}</td>
+        <td>{{ item.price | intcomma }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.get_cost| intcomma }}</td>
+      </tr>
+      {% endfor %}
+
+
+
+      <tr class="total">
+        <td colspan="5">TOTAL TTC</td>
+        <td>{{ order.get_total_cost | intcomma }}</td>
+      </tr>
+    </table>
+
+    <div class="bottom">
+      <p>
+        Notre service client est disponible pour <br>
+        toutes vos questions ou remarques : <br>
+        par email : contact@xarala.co
+        <br>
+
+      </p>
+
+    </div>
+    <p class="text-center footer">
+      Xarala<br>
+      Sicap Mbao Extension - N° 596 <br>
+      Tél : 77 992 99 52 / 76 377 22 60 <br>
+      RCCM : SN DKR-2017-M-6902 <br>
+      N.I.N.E.A : 0062906892V2
+    </p>
+  </main>
+  <footer>
+    Invoice was created on a computer and is valid without the signature and seal.
+  </footer>
+</body>
+
+</html>

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
     # 3rd part apps
     "corsheaders",
     "graphene_django",
@@ -209,6 +210,3 @@ try:
     from .local_settings import *  # noqa
 except ImportError:
     pass
-# install djnago-redis
-
-CART_SESSION_ID = "cart"

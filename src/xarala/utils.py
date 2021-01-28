@@ -3,7 +3,6 @@ import random
 import string
 import threading
 
-import graphene
 import mailchimp
 from django.conf import settings
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -69,3 +68,8 @@ def get_paginator(qs, page_size, page, paginated_type, **kwargs):
         objects=page_obj.object_list,
         **kwargs
     )
+
+
+def generate_key():
+    key = "".join(random.choices(string.ascii_uppercase + string.digits, k=4))
+    return key
