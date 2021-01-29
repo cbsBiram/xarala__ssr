@@ -1,7 +1,9 @@
 import graphene
 from graphql import GraphQLError
+from django.conf import settings
 
 from course.models import Course
+from course.tasks import enroll_course
 from send_mail.views import enroll_course_mail
 from .models import Order, OrderItem
 from .query_types import OrderType, OrderItemType
@@ -82,7 +84,9 @@ class ValidateOrder(graphene.Mutation):
         try:
             order = Order.objects.get(pk=orderId)
             course = Course.objects.get(pk=courseId)
-            enroll_course_mail(order.email, course, order)
+            enroll_course.delay(
+                order.email, course, order
+            ) if not settings.DEBUG else None
             Order.objects.filter(pk=orderId).update(paid=True)
             return ValidateOrder(isSuccess=True, message="Vous avez acheté le cours")
         except Exception as e:
