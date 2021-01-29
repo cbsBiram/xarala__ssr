@@ -35,8 +35,8 @@ class CreateOrder(graphene.Mutation):
         fullName = f"{user.first_name} {user.last_name}"
         phone = user.phone
         address = user.address if user.address else "Dakar, Sénégal"
-        last_order = Order.objects.filter(email=email).last()
-        if last_order and not last_order.paid:
+        last_order = Order.objects.filter(email=email, paid=False).last()
+        if last_order:
             return CreateOrder(order=last_order)
         order = Order(full_name=fullName, email=email, phone=phone, address=address)
         order.save()
@@ -62,7 +62,7 @@ class CreateOrderItem(graphene.Mutation):
             course__id=courseId, order__email=user.email
         ).exists()
         if qs_course:
-            raise GraphQLError("La formation est deja ajoute au panier")
+            pass
         order_item = OrderItem(
             course=course, price=price, quantity=quantity, order=order
         )
