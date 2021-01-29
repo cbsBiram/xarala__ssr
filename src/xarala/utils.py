@@ -1,10 +1,12 @@
 import os
+import base64
 import random
 import string
 import threading
 
 import mailchimp
 from django.conf import settings
+from django.core.files.base import ContentFile
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.validators import EmailValidator
 
@@ -73,3 +75,10 @@ def get_paginator(qs, page_size, page, paginated_type, **kwargs):
 def generate_key():
     key = "".join(random.choices(string.ascii_uppercase + string.digits, k=4))
     return key
+
+
+def save_base_64(file):
+    format, imgstr = file.split(";base64,")
+    ext = format.split("/")[-1]
+    data = ContentFile(base64.b64decode(imgstr), name="temp." + ext)
+    return data

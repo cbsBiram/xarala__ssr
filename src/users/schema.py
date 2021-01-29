@@ -9,7 +9,8 @@ from graphene_django.forms.mutation import DjangoFormMutation
 from graphql import GraphQLError
 from users.upload import save_base_64
 
-from xarala.utils import email_validation_function
+
+from xarala.utils import email_validation_function, save_base_64
 
 from .models import CustomUser as User
 from .models import ResetCode
