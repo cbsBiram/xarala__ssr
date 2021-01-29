@@ -4,10 +4,10 @@ from xarala.utils import generate_key
 
 
 class Order(models.Model):
-    full_name = models.CharField(max_length=150)
+    full_name = models.CharField(max_length=150, null=True)
     email = models.EmailField()
-    address = models.CharField(max_length=250)
-    phone = models.CharField(max_length=20)
+    address = models.CharField(max_length=250, default="Dakar, Sénégal")
+    phone = models.CharField(max_length=20, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     invoice_number = models.CharField(max_length=10, null=True, blank=True, unique=True)
