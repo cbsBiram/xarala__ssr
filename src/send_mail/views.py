@@ -4,7 +4,7 @@ from django.conf import settings
 from weasyprint import CSS, HTML
 from datetime import datetime
 from io import BytesIO
-from orders.models import Order
+
 
 from users.models import ResetCode
 
@@ -17,7 +17,7 @@ def send_new_register_email(email):
     to_emails = [
         email,
     ]
-    subject, from_email = ("Bienvenue chez Xarala", "contact@xarala.co")
+    subject, from_email = ("Bienvenue chez Xarala", "Fatou de Xarala")
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(
         subject,
@@ -39,7 +39,7 @@ def become_teacher_mail(email, message):
         email,
         "xaralaxarala@gmail.com",
     ]
-    subject, from_email = ("Xarala - Devenir instructeur", "contact@xarala.co")
+    subject, from_email = ("Xarala - Devenir instructeur", "Fatou de Xarala")
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(
         subject,
@@ -54,16 +54,16 @@ def become_teacher_mail(email, message):
     msg.send(fail_silently=False)
 
 
-def enroll_course_mail(student_email, course_title, orderId):
-    order = Order.objects.get(pk=orderId)
+def enroll_course_mail(student_email, course, order):
     htmly = get_template("email/enroll_course.html")
+    course_title = course.title
     context = {
         "student_name": student_email,
         "course_title": course_title,
         "order": order,
     }
     to_emails = [student_email]
-    subject, from_email = (f"Xarala -{course_title}", "contact@xarala.co")
+    subject, from_email = (f"Xarala -{course_title}", "Fatou de Xarala")
     today = datetime.today()
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(
@@ -100,7 +100,7 @@ def passowrd_reset_mail(user_email):
     to_emails = [user_email]
     subject, from_email = (
         "Xarala - réinitialisation mot de passe",
-        "contact@xarala.co",
+        "Fatou de Xarala",
     )
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(
