@@ -4,6 +4,7 @@ from graphql import GraphQLError
 from graphql_jwt.decorators import context, login_required
 
 from course.services.course_svc import get_language_by_name, get_languages
+from users.upload import save_base_64
 from xarala.utils import get_paginator
 from .models import Category, Chapter, Course, Language, Lesson
 from .query_types import (
@@ -149,35 +150,31 @@ class CreateCourse(graphene.Mutation):
     course = graphene.Field(CourseType)
 
     class Arguments:
-        title = graphene.String()
+        title = graphene.String(required=True)
         description = graphene.String()
         price = graphene.Decimal()
-        level = graphene.String()
-        thumbnail = graphene.String()
-        language = graphene.String()
+        level = graphene.String(required=True)
+        file = graphene.String()
+        languageName = graphene.String(required=True)
 
-    def mutate(self, info, title, description, price, level, thumbnail, language):
+    def mutate(self, info, title, description, price, level, file, languageName):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to add a course!")
-        if not level:
-            level = "Débutant"
-        try:
-            languageInstance = Language.objects.get(name=language)
-        except Language.DoesNotExist:
-            languageInstance = Language.objects.get(name="Français")
-        finally:
-            course = Course(
-                title=title,
-                description=description,
-                price=price,
-                level=level,
-                thumbnail=thumbnail,
-                language=languageInstance,
-                teacher=user,
-            )
-            course.save()
-            return CreateCourse(course=course)
+
+        language = Language.objects.get(name=languageName)
+        final_file_url = save_base_64(file)
+        course = Course(
+            title=title,
+            description=description,
+            price=price,
+            level=level,
+            thumbnail=final_file_url,
+            language=language,
+            teacher=user,
+        )
+        course.save()
+        return CreateCourse(course=course)
 
 
 # update track
@@ -190,11 +187,11 @@ class UpdateCourse(graphene.Mutation):
         description = graphene.String()
         price = graphene.Decimal()
         level = graphene.String()
-        thumbnail = graphene.String()
-        language = graphene.String()
+        file = graphene.String()
+        languageName = graphene.String()
 
     def mutate(
-        self, info, courseId, title, description, price, level, thumbnail, language
+        self, info, courseId, title, description, price, level, file, languageName
     ):
         user = info.context.user
         if user.is_anonymous:
@@ -210,19 +207,15 @@ class UpdateCourse(graphene.Mutation):
             course.price = price
         if level:
             course.level = level
-        if thumbnail:
-            course.thumbnail = thumbnail
-        try:
-            languageInstance = Language.objects.get(name=language)
-            course.language = languageInstance
-        except Language.DoesNotExist:
-            languageInstance = Language.objects.get(name="Français")
-            course.language = languageInstance
-        finally:
-            if not level:
-                level = "Débutant"
-            course.save()
-            return UpdateCourse(course=course)
+        if file:
+            final_file_url = save_base_64(file)
+            course.thumbnail = final_file_url
+        if languageName:
+            language = Language.objects.get(name=languageName)
+            course.language = language
+        course.save()
+
+        return UpdateCourse(course=course)
 
 
 # delete course
