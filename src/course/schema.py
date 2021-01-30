@@ -20,6 +20,7 @@ class Query(graphene.ObjectType):
     courses = graphene.Field(
         CoursePaginatedType, search=graphene.String(), page=graphene.Int()
     )
+    allCourses = graphene.List(CourseType, search=graphene.String())
     latestCourses = graphene.List(CourseType, search=graphene.String())
     course = graphene.Field(CourseType, courseSlug=graphene.String(), required=True)
     courseLesson = graphene.Field(CourseType, courseSlug=graphene.String())
@@ -45,6 +46,12 @@ class Query(graphene.ObjectType):
     languages = graphene.List(LanguageType, search=graphene.String())
     language = graphene.Field(LanguageType, categoryName=graphene.Int())
     checkEnrollement = graphene.Boolean(courseId=graphene.Int(required=True))
+
+    def resolve_allCourses(self, info, search=None):
+        if search:
+            filter = Q(title__icontains=search) | Q(description__icontains=search)
+            return Course.objects.filter(filter)
+        return Course.objects.all()
 
     def resolve_courses(self, info, page, search=None):
         page_size = 10
