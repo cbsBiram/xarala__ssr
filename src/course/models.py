@@ -140,6 +140,7 @@ class Chapter(models.Model):
     slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     drafted = models.BooleanField(default=False)
+    chapter_number = models.IntegerField(default=1)
 
     def __str__(self):
         return self.name
