@@ -204,16 +204,22 @@ class Lesson(models.Model):
 
     def next(self):
         try:
-            return Lesson.objects.get(pk=self.pk + 1)
-        except Exception as e:
-            print("E ", e)
+            next_lesson = Lesson.objects.filter(
+                lecture_number=self.lecture_number + 1,
+                chapter__course__id=self.chapter.course.id,
+            )
+            return next_lesson.get().slug
+        except Exception:
             return None
 
     def previous(self):
         try:
-            return Lesson.objects.get(pk=self.pk - 1)
-        except Exception as e:
-            print("E ", e)
+            previous_lesson = Lesson.objects.filter(
+                lecture_number=self.lecture_number - 1,
+                chapter__course__id=self.chapter.course.id,
+            )
+            return previous_lesson.get().slug
+        except Exception:
             return None
 
     class Meta:
