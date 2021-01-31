@@ -40,6 +40,12 @@ class Query(graphene.ObjectType):
         courseSlug=graphene.String(required=True),
         chapterSlug=graphene.String(required=True),
     )
+    lessonChapter = graphene.Field(
+        LessonType,
+        courseSlug=graphene.String(required=True),
+        chapterSlug=graphene.String(required=True),
+        lessonSlug=graphene.String(required=True),
+    )
     lesson = graphene.Field(LessonType, lessonSlug=graphene.String(required=True))
     categories = graphene.List(CategoryType, search=graphene.String())
     category = graphene.Field(CategoryType, categoryName=graphene.Int())
@@ -112,6 +118,14 @@ class Query(graphene.ObjectType):
             raise GraphQLError("You must log in!")
         chapter = Chapter.objects.get(Q(slug=chapterSlug) & Q(course__slug=courseSlug))
         return chapter.course_lessons.all()
+
+    def resolve_lessonChapter(self, info, courseSlug, chapterSlug, lessonSlug):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("You must log in!")
+        chapter = Chapter.objects.get(Q(slug=chapterSlug) & Q(course__slug=courseSlug))
+        lesson = Lesson.objects.get(Q(chapter=chapter) & Q(slug=lessonSlug))
+        return lesson
 
     @login_required
     def resolve_lesson(self, info, lessonSlug):
