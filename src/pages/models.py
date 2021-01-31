@@ -23,8 +23,7 @@ class Carousel(models.Model):
 
 
 class Contact(models.Model):
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
+    full_name = models.CharField(max_length=150)
     email = models.EmailField(max_length=150)
     phone = models.CharField(max_length=150)
     rule = models.CharField(max_length=150, blank=True, null=True)
@@ -32,7 +31,7 @@ class Contact(models.Model):
     message = models.TextField(blank=True)
 
     def __str__(self):
-        return f"{self.first_name} - {self.last_name} : {self.email} - {self.phone}"
+        return f"{self.full_name} : {self.email} - {self.phone}"
 
 
 class Team(models.Model):
