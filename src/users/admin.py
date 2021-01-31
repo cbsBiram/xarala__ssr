@@ -6,13 +6,14 @@ from import_export.admin import ImportExportModelAdmin
 from users.services.user_svc import export_to_csv
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser, Experience
+from .models import CustomUser, Experience, ResetCode
 
 
 class CustomUserResource(resources.ModelResource):
     class Meta:
         model = CustomUser
-        exclude = ('password')
+        exclude = "password"
+
 
 class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
     resource_class = CustomUserResource
@@ -69,3 +70,4 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Experience)
+admin.site.register(ResetCode)

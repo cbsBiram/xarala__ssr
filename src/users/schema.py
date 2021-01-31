@@ -122,7 +122,7 @@ class PasswordResetEmail(graphene.Mutation):
             raise GraphQLError(
                 "Compte non trouvé, merci de bien vérifier votre adresse email"
             )
-        send_password_reset_email.delay(mail_to_lower)
+        send_password_reset_email.delay(mail_to_lower) if not settings.DEBUG else None
         return PasswordResetEmail(user)
 
 

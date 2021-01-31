@@ -18,9 +18,10 @@ from .query_types import (
 
 
 class Query(graphene.ObjectType):
-    courses = graphene.Field(
+    allCourses = graphene.Field(
         CoursePaginatedType, search=graphene.String(), page=graphene.Int()
     )
+    courses = graphene.List(CourseType, search=graphene.String())
     latestCourses = graphene.List(CourseType, search=graphene.String())
     course = graphene.Field(CourseType, courseSlug=graphene.String(), required=True)
     courseLesson = graphene.Field(CourseType, courseSlug=graphene.String())
@@ -53,7 +54,13 @@ class Query(graphene.ObjectType):
     language = graphene.Field(LanguageType, categoryName=graphene.Int())
     checkEnrollement = graphene.Boolean(courseId=graphene.Int(required=True))
 
-    def resolve_courses(self, info, page, search=None):
+    def resolve_courses(self, info, search=None):
+        if search:
+            filter = Q(title__icontains=search) | Q(description__icontains=search)
+            return Course.objects.filter(filter)
+        return Course.objects.all()
+
+    def resolve_allCourses(self, info, page, search=None):
         page_size = 10
         if search:
             filter = Q(title__icontains=search) | Q(description__icontains=search)
