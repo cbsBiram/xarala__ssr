@@ -20,6 +20,15 @@ class LessonType(DjangoObjectType):
         model = Lesson
         convert_choices_to_enum = False
 
+    get_previous = graphene.Field(graphene.String)
+    get_next = graphene.Field(graphene.String)
+
+    def resolve_get_previous(instance, info, **kwargs):
+        return instance.previous()
+
+    def resolve_get_next(instance, info, **kwargs):
+        return instance.next()
+
 
 class CategoryType(DjangoObjectType):
     class Meta:
