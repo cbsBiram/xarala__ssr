@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 from django.db.models import Sum
 from django.utils.text import slugify
@@ -206,8 +207,11 @@ class Lesson(models.Model):
     def next(self):
         try:
             next_lesson = Lesson.objects.filter(
-                lecture_number=self.lecture_number + 1,
-                chapter__course__id=self.chapter.course.id,
+                Q(
+                    lecture_number=self.lecture_number + 1,
+                    chapter__course__id=self.chapter.course.id,
+                    chapter__id=self.chapter.id,
+                )
             )
             return next_lesson.get().slug
         except Exception:
@@ -216,8 +220,11 @@ class Lesson(models.Model):
     def previous(self):
         try:
             previous_lesson = Lesson.objects.filter(
-                lecture_number=self.lecture_number - 1,
-                chapter__course__id=self.chapter.course.id,
+                Q(
+                    lecture_number=self.lecture_number - 1,
+                    chapter__course__id=self.chapter.course.id,
+                    chapter__id=self.chapter.id,
+                )
             )
             return previous_lesson.get().slug
         except Exception:
