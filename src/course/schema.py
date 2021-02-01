@@ -4,6 +4,7 @@ from graphql import GraphQLError
 from graphql_jwt.decorators import context, login_required
 
 from course.services.course_svc import get_language_by_name, get_languages
+from users.upload import save_base_64
 from xarala.utils import get_paginator
 from .models import Category, Chapter, Course, Language, Lesson
 from .query_types import (
@@ -39,6 +40,12 @@ class Query(graphene.ObjectType):
         LessonType,
         courseSlug=graphene.String(required=True),
         chapterSlug=graphene.String(required=True),
+    )
+    lessonChapter = graphene.Field(
+        LessonType,
+        courseSlug=graphene.String(required=True),
+        chapterSlug=graphene.String(required=True),
+        lessonSlug=graphene.String(required=True),
     )
     lesson = graphene.Field(LessonType, lessonSlug=graphene.String(required=True))
     categories = graphene.List(CategoryType, search=graphene.String())
@@ -116,10 +123,16 @@ class Query(graphene.ObjectType):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("You must log in!")
-        lessons = Lesson.objects.filter(
-            Q(chapter__slug=chapterSlug) & Q(chapter__course__slug=courseSlug)
-        )
-        return lessons
+        chapter = Chapter.objects.get(Q(slug=chapterSlug) & Q(course__slug=courseSlug))
+        return chapter.course_lessons.all()
+
+    def resolve_lessonChapter(self, info, courseSlug, chapterSlug, lessonSlug):
+        user = info.context.user
+        if user.is_anonymous:
+            raise GraphQLError("You must log in!")
+        chapter = Chapter.objects.get(Q(slug=chapterSlug) & Q(course__slug=courseSlug))
+        lesson = Lesson.objects.get(Q(chapter=chapter) & Q(slug=lessonSlug))
+        return lesson
 
     @login_required
     def resolve_lesson(self, info, lessonSlug):
@@ -158,35 +171,31 @@ class CreateCourse(graphene.Mutation):
     course = graphene.Field(CourseType)
 
     class Arguments:
-        title = graphene.String()
+        title = graphene.String(required=True)
         description = graphene.String()
         price = graphene.Decimal()
-        level = graphene.String()
-        thumbnail = graphene.String()
-        language = graphene.String()
+        level = graphene.String(required=True)
+        file = graphene.String()
+        languageName = graphene.String(required=True)
 
-    def mutate(self, info, title, description, price, level, thumbnail, language):
+    def mutate(self, info, title, description, price, level, file, languageName):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to add a course!")
-        if not level:
-            level = "Débutant"
-        try:
-            languageInstance = Language.objects.get(name=language)
-        except Language.DoesNotExist:
-            languageInstance = Language.objects.get(name="Français")
-        finally:
-            course = Course(
-                title=title,
-                description=description,
-                price=price,
-                level=level,
-                thumbnail=thumbnail,
-                language=languageInstance,
-                teacher=user,
-            )
-            course.save()
-            return CreateCourse(course=course)
+
+        language = Language.objects.get(name=languageName)
+        final_file_url = save_base_64(file)
+        course = Course(
+            title=title,
+            description=description,
+            price=price,
+            level=level,
+            thumbnail=final_file_url,
+            language=language,
+            teacher=user,
+        )
+        course.save()
+        return CreateCourse(course=course)
 
 
 # update track
@@ -199,11 +208,11 @@ class UpdateCourse(graphene.Mutation):
         description = graphene.String()
         price = graphene.Decimal()
         level = graphene.String()
-        thumbnail = graphene.String()
-        language = graphene.String()
+        file = graphene.String()
+        languageName = graphene.String()
 
     def mutate(
-        self, info, courseId, title, description, price, level, thumbnail, language
+        self, info, courseId, title, description, price, level, file, languageName
     ):
         user = info.context.user
         if user.is_anonymous:
@@ -219,19 +228,15 @@ class UpdateCourse(graphene.Mutation):
             course.price = price
         if level:
             course.level = level
-        if thumbnail:
-            course.thumbnail = thumbnail
-        try:
-            languageInstance = Language.objects.get(name=language)
-            course.language = languageInstance
-        except Language.DoesNotExist:
-            languageInstance = Language.objects.get(name="Français")
-            course.language = languageInstance
-        finally:
-            if not level:
-                level = "Débutant"
-            course.save()
-            return UpdateCourse(course=course)
+        if file:
+            final_file_url = save_base_64(file)
+            course.thumbnail = final_file_url
+        if languageName:
+            language = Language.objects.get(name=languageName)
+            course.language = language
+        course.save()
+
+        return UpdateCourse(course=course)
 
 
 # delete course
@@ -293,17 +298,19 @@ class UpdateChapter(graphene.Mutation):
     chapter = graphene.Field(ChapterType)
 
     class Arguments:
-        chapterSlug = graphene.String(required=True)
-        courseSlug = graphene.String(required=True)
-        name = graphene.String(required=True)
+        chapterId = graphene.Int(required=True)
+        name = graphene.String()
+        chapterNumber = graphene.Int()
 
-    def mutate(self, info, chapterSlug, courseSlug, name):
+    def mutate(self, info, chapterId, name, chapterNumber):
         user = info.context.user
+        print("chapter number", chapterNumber)
         if user.is_anonymous:
             raise GraphQLError("Log in to update a chapter/section!")
 
-        chapter = Chapter.objects.get(Q(slug=chapterSlug) & Q(course__slug=courseSlug))
+        chapter = Chapter.objects.get(pk=chapterId)
         chapter.name = name
+        chapter.chapter_number = chapterNumber
         chapter.save()
 
         return UpdateChapter(chapter=chapter)
@@ -317,17 +324,22 @@ class CreateLesson(graphene.Mutation):
         courseSlug = graphene.String(required=True)
         chapterSlug = graphene.String(required=True)
         title = graphene.String(required=True)
+        videoId = graphene.String(required=True)
         duration = graphene.Int()
-        platform = graphene.String()
+        platform = graphene.String(required=True)
 
-    def mutate(self, info, courseSlug, chapterSlug, title, duration, platform):
+    def mutate(self, info, courseSlug, chapterSlug, title, videoId, duration, platform):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to add a lesson!")
 
         chapter = Chapter.objects.get(Q(course__slug=courseSlug) & Q(slug=chapterSlug))
         lesson = Lesson(
-            title=title, duration=duration, platform=platform, chapter=chapter
+            title=title,
+            duration=duration,
+            platform=platform,
+            chapter=chapter,
+            video_id=videoId,
         )
         lesson.save()
 
@@ -341,18 +353,22 @@ class UpdateLesson(graphene.Mutation):
     class Arguments:
         lessonId = graphene.Int(required=True)
         title = graphene.String()
+        videoId = graphene.String()
         duration = graphene.Int()
         platform = graphene.String()
+        lectureNumber = graphene.Int(required=True)
 
-    def mutate(self, info, lessonId, title, duration, platform):
+    def mutate(self, info, lessonId, title, videoId, duration, platform, lectureNumber):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to update a lesson!")
 
         lesson = Lesson.objects.get(pk=lessonId)
         lesson.title = title
+        lesson.video_id = videoId
         lesson.duration = duration
         lesson.platform = platform
+        lesson.lecture_number = lectureNumber
         lesson.save()
 
         return UpdateLesson(lesson=lesson)
