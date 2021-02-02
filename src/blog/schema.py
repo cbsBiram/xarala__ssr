@@ -20,9 +20,9 @@ class Query(graphene.ObjectType):
         page_size = 10
         if search:
             filter = Q(title__icontains=search) | Q(content__icontains=search)
-            posts = Post.objects.filter(filter)
+            posts = Post.objects.published().filter(filter)
             return get_paginator(posts, page_size, page, PostPaginatedType)
-        posts = Post.objects.all()
+        posts = Post.objects.published()
         return get_paginator(posts, page_size, page, PostPaginatedType)
 
     def resolve_latestPosts(self, info, search=None):

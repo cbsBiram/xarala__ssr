@@ -33,7 +33,7 @@ class Post(models.Model):
     published = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
     publish_date = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    updated = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+    updated = models.DateTimeField(auto_now=True)
     featured = models.BooleanField(default=False)
     drafted = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tag, blank=True)
