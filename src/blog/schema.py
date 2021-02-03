@@ -1,6 +1,8 @@
 import graphene
+from django.conf import settings
 from graphql import GraphQLError
 from django.db.models import Q
+from blog.tasks import author_submitted
 
 from xarala.utils import get_paginator, save_base_64
 from .models import Post, Tag
@@ -127,7 +129,9 @@ class SubmitPostToReview(graphene.Mutation):
             raise GraphQLError("Not permited to submit this post")
         post.submitted = True
         post.save()
-        # send email to reviewers
+        author_submitted.delay(
+            post.author.email, post.title
+        ) if not settings.DEBUG else None
         return SubmitPostToReview(post=post)
 
 
