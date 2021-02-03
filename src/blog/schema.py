@@ -19,16 +19,14 @@ class Query(graphene.ObjectType):
     def resolve_posts(self, info, page, search=None):
         page_size = 10
         if search:
-            filter = Q(title__icontains=search) | Q(content__icontains=search)
-            posts = Post.objects.published().filter(filter)
+            posts = Post.objects.search(search)
             return get_paginator(posts, page_size, page, PostPaginatedType)
         posts = Post.objects.published()
         return get_paginator(posts, page_size, page, PostPaginatedType)
 
     def resolve_latestPosts(self, info, search=None):
         if search:
-            filter = Q(title__icontains=search) | Q(content__icontains=search)
-            return Post.objects.filter(filter)
+            return Post.objects.search(search)
         return Post.objects.order_by("-id")[:3]
 
     def resolve_post(self, info, postSlug):
@@ -78,20 +76,22 @@ class UpdatePost(graphene.Mutation):
     class Arguments:
         postId = graphene.Int(required=True)
         title = graphene.String()
-        content = graphene.Int()
+        content = graphene.String()
+        description = graphene.String()
         image = graphene.String()
 
-    def mutate(self, info, postId, title, description, image):
+    def mutate(self, info, postId, title, description, content, image=None):
         user = info.context.user
-        if user.is_anonymous:
-            raise GraphQLError("Log in to edit a post!")
-        final_file_url = save_base_64(image)
         post = Post.objects.get(id=postId)
+        if user.is_anonymous or post.author != user:
+            raise GraphQLError("Acces denied!")
+        final_file_url = save_base_64(image) if image else post.image
         if post.author != user:
             raise GraphQLError("Not permited to update this post")
         post.title = title
         post.description = description
         post.image = final_file_url
+        post.content = content
         post.save()
         return UpdatePost(post=post)
 
@@ -114,7 +114,25 @@ class DeletePost(graphene.Mutation):
         return DeletePost(postId=postId)
 
 
+class SubmitPostToReview(graphene.Mutation):
+    post = graphene.Field(PostType)
+
+    class Arguments:
+        postId = graphene.Int(required=True)
+
+    def mutate(self, info, postId):
+        user = info.context.user
+        post = Post.objects.get(id=postId)
+        if post.author != user:
+            raise GraphQLError("Not permited to submit this post")
+        post.submitted = True
+        post.save()
+        # send email to reviewers
+        return SubmitPostToReview(post=post)
+
+
 class Mutation(graphene.ObjectType):
     create_post = CreatePost.Field()
     update_post = UpdatePost.Field()
     delete_post = DeletePost.Field()
+    submit_post_to_review = SubmitPostToReview.Field()

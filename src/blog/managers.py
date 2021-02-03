@@ -6,7 +6,7 @@ from django.db.models import Q
 class BlogPostQuerySet(models.QuerySet):
     def published(self):
         now = timezone.now()
-        return self.filter(publish_date__lte=now)
+        return self.filter(publish_date__lte=now, drafted=False)
 
     def search(self, query):
         lookup = (
