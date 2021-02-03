@@ -2,7 +2,7 @@ import graphene
 from graphql import GraphQLError
 from django.db.models import Q
 
-from xarala.utils import get_paginator
+from xarala.utils import get_paginator, save_base_64
 from .models import Post, Tag
 from .query_types import PostType, TagType, PostPaginatedType
 
@@ -20,9 +20,9 @@ class Query(graphene.ObjectType):
         page_size = 10
         if search:
             filter = Q(title__icontains=search) | Q(content__icontains=search)
-            posts = Post.objects.filter(filter)
+            posts = Post.objects.published().filter(filter)
             return get_paginator(posts, page_size, page, PostPaginatedType)
-        posts = Post.objects.all()
+        posts = Post.objects.published()
         return get_paginator(posts, page_size, page, PostPaginatedType)
 
     def resolve_latestPosts(self, info, search=None):
@@ -54,15 +54,17 @@ class CreatePost(graphene.Mutation):
 
     class Arguments:
         title = graphene.String()
-        content = graphene.Int()
+        content = graphene.String()
+        description = graphene.String()
         image = graphene.String()
 
-    def mutate(self, info, title, content, image):
+    def mutate(self, info, title, content, description, image):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to add a post!")
-
-        post = Post(title=title, content=content, image=image, author=user)
+        final_file_url = save_base_64(image)
+        post = Post(title=title, content=content, description=description, author=user)
+        post.image = final_file_url
         post.save()
         return CreatePost(post=post)
 
@@ -83,12 +85,13 @@ class UpdatePost(graphene.Mutation):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to edit a post!")
+        final_file_url = save_base_64(image)
         post = Post.objects.get(id=postId)
         if post.author != user:
             raise GraphQLError("Not permited to update this post")
         post.title = title
         post.description = description
-        post.image = image
+        post.image = final_file_url
         post.save()
         return UpdatePost(post=post)
 
