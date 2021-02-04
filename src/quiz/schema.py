@@ -19,8 +19,7 @@ class Query(graphene.ObjectType):
 
     @login_required
     def resolve_quiz(self, info, chapterSlug):
-        print(chapterSlug)
-        quiz = Quiz.objects.get(chapter__slug=chapterSlug)
+        quiz = Quiz.objects.filter(chapter__slug=chapterSlug).last()
         return quiz
 
     @login_required
@@ -57,8 +56,8 @@ class CreateQuiz(graphene.Mutation):
     quiz = graphene.Field(QuizType)
 
     class Arguments:
-        chapterId = graphene.Int()
-        title = graphene.String()
+        chapterId = graphene.Int(required=True)
+        title = graphene.String(required=True)
         description = graphene.String()
 
     def mutate(self, info, chapterId, title, description):
@@ -76,7 +75,7 @@ class UpdateQuiz(graphene.Mutation):
     quiz = graphene.Field(QuizType)
 
     class Arguments:
-        quizId = graphene.Int()
+        quizId = graphene.Int(required=True)
         title = graphene.String()
         description = graphene.String()
 
@@ -96,8 +95,8 @@ class CreateQuestion(graphene.Mutation):
     question = graphene.Field(QuestionType)
 
     class Arguments:
-        quizId = graphene.Int()
-        label = graphene.String()
+        quizId = graphene.Int(required=True)
+        label = graphene.String(required=True)
 
     def mutate(self, info, quizId, label):
         user = info.context.user
@@ -132,7 +131,7 @@ class CreateAnswer(graphene.Mutation):
     answer = graphene.Field(AnswerType)
 
     class Arguments:
-        questionId = graphene.Int()
+        questionId = graphene.Int(required=True)
         label = graphene.String()
         isCorrect = graphene.Boolean()
 
