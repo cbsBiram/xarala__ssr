@@ -32,3 +32,6 @@ class BlogPostManager(models.Manager):
         if query is None:
             return self.get_queryset().none()
         return self.get_queryset().published().search(query)
+
+    def by_author(self, author_id):
+        return self.get_queryset().published().filter(author__id=author_id)

@@ -14,6 +14,7 @@ class Query(graphene.ObjectType):
         PostPaginatedType, search=graphene.String(), page=graphene.Int()
     )
     latestPosts = graphene.List(PostType, search=graphene.String())
+    postsByAuthor = graphene.List(PostType, authorId=graphene.Int(required=True))
     post = graphene.Field(PostType, postSlug=graphene.String(), required=True)
     tags = graphene.List(TagType, search=graphene.String())
     tag = graphene.Field(TagType, tagId=graphene.Int())
@@ -44,6 +45,9 @@ class Query(graphene.ObjectType):
     def resolve_tag(self, info, tagId):
         tag = Tag.objects.get(pk=tagId)
         return tag
+
+    def resolve_postsByAuthor(self, info, authorId):
+        return Post.objects.by_author(authorId)
 
 
 # new product
