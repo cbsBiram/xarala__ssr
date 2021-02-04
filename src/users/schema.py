@@ -7,6 +7,7 @@ from django.db.models import Q
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoFormMutation
 from graphql import GraphQLError
+from blog.query_types import PostType
 from users.upload import save_base_64
 
 
@@ -20,6 +21,11 @@ from .tasks import account_created, send_password_reset_email
 class UserType(DjangoObjectType):
     class Meta:
         model = User
+
+    get_user_posts = graphene.List(PostType)
+
+    def resolve_get_user_posts(instance, info, **kwargs):
+        return instance.user_posts()
 
 
 class UpdateUser(graphene.Mutation):
@@ -37,16 +43,11 @@ class UpdateUser(graphene.Mutation):
         if user.is_anonymous:
             raise GraphQLError("Log in to edit user account!")
         user = User.objects.get(id=user.id)
-        if firstName:
-            user.first_name = firstName
-        if lastName:
-            user.last_name = lastName
-        if address:
-            user.address = address
-        if phone:
-            user.phone = phone
-        if bio:
-            user.bio = bio
+        user.first_name = firstName
+        user.last_name = lastName
+        user.address = address
+        user.phone = phone
+        user.bio = bio
         user.save()
         return UpdateUser(user=user)
 

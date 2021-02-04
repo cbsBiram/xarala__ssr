@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.urls import reverse
 from django.utils.text import slugify
 from xarala.utils import upload_image_path
@@ -31,9 +32,10 @@ class Post(models.Model):
     image = models.ImageField(upload_to=upload_image_path, blank=True, null=True)
     image_url = models.URLField(max_length=255, blank=True, null=True)
     published = models.BooleanField(default=False)
+    submitted = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
     publish_date = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    updated = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
     featured = models.BooleanField(default=False)
     drafted = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tag, blank=True)
@@ -41,7 +43,7 @@ class Post(models.Model):
     objects = BlogPostManager()
 
     class Meta:
-        ordering = ["-publish_date", "-updated", "-timestamp"]
+        ordering = ["-publish_date", "-updated_at", "-timestamp"]
 
     def __str__(self):
         return self.title

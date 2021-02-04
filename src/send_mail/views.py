@@ -114,3 +114,25 @@ def passowrd_reset_mail(user_email):
         "text/html",
     )
     msg.send(fail_silently=False)
+
+
+def send_author_submitted_email(author, article_title):
+    htmly = get_template("email/author_submitted.html")
+    email = author.email
+    context = {"email": email, "article": article_title}
+    to_emails = [
+        "xaralaxarala@gmail.com",
+    ]
+    subject, from_email = ("Nouvel article sur Xarala", "Fatou de Xarala")
+    html_content = htmly.render(context)
+    msg = EmailMultiAlternatives(
+        subject,
+        html_content,
+        from_email,
+        to_emails,
+    )
+    msg.attach_alternative(
+        html_content,
+        "text/html",
+    )
+    msg.send(fail_silently=False)

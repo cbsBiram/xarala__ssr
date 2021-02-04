@@ -29,6 +29,9 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
+    def user_posts(self):
+        return self.post_set.filter(drafted=False)
+
 
 class Experience(models.Model):
     user = models.ForeignKey(
