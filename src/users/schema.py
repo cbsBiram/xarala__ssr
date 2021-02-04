@@ -80,6 +80,10 @@ class AuthMutation(graphene.ObjectType):
 class Query(graphene.ObjectType):
     me = graphene.Field(UserType)
     user = graphene.Field(UserType, id=graphene.Int(required=True))
+    users = graphene.List(UserType)
+    students = graphene.List(UserType)
+    teachers = graphene.List(UserType)
+    authors = graphene.List(UserType)
 
     def resolve_user(self, info, id):
         return User.objects.get(id=id)
@@ -89,6 +93,30 @@ class Query(graphene.ObjectType):
         if user.is_anonymous:
             raise GraphQLError("Not loged in!")
         return user
+
+    def resolve_users(self, info):
+        user = info.context.user
+        if not user.is_staff:
+            raise GraphQLError("You're not admin!")
+        return User.objects.all()
+
+    def resolve_students(self, info):
+        user = info.context.user
+        if not user.is_staff:
+            raise GraphQLError("You're not admin!")
+        return User.objects.filter(is_student=True)
+
+    def resolve_teachers(self, info):
+        user = info.context.user
+        if not user.is_staff:
+            raise GraphQLError("You're not admin!")
+        return User.objects.filter(is_teacher=True)
+
+    def resolve_authors(self, info):
+        user = info.context.user
+        if not user.is_staff:
+            raise GraphQLError("You're not admin!")
+        return User.objects.filter(is_writer=True)
 
 
 class RegisterUser(graphene.Mutation):
