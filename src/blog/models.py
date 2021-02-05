@@ -64,3 +64,15 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse("blog:blog-detail", kwargs={"slug": self.slug})
+
+    def next(self):
+        try:
+            return Post.objects.published().get(id=self.id + 1).slug
+        except Exception:
+            return None
+
+    def previous(self):
+        try:
+            return Post.objects.published().get(id=self.id - 1).slug
+        except Exception:
+            return None

@@ -3,6 +3,8 @@ from django.conf import settings
 from graphql import GraphQLError
 from django.db.models import Q
 from blog.tasks import author_submitted
+from users.models import CustomUser
+from users.schema import UserType
 
 from xarala.utils import get_paginator, save_base_64
 from .models import Post, Tag
@@ -14,9 +16,11 @@ class Query(graphene.ObjectType):
         PostPaginatedType, search=graphene.String(), page=graphene.Int()
     )
     latestPosts = graphene.List(PostType, search=graphene.String())
+    postsByAuthor = graphene.List(PostType, authorId=graphene.Int(required=True))
     post = graphene.Field(PostType, postSlug=graphene.String(), required=True)
     tags = graphene.List(TagType, search=graphene.String())
     tag = graphene.Field(TagType, tagId=graphene.Int())
+    authors = graphene.List(UserType)
 
     def resolve_posts(self, info, page, search=None):
         page_size = 10
@@ -44,6 +48,12 @@ class Query(graphene.ObjectType):
     def resolve_tag(self, info, tagId):
         tag = Tag.objects.get(pk=tagId)
         return tag
+
+    def resolve_postsByAuthor(self, info, authorId):
+        return Post.objects.by_author(authorId)
+
+    def resolve_authors(self, info):
+        return CustomUser.objects.filter(is_writer=True)
 
 
 # new product
