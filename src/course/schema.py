@@ -29,6 +29,7 @@ class Query(graphene.ObjectType):
     chaptersCourse = graphene.List(
         ChapterType, courseSlug=graphene.String(required=True)
     )
+    chaptersUser = graphene.List(ChapterType)
     chapterCourse = graphene.Field(
         ChapterType,
         courseSlug=graphene.String(required=True),
@@ -109,6 +110,19 @@ class Query(graphene.ObjectType):
             raise GraphQLError("You must log in!")
         chapter = Chapter.objects.get(Q(slug=chapterSlug) & Q(course__slug=courseSlug))
         return chapter
+
+    def resolve_chaptersUser(self, info):
+        user = info.context.user
+        if user.is_anonymous or user.is_writer:
+            raise GraphQLError("You must log in as a student or a teacher!")
+        chapters = {}
+        if user.is_student:
+            chapters = Chapter.objects.filter(course__teacher=user)
+        else:
+            chapters = Chapter.objects.filter(
+                course__students__id__exact=user.id, allowed=True
+            )
+        return chapters
 
     def resolve_chapter(self, info, chapterId):
         chapter = Chapter.objects.get(pk=chapterId)

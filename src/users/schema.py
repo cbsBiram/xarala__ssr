@@ -1,21 +1,19 @@
+from django.db.models.aggregates import Sum
 import graphene
 import graphql_jwt
 from django.conf import settings
 from django.contrib.auth.forms import PasswordChangeForm
-
 from django.db.models import Q
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoFormMutation
 from graphql import GraphQLError
+
 from blog.query_types import PostType
-from users.upload import save_base_64
-
-
-from xarala.utils import email_validation_function, save_base_64
-
 from .models import CustomUser as User
 from .models import ResetCode
 from .tasks import account_created, send_password_reset_email
+from users.upload import save_base_64
+from xarala.utils import email_validation_function, get_paginator, save_base_64
 
 
 class UserType(DjangoObjectType):
@@ -28,13 +26,28 @@ class UserType(DjangoObjectType):
         return instance.user_posts()
 
 
+class UserPaginatedType(graphene.ObjectType):
+    page = graphene.Int()
+    pages = graphene.Int()
+    has_next = graphene.Boolean()
+    has_prev = graphene.Boolean()
+    objects = graphene.List(UserType)
+
+
+class AdminKpisType(graphene.ObjectType):
+    students_count = graphene.Int()
+    teachers_count = graphene.Int()
+    authors_count = graphene.Int()
+    sales_figures = graphene.Decimal()
+
+
 class Query(graphene.ObjectType):
     me = graphene.Field(UserType)
     user = graphene.Field(UserType, id=graphene.Int(required=True))
-    users = graphene.List(UserType)
-    students = graphene.List(UserType)
-    teachers = graphene.List(UserType)
-    authors = graphene.List(UserType)
+    users = graphene.Field(AdminKpisType)
+    students = graphene.Field(UserPaginatedType, page=graphene.Int())
+    teachers = graphene.Field(UserPaginatedType, page=graphene.Int())
+    authors = graphene.Field(UserPaginatedType, page=graphene.Int())
 
     def resolve_user(self, info, id):
         return User.objects.get(id=id)
@@ -49,25 +62,45 @@ class Query(graphene.ObjectType):
         user = info.context.user
         if not user.is_staff:
             raise GraphQLError("You're not admin!")
-        return User.objects.all()
+        users = User.objects.all()
+        students_count = users.filter(is_student=True).count()
+        teachers_count = users.filter(is_teacher=True).count()
+        authors_count = users.filter(is_writer=True).count()
 
-    def resolve_students(self, info):
+        students = users.filter(is_student=True).exclude(courses_enrolled=None)
+        prices_list = [
+            student.courses_enrolled.aggregate(Sum("price"))["price__sum"]
+            for student in students
+        ]
+        sales_figures = sum(prices_list)
+
+        return AdminKpisType(
+            students_count, teachers_count, authors_count, sales_figures
+        )
+
+    def resolve_students(self, info, page):
+        page_size = 10
         user = info.context.user
         if not user.is_staff:
             raise GraphQLError("You're not admin!")
-        return User.objects.filter(is_student=True)
+        users = User.objects.filter(is_student=True)
+        return get_paginator(users, page_size, page, UserPaginatedType)
 
-    def resolve_teachers(self, info):
+    def resolve_teachers(self, info, page):
+        page_size = 10
         user = info.context.user
         if not user.is_staff:
             raise GraphQLError("You're not admin!")
-        return User.objects.filter(is_teacher=True)
+        users = User.objects.filter(is_teacher=True)
+        return get_paginator(users, page_size, page, UserPaginatedType)
 
-    def resolve_authors(self, info):
+    def resolve_authors(self, info, page):
+        page_size = 10
         user = info.context.user
         if not user.is_staff:
             raise GraphQLError("You're not admin!")
-        return User.objects.filter(is_writer=True)
+        users = User.objects.filter(is_writer=True)
+        return get_paginator(users, page_size, page, UserPaginatedType)
 
 
 class UpdateUser(graphene.Mutation):
