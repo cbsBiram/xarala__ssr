@@ -66,8 +66,9 @@ class Query(graphene.ObjectType):
             filter = Q(title__icontains=search) | Q(description__icontains=search)
             courses = Course.objects.filter(filter)
             return get_paginator(courses, page_size, page, CoursePaginatedType)
-        courses = Course.objects.all()
-        return get_paginator(courses, page_size, page, CoursePaginatedType)
+        return get_paginator(
+            Course.objects.published(), page_size, page, CoursePaginatedType
+        )
 
     def resolve_latestCourses(self, info, search=None):
         if search:
