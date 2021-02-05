@@ -7,6 +7,15 @@ class PostType(DjangoObjectType):
     class Meta:
         model = Post
 
+    get_previous = graphene.Field(graphene.String)
+    get_next = graphene.Field(graphene.String)
+
+    def resolve_get_previous(instance, info, **kwargs):
+        return instance.previous()
+
+    def resolve_get_next(instance, info, **kwargs):
+        return instance.next()
+
 
 class TagType(DjangoObjectType):
     class Meta:
