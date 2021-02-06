@@ -20,7 +20,7 @@ class Query(graphene.ObjectType):
     post = graphene.Field(PostType, postSlug=graphene.String(), required=True)
     tags = graphene.List(TagType, search=graphene.String())
     tag = graphene.Field(TagType, tagId=graphene.Int())
-    authors = graphene.List(UserType)
+    postAuthors = graphene.List(UserType)
 
     def resolve_posts(self, info, page, search=None):
         page_size = 10
@@ -52,7 +52,7 @@ class Query(graphene.ObjectType):
     def resolve_postsByAuthor(self, info, authorId):
         return Post.objects.by_author(authorId)
 
-    def resolve_authors(self, info):
+    def resolve_postAuthors(self, info):
         return CustomUser.objects.filter(is_writer=True)
 
 
