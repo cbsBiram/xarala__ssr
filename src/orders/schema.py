@@ -84,9 +84,9 @@ class ValidateOrder(graphene.Mutation):
         try:
             order = Order.objects.get(pk=orderId)
             course = Course.objects.get(pk=courseId)
-            # enroll_course.delay(
-            #     order.email, course, order
-            # ) if not settings.DEBUG else None
+            enroll_course.delay(
+                order.email, course, order
+            ) if not settings.DEBUG else None
             Order.objects.filter(pk=orderId).update(paid=True)
             return ValidateOrder(isSuccess=True, message="Vous avez acheté le cours")
         except Exception as e:
