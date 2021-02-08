@@ -19,7 +19,7 @@ class Query(graphene.ObjectType):
     postsByAuthor = graphene.List(PostType, authorId=graphene.Int(required=True))
     post = graphene.Field(PostType, postSlug=graphene.String(), required=True)
     tags = graphene.List(TagType, search=graphene.String())
-    tag = graphene.Field(TagType, tagId=graphene.Int())
+    tag = graphene.Field(TagType, tagName=graphene.String(required=True))
     postAuthors = graphene.List(UserType)
 
     def resolve_posts(self, info, page, search=None):
@@ -45,8 +45,8 @@ class Query(graphene.ObjectType):
             return Tag.objects.filter(filter)
         return Tag.objects.all()
 
-    def resolve_tag(self, info, tagId):
-        tag = Tag.objects.get(pk=tagId)
+    def resolve_tag(self, info, tagName):
+        tag = Tag.objects.get(name=tagName)
         return tag
 
     def resolve_postsByAuthor(self, info, authorId):

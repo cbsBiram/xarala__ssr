@@ -21,6 +21,11 @@ class TagType(DjangoObjectType):
     class Meta:
         model = Tag
 
+    get_tag_posts = graphene.List(PostType)
+
+    def resolve_get_tag_posts(instance, info, **kwargs):
+        return instance.tag_posts()
+
 
 class PostPaginatedType(graphene.ObjectType):
     page = graphene.Int()
