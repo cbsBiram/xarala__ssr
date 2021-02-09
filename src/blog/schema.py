@@ -17,9 +17,12 @@ class Query(graphene.ObjectType):
     )
     latestPosts = graphene.List(PostType, search=graphene.String())
     post = graphene.Field(PostType, postSlug=graphene.String(), required=True)
+    postsByTag = graphene.List(PostType, tagName=graphene.String(required=True))
     tags = graphene.List(TagType, search=graphene.String())
     tag = graphene.Field(TagType, tagName=graphene.String(required=True))
     postAuthors = graphene.List(UserType)
+    postsByAuthor = graphene.List(PostType, userId=graphene.Int(), required=True)
+    postsBySearch = graphene.List(PostType, query=graphene.String())
 
     def resolve_posts(self, info, page, search=None):
         page_size = 10
@@ -48,8 +51,35 @@ class Query(graphene.ObjectType):
         tag = Tag.objects.get(name=tagName)
         return tag
 
+    def resolve_postsByTag(self, info, tagName):
+        if tagName:
+            tag = Tag.objects.get(name=tagName)
+            posts = Post.objects.filter(tags__id__exact=tag.id)
+        else:
+            posts = Post.objects.all()
+        return posts
+
     def resolve_postAuthors(self, info):
         return CustomUser.objects.filter(is_writer=True)
+
+    def resolve_postsByAuthor(self, info, userId):
+        if userId:
+            user = CustomUser.objects.get(pk=userId)
+            filter = None
+            if not user.is_writer:
+                return GraphQLError("This user is not an author!")
+            else:
+                filter = Q(author=user)
+                posts = Post.objects.filter(filter)
+            return posts
+        return Post.objects.all()
+
+    def resolve_postsBySearch(self, info, query=None):
+        print(query)
+        if query:
+            filter = Q(title__icontains=query) | Q(description__icontains=query)
+            return Post.objects.filter(filter)
+        return Post.objects.all()
 
 
 # new product

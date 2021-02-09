@@ -64,7 +64,7 @@ class Query(graphene.ObjectType):
             raise GraphQLError("You're not admin!")
         users = User.objects.all()
         students_count = users.filter(is_student=True).count()
-        teachers_count = users.filter(is_teacher=True).count()
+        teachers_count = users.filtercoursesByUser(is_teacher=True).count()
         authors_count = users.filter(is_writer=True).count()
 
         students = users.filter(is_student=True).exclude(courses_enrolled=None)
@@ -83,7 +83,7 @@ class Query(graphene.ObjectType):
         user = info.context.user
         if not user.is_staff:
             raise GraphQLError("You're not admin!")
-        users = User.objects.filter(is_student=True)
+        users = User.objects.filter(is_student=True).order_by("-id")
         return get_paginator(users, page_size, page, UserPaginatedType)
 
     def resolve_teachers(self, info, page):
@@ -91,7 +91,7 @@ class Query(graphene.ObjectType):
         user = info.context.user
         if not user.is_staff:
             raise GraphQLError("You're not admin!")
-        users = User.objects.filter(is_teacher=True)
+        users = User.objects.filter(is_teacher=True).order_by("-id")
         return get_paginator(users, page_size, page, UserPaginatedType)
 
     def resolve_authors(self, info, page):
@@ -99,7 +99,7 @@ class Query(graphene.ObjectType):
         user = info.context.user
         if not user.is_staff:
             raise GraphQLError("You're not admin!")
-        users = User.objects.filter(is_writer=True)
+        users = User.objects.filter(is_writer=True).order_by("-id")
         return get_paginator(users, page_size, page, UserPaginatedType)
 
 
@@ -112,8 +112,9 @@ class UpdateUser(graphene.Mutation):
         phone = graphene.String()
         address = graphene.String()
         bio = graphene.String()
+        accountType = graphene.String()
 
-    def mutate(self, info, firstName, lastName, phone, address, bio):
+    def mutate(self, info, firstName, lastName, phone, address, bio, accountType):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to edit user account!")
@@ -123,6 +124,9 @@ class UpdateUser(graphene.Mutation):
         user.address = address
         user.phone = phone
         user.bio = bio
+        user.is_student = True if accountType == "student" else False
+        user.is_teacher = True if accountType == "teacher" else False
+        user.is_writer = True if accountType == "author" else False
         user.save()
         return UpdateUser(user=user)
 

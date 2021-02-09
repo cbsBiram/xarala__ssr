@@ -4,6 +4,7 @@ from graphql import GraphQLError
 from graphql_jwt.decorators import context, login_required
 
 from course.services.course_svc import get_language_by_name, get_languages
+from users.models import CustomUser
 from users.upload import save_base_64
 from xarala.utils import get_paginator
 from .models import Category, Chapter, Course, Language, Lesson
@@ -23,7 +24,10 @@ class Query(graphene.ObjectType):
     )
     courses = graphene.List(CourseType, search=graphene.String())
     latestCourses = graphene.List(CourseType, search=graphene.String())
+    coursesByCategory = graphene.List(CourseType, categoryName=graphene.String())
+    coursesBySearch = graphene.List(CourseType, query=graphene.String())
     course = graphene.Field(CourseType, courseSlug=graphene.String(), required=True)
+    coursesByUser = graphene.List(CourseType, userId=graphene.Int())
     courseLesson = graphene.Field(CourseType, courseSlug=graphene.String())
     chapters = graphene.List(ChapterType, search=graphene.String())
     chaptersCourse = graphene.List(
@@ -70,6 +74,32 @@ class Query(graphene.ObjectType):
         return get_paginator(
             Course.objects.published(), page_size, page, CoursePaginatedType
         )
+
+    def resolve_coursesByCategory(self, info, categoryName=None):
+        if categoryName:
+            category = Category.objects.get(name=categoryName)
+            filter = Q(categories__id__exact=category.id)
+            return Course.objects.filter(filter)
+        return Course.objects.all()
+
+    def resolve_coursesBySearch(self, info, query=None):
+        print(query)
+        if query:
+            filter = Q(title__icontains=query) | Q(description__icontains=query)
+            return Course.objects.filter(filter)
+        return Course.objects.all()
+
+    def resolve_coursesByUser(self, info, userId=None):
+        if userId:
+            user = CustomUser.objects.get(pk=userId)
+            filter = None
+            if user.is_teacher:
+                filter = Q(teacher__id=userId)
+            elif user.is_student:
+                filter = Q(students__id__exact=userId)
+            courses = Course.objects.filter(filter)
+            return courses
+        return Course.objects.all()
 
     def resolve_latestCourses(self, info, search=None):
         if search:
