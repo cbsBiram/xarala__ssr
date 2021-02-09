@@ -64,7 +64,7 @@ class Query(graphene.ObjectType):
             raise GraphQLError("You're not admin!")
         users = User.objects.all()
         students_count = users.filter(is_student=True).count()
-        teachers_count = users.filtercoursesByUser(is_teacher=True).count()
+        teachers_count = users.filter(is_teacher=True).count()
         authors_count = users.filter(is_writer=True).count()
 
         students = users.filter(is_student=True).exclude(courses_enrolled=None)
