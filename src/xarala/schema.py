@@ -1,18 +1,22 @@
 import graphene
-import users.schema
-import course.schema
 import blog.schema
-import quiz.schema
-import pages.schema
+import course.schema
 import orders.schema
+import pages.schema
+import quiz.schema
+import search.schema
+import users.schema
+import userlogs.schema
 
 
 class Query(
-    users.schema.Query,
-    course.schema.Query,
     blog.schema.Query,
+    course.schema.Query,
     quiz.schema.Query,
     orders.schema.Query,
+    search.schema.Query,
+    users.schema.Query,
+    userlogs.schema.Query,
     graphene.ObjectType,
 ):
     pass

@@ -83,7 +83,6 @@ class Query(graphene.ObjectType):
         return Course.objects.all()
 
     def resolve_coursesBySearch(self, info, query=None):
-        print(query)
         if query:
             filter = Q(title__icontains=query) | Q(description__icontains=query)
             return Course.objects.filter(filter)
