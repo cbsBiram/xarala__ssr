@@ -10,15 +10,6 @@ urlpatterns = [
     path("x-yarou/", admin.site.urls),
     path("graphql/", csrf_exempt(GraphQLView.as_view(graphiql=settings.DEBUG))),
     path("", include("pages.urls", namespace="pages")),
-    # path('accounts/', include('allauth.urls')),
-    path("", include("course.urls", namespace="course")),
-    path("podcasts/", include("podcast.urls", namespace="podcast")),
-    path("users/", include("users.urls")),
-    path("blog/", include("blog.urls", namespace="blog")),
-    path("dashboard/", include("dashboard.urls", namespace="dashboard")),
-    # path("quiz/", include("quiz.urls", namespace="quiz")),
-    path("search/", include("search.urls", namespace="search")),
-    path("summernote/", include("django_summernote.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

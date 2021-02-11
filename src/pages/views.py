@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login
 from django.http import HttpResponse, JsonResponse
+from django.http.response import HttpResponseForbidden
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, TemplateView
 
@@ -15,8 +16,7 @@ from users.models import CustomUser
 
 
 def home(request):
-    course_counts = Course.objects.count()
-    return render(request, "pages/index.html", {"course_counts": course_counts})
+    return HttpResponseForbidden("Nothing to show")
 
 
 def subscribe(request):

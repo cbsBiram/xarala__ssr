@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     "django_filters",
     # custom apps,
-    "podcast.apps.PodcastConfig",
     "course.apps.CourseConfig",
     "pages.apps.PagesConfig",
     "users.apps.UsersConfig",
