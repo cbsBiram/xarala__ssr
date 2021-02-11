@@ -48,6 +48,8 @@ class Query(graphene.ObjectType):
     students = graphene.Field(UserPaginatedType, page=graphene.Int())
     teachers = graphene.Field(UserPaginatedType, page=graphene.Int())
     authors = graphene.Field(UserPaginatedType, page=graphene.Int())
+    listTeachers = graphene.List(UserType)
+    listAuthors = graphene.List(UserType)
 
     def resolve_user(self, info, id):
         return User.objects.get(id=id)
@@ -101,6 +103,12 @@ class Query(graphene.ObjectType):
             raise GraphQLError("You're not admin!")
         users = User.objects.filter(is_writer=True).order_by("-id")
         return get_paginator(users, page_size, page, UserPaginatedType)
+
+    def resolve_listTeachers(self, info):
+        return User.objects.filter(is_teacher=True).order_by("-id")
+
+    def resolve_listAuthors(self, info):
+        return User.objects.filter(is_writer=True).order_by("-id")
 
 
 class UpdateUser(graphene.Mutation):
