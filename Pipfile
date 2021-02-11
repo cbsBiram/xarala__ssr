@@ -30,6 +30,8 @@ django-graphql-auth = "*"
 django-import-export = "*"
 pyjwt = "==1.7.1"
 weasyprint = "*"
+pytest-django = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.6"
