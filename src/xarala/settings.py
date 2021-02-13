@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "blog.apps.BlogConfig",
     "search.apps.SearchConfig",
     "quiz.apps.QuizConfig",
+    "podcast.apps.PodcastConfig",
     "orders.apps.OrdersConfig",
 ]
 
