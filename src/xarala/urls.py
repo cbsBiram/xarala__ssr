@@ -10,6 +10,7 @@ urlpatterns = [
     path("x-yarou/", admin.site.urls),
     path("graphql/", csrf_exempt(GraphQLView.as_view(graphiql=settings.DEBUG))),
     path("", include("pages.urls", namespace="pages")),
+    path("summernote/", include("django_summernote.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
