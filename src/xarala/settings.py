@@ -62,7 +62,10 @@ INSTALLED_APPS = [
     "search.apps.SearchConfig",
     "quiz.apps.QuizConfig",
     "podcast.apps.PodcastConfig",
-    "orders.apps.OrdersConfig",
+    "order.apps.OrderConfig",
+    "payment.apps.PaymentConfig",
+    "cart.apps.CartConfig",
+    "coupons.apps.CouponsConfig",
 ]
 
 MIDDLEWARE = [
@@ -105,6 +108,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "cart.context_processors.cart",
             ],
         },
     },
@@ -156,6 +160,24 @@ LOGOUT_REDIRECT_URL = "pages:home"
 
 LANGUAGE_CODE = "en-us"
 
+from django.utils.translation import gettext_lazy as _
+
+LANGUAGES = (
+    ("en", _("English")),
+    ("fr", _("French")),
+)
+
+PARLER_LANGUAGES = {
+    None: (
+        {"code": "en"},
+        {"code": "fr"},
+    ),
+    "default": {
+        "fallback": "en",
+        "hide_untranslated": False,
+    },
+}
+
 TIME_ZONE = "UTC"
 
 USE_I18N = True
@@ -205,7 +227,17 @@ SUMMERNOTE_THEME = "bs4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 # CELERY_BROKER_URL = "amqp://dbadmin:abc123!@127.0.0.1:5672//"
 CELERY_BROKER_URL = "amqp://guest:guest@127.0.0.1:15672//"
+CART_SESSION_ID = "cart"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale/"),)
+
+
+REDIS_HOST = "localhost"
+REDIS_PORT = 6379
+REDIS_DB = 1
+
+
 try:
     from .local_settings import *  # noqa
 except ImportError:

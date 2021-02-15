@@ -8,7 +8,7 @@ pycodestyle = "*"
 autopep8 = "*"
 
 [packages]
-Django = "*"
+Django = "==3.1.6"
 Pillow = "*"
 mailchimp = "*"
 django-crispy-forms = "*"
@@ -32,6 +32,7 @@ pyjwt = "==1.7.1"
 weasyprint = "*"
 pytest-django = "*"
 pytest = "*"
+redis = "*"
 
 [requires]
 python_version = "3.6"

@@ -1,7 +1,7 @@
 import pytest
 
 from course.models import Course
-from orders.models import Order, OrderItem
+from order.models import Order, OrderItem
 from users.models import CustomUser as User
 
 

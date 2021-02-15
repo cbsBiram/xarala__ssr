@@ -16,6 +16,9 @@ urlpatterns = [
     path("blog/", include("blog.urls", namespace="blog")),
     path("dashboard/", include("dashboard.urls", namespace="dashboard")),
     # path("quiz/", include("quiz.urls", namespace="quiz")),
+    path("cart/", include("cart.urls", namespace="cart")),
+    path("orders/", include("order.urls", namespace="orders")),
+    path("payment/", include("payment.urls", namespace="payment")),
     path("search/", include("search.urls", namespace="search")),
     path("summernote/", include("django_summernote.urls")),
 ]

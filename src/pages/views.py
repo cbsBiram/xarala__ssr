@@ -16,7 +16,7 @@ from users.models import CustomUser
 
 
 def home(request):
-    return HttpResponseForbidden("Nothing to show")
+    return render(request, "pages/index.html")
 
 
 def subscribe(request):

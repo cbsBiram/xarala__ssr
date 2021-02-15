@@ -17,6 +17,7 @@ from xarala.constants import (
     MEDIUM,
     ALL_LEVELS,
 )
+from .fields import OrderField
 
 
 class Language(models.Model):
@@ -141,7 +142,7 @@ class Chapter(models.Model):
     slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     drafted = models.BooleanField(default=False)
-    chapter_number = models.IntegerField(default=1)
+    order = OrderField(blank=True, null=True, for_fields=["course"])
 
     def __str__(self):
         return self.name
@@ -176,7 +177,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=200)
     is_video = models.BooleanField(default=True)
     text = models.TextField(blank=True)
-    lecture_number = models.IntegerField(default=1)
+    order = OrderField(blank=True, null=True, for_fields=["chapter"])
     slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
     file = models.FileField(upload_to=upload_image_path, blank=True, null=True)
     video_url = models.CharField(max_length=240, null=True, blank=True)
