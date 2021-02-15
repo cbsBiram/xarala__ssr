@@ -11,7 +11,7 @@ from blog.models import Post
 
 @method_decorator([login_required], name="dispatch")
 class DashboardView(View):
-    template_name = "dashboard/index.html"
+    template_name = "dashboard.html"
 
     def get(self, request, *args, **kwargs):
         user = self.request.user

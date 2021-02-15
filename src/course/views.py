@@ -91,7 +91,7 @@ class StudentCourseListView(ListView):
 @method_decorator([teacher_required], name="dispatch")
 class TeacherCourseListView(ListView, CreateView):
     form_class = CreateCourse
-    template_name = "dashboard/teacher/manage-course.html"
+    template_name = "teacher/manage-course.html"
 
     def get(self, request, *args, **kwargs):
         teacher = self.request.user
@@ -134,7 +134,7 @@ class TeacherCourseListView(ListView, CreateView):
 
 class TeacherChapterListCreateView(DetailView, CreateView):
     form_class = CreateChapter
-    template_name = "dashboard/teacher/add-chapter.html"
+    template_name = "teacher/add-chapter.html"
 
     def get(self, request, *args, **kwargs):
         course_id = request.GET.get("course_id")
@@ -160,7 +160,7 @@ class TeacherChapterListCreateView(DetailView, CreateView):
 @method_decorator([teacher_required], name="dispatch")
 class TeacherLessonListCreateView(DetailView, CreateView):
     form_class = CreateLesson
-    template_name = "dashboard/teacher/add-lesson.html"
+    template_name = "teacher/add-lesson.html"
 
     def get(self, request, *args, **kwargs):
         chapter_id = request.GET.get("chapter_id")

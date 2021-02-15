@@ -112,7 +112,7 @@ class CustomUserUpdateDetailView(UpdateView, DetailView):
     password_form = ChangePasswordForm
     social_form = UpdateSocialForm
     bio_form = UpdateBioForm
-    template_name = "users/profile.html"
+    template_name = "profile.html"
 
     def get(self, request, *args, **kwargs):
         user = request.user
