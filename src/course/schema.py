@@ -61,9 +61,8 @@ class Query(graphene.ObjectType):
 
     def resolve_courses(self, info, search=None):
         if search:
-            filter = Q(title__icontains=search) | Q(description__icontains=search)
-            return Course.objects.filter(filter)
-        return Course.objects.all()
+            return Course.objects.search(search)
+        return Course.objects.published()
 
     def resolve_allCourses(self, info, page, search=None):
         page_size = 10
