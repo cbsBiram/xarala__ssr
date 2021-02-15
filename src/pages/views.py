@@ -16,7 +16,7 @@ from users.models import CustomUser
 
 
 def home(request):
-    return render(request, "pages/index.html")
+    return render(request, "index.html")
 
 
 def subscribe(request):
@@ -34,29 +34,29 @@ def subscribe(request):
 
 
 def about(request):
-    return render(request, "pages/about.html")
+    return render(request, "about.html")
 
 
 def privacy_policy(request):
-    return render(request, "pages/privacy_policy.html")
+    return render(request, "privacy_policy.html")
 
 
 def faq(request):
-    return render(request, "pages/faq.html")
+    return render(request, "faq.html")
 
 
 def community_page(request):
-    return render(request, "pages/community.html")
+    return render(request, "community.html")
 
 
 def team_page(request):
     teams = Team.objects.all()
-    return render(request, "pages/team.html", {"teams": teams})
+    return render(request, "team.html", {"teams": teams})
 
 
 class ContactUsView(TemplateView, CreateView):
     form_class = ContactForm
-    template_name = "pages/contact.html"
+    template_name = "contact.html"
 
     def get(self, request, *args, **kwargs):
         form = self.form_class()
@@ -75,12 +75,12 @@ class ContactUsView(TemplateView, CreateView):
 
 
 class ThanksView(TemplateView):
-    template_name = "pages/thanks.html"
+    template_name = "thanks.html"
 
 
 class BecomeTeacherView(TemplateView, CreateView):
     form_class = TeacherCreationForm
-    template_name = "pages/become-instructor.html"
+    template_name = "become-instructor.html"
 
     def get(self, request, *args, **kwargs):
         form = self.form_class()
@@ -154,8 +154,4 @@ def teacher_registration(request):
             )
             messages.success(request, "Compte crée avec succes...")
             return redirect("dashboard:dashboard")
-    return render(request, "pages/become-instructor.html")
-
-
-class ShopHomePage(TemplateView):
-    template_name = "shop/product_list.html"
+    return render(request, "become-instructor.html")

@@ -15,6 +15,7 @@ class CourseListView(ListView):
     queryset = Course.objects.order_by("-id")
     paginate_by = 6
     context_object_name = "courses"
+    template_name = "course_list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -24,7 +25,7 @@ class CourseListView(ListView):
 
 class CourseOverviewView(DetailView):
     model = Course
-    template_name = "course/course_overview.html"
+    template_name = "course_overview.html"
 
     def get_context_data(self, **kwargs):
         student = self.request.user
@@ -44,7 +45,7 @@ class CourseOverviewView(DetailView):
 @method_decorator([login_required], name="dispatch")
 class CourseDetailView(DetailView):
     model = Course
-    template_name = "course/course_detail.html"
+    template_name = "course_detail.html"
 
     def get_context_data(self, **kwargs):
         slug = self.request.GET.get("lecture")
@@ -201,7 +202,7 @@ class TeacherLessonListCreateView(DetailView, CreateView):
 
 
 class CategoryCourseList(ListView):
-    template_name = "course/courses_by_category.html"
+    template_name = "courses_by_category.html"
     paginate_by = 2
 
     def get_queryset(self):
@@ -218,11 +219,11 @@ class CategoryCourseList(ListView):
 
 
 class LearningPathView(TemplateView):
-    template_name = "course/learning_path.html"
+    template_name = "learning_path.html"
 
 
 class ProfessionalTrainingView(TemplateView):
-    template_name = "course/professional_training.html"
+    template_name = "professional_training.html"
 
 
 def generate_course_invoice(request, id):

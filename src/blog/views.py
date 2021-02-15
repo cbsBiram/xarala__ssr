@@ -27,12 +27,12 @@ class PostDetailView(DetailView):
 def blog_tag(request, tag):
     posts = Post.objects.filter(tags__name__contains=tag).published()
     context = {"tag": tag, "posts": posts}
-    return render(request, "blog/post_tag.html", context)
+    return render(request, "post_tag.html", context)
 
 
 class PostListCreateView(ListView, CreateView):
     form_class = CreatePostForm
-    template_name = "dashboard/posts-management.html"
+    template_name = "posts-management.html"
 
     def get(self, request, *args, **kwargs):
         author = self.request.user

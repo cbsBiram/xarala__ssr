@@ -54,7 +54,7 @@ def login(request):
                 else:
                     return redirect("/users/login/")
         else:
-            return render(request, "users/login.html", {"next": next_})
+            return render(request, "login.html", {"next": next_})
 
 
 def register(request):
@@ -98,7 +98,7 @@ def register(request):
                 messages.error(request, "Les mots de passe ne sont pas identiques")
                 return redirect(f"/users/register/?next={redirect_path}")
         else:
-            return render(request, "users/register.html", {"next": next_})
+            return render(request, "register.html", {"next": next_})
 
 
 # update user

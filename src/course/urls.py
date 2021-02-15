@@ -15,7 +15,7 @@ urlpatterns = [
         "courses/<slug:slug>/", views.CourseDetailView.as_view(), name="course-detail"
     ),
     path(
-        "courses/subscribe-user-to-course/<slug:course_slug>/",
+        "courses/subscribe-user-to-<slug:course_slug>/",
         views.subscribe_user_to_course,
         name="subscribe_user_to_course",
     ),
