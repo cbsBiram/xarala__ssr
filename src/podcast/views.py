@@ -5,14 +5,14 @@ from .models import Episode
 
 class EpisodeListView(ListView):
     model = Episode
-    context_object_name = 'episods'
-    # template_name=''
+    context_object_name = "episods"
+    template_name = "episode_list.html"
 
 
 class EpisodeDetail(DetailView):
     model = Episode
-    # template_name=''
+    template_name = "episode_detail.html"
 
 
 class HowWePodcast(TemplateView):
-    template_name = 'podcast/how-we-podcast.html'
+    template_name = "how-we-podcast.html"
