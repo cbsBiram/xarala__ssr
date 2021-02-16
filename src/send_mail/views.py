@@ -82,7 +82,7 @@ def enroll_course_mail(student_email, course, order):
     static_dir = (
         settings.STATICFILES_DIRS[0] if settings.DEBUG else settings.STATIC_ROOT
     )
-    stylesheets = [CSS(static_dir + "/assets/css/pdf.css")]
+    stylesheets = [CSS(static_dir + "/css/pdf.css")]
     HTML(string=html).write_pdf(out, stylesheets=stylesheets)
     msg.attach(
         "facture_{}.pdf".format(course_title),
