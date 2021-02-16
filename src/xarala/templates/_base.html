@@ -59,7 +59,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="text-center">
-              <a href="index.html" class="nav-item nav-link"><img src="{% static 'images/logo.png' %}" alt="Logo xrala"
+              <a href="{% url 'pages:home' %}" class="nav-item nav-link"><img src="{% static 'images/logo.png' %}" alt="Logo xrala"
                   width="70"></a>
             </div>
             <div class="course_tabs">
@@ -74,10 +74,6 @@
                     href="{% url 'blog:posts' %}">Tutoriels</a>
                 </div>
               </nav>
-            </div>
-            <div class="title129 mt-35 mb-35">
-              <h2>Votre carrière commence ici.</h2>
-              <h2>Bénéficiez de l'emploi garanti, grace à des formations pratiques.</h2>
             </div>
           </div>
         </div>

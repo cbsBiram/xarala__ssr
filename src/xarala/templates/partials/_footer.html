@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-lg-3 col-md-3 col-sm-6">
         <div class="item_f1">
-          <a href="about_us.html">About</a>
+          <a href="{% url 'pages:about' %}">About</a>
           <a href="our_blog.html">Blog</a>
           <a href="career.html">Careers</a>
           <a href="press.html">Press</a>
@@ -13,17 +13,17 @@
       </div>
       <div class="col-lg-3 col-md-3 col-sm-6">
         <div class="item_f1">
-          <a href="help.html">Help</a>
+          <a href="{% url 'pages:faq' %}">Help</a>
           <a href="coming_soon.html">Advertise</a>
           <a href="coming_soon.html">Developers</a>
-          <a href="contact_us.html">Contact Us</a>
+          <a href="{% url 'pages:contact' %}">Contact Us</a>
         </div>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-6">
         <div class="item_f1">
           <a href="terms_of_use.html">Copyright Policy</a>
           <a href="terms_of_use.html">Terms</a>
-          <a href="terms_of_use.html">Privacy Policy</a>
+          <a href="{% url 'pages:privacy_policy' %}">Privacy Policy</a>
           <a href="sitemap.html">Sitemap</a>
         </div>
       </div>
