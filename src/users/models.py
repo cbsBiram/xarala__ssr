@@ -10,7 +10,6 @@ class CustomUser(AbstractUser):
     email = models.EmailField(_("email address"), unique=True)
     is_student = models.BooleanField(default=False)
     is_teacher = models.BooleanField(default=False)
-    is_writer = models.BooleanField(default=False)
     phone = models.CharField(max_length=150, blank=True, null=True)
     address = models.CharField(max_length=250, blank=True, null=True)
     title = models.CharField(max_length=250, blank=True, null=True)

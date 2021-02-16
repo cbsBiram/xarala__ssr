@@ -1,88 +1,69 @@
 {% load static %}
-<footer class="site-footer">
-  <div class="footer-top bg-dark text-white-0_6 pt-5 paddingBottom-100">
-    <div class="container">
-      <div class="row">
 
-        <div class="col-lg-3 col-md-6 mt-5">
-          <img src="{% static 'assets/img/xarala-white.png' %}" alt="Logo" height="70">
-          <div class="margin-y-40">
-            <p>
-              L’informatique dans votre langue <br>Jàng Xarala yu yees yi ci sa làkk
-            </p>
-          </div>
-          <ul class="list-inline">
-            <li class="list-inline-item"><a class="iconbox bg-white-0_2 hover:primary"
-                href="http://bit.ly/xaralaYouTube"><i class="ti-youtube">
-                </i></a></li>
-            <li class="list-inline-item"><a class="iconbox bg-white-0_2 hover:primary"
-                href="http://bit.ly/xaralaTwitter"><i class="ti-twitter">
-                </i></a></li>
-            <li class="list-inline-item"><a class="iconbox bg-white-0_2 hover:primary"
-                href="https://www.linkedin.com/in/xarala221/"><i class="ti-linkedin">
-                </i></a></li>
-          </ul>
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="item_f1">
+          <a href="about_us.html">About</a>
+          <a href="our_blog.html">Blog</a>
+          <a href="career.html">Careers</a>
+          <a href="press.html">Press</a>
         </div>
-
-        <div class="col-lg-3 col-md-6 mt-5">
-          <h4 class="h5 text-white">Nous contacter</h4>
-          <div class="width-3rem bg-primary height-3 mt-3"></div>
-          <ul class="list-unstyled marginTop-40">
-            <li class="mb-3"><i class="ti-headphone mr-3"></i><a href="tel:+221779929952">+221 77 992 99 52 </a></li>
-            <li class="mb-3"><i class="ti-email mr-3"></i><a href="mailto:contact@xarala.co">contact@xarala.co</a>
-            </li>
-            <li class="mb-3">
-              <div class="media">
-                <i class="ti-location-pin mt-2 mr-3"></i>
-                <div class="media-body">
-                  <span> Sicap Mbao, Dakar, Sénégal/Afrique</span>
-                </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="item_f1">
+          <a href="help.html">Help</a>
+          <a href="coming_soon.html">Advertise</a>
+          <a href="coming_soon.html">Developers</a>
+          <a href="contact_us.html">Contact Us</a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="item_f1">
+          <a href="terms_of_use.html">Copyright Policy</a>
+          <a href="terms_of_use.html">Terms</a>
+          <a href="terms_of_use.html">Privacy Policy</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="item_f3">
+          <a href="#" class="btn1542">Enseigner sur Xarala</a>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div class="footer_bottm">
+          <div class="row">
+            <div class="col-md-6">
+              <ul class="fotb_left">
+                <li>
+                  <a href="index.html">
+                    <div class="footer_logo">
+                      <img src="{% static 'images/logo1.svg' %}" alt="">
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <p>© 2021 <strong>Xarala</strong>. All Rights Reserved.</p>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <div class="edu_social_links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-pinterest-p"></i></a>
               </div>
-            </li>
-          </ul>
-        </div>
+            </div>
 
-        <div class="col-lg-2 col-md-6 mt-5">
-          <h4 class="h5 text-white">Liens rapides</h4>
-          <div class="width-3rem bg-primary height-3 mt-3"></div>
-          <ul class="list-unstyled marginTop-40">
-            <li class="mb-2"><a href="{% url 'pages:about' %}">Qui sommes-nous</a></li>
-            <li class="mb-2"><a href="{% url 'pages:contact' %}">Nous contacter</a></li>
-            <li class="mb-2"><a href="{% url 'pages:privacy_policy' %}"> Politique de confidentialité</a></li>
-            <li class="mb-2"><a href="{% url 'course:courses' %}">Formation</a></li>
-            <li class="mb-2"><a href="{% url 'blog:posts' %}">Blog</a></li>
-            <li class="mb-2"><a href="{% url 'podcast:episodes' %}">Podcast</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-4 col-md-6 mt-5">
-          <h4 class="h5 text-white">Newslatter</h4>
-          <div class="width-3rem bg-primary height-3 mt-3"></div>
-          <div class="marginTop-40">
-            <p class="mb-4">Abonnez-vous pour obtenir des mises à jour et des informations. Ne vous inquiétez pas, nous
-              n'enverrons pas de spam!</p>
-            <form class="marginTop-30 mc4wp-form mc4wp-form-1971 bm8" action="#" method="POST" id="subscribe"
-              ata-id="1971" data-name="Mail Form">
-              {% csrf_token %}
-              <div class="input-group">
-                <input type="email" placeholder="Votre email" class="form-control py-3 border-white" required
-                  id="email_id" name="email_id">
-                <div class="input-group-append">
-                  <button class="btn btn-primary subscribe-submit" id="email_submit" type="submit">S'inscrire</button>
-                </div>
-              </div>
-            </form>
           </div>
         </div>
-
-      </div> <!-- END row-->
-    </div> <!-- END container-->
-  </div> <!-- END footer-top-->
-
-  <div class="footer-bottom bg-dark py-5 text-center" data-dark-overlay="6">
-    <div class="container">
-      <p class="text-white-0_5 mb-0">&copy; 2020 Xarala. All rights reserved. Created by <a
-          href="https://twitter.com/xarala221" target="_blunk">Xarala221</a></p>
+      </div>
     </div>
-  </div> <!-- END footer-bottom-->
-</footer> <!-- END site-footer -->
+  </div>
+</footer>

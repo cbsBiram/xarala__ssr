@@ -26,7 +26,6 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
         "is_active",
         "is_student",
         "is_teacher",
-        "is_writer",
     )
     list_filter = (
         "is_staff",
@@ -38,7 +37,6 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
         "is_active",
         "is_student",
         "is_teacher",
-        "is_writer",
     )
     fieldsets = (
         (

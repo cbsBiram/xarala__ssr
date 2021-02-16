@@ -22,10 +22,5 @@ urlpatterns = [
         views.CategoryCourseList.as_view(),
         name="course-by-category",
     ),
-    path(
-        "professional-training/",
-        views.ProfessionalTrainingView.as_view(),
-        name="professional-training",
-    ),
     path("learning-path/", views.LearningPathView.as_view(), name="learning-path"),
 ]

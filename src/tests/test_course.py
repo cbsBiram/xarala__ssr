@@ -26,7 +26,7 @@ def test_category_create():
 
 @pytest.mark.django_db
 def test_course_create():
-    teacher = User.objects.create(email="test@test.com", is_writer=True)
+    teacher = User.objects.create(email="test@test.com")
     category = Category.objects.create(
         name="Python",
         description="Category for python",

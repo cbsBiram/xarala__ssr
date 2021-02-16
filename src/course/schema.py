@@ -141,7 +141,7 @@ class Query(graphene.ObjectType):
 
     def resolve_chaptersUser(self, info):
         user = info.context.user
-        if user.is_anonymous or user.is_writer:
+        if user.is_anonymous:
             raise GraphQLError("You must log in as a student or a teacher!")
         chapters = {}
         if user.is_student:

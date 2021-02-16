@@ -1,0 +1,16 @@
+.btn-appstore a,
+.btn-appstore .tm-btn {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  color: #fff;
+  background-color: #333;
+  font-weight: 500;
+  border-radius: 12px;
+  padding: 0.45rem 10px;
+  line-height: 20px;
+  text-decoration: none;
+  padding-right: 14px;
+}
+.btn-appstore a:hover {
+  color: #cacaca !important;
+}

@@ -16,7 +16,7 @@ def test_tag_create():
 
 @pytest.mark.django_db
 def test_post_create():
-    author = User.objects.create(email="test@test.com", is_writer=True)
+    author = User.objects.create(email="test@test.com")
     tag = Tag.objects.create(
         name="John",
         description="Doe",

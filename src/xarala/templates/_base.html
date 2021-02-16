@@ -1,6 +1,7 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="fr">
+{% load static %}
 
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -15,101 +16,171 @@
 
     gtag('config', 'UA-143511541-1');
   </script>
-  <meta charset="UTF-8">
-
-  <!-- Title-->
-  <title>
-    Xarala Academy |
-    {% block title %} Accueil, Cours en ligne - La technologie dans votre langue
-    {% endblock title %}
-  </title>
-
-  <!-- SEO Meta-->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=9">
   <meta name="description" content="Xarala Academy La technologie dans votre langue">
   <meta name="keywords"
     content="Xarala Academy, Xarala, Apprendre à coder, Apprendre Python, Formation Xarala, Formation Python">
   <meta name="author" content="xarala">
+  <title> Xarala Academy |
+    {% block title %} Accueil, Cours en ligne - La technologie dans votre langue
+    {% endblock title %}</title>
 
-  <!-- viewport scale-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- Favicon Icon -->
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
 
+  <!-- Stylesheets -->
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500' rel='stylesheet'>
+  <link href='{% static "vendor/unicons-2.0.1/css/unicons.css" %}' rel='stylesheet'>
+  <link href="{% static 'css/vertical-responsive-menu.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'css/night-mode.css' %}" rel="stylesheet">
 
-  <!-- Favicon and Apple Icons-->
-  <link rel="icon" type="image/x-icon" href="{% static 'assets/img/logo.png' %}">
-  <link rel="shortcut icon" href="{% static 'assets/img/logo.png' %}">
-  <link rel="apple-touch-icon-precomposed" href="{% static 'assets/img/logo.png' %}">
-
-
-  <!--Google fonts-->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700%7CWork+Sans:400,500">
-
-  <!-- Icon fonts -->
-  <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome/css/all.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/fonts/themify-icons/css/themify-icons.css' %}">
-
-
-  <!-- stylesheet-->
-  <link rel="stylesheet" href="{% static 'assets/css/vendors.bundle.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/css/customize.css' %}">
+  <!-- Vendor Stylesheets -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/OwlCarousel/assets/owl.carousel.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/OwlCarousel/assets/owl.theme.default.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/semantic/semantic.min.css' %}">
+  <link href="{% static 'css/custom.css' %}" rel="stylesheet">
   {% block extrastyle %} {% endblock extrastyle %}
-
 </head>
 
 <body>
 
+  <!-- Header End -->
+  <!-- Body Start -->
+  <div class="wrapper _bg4586 _new89 p-0">
+    <div class="_215cd2">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="text-center">
+              <a href="index.html" class="nav-item nav-link"><img src="{% static 'images/logo.png' %}" alt="Logo xrala"
+                  width="70"></a>
+            </div>
+            <div class="course_tabs">
+              <nav>
+                <div class="nav nav-tabs tab_crse  justify-content-center">
+                  <a class="nav-item nav-link active" href="{% url 'register' %}">Commencez ici</a>
+                  <a class="nav-item nav-link" href="{% url 'course:courses' %}">Cours</a>
+                  <a class="nav-item nav-link" href="{% url 'course:learning-path' %}">Parcours</a>
+                  <a class="nav-item nav-link" href="{% url 'blog:posts' %}">Tutoriels</a>
+                </div>
+              </nav>
+            </div>
+            <div class="title129 mt-35 mb-35">
+              <h2>Votre carrière commence ici.</h2>
+              <h2>Bénéficiez de l'emploi garanti, grace à des formations pratiques.</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="_215td5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="title589 text-center">
+              <h2>Que voulez-vous accomplir ?</h2>
+              <p>Chez Xarala, vous avez accès:</p>
+              <img class="line-title" src="{% static 'images/line.svg' %}" alt="">
+            </div>
+          </div>
+          <div class="col-lg-3  col-sm-6">
+            <div class="feature125">
+              <i class="uil uil-mobile-android-alt"></i>
+              <h4>Formation</h4>
+              <p>Des formations de qualitées, adaptées à votre besoin.</p>
+            </div>
+          </div>
+          <div class="col-lg-3  col-sm-6">
+            <div class="feature125">
+              <i class="uil uil-users-alt"></i>
+              <h4>Mentorat</h4>
+              <p>Vous serez mentoré par les meilleurs formateurs.</p>
+            </div>
+          </div>
+          <div class="col-lg-3  col-sm-6">
+            <div class="feature125">
+              <i class="uil uil-award"></i>
+              <h4>Certificat</h4>
+              <p>Des certificats de réussite que vous pouvez ajouter sur votre CV pour booster votre carrière.</p>
+            </div>
+          </div>
+          <div class="col-lg-3  col-sm-6">
+            <div class="feature125">
+              <i class="uil uil-globe"></i>
+              <h4>Projet</h4>
+              <p>Vous travaillez sur des projets et cas d'utilisation réels.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="_215zd5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="title478">
+              <h2>Notre approche</h2>
+              <img class="line-title" src="{% static 'images/line.svg' %}" alt="">
+              <p>"Learn By Doing". Arretez de payer cher pour juste avoir "un diplôme" qui ne vous garanti pas votre
+                "un emploi".</p>
+              <p>Ici, vous apprenez des competence. Vivez une expérience unique en apprenant la technologie dans une
+                langue que vous maitrîsez.</p>
+              <!-- call to action -->
+              <a href="#" class="crer_btn_link">Je commence</a>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="story125">
+              <img src="{% static 'images/about/stroy_img.png' %}" alt="">
+            </div>
+          </div>
 
-  {% include "partials/_header.html" %}
+        </div>
+      </div>
+    </div>
+    <div class="_215td5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="title589 text-center">
+              <h2>Installez Xarala sur votre téléphone.</h2>
+              <p>Xarala est votre compagnon de tous les jours, même lorsque vous disposez de données limitées ou d'une
+                connexion lente.</p>
+              <img class="line-title" src="{% static 'images/line.svg' %}" alt="">
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="btn-appstore text-center pt-2">
+              <a href="#" target="_blank" class="tm-btn btn-outline-dark">
+                <img src="{% static 'images/itunes_header.svg' %}" alt="Xarala Application mobile"> App Store</a>
+              <a href="https://play.google.com/store/apps/details?id=com.xaralamobile" target="_blank"
+                class="tm-btn btn-outline-dark">
+                <img src="{% static 'images/gplay_header.svg' %}" alt="Xarala Application mobile"> Google Play</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  {% include "partials/_navbar.html" %}
 
+    {% include "partials/_footer.html" %}
 
-
-  <div class="site-search">
-    <div class="site-search__close bg-black-0_8"></div>
-    <ul class="list-group list-group-dark">
-
-      {% if request.user.is_authenticated %}
-
-      <li class="list-group-item"><i class="ti-user mr-1"></i> <a href="{% url 'profile' %}">Profile</a> </li>
-      <li class="list-group-item"><i class="ti-dashboard mr-1"></i> <a href="{% url 'dashboard:dashboard' %}">Tableau de
-          bord</a></li>
-      <li class="list-group-item"><i class="ti-unlock mr-1"></i> <a
-          href="javascript:{document.getElementById('logout').submit()}">Déconnexion
-          <form action="{% url 'logout' %}" method="POST" id="logout">
-            {% csrf_token %}
-            <input type="hidden" />
-          </form>
-        </a></li>
-
-      {% else %}
-
-
-      <li class="list-group-item"><i class="ti-user mr-1"></i> <a href="{% url 'register' %}">Inscription</a></li>
-      <li class="list-group-item"><i class="ti-lock mr-1"></i> <a href="{% url 'login' %}">Connexion</a></li>
-
-      {% endif %}
-
-    </ul>
   </div>
+  <!-- Body End -->
 
-  {% block content %}
-
-  {% endblock content %}
-
-
-  {% include "partials/_footer.html" %}
-
-  <div class="scroll-top">
-    <i class="ti-angle-up"></i>
-  </div>
-
-
-  <script src="{% static 'assets/js/vendors.bundle.js ' %}"></script>
-  <script src="{% static 'assets/js/scripts.js ' %}"></script>
-  <script src="{% static 'assets/js/customize.js ' %}"></script>
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/OwlCarousel/owl.carousel.js' %}"></script>
+  <script src="{% static 'vendor/semantic/semantic.min.js' %}"></script>
+  <script src="{% static 'js/custom.js' %}"></script>
+  <script src="{% static 'js/night-mode.js' %}"></script>
   {% block extrajs %} {% endblock extrajs %}
-
 </body>
 
 </html>
