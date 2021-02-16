@@ -49,36 +49,50 @@
 </head>
 
 <body>
-
-  <!-- Header End -->
-
-  <!-- Body Start -->
-  <div class="wrapper _bg4586 _new89 p-0">
-    <div class="_215cd2">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="text-center">
-              <a href="{% url 'pages:home' %}" class="nav-item nav-link"><img src="{% static 'images/logo.png' %}" alt="Logo xrala"
-                  width="70"></a>
-            </div>
-            <div class="course_tabs">
-              <nav>
-                <div class="nav nav-tabs tab_crse  justify-content-center">
-                  <a class="nav-item nav-link" href="{% url 'register' %}">Commencez ici</a>
-                  <a class="nav-item nav-link {% if 'courses' in request.path %} active {% endif %}"
-                    href="{% url 'course:courses' %}">Cours</a>
-                  <a class="nav-item nav-link {% if 'learning-path' in request.path %} active {% endif %}"
-                    href="{% url 'learning_path:paths' %}">Parcours</a>
-                  <a class="nav-item nav-link {% if 'tutoriels' in request.path %} active {% endif %}"
-                    href="{% url 'blog:posts' %}">Tutoriels</a>
-                </div>
-              </nav>
-            </div>
+  <header class="header clearfix">
+    <div class="main_logo" id="logo">
+      <a href="/"><img src="{% static 'images/logo.png' %}" alt="Logo Xarala" width="70"></a>
+      <a href="/"><img class="logo-inverse" src="{% static 'images/logo.png' %}" alt="Logo Xarala" width="70"></a>
+    </div>
+    <div class="top-category">
+      <div class="ui compact menu cate-dpdwn">
+        <div class="ui simple dropdown item">
+          <a href="#" class="option_links p-0" title="categories"><i class="uil uil-apps"></i></a>
+          <div class="menu dropdown_category5">
+            <a href="{% url 'course:courses' %}" class="item channel_item">Cours</a>
+            <a href="{% url 'learning_path:paths' %}" class="item channel_item">Parcours</a>
+            <a href="{% url 'blog:posts' %}" class="item channel_item">Tutoriels</a>
           </div>
         </div>
       </div>
     </div>
+    <div class="search120">
+      <form action="{% url 'search:results' %}" method="get">
+        <div class="ui search">
+          <div class="ui left icon input swdh10">
+
+
+            <input class="prompt srch10" type="text" placeholder="Que voulez-vous apprendre?" name="q" />
+
+            <i class='uil uil-search-alt icon icon1'></i>
+
+
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="header_right">
+      <ul>
+        <li>
+          <a href="{% url 'register' %}" class="upload_btn d-block" title="Commencez Ici">Commencez Ici</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Body Start -->
+  <div class="wrapper _bg4586 _new89 p-0">
+
     {% block content %}{% endblock content %}
     <div class="_215td5">
       <div class="container">

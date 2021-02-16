@@ -1,4 +1,3 @@
-# search.views.py
 from itertools import chain
 from django.views.generic import ListView
 
@@ -7,7 +6,7 @@ from course.models import Course
 
 
 class SearchView(ListView):
-    template_name = "search/results.html"
+    template_name = "results.html"
     paginate_by = 20
     count = 0
 
