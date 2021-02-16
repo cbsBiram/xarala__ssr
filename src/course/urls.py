@@ -22,5 +22,4 @@ urlpatterns = [
         views.CategoryCourseList.as_view(),
         name="course-by-category",
     ),
-    path("learning-path/", views.LearningPathView.as_view(), name="learning-path"),
 ]

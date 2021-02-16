@@ -218,10 +218,6 @@ class CategoryCourseList(ListView):
         return context
 
 
-class LearningPathView(TemplateView):
-    template_name = "learning_path.html"
-
-
 class ProfessionalTrainingView(TemplateView):
     template_name = "professional_training.html"
 

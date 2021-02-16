@@ -1,4 +1,4 @@
-{% extends "_base.html" %}
+{% extends "_auth_base.html" %}
 {% load static %}
 
 {% block title %}
@@ -7,47 +7,48 @@ Authentification
 
 
 {% block content %}
-<section class="padding-y-100 bg-light">
-  {% include "partials/_alerts.html" %}
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 mx-auto">
-        <div class="card shadow-v2">
-          <div class="card-header border-bottom">
-            <h4 class="mt-4">
-              Connectez-vous à votre compte <span class="text-primary">Xarala</span>!
-            </h4>
-          </div>
-          <div class="card-body">
-            <form method="POST" class="px-lg-4">
-              {% csrf_token %}
-              <div class="input-group input-group--focus mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text bg-white ti-email"></span>
-                </div>
-                <input type="email" name="email" class="form-control border-left-0 pl-0" placeholder="Email" required>
-              </div>
-              <div class="input-group input-group--focus mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text bg-white ti-lock"></span>
-                </div>
-                <input type="password" name="password" class="form-control border-left-0 pl-0"
-                  placeholder="Mot de passe" required>
-              </div>
-              <div class="d-md-flex justify-content-between my-4">
-                <a href="{% url 'password_reset' %}" class="text-primary my-2 d-block"> Mot de passe oublié?</a>
-              </div>
-              <button type="submit" class="btn btn-block btn-primary">Connexion</button>
-              <p class="my-5 text-center">
-                Pas encore membre? <a href="{% url 'register' %}?next={{ next|default_if_none:'/' }}"
-                  class="text-primary">Inscription</a>
-              </p>
-            </form>
+{% include "partials/_alerts.html" %}
+
+
+<div class="col-lg-6 col-md-8">
+  <div class="sign_form">
+    <h2>Welcome Back</h2>
+    <p>Log In to Your Edututs+ Account!</p>
+    <button class="social_lnk_btn color_btn_fb"><i class="uil uil-facebook-f"></i>Continue with
+      Facebook</button>
+    <button class="social_lnk_btn mt-15 color_btn_tw"><i class="uil uil-twitter"></i>Continue with
+      Twitter</button>
+    <button class="social_lnk_btn mt-15 color_btn_go"><i class="uil uil-google"></i>Continue with
+      Google</button>
+    <form>
+      <div class="ui search focus mt-15">
+        <div class="ui left icon input swdh95">
+          <input class="prompt srch_explore" type="email" name="emailaddress" value="" id="id_email" required=""
+            maxlength="64" placeholder="Email Address">
+          <i class="uil uil-envelope icon icon2"></i>
+        </div>
+      </div>
+      <div class="ui search focus mt-15">
+        <div class="ui left icon input swdh95">
+          <input class="prompt srch_explore" type="password" name="password" value="" id="id_password" required=""
+            maxlength="64" placeholder="Password">
+          <i class="uil uil-key-skeleton-alt icon icon2"></i>
+        </div>
+      </div>
+      <div class="ui form mt-30 checkbox_sign">
+        <div class="inline field">
+          <div class="ui checkbox mncheck">
+            <input type="checkbox" tabindex="0" class="hidden">
+            <label>Remember Me</label>
           </div>
         </div>
       </div>
-    </div> <!-- END row-->
-  </div> <!-- END container-->
-</section>
-
+      <button class="login-btn" type="submit">Sign In</button>
+    </form>
+    <p class="sgntrm145">Or <a href="forgot_password.html">Forgot Password</a>.</p>
+    <p class="mb-0 mt-30 hvsng145">Don't have an account? <a href="sign_up.html">Sign Up</a></p>
+  </div>
+  <div class="sign_footer"><img src="images/sign_logo.png" alt="">© 2020 <strong>Cursus</strong>. All Rights
+    Reserved.</div>
+</div>
 {% endblock content %}

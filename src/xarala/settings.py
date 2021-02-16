@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     "payment.apps.PaymentConfig",
     "cart.apps.CartConfig",
     "coupons.apps.CouponsConfig",
+    "learning_path.apps.LearningPathConfig",
 ]
 
 MIDDLEWARE = [

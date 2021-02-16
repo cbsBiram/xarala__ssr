@@ -14,6 +14,7 @@ urlpatterns = [
     path("podcasts/", include("podcast.urls", namespace="podcast")),
     path("users/", include("users.urls")),
     path("tutoriels/", include("blog.urls", namespace="blog")),
+    path("path/", include("learning_path.urls", namespace="learning_path")),
     path("dashboard/", include("dashboard.urls", namespace="dashboard")),
     # path("quiz/", include("quiz.urls", namespace="quiz")),
     path("cart/", include("cart.urls", namespace="cart")),
