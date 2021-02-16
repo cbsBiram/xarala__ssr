@@ -9,85 +9,135 @@
 
 {% block content %}
 
-{% include "partials/_breadcrumbs.html" with previous="Accueil" previous_url="pages:home" current="Contact" text="Nous contacter" %}
 
-<div class="py-5 shadow-v2 position-relative">
-  <div class="container">
-    <div class="row">
-
-      <div class="col-lg-4 col-md-6 mt-4">
-        <div class="media">
-          <span class="iconbox iconbox-md bg-primary text-white"><i class="ti-mobile"></i></span>
-          <div class="media-body ml-3">
-            <h5 class="mb-0">+221 77 992 99 52</h5>
-            <p>Nous joindre (24/7)</p>
+<div class="wrapper _bg4586 _new89">
+  <div class="_215b15">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">						
+          <div class="title125">						
+            <div class="titleleft">					
+              <div class="ttl121">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'pages:home' %}">Accueil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Contactez-nous</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+            <div class="titleright">						
+              <a href="{% url 'pages:home' %}" class="blog_link"><i class="uil uil-angle-double-left"></i>Retour à l'accueil</a>
+            </div>
+          </div>
+          <div class="title126">	
+            <h2>Contact</h2>
           </div>
         </div>
       </div>
-
-      <div class="col-lg-4 col-md-6 mt-4">
-        <div class="media">
-          <span class="iconbox iconbox-md bg-primary text-white"><i class="ti-email"></i></span>
-          <div class="media-body ml-3">
-            <a href="mailto:support@echotheme.com" class="h5">contact@xarala.co</a>
-            <p>Nous joindre (24/7)</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6 mt-4">
-        <div class="media">
-          <span class="iconbox iconbox-md bg-primary text-white"><i class="ti-location-pin"></i></span>
-          <div class="media-body ml-3">
-            <h5 class="mb-0">Dakar, Sénégal🇸🇳 </h5>
-            <p>Sicap Mbao, Extension 596</p>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
+		<div class="contact1256">
+			<div class="container">
+				<div class="row">					
+					<div class="col-lg-3 col-md-6">
+						<a href="help.html" class="contact_link_step">
+							<img src="{% static 'images/help_icon.svg' %}" alt="">
+							<h4>Help Center</h4>
+						</a>												
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<a href="our_blog.html" class="contact_link_step">
+							<img src="{% static 'images/blog_icon.svg' %}" alt="">
+							<h4>Blog</h4>
+						</a>												
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<a href="career.html" class="contact_link_step">
+							<img src="{% static 'images/career_icon.svg' %}" alt="">
+							<h4>Careers</h4>
+						</a>												
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<a href="coming_soon.html" class="contact_link_step">
+							<img src="{% static 'images/developer_icon.svg' %}" alt="">
+							<h4>Developer Area</h4>
+						</a>												
+					</div>
+					<div class="col-lg-8 mt-5">
+            <div class="text-center">
+              <form method="POST" class="card p-4 p-md-5 shadow-v1">
+                {% csrf_token %}
+                <p class="lead mt-2">
+                  Vous pouvez contacter notre équipe d'experts
+                  24/7 de 8h00 à 20h00
+                </p>
+                <div class="row mt-5 mx-0">
+                  <div class="col-md-4 mb-4">
+                    {{ form.first_name|as_crispy_field }}
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    {{ form.email|as_crispy_field }}
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    {{ form.phone|as_crispy_field }}
+                  </div>
+                  <div class="col-12">
+                    {{ form.message|as_crispy_field }}
+                    <button type="submit" class="btn btn-primary mt-4">Envoyer</button>
+                  </div>
+                </div>
+              </form>
+            </div>											
+					</div>
+					<div class="col-lg-4">
+						<div class="contact_info">
+							<div class="checkout_title">
+								<h4>Contact Information</h4>
+								<img src="{% static 'images/line.svg' %}" alt="">
+							</div>
+							<ul class="contact_list_info">
+								<li>
+                  <div class="txt_cntct">
+                    <span class="cntct_895">
+                      <i class="uil uil-location-point"></i>
+                      Adresse :
+                    </span>
+                    <p>Dakar, Sénégal 🇸🇳, Sicap Mbao, Extension 596</p>
+                  </div>
+                </li>
+								<li>
+                  <div class="txt_cntct">
+                    <span class="cntct_895">
+                      <i class="uil uil-envelope"></i>
+                      Email :
+                    </span>
+                    <p>contact@xarala.co</p>
+                  </div>
+                </li>
+								<li>
+                  <div class="txt_cntct">
+                    <span class="cntct_895">
+                      <i class="uil uil-mobile-android-alt"></i>
+                      Téléphone :
+                    </span>
+                    <p> +221 77 992 99 52</p>
+                  </div>
+                </li>
+							</ul>
+							<div class="edututs_links_social">
+								<ul class="tutor_social_links">
+									<li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a></li>
+									<li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
+									<li><a href="#" class="ln"><i class="fab fa-linkedin-in"></i></a></li>
+									<li><a href="#" class="yu"><i class="fab fa-youtube"></i></a></li>
+								</ul>
+							</div>
+						</div>												
+					</div>
+				</div>
+			</div>
+    </div>
 </div>
-
-
-
-
-<section class="padding-y-100 bg-light-v2">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 text-center mb-5">
-        <h2>
-          Nous écrire
-        </h2>
-        <div class="width-4rem height-4 bg-primary my-2 mx-auto rounded"></div>
-      </div>
-      <div class="col-12 text-center">
-        <form method="POST" class="card p-4 p-md-5 shadow-v1">
-          {% csrf_token %}
-          <p class="lead mt-2">
-            Vous pouvez contacter notre équipe d'experts au +221 77 992 99 52
-            24/7 de 8h00 à 20h00
-          </p>
-          <div class="row mt-5 mx-0">
-            <div class="col-md-4 mb-4">
-              {{ form.first_name|as_crispy_field }}
-            </div>
-            <div class="col-md-4 mb-4">
-              {{ form.email|as_crispy_field }}
-            </div>
-            <div class="col-md-4 mb-4">
-              {{ form.phone|as_crispy_field }}
-            </div>
-            <div class="col-12">
-              {{ form.message|as_crispy_field }}
-              <button type="submit" class="btn btn-primary mt-4">Envoyer</button>
-            </div>
-          </div>
-        </form>
-      </div>
-
-    </div> <!-- END row-->
-  </div> <!-- END container-->
-</section>
 
 {% endblock %}
