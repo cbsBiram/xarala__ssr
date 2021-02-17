@@ -11,7 +11,16 @@ all_tests:
   stage: test
   script:
     - sh ./sh_scripts/install.sh
-    - pytest
+    - cd src && pytest
   when: on_success
   only:
-    - master
+    - main
+
+codestyle:
+  stage: test
+  script:
+    - sh ./sh_scripts/install.sh
+    - cd src && flake8
+  when: on_success
+  only:
+    - main

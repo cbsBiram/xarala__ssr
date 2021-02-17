@@ -8,21 +8,23 @@ from users.models import CustomUser as User
 @pytest.mark.django_db
 def test_order_create():
     order = Order.objects.create(
-        full_name="John Doe",
+        first_name="John Doe",
+        last_name="Diop",
         email="johndoe@test.com",
     )
-    assert order.full_name == "John Doe"
+    assert order.first_name == "John Doe"
     assert order.email == "johndoe@test.com"
 
 
 @pytest.mark.django_db
 def test_order_item_create():
     order = Order.objects.create(
-        full_name="John Doe",
+        first_name="John Doe",
         email="johndoe@test.com",
+        last_name="Diop",
     )
 
-    teacher = User.objects.create(email="test@test.com", is_writer=True)
+    teacher = User.objects.create(email="test@test.com", is_teacher=True)
     course = Course.objects.create(
         title="Python course",
         description="This is a python course",
