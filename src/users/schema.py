@@ -12,7 +12,6 @@ from blog.query_types import PostType
 from .models import CustomUser as User
 from .models import ResetCode
 from .tasks import account_created, send_password_reset_email
-from users.upload import save_base_64
 from xarala.utils import email_validation_function, get_paginator, save_base_64
 
 

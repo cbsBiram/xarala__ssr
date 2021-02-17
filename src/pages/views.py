@@ -1,11 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login
 from django.http import HttpResponse, JsonResponse
-from django.http.response import HttpResponseForbidden
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, TemplateView
 
-from course.models import Course
 from users.tasks import account_created
 from xarala.utils import SendSubscribeMail
 

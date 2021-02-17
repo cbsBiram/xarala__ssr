@@ -69,7 +69,7 @@ def test_answer_create():
     )
     assert answer.label == "Answer for question 1"
     assert answer.question == question
-    assert answer.is_correct == True
+    assert answer.is_correct
 
 
 @pytest.mark.django_db

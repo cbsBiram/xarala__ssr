@@ -1,9 +1,10 @@
 # import braintree
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 
 # from django.conf import settings
 from order.models import Order
-from .tasks import payment_completed
+
+# from .tasks import payment_completed
 
 
 # instantiate Braintree payment gateway
@@ -14,6 +15,7 @@ def payment_process(request):
     order_id = request.session.get("order_id")
     order = get_object_or_404(Order, id=order_id)
     total_cost = order.get_total_cost()
+    return total_cost
 
     # if request.method == 'POST':
     #     # retrieve nonce

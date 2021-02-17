@@ -1,6 +1,4 @@
 import graphene
-from django.db.models import Q
-from graphql import GraphQLError
 from itertools import chain
 
 from blog.query_types import PostType

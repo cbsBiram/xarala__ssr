@@ -143,7 +143,7 @@ class CreateAnswer(graphene.Mutation):
         question = Question.objects.get(pk=questionId)
         answers = question.answers
         if answers:
-            condition = [ans for ans in answers.all() if ans.is_correct == True]
+            condition = [ans for ans in answers.all() if ans.is_correct]
             if condition:
                 isCorrect = False
         answer = Answer(label=label, is_correct=isCorrect, question=question)
@@ -169,7 +169,7 @@ class UpdateAnswer(graphene.Mutation):
         question = Question.objects.get(pk=questionId)
         answers = question.answers
         if answers:
-            condition = [ans for ans in answers.all() if ans.is_correct == True]
+            condition = [ans for ans in answers.all() if ans.is_correct]
             if condition:
                 isCorrect = False
         answer.label = label

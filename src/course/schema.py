@@ -1,7 +1,7 @@
 from django.db.models import Q
 import graphene
 from graphql import GraphQLError
-from graphql_jwt.decorators import context, login_required
+from graphql_jwt.decorators import login_required
 
 from course.services.course_svc import get_language_by_name, get_languages
 from users.models import CustomUser

@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 from django.urls import reverse
 from django.utils.text import slugify
 from xarala.utils import upload_image_path

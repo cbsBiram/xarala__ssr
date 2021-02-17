@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 from django.contrib.messages import constants as messages
 from datetime import timedelta
+from django.utils.translation import gettext_lazy as _
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -161,7 +162,6 @@ LOGOUT_REDIRECT_URL = "pages:home"
 
 LANGUAGE_CODE = "en-us"
 
-from django.utils.translation import gettext_lazy as _
 
 LANGUAGES = (
     ("en", _("English")),
