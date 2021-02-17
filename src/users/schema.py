@@ -167,8 +167,8 @@ class RegisterUser(graphene.Mutation):
     user = graphene.Field(UserType)
 
     class Arguments:
-        email = graphene.String(required=True)
-        password = graphene.String(required=True)
+        email = graphene.String()
+        password = graphene.String()
 
     def mutate(self, info, email, password):
         mail_to_lower = email_validation_function(email.lower())
