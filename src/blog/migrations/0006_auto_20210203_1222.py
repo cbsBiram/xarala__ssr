@@ -6,26 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0005_post_description'),
+        ("blog", "0005_post_description"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='post',
-            options={'ordering': ['-publish_date', '-updated_at', '-timestamp']},
+            name="post",
+            options={"ordering": ["-publish_date", "-updated_at", "-timestamp"]},
         ),
         migrations.RemoveField(
-            model_name='post',
-            name='updated',
+            model_name="post",
+            name="updated",
         ),
         migrations.AddField(
-            model_name='post',
-            name='submitted',
+            model_name="post",
+            name="submitted",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='post',
-            name='updated_at',
+            model_name="post",
+            name="updated_at",
             field=models.DateTimeField(auto_now=True),
         ),
     ]

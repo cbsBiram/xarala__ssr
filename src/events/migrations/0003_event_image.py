@@ -7,13 +7,15 @@ import xarala.utils
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('events', '0002_auto_20190922_1749'),
+        ("events", "0002_auto_20190922_1749"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to=xarala.utils.upload_image_path),
+            model_name="event",
+            name="image",
+            field=models.ImageField(
+                blank=True, null=True, upload_to=xarala.utils.upload_image_path
+            ),
         ),
     ]

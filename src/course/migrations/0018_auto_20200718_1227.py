@@ -6,38 +6,38 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('course', '0017_auto_20200504_0156'),
+        ("course", "0017_auto_20200504_0156"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='course',
-            name='projects',
-            field=models.TextField(default=''),
+            model_name="course",
+            name="projects",
+            field=models.TextField(default=""),
         ),
         migrations.AddField(
-            model_name='course',
-            name='promote_video',
-            field=models.TextField(default=''),
+            model_name="course",
+            name="promote_video",
+            field=models.TextField(default=""),
         ),
         migrations.AddField(
-            model_name='course',
-            name='requirements',
-            field=models.TextField(default=''),
+            model_name="course",
+            name="requirements",
+            field=models.TextField(default=""),
         ),
         migrations.AddField(
-            model_name='course',
-            name='target_audience',
-            field=models.TextField(default=''),
+            model_name="course",
+            name="target_audience",
+            field=models.TextField(default=""),
         ),
         migrations.AddField(
-            model_name='course',
-            name='what_will_i_learn',
-            field=models.TextField(default=''),
+            model_name="course",
+            name="what_will_i_learn",
+            field=models.TextField(default=""),
         ),
         migrations.AddField(
-            model_name='lesson',
-            name='preview',
+            model_name="lesson",
+            name="preview",
             field=models.BooleanField(default=False),
         ),
     ]

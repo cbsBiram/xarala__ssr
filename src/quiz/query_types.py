@@ -23,4 +23,3 @@ class AnswerType(DjangoObjectType):
 class UserAnswerType(DjangoObjectType):
     class Meta:
         model = UserAnswer
-

@@ -1,0 +1,17 @@
+image: python:3.6
+
+stages:
+  - test
+  - deploy
+
+before_script:
+  - apt-get update -qq && apt-get install -y -qq sshpass
+
+all_tests:
+  stage: test
+  script:
+    - sh ./sh_scripts/install.sh
+    - pytest
+  when: on_success
+  only:
+    - master

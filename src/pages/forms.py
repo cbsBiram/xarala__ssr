@@ -84,7 +84,10 @@ class TeacherCreationForm(UserCreationForm):
     password1 = forms.CharField(
         label="Mot de passe",
         widget=forms.PasswordInput(
-            {"class": "form-control border-left-0 pl-0", "placeholder": "Mot de passe",}
+            {
+                "class": "form-control border-left-0 pl-0",
+                "placeholder": "Mot de passe",
+            }
         ),
     )
     email = forms.EmailField(

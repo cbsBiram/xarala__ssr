@@ -8,32 +8,50 @@ import xarala.utils
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Social',
+            name="Social",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('facebook', models.CharField(blank=True, max_length=150, null=True)),
-                ('twitter', models.CharField(blank=True, max_length=150, null=True)),
-                ('instagram', models.CharField(blank=True, max_length=150, null=True)),
-                ('github', models.CharField(blank=True, max_length=150, null=True)),
-                ('website', models.CharField(blank=True, max_length=150, null=True)),
-                ('linkedin', models.CharField(blank=True, max_length=150, null=True)),
-                ('stackoverflow', models.CharField(blank=True, max_length=150, null=True)),
-                ('whatsapp', models.CharField(blank=True, max_length=150, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("facebook", models.CharField(blank=True, max_length=150, null=True)),
+                ("twitter", models.CharField(blank=True, max_length=150, null=True)),
+                ("instagram", models.CharField(blank=True, max_length=150, null=True)),
+                ("github", models.CharField(blank=True, max_length=150, null=True)),
+                ("website", models.CharField(blank=True, max_length=150, null=True)),
+                ("linkedin", models.CharField(blank=True, max_length=150, null=True)),
+                (
+                    "stackoverflow",
+                    models.CharField(blank=True, max_length=150, null=True),
+                ),
+                ("whatsapp", models.CharField(blank=True, max_length=150, null=True)),
             ],
         ),
         migrations.AddField(
-            model_name='customuser',
-            name='avatar',
-            field=models.ImageField(blank=True, null=True, upload_to=xarala.utils.upload_image_path),
+            model_name="customuser",
+            name="avatar",
+            field=models.ImageField(
+                blank=True, null=True, upload_to=xarala.utils.upload_image_path
+            ),
         ),
         migrations.AddField(
-            model_name='customuser',
-            name='scoial',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='users.Social'),
+            model_name="customuser",
+            name="scoial",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="users.Social",
+            ),
         ),
     ]

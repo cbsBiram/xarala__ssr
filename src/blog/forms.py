@@ -14,7 +14,10 @@ class CreatePostForm(forms.ModelForm):
             }
         ),
     )
-    content = forms.CharField(label="Description", widget=SummernoteWidget(),)
+    content = forms.CharField(
+        label="Description",
+        widget=SummernoteWidget(),
+    )
     image_url = forms.CharField(
         max_length=254,
         label="URL de l'image",

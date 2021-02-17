@@ -7,13 +7,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('course', '0006_auto_20191019_1630'),
+        ("course", "0006_auto_20191019_1630"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='lesson',
-            name='cloudinary_file',
-            field=cloudinary.models.CloudinaryField(blank=True, max_length=255, null=True),
+            model_name="lesson",
+            name="cloudinary_file",
+            field=cloudinary.models.CloudinaryField(
+                blank=True, max_length=255, null=True
+            ),
         ),
     ]

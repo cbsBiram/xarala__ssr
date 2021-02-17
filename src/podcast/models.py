@@ -15,11 +15,9 @@ class Episode(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField(blank=True)
     guest = models.ForeignKey(Guest, models.SET_NULL, blank=True, null=True)
-    publisher = models.ForeignKey(
-        CustomUser, models.SET_NULL, blank=True, null=True)
+    publisher = models.ForeignKey(CustomUser, models.SET_NULL, blank=True, null=True)
     embed = models.TextField(blank=True)
-    thumbnail = models.ImageField(
-        upload_to=upload_image_path, null=True, blank=True)
+    thumbnail = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     published_at = models.DateField(auto_now_add=True)
 
     def __str__(self):

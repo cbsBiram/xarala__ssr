@@ -6,17 +6,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0015_education'),
+        ("users", "0015_education"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ResetCode',
+            name="ResetCode",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('code', models.CharField(max_length=4, unique=True)),
-                ('email', models.EmailField(max_length=254)),
-                ('expired', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("code", models.CharField(max_length=4, unique=True)),
+                ("email", models.EmailField(max_length=254)),
+                ("expired", models.BooleanField(default=False)),
             ],
         ),
     ]

@@ -4,19 +4,24 @@ from .models import Quiz, Question, Answer, UserAnswer
 
 
 class QuizAdmin(SummernoteModelAdmin):
-    summernote_fields = ("content")
+    summernote_fields = "content"
+
 
 class QuestionAdmin(SummernoteModelAdmin):
-    summernote_fields = ("content")
+    summernote_fields = "content"
+
 
 class AnswerAdmin(SummernoteModelAdmin):
-    summernote_fields = ("content")
+    summernote_fields = "content"
+
 
 class UserAnswerAdmin(SummernoteModelAdmin):
-    summernote_fields = ("content")
+    summernote_fields = "content"
+
 
 class ResultAdmin(SummernoteModelAdmin):
-    summernote_fields = ("content")
+    summernote_fields = "content"
+
 
 admin.site.register(Quiz, QuizAdmin)
 admin.site.register(Question, QuestionAdmin)

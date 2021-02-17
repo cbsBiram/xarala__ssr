@@ -7,18 +7,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('course', '0024_chapter_chapter_number'),
+        ("course", "0024_chapter_chapter_number"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='chapter',
-            name='order',
+            model_name="chapter",
+            name="order",
             field=course.fields.OrderField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='lesson',
-            name='order',
+            model_name="lesson",
+            name="order",
             field=course.fields.OrderField(blank=True, null=True),
         ),
     ]

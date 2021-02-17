@@ -6,48 +6,57 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('course', '0022_auto_20201107_1101'),
+        ("course", "0022_auto_20201107_1101"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='course',
-            old_name='original_price',
-            new_name='discount',
+            model_name="course",
+            old_name="original_price",
+            new_name="discount",
         ),
         migrations.RemoveField(
-            model_name='course',
-            name='is_tutorial',
+            model_name="course",
+            name="is_tutorial",
         ),
         migrations.RemoveField(
-            model_name='course',
-            name='projects',
+            model_name="course",
+            name="projects",
         ),
         migrations.RemoveField(
-            model_name='course',
-            name='requirements',
+            model_name="course",
+            name="requirements",
         ),
         migrations.RemoveField(
-            model_name='course',
-            name='target_audience',
+            model_name="course",
+            name="target_audience",
         ),
         migrations.RemoveField(
-            model_name='course',
-            name='what_will_i_learn',
+            model_name="course",
+            name="what_will_i_learn",
         ),
         migrations.AddField(
-            model_name='course',
-            name='short_description',
-            field=models.TextField(default='Dans ce cours, vous allez apprendre...'),
+            model_name="course",
+            name="short_description",
+            field=models.TextField(default="Dans ce cours, vous allez apprendre..."),
         ),
         migrations.AlterField(
-            model_name='course',
-            name='level',
-            field=models.CharField(choices=[('Débutant', 'Débutant'), ('Moyen', 'Moyen'), ('Intermédiaire', 'Intermédiaire'), ('Tous les niveaux', 'Tous les niveaux')], default='Débutant', max_length=150),
+            model_name="course",
+            name="level",
+            field=models.CharField(
+                choices=[
+                    ("Débutant", "Débutant"),
+                    ("Moyen", "Moyen"),
+                    ("Intermédiaire", "Intermédiaire"),
+                    ("Tous les niveaux", "Tous les niveaux"),
+                ],
+                default="Débutant",
+                max_length=150,
+            ),
         ),
         migrations.AlterField(
-            model_name='course',
-            name='promote_video',
+            model_name="course",
+            name="promote_video",
             field=models.TextField(null=True),
         ),
     ]

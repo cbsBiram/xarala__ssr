@@ -85,7 +85,10 @@ class CreateLesson(forms.ModelForm):
             }
         ),
     )
-    text = forms.CharField(label="Description", widget=SummernoteWidget(),)
+    text = forms.CharField(
+        label="Description",
+        widget=SummernoteWidget(),
+    )
     # widget=forms.Textarea(
     # attrs={'class': 'form-textarea mt-1 block w-full border', 'rows': '3'})
     video_id = forms.CharField(

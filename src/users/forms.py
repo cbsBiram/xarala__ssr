@@ -63,7 +63,9 @@ class CustomUserLoginForm(forms.Form):
 
 
 class CustomUserProfileForm(forms.ModelForm):
-    avatar = forms.ImageField(label="Photo de profile",)
+    avatar = forms.ImageField(
+        label="Photo de profile",
+    )
 
     class Meta:
         model = CustomUser

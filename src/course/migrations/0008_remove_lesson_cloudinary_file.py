@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('course', '0007_lesson_cloudinary_file'),
+        ("course", "0007_lesson_cloudinary_file"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='lesson',
-            name='cloudinary_file',
+            model_name="lesson",
+            name="cloudinary_file",
         ),
     ]

@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('events', '0001_initial'),
+        ("events", "0001_initial"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='event',
-            old_name='place',
-            new_name='location',
+            model_name="event",
+            old_name="place",
+            new_name="location",
         ),
         migrations.AddField(
-            model_name='event',
-            name='country',
+            model_name="event",
+            name="country",
             field=models.CharField(max_length=240, null=True),
         ),
     ]

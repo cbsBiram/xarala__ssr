@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('course', '0012_course_published'),
+        ("course", "0012_course_published"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='course',
-            options={'ordering': ['-date_created']},
+            name="course",
+            options={"ordering": ["-date_created"]},
         ),
         migrations.AddField(
-            model_name='lesson',
-            name='date_created',
+            model_name="lesson",
+            name="date_created",
             field=models.DateTimeField(auto_now_add=True, null=True),
         ),
     ]

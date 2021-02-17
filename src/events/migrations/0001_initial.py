@@ -8,33 +8,58 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Speaker',
+            name="Speaker",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=150)),
-                ('last_name', models.CharField(max_length=150)),
-                ('title', models.CharField(blank=True, max_length=150, null=True)),
-                ('email', models.EmailField(blank=True, max_length=254, null=True, unique=True)),
-                ('avatar', models.ImageField(blank=True, null=True, upload_to=xarala.utils.upload_image_path)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("first_name", models.CharField(max_length=150)),
+                ("last_name", models.CharField(max_length=150)),
+                ("title", models.CharField(blank=True, max_length=150, null=True)),
+                (
+                    "email",
+                    models.EmailField(
+                        blank=True, max_length=254, null=True, unique=True
+                    ),
+                ),
+                (
+                    "avatar",
+                    models.ImageField(
+                        blank=True, null=True, upload_to=xarala.utils.upload_image_path
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Event',
+            name="Event",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=240)),
-                ('description', models.TextField()),
-                ('place', models.CharField(max_length=240)),
-                ('total_seats', models.IntegerField(default=0)),
-                ('date_created', models.DateTimeField(auto_now_add=True)),
-                ('date_start', models.DateTimeField(blank=True, null=True)),
-                ('date_end', models.DateTimeField(blank=True, null=True)),
-                ('speakers', models.ManyToManyField(blank=True, to='events.Speaker')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=240)),
+                ("description", models.TextField()),
+                ("place", models.CharField(max_length=240)),
+                ("total_seats", models.IntegerField(default=0)),
+                ("date_created", models.DateTimeField(auto_now_add=True)),
+                ("date_start", models.DateTimeField(blank=True, null=True)),
+                ("date_end", models.DateTimeField(blank=True, null=True)),
+                ("speakers", models.ManyToManyField(blank=True, to="events.Speaker")),
             ],
         ),
     ]

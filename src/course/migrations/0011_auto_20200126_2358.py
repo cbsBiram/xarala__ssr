@@ -6,21 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('course', '0010_lesson_is_video'),
+        ("course", "0010_lesson_is_video"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='chapter',
-            options={'ordering': ['id']},
+            name="chapter",
+            options={"ordering": ["id"]},
         ),
         migrations.AlterModelOptions(
-            name='lesson',
-            options={'ordering': ['id']},
+            name="lesson",
+            options={"ordering": ["id"]},
         ),
         migrations.AddField(
-            model_name='course',
-            name='featured',
+            model_name="course",
+            name="featured",
             field=models.BooleanField(default=False),
         ),
     ]

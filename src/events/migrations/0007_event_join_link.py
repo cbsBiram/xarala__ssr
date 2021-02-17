@@ -7,13 +7,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('events', '0006_auto_20190922_1800'),
+        ("events", "0006_auto_20190922_1800"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='join_link',
-            field=models.TextField(blank=True, null=True, validators=[django.core.validators.URLValidator()]),
+            model_name="event",
+            name="join_link",
+            field=models.TextField(
+                blank=True,
+                null=True,
+                validators=[django.core.validators.URLValidator()],
+            ),
         ),
     ]

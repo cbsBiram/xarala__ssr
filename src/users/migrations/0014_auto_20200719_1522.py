@@ -8,53 +8,67 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0013_auto_20200701_1629'),
+        ("users", "0013_auto_20200701_1629"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Experience',
+            name="Experience",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('begin_at', models.DateField(blank=True, null=True)),
-                ('end_at', models.DateField(blank=True, null=True)),
-                ('title', models.CharField(blank=True, max_length=50, null=True)),
-                ('Company', models.CharField(blank=True, max_length=50, null=True)),
-                ('project_link', models.URLField(blank=True, max_length=50, null=True)),
-                ('description', models.TextField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("begin_at", models.DateField(blank=True, null=True)),
+                ("end_at", models.DateField(blank=True, null=True)),
+                ("title", models.CharField(blank=True, max_length=50, null=True)),
+                ("Company", models.CharField(blank=True, max_length=50, null=True)),
+                ("project_link", models.URLField(blank=True, max_length=50, null=True)),
+                ("description", models.TextField()),
             ],
         ),
         migrations.AddField(
-            model_name='customuser',
-            name='facebook',
+            model_name="customuser",
+            name="facebook",
             field=models.CharField(blank=True, max_length=250, null=True),
         ),
         migrations.AddField(
-            model_name='customuser',
-            name='github',
+            model_name="customuser",
+            name="github",
             field=models.CharField(blank=True, max_length=250, null=True),
         ),
         migrations.AddField(
-            model_name='customuser',
-            name='linkedin',
+            model_name="customuser",
+            name="linkedin",
             field=models.CharField(blank=True, max_length=250, null=True),
         ),
         migrations.AddField(
-            model_name='customuser',
-            name='title',
+            model_name="customuser",
+            name="title",
             field=models.CharField(blank=True, max_length=250, null=True),
         ),
         migrations.AddField(
-            model_name='customuser',
-            name='twitter',
+            model_name="customuser",
+            name="twitter",
             field=models.CharField(blank=True, max_length=250, null=True),
         ),
         migrations.DeleteModel(
-            name='Social',
+            name="Social",
         ),
         migrations.AddField(
-            model_name='experience',
-            name='user',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='experiences', to=settings.AUTH_USER_MODEL),
+            model_name="experience",
+            name="user",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="experiences",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

@@ -10,12 +10,11 @@ class UserLog(models.Model):
     is_active = models.BooleanField(default=True)
     user_type = models.CharField(max_length=10)
     user = models.ForeignKey(
-        CustomUser,
-        models.SET_NULL,
-        null=True, blank=True, related_name='user_logs')
+        CustomUser, models.SET_NULL, null=True, blank=True, related_name="user_logs"
+    )
 
     class Meta:
-        ordering = ['-id']
+        ordering = ["-id"]
 
     def __str__(self):
-        return f'{self.user}: {self.action}'
+        return f"{self.user}: {self.action}"

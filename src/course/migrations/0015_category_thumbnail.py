@@ -7,13 +7,15 @@ import xarala.utils
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('course', '0014_course_original_price'),
+        ("course", "0014_course_original_price"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='category',
-            name='thumbnail',
-            field=models.ImageField(blank=True, null=True, upload_to=xarala.utils.upload_image_path),
+            model_name="category",
+            name="thumbnail",
+            field=models.ImageField(
+                blank=True, null=True, upload_to=xarala.utils.upload_image_path
+            ),
         ),
     ]

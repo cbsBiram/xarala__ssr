@@ -6,22 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('events', '0005_auto_20190922_1759'),
+        ("events", "0005_auto_20190922_1759"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='event',
-            name='short_description',
+            model_name="event",
+            name="short_description",
         ),
         migrations.AddField(
-            model_name='event',
-            name='content',
+            model_name="event",
+            name="content",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='event',
-            name='description',
+            model_name="event",
+            name="description",
             field=models.TextField(null=True),
         ),
     ]
