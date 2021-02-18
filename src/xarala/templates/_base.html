@@ -85,9 +85,9 @@
       <ul>
         <li>
           {% if request.user.is_authenticated %}
-          <a href="{% url 'register' %}" class="upload_btn d-block" title="Commencez Ici">Commencez Ici</a>
+          <a href="{% url 'register' %}" class="upload_btn d-block" title="Tableau de bord">Tableau de bord</a>
           {% else %}
-          <a href="{% url 'register' %}" class="upload_btn d-block" title="Commencez Ici">Tableau de bord</a>
+          <a href="{% url 'register' %}" class="upload_btn d-block" title="Commencez Ici">Commencez Ici</a>
           {% endif %}
         </li>
       </ul>
