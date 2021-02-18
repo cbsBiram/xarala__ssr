@@ -118,10 +118,8 @@ class UpdateUser(graphene.Mutation):
         lastName = graphene.String()
         phone = graphene.String()
         address = graphene.String()
-        bio = graphene.String()
-        accountType = graphene.String()
 
-    def mutate(self, info, firstName, lastName, phone, address, bio, accountType):
+    def mutate(self, info, firstName, lastName, phone, address):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Log in to edit user account!")
@@ -130,10 +128,6 @@ class UpdateUser(graphene.Mutation):
         user.last_name = lastName
         user.address = address
         user.phone = phone
-        user.bio = bio
-        user.is_student = True if accountType == "student" else False
-        user.is_teacher = True if accountType == "teacher" else False
-        user.is_writer = True if accountType == "author" else False
         user.save()
         return UpdateUser(user=user)
 
