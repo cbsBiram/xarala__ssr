@@ -20,7 +20,7 @@ codestyle:
   stage: test
   script:
     - sh ./sh_scripts/install.sh
-    - cd src && flake8
+    - cd src && flake8 && black --check .
   when: on_success
   only:
     - main
