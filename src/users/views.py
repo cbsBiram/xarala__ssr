@@ -67,6 +67,9 @@ def register(request):
         if request.method == "POST":
             # Get form values
             email = request.POST["email"]
+            first_name = request.POST["first_name"]
+            is_teacher = request.POST.get("is_teacher")
+            last_name = request.POST["last_name"]
             mail_to_lower = email.lower()
             password = request.POST["password"]
             password2 = request.POST["password2"]
@@ -77,8 +80,15 @@ def register(request):
                     return redirect(f"/users/register/?next={redirect_path}")
                 else:
                     # looks good
+                    is_trainer = True if is_teacher else False
+                    is_student = False if is_teacher else True
                     user = CustomUser.objects.create_user(
-                        email=mail_to_lower, password=password, is_student=True
+                        email=mail_to_lower,
+                        password=password,
+                        is_teacher=is_trainer,
+                        is_student=is_student,
+                        first_name=first_name,
+                        last_name=last_name,
                     )
                     user.save()
                     # launch asynchronous tasks

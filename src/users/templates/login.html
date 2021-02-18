@@ -9,44 +9,34 @@ Authentification
 {% block content %}
 {% include "partials/_alerts.html" %}
 
-
 <div class="col-lg-6 col-md-8">
   <div class="sign_form">
-    <h2>Welcome Back</h2>
-    <p>Log In to Your Edututs+ Account!</p>
-    <button class="social_lnk_btn color_btn_fb"><i class="uil uil-facebook-f"></i>Continue with
-      Facebook</button>
-    <button class="social_lnk_btn mt-15 color_btn_tw"><i class="uil uil-twitter"></i>Continue with
+    <h2>Content de te revoir</h2>
+    <p>Connectez-vous à votre compte</p>
+    <button class="social_lnk_btn color_btn_fb"><i class="uil uil-facebook-f"></i>Continuez avec Facebook</button>
+    <button class="social_lnk_btn mt-15 color_btn_tw"><i class="uil uil-twitter"></i>Continuez avec
       Twitter</button>
-    <button class="social_lnk_btn mt-15 color_btn_go"><i class="uil uil-google"></i>Continue with
+    <button class="social_lnk_btn mt-15 color_btn_go"><i class="uil uil-google"></i>Continuez avec
       Google</button>
-    <form>
+    <form method="POST">
+      {% csrf_token %}
       <div class="ui search focus mt-15">
         <div class="ui left icon input swdh95">
-          <input class="prompt srch_explore" type="email" name="emailaddress" value="" id="id_email" required=""
-            maxlength="64" placeholder="Email Address">
+          <input class="prompt srch_explore" type="email" name="email" required placeholder="monemail@gmail.com">
           <i class="uil uil-envelope icon icon2"></i>
         </div>
       </div>
       <div class="ui search focus mt-15">
         <div class="ui left icon input swdh95">
-          <input class="prompt srch_explore" type="password" name="password" value="" id="id_password" required=""
-            maxlength="64" placeholder="Password">
+          <input class="prompt srch_explore" type="password" name="password" required placeholder="Mot de passe">
           <i class="uil uil-key-skeleton-alt icon icon2"></i>
         </div>
       </div>
-      <div class="ui form mt-30 checkbox_sign">
-        <div class="inline field">
-          <div class="ui checkbox mncheck">
-            <input type="checkbox" tabindex="0" class="hidden">
-            <label>Remember Me</label>
-          </div>
-        </div>
-      </div>
-      <button class="login-btn" type="submit">Sign In</button>
+      <button class="login-btn" type="submit">Connexion</button>
     </form>
-    <p class="sgntrm145">Or <a href="forgot_password.html">Forgot Password</a>.</p>
-    <p class="mb-0 mt-30 hvsng145">Don't have an account? <a href="sign_up.html">Sign Up</a></p>
+    <p class="sgntrm145">Ou <a href="{% url 'password_reset' %}">Mot de passe oublié?</a>.</p>
+    <p class="mb-0 mt-30 hvsng145">Pas encore membre? <a
+        href="{% url 'register' %}?next={{ next|default_if_none:'/' }}">S'inscrire</a></p>
   </div>
   <div class="sign_footer"><img src="images/sign_logo.png" alt="">© 2020 <strong>Cursus</strong>. All Rights
     Reserved.</div>
