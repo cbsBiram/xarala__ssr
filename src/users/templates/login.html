@@ -38,7 +38,6 @@ Authentification
     <p class="mb-0 mt-30 hvsng145">Pas encore membre? <a
         href="{% url 'register' %}?next={{ next|default_if_none:'/' }}">S'inscrire</a></p>
   </div>
-  <div class="sign_footer"><img src="images/sign_logo.png" alt="">© 2020 <strong>Cursus</strong>. All Rights
-    Reserved.</div>
+  {% include "_auth_footer.html" %}
 </div>
 {% endblock content %}

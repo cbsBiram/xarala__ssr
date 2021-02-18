@@ -56,8 +56,7 @@ Authentification
         d'utilisation</a></p>
     <p class="mb-0 mt-30">Déja membre? <a href="{% url 'login' %}?next={{ next|default_if_none:'/' }}">Connexion</a></p>
   </div>
-  <div class="sign_footer"><img src="images/sign_logo.png" alt="">© 2020 <strong>Cursus</strong>. All Rights Reserved.
-  </div>
+  {% include "_auth_footer.html" %}
 </div>
 
 {% endblock content %}
