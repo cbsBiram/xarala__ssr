@@ -12,7 +12,7 @@ from .models import CustomUser, Experience, ResetCode
 class CustomUserResource(resources.ModelResource):
     class Meta:
         model = CustomUser
-        exclude = "password"
+        # exclude = "password"
 
 
 class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):

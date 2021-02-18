@@ -2,83 +2,97 @@
 {% load static %}
 
 {% block content %}
-<div class="wrapper _bg4586 _new89">
-    <div class="_215cd2">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="title129 mt-35 mb-35">
-                        <h2>Votre carrière commence ici. <br> Bénéficiez de l'emploi garanti, Grâce à des formations
-                            pratiques.</h2>
+
+<div class="_215td5">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12">
+                <form class="col-lg-7 mx-auto mt-5" method='GET' action="{% url 'search:results' %}">
+
+                    <div class="input-group bg-white rounded p-2">
+                        <input type="text" class="form-control border-white" placeholder="Que souhaitez-vous apprendre?"
+                            required name="q">
+                        <div class="input-group-append">
+                            <button class="btn btn-danger rounded" type="submit">
+                                Rechercher
+                                <i class="uil uil-angle-right-b"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="_215td5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="title589 text-center">
-                        <h2>Que voulez-vous accomplir ?</h2>
-                        <p>Chez Xarala, vous avez accès:</p>
-                        <img class="line-title" src="{% static 'images/line.svg' %}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3  col-sm-6">
-                    <div class="feature125">
-                        <i class="uil uil-mobile-android-alt"></i>
-                        <h4>Formation</h4>
-                        <p>Des formations de qualitées, adaptées à votre besoin.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3  col-sm-6">
-                    <div class="feature125">
-                        <i class="uil uil-users-alt"></i>
-                        <h4>Mentorat</h4>
-                        <p>Vous serez mentoré par les meilleurs formateurs.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3  col-sm-6">
-                    <div class="feature125">
-                        <i class="uil uil-award"></i>
-                        <h4>Certificat</h4>
-                        <p>Des certificats de réussite que vous pouvez ajouter sur votre CV pour booster votre carrière.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-3  col-sm-6">
-                    <div class="feature125">
-                        <i class="uil uil-globe"></i>
-                        <h4>Projet</h4>
-                        <p>Vous travaillez sur des projets et cas d'utilisation réels.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="_215zd5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="title478">
-                        <h2>Notre approche</h2>
-                        <img class="line-title" src="{% static 'images/line.svg' %}" alt="">
-                        <p>"Learn By Doing". Arretez de payer cher pour juste avoir "un diplôme" qui ne vous garanti pas
-                            votre "un emploi".</p>
-                        <p>Ici, vous apprenez des competence. Vivez une expérience unique en apprenant la technologie
-                            dans une langue que vous maitrîsez.</p>
-                        <!-- call to action -->
-                        <a href="#" class="crer_btn_link">Je commence</a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="story125">
-                        <img src="{% static 'images/about/stroy_img.png' %}" alt="">
-                    </div>
-                </div>
+                </form>
 
             </div>
+
+        </div>
+    </div>
+</div>
+<div class="_215td5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title589 text-center">
+                    <h2>Que voulez-vous accomplir ?</h2>
+                    <p>Chez Xarala, vous avez accès:</p>
+                    <img class="line-title" src="{% static 'images/line.svg' %}" alt="">
+                </div>
+            </div>
+            <div class="col-lg-3  col-sm-6">
+                <div class="feature125">
+                    <i class="uil uil-mobile-android-alt"></i>
+                    <h4>Formation</h4>
+                    <p>Des formations de qualitées, adaptées à votre besoin.</p>
+                </div>
+            </div>
+            <div class="col-lg-3  col-sm-6">
+                <div class="feature125">
+                    <i class="uil uil-users-alt"></i>
+                    <h4>Mentorat</h4>
+                    <p>Vous serez mentoré par les meilleurs formateurs.</p>
+                </div>
+            </div>
+            <div class="col-lg-3  col-sm-6">
+                <div class="feature125">
+                    <i class="uil uil-award"></i>
+                    <h4>Certificat</h4>
+                    <p>Des certificats de réussite que vous pouvez ajouter sur votre CV pour booster votre
+                        carrière.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3  col-sm-6">
+                <div class="feature125">
+                    <i class="uil uil-globe"></i>
+                    <h4>Projet</h4>
+                    <p>Vous travaillez sur des projets et cas d'utilisation réels.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="_215zd5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="title478">
+                    <h2>Notre approche</h2>
+                    <img class="line-title" src="{% static 'images/line.svg' %}" alt="">
+                    <p>"Learn By Doing". Arretez de payer cher pour juste avoir "un diplôme" qui ne vous garanti
+                        pas
+                        votre "un emploi".</p>
+                    <p>Ici, vous apprenez des competence. Vivez une expérience unique en apprenant la
+                        technologie
+                        dans une langue que vous maitrîsez.</p>
+                    <!-- call to action -->
+                    <a href="#" class="crer_btn_link">Je commence</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="story125">
+                    <img src="{% static 'images/about/stroy_img.png' %}" alt="">
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
