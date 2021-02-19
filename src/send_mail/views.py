@@ -17,7 +17,7 @@ def send_new_register_email(email):
     to_emails = [
         email,
     ]
-    subject, from_email = ("Bienvenue chez Xarala", "Fatou de Xarala")
+    subject, from_email = ("Bienvenue chez Xarala", "Ousseynou de Xarala")
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(
         subject,
@@ -39,7 +39,7 @@ def become_teacher_mail(email, message):
         email,
         "xaralaxarala@gmail.com",
     ]
-    subject, from_email = ("Xarala - Devenir instructeur", "Fatou de Xarala")
+    subject, from_email = ("Xarala - Devenir instructeur", "Ousseynou de Xarala")
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(
         subject,
@@ -63,7 +63,7 @@ def enroll_course_mail(student_email, course, order):
         "order": order,
     }
     to_emails = [student_email]
-    subject, from_email = (f"Xarala -{course_title}", "Fatou de Xarala")
+    subject, from_email = (f"Xarala -{course_title}", "Ousseynou de Xarala")
     today = datetime.today()
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(
@@ -100,7 +100,7 @@ def passowrd_reset_mail(user_email):
     to_emails = [user_email]
     subject, from_email = (
         "Xarala - réinitialisation mot de passe",
-        "Fatou de Xarala",
+        "Ousseynou de Xarala",
     )
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(
@@ -123,7 +123,7 @@ def send_author_submitted_email(author, article_title):
     to_emails = [
         "xaralaxarala@gmail.com",
     ]
-    subject, from_email = ("Nouvel article sur Xarala", "Fatou de Xarala")
+    subject, from_email = ("Nouvel article sur Xarala", "Ousseynou de Xarala")
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(
         subject,

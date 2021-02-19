@@ -64,7 +64,7 @@ def subscribe_user_to_course(request, course_slug):
         if student.is_authenticated:
             if course not in student.courses_enrolled.all():
                 student.courses_enrolled.add(course)
-                enroll_course.delay(student.email, course.title)
+                # enroll_course.delay(student.email, course.title)
                 UserLog.objects.create(
                     action=f"Enrolled {course} course",
                     user_type="Student",
