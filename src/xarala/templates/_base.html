@@ -83,10 +83,7 @@
 
         <li class="ui top right pointing dropdown">
           <a href="#" class="opts_account">
-            <img src="{% if user.avatar %} {{ user.avatar.url }}
-            {% else %} {% static 'images/logo.png' %}
-            {% endif %}
-            " alt="">
+            <img src="{% static 'images/logo.png' %}" alt="">
           </a>
           <div class="menu dropdown_account">
             <div class="channel_my">
