@@ -14,3 +14,7 @@
 .btn-appstore a:hover {
   color: #cacaca !important;
 }
+
+.new-section {
+  padding: 4rem 0;
+}

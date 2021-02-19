@@ -6,76 +6,75 @@ Tous les cours
 {% endblock title %}
 
 {% block content %}
+<div class="new-section">
+  <div class="sa4d25">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 ">
+          <div class="section3125 mt-50">
+            <h4 class="item_title">Nos cours</h4>
+            <a href="#" class="see150">Voir tout</a>
+            <div class="la5lo1">
+              <div class="owl-carousel featured_courses owl-theme">
 
-{% include "partials/_breadcrumbs.html" with previous="Accueil" previous_url="pages:home" current="Cours" text="Tous les cours" %}
+                {% for course in courses %}
 
-<section class="paddingTop-50 paddingBottom-100 bg-light-v2">
-  <div class="container">
-    <div class="row">
+                <div class="item">
+                  <div class="fcrse_1 mb-20">
+                    <a href="{{ course.get_absolute_url }}" class="fcrse_img">
+                      <img
+                        src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'assets/img/placeholder-1.jpg' %} {% endif %}"
+                        alt="{{ course.title }}" class="img-fluid">
+                      <div class="course-overlay">
+                        <div class="badge_seller">Nouveau</div>
+                        <div class="crse_reviews">
+                          <i class='uil uil-star'></i>4.5
+                        </div>
+                        <span class="play_btn1"><i class="uil uil-play"></i></span>
+                        <div class="crse_timer">
+                          {{ course.count_duration }}
+                        </div>
+                      </div>
+                    </a>
+                    <div class="fcrse_content">
+                      <div class="eps_dots more_dropdown">
+                        <a href="#"><i class='uil uil-ellipsis-v'></i></a>
+                        <div class="dropdown-content">
+                          <span><i class='uil uil-share-alt'></i>Partager</span>
+                          <span><i class="uil uil-heart"></i>Je m'inscrit</span>
+                          <!-- <span><i class='uil uil-ban'></i>Not Interested</span>
+                        <span><i class="uil uil-windsock"></i>Report</span> -->
+                        </div>
+                      </div>
+                      <div class="vdtodt">
+                        <span class="vdt14">Langue : {{ course.language.name }}</span>
+                        <span class="vdt14">{{ course.count_lessons }} lectures</span>
+                      </div>
+                      <a href="{{ course.get_absolute_url }}" class="crse14s">{{  course.title }}</a>
+                      <a href="#" class="crse-cate">{{ course.categories.first }}</a>
+                      <div class="auth1lnkprce">
+                        <p class="cr1fot">Par <a
+                            href="#">{{ course.teacher.get_full_name|default_if_none:"Xarala" }}</a>
+                        </p>
+                        <div class="prce142">{{ course.price }} CFA</div>
+                        <button class="shrt-cart-btn" title="Ajouter au panier"><i
+                            class="uil uil-shopping-cart-alt"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {% endfor %}
 
 
-      {% if courses %}
-
-      {% for course in courses %}
-
-      <div class="col-lg-4 col-md-6 marginTop-30">
-        <div href="{{ course.get_absolute_url }}" class="card height-100p text-gray shadow-v1">
-          <img class="card-img-top"
-            src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'assets/img/placeholder-1.jpg' %} {% endif %}"
-            alt="{{ course.title }}">
-          <div class="card-body">
-            <span class="badge position-absolute top-0 bg-success text-white" data-offset-top="-13">
-              {{ course.categories.first }}
-            </span>
-            <a href="{{ course.get_absolute_url }}" class="h5">
-              {{ course.title }}
-            </a>
-            <p class="my-3">
-              <i class="ti-user mr-2"></i>
-              {{ course.teacher.get_full_name|default_if_none:"Xarala" }}
-            </p>
-            <p class="mb-0">
-              <span class="text-dark">5</span>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <span>({{ course.count_students }})</span>
-            </p>
+              </div>
+            </div>
           </div>
-          <div class="card-footer media align-items-center justify-content-between">
-            <ul class="list-unstyled mb-0">
-              <li class="mb-1">
-                <i class="ti-headphone small mr-2"></i>
-                {{ course.count_lessons }} lectures
-              </li>
-              <li class="mb-1">
-                <i class="ti-time small mr-2"></i>
-                {{ course.count_duration }}
-              </li>
-            </ul>
-            <h4 class="h5 text-right">
 
-              {% if course.price %}
-              <span class="text-primary"> {{ course.price }} XOF</span>
-              {% else %}
-              <span class="text-success">Gratuit</span>
-
-              {% endif %}
-            </h4>
-          </div>
         </div>
       </div>
-
-      {% endfor %}
-
-      {% endif %}
-
     </div>
+  </div>
 
-    {% include "partials/_pagination.html" %}
-
-  </div> <!-- END container-->
-</section>
+</div>
 {% endblock content %}

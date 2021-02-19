@@ -6,21 +6,24 @@
 {% endblock title %}
 
 {% block content %}
-<section class="paddingBottom-100">
-  <div class="container">
 
+<div class="new-section">
+
+  <div class="container-fluid">
     <h2 class="mt-4">
       {{ lesson.title }}
     </h2>
     <div class="row">
-      <div class="col-lg-8 ">
-        <div class="ec-video-container my-4">
+      <div class="col-lg-8">
+        <div class="embed-responsive embed-responsive-16by9">
           {% if lesson.video_url %}
           {% video lesson.video_url 'small' %}
           {% else %}
-          <iframe src="https://www.youtube.com/embed/{{ lesson.video_id }}?rel=0"></iframe>
+          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ lesson.video_id }}?rel=0"
+            allowfullscreen></iframe>
           {% endif %}
         </div>
+
         <p>
           {{ lesson.text|safe }}
         </p>
@@ -49,60 +52,69 @@
             </ul>
 
           </div> <!-- END col-12 -->
-        </div> <!-- END row-->
+        </div>
 
       </div>
-      <div class="col-lg-4 ">
-        <div>
-          <div id="accordionCurriculum">
-            {% if object.course_chapters.all %}
-            {% for chapter in object.course_chapters.all %}
 
-            <div class="accordion-item list-group mb-3">
+      <div class="col-lg-4">
+        <div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
+          {% if object.course_chapters.all %}
+          {% for chapter in object.course_chapters.all %}
 
-              <div class="list-group-item bg-light">
-                <a class="row" href="#accordionCurriculum_{{ chapter.id }}" data-toggle="collapse" aria-expanded="true">
-                  <span class="col-9 col-md-8">
-                    <span class="accordion__icon text-primary mr-2">
-                      <i class="ti-plus"></i>
-                      <i class="ti-minus"></i>
-                    </span>
-                    <span class="h6 d-inline">{{ chapter.name }}</span>
-                  </span>
-                </a>
-              </div>
+          <a href="javascript:void(0)"
+            class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all">
+            <div class="section-header-left">
+              <span class="section-title-wrapper">
+                <i class='uil uil-presentation-play crse_icon'></i>
+                <span class="section-title-text">{{ chapter.name }}</span>
+              </span>
+            </div>
+            <div class="section-header-right">
+              <span class="num-items-in-section">{{ chapter.course_lessons.count }} lectures</span>
+              <span class="section-header-length">01.16:28
+              </span>
+            </div>
+          </a>
 
-              <div id="accordionCurriculum_{{ chapter.id }}" class="collapse show" data-parent="#accordionCurriculum">
+          <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
 
-                {% if chapter.course_lessons.all  %}
-                {% for lesson in chapter.course_lessons.all  %}
-                {% if lesson.chapter.id == chapter.id %}
-                <div class="list-group-item">
-                  <span class="row">
-                    <a class="col-9 col-md-8 {% if lesson.slug in request.get_full_path %} active {% endif %}"
-                      href="{% url 'course:course-detail' object.slug %}?lecture={{lesson.slug}}">
-                      <i class="ti-control-play small mr-1 text-primary"></i>
-                      {{ lesson.title }}
-                    </a>
-                    <span class="col-3 col-md-2 ml-auto text-right">10:36</span>
-                  </span>
+            {% if chapter.course_lessons.all  %}
+            {% for lesson in chapter.course_lessons.all  %}
+            {% if lesson.chapter.id == chapter.id %}
+
+            <div class="lecture-container">
+              <div class="left-content">
+                <i class='uil uil-play-circle icon_142'></i>
+                <div class="top">
+                  <div class="title">
+                    <a href="{% url 'course:course-detail' object.slug %}?lecture={{lesson.slug}}"
+                      class="{% if lesson.slug in request.get_full_path %} text-primary {% else %} text-dark  {% endif %}">
+                      {{ lesson.title }}</a>
+
+                  </div>
                 </div>
-                {% endif %}
-                {% endfor %}
-                {% endif %}
-
               </div>
-            </div> <!-- END accordion-item -->
+              <div class="details">
+                <span class="content-summary"> {{ lesson.duration }}</span>
+              </div>
+            </div>
 
+            {% endif %}
             {% endfor %}
             {% endif %}
 
-          </div> <!-- END accordion-->
-        </div> <!-- END tab-pane -->
+
+          </div>
+
+
+          {% endfor %}
+          {% endif %}
+
+        </div>
+
       </div>
+    </div>
+  </div>
 
-    </div> <!-- END row-->
-  </div> <!-- END container-->
-</section>
-
+</div>
 {% endblock content %}

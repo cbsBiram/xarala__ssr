@@ -54,7 +54,7 @@
       <a href="/"><img src="{% static 'images/logo.png' %}" alt="Logo Xarala" width="70"></a>
       <a href="/"><img class="logo-inverse" src="{% static 'images/logo.png' %}" alt="Logo Xarala" width="70"></a>
     </div>
-    <div class="top-category">
+    <div class="top-category d-block">
       <div class="ui compact menu cate-dpdwn">
         <div class="ui simple dropdown item">
           <a href="#" class="option_links p-0" title="categories"><i class="uil uil-apps"></i></a>
@@ -70,13 +70,8 @@
       <form action="{% url 'search:results' %}" method="get">
         <div class="ui search">
           <div class="ui left icon input swdh10">
-
-
             <input class="prompt srch10" type="text" placeholder="Que souhaitez-vous apprendre?" name="q" />
-
             <i class='uil uil-search-alt icon icon1'></i>
-
-
           </div>
         </div>
       </form>
@@ -95,36 +90,12 @@
   </header>
 
   <!-- Body Start -->
-  <div class="wrapper _bg4586 _new89 p-0">
-
+  <div class="wrapper _bg4586  p-0 ml-0">
     {% block content %}{% endblock content %}
-    <div class="_215td5">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="title589 text-center">
-              <h2>Installez Xarala sur votre téléphone.</h2>
-              <p>Xarala est votre compagnon de tous les jours, même lorsque vous disposez de données limitées ou d'une
-                connexion lente.</p>
-              <img class="line-title" src="{% static 'images/line.svg' %}" alt="">
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="btn-appstore text-center pt-2">
-              <a href="http://bit.ly/xaralaIOS" target="_blank" class="tm-btn btn-outline-dark">
-                <img src="{% static 'images/itunes_header.svg' %}" alt="Xarala Application mobile"> App Store</a>
-              <a href="https://play.google.com/store/apps/details?id=com.xaralamobile" target="_blank"
-                class="tm-btn btn-outline-dark">
-                <img src="{% static 'images/gplay_header.svg' %}" alt="Xarala Application mobile"> Google Play</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {% include "partials/_footer.html" %}
-
   </div>
+
+  {% include "partials/_footer.html" %}
+
   <!-- Body End -->
 
   <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
