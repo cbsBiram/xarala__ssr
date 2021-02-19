@@ -12,7 +12,7 @@ from .tasks import enroll_course
 
 
 class CourseListView(ListView):
-    queryset = Course.objects.order_by("-id")
+    queryset = Course.objects.published()
     paginate_by = 6
     context_object_name = "courses"
     template_name = "course_list.html"
