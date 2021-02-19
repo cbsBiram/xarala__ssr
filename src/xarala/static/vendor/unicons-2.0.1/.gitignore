@@ -10,7 +10,7 @@ config.json
 *-duplicates.json
 
 # Build Files
-fonts/*
+# fonts/*
 json/*
 script/*
 sprite/*
