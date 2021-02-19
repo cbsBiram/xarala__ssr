@@ -8,7 +8,8 @@ from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from .models import Course, Chapter, Lesson, Category
 from .forms import CreateCourse, CreateChapter, CreateLesson
 from userlogs.models import UserLog
-from .tasks import enroll_course
+
+# from .tasks import enroll_course
 
 
 class CourseListView(ListView):
