@@ -11,10 +11,15 @@ from .forms import ContactForm, TeacherCreationForm
 from .models import Subscribe, Team
 from userlogs.models import UserLog
 from users.models import CustomUser
+from course.models import Course
+from blog.models import Post
 
 
 def home(request):
-    return render(request, "index.html")
+    courses = Course.objects.published()[:3]
+    tutoriels = Post.objects.published()[:3]
+    context = {"courses": courses, "tutoriels": tutoriels}
+    return render(request, "index.html", context)
 
 
 def subscribe(request):

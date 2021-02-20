@@ -13,56 +13,12 @@ Tous les cours
         <div class="col-xl-12 col-lg-12 ">
           <div class="section3125 mt-50">
             <h4 class="item_title">Nos cours</h4>
-            <a href="#" class="see150">Voir tout</a>
             <div class="la5lo1">
               <div class="owl-carousel featured_courses owl-theme">
 
                 {% for course in courses %}
 
-                <div class="item">
-                  <div class="fcrse_1 mb-20">
-                    <a href="{{ course.get_absolute_url }}" class="fcrse_img">
-                      <img
-                        src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'assets/img/placeholder-1.jpg' %} {% endif %}"
-                        alt="{{ course.title }}" class="img-fluid">
-                      <div class="course-overlay">
-                        <div class="badge_seller">Nouveau</div>
-                        <div class="crse_reviews">
-                          <i class='uil uil-star'></i>4.5
-                        </div>
-                        <span class="play_btn1"><i class="uil uil-play"></i></span>
-                        <div class="crse_timer">
-                          {{ course.count_duration }}
-                        </div>
-                      </div>
-                    </a>
-                    <div class="fcrse_content">
-                      <div class="eps_dots more_dropdown">
-                        <a href="#"><i class='uil uil-ellipsis-v'></i></a>
-                        <div class="dropdown-content">
-                          <span><i class='uil uil-share-alt'></i>Partager</span>
-                          <span><i class="uil uil-heart"></i>Je m'inscrit</span>
-                          <!-- <span><i class='uil uil-ban'></i>Not Interested</span>
-                        <span><i class="uil uil-windsock"></i>Report</span> -->
-                        </div>
-                      </div>
-                      <div class="vdtodt">
-                        <span class="vdt14">Langue : {{ course.language.name }}</span>
-                        <span class="vdt14">{{ course.count_lessons }} lectures</span>
-                      </div>
-                      <a href="{{ course.get_absolute_url }}" class="crse14s">{{  course.title }}</a>
-                      <a href="#" class="crse-cate">{{ course.categories.first }}</a>
-                      <div class="auth1lnkprce">
-                        <p class="cr1fot">Par <a
-                            href="#">{{ course.teacher.get_full_name|default_if_none:"Xarala" }}</a>
-                        </p>
-                        <div class="prce142">{{ course.price }} CFA</div>
-                        <button class="shrt-cart-btn" title="Ajouter au panier"><i
-                            class="uil uil-shopping-cart-alt"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {% include "partials/_course-card.html" with course=course %}
 
                 {% endfor %}
 
