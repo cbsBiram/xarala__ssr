@@ -1,33 +1,29 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models.aggregates import Count, Sum
 from django.utils.decorators import method_decorator
 from users.decorators import staff_required
 from django.views.generic import View, ListView
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from course.models import Course
 from userlogs.models import UserLog
 from users.models import CustomUser
-from blog.models import Post
 
 
-@method_decorator([login_required], name="dispatch")
-class DashboardView(View):
-    template_name = "dashboard.html"
-
-    def get(self, request, *args, **kwargs):
-        user = self.request.user
-        total_courses = 0
-        total_posts = Post.objects.count()
-        if user.is_student:
-            total_courses = user.courses_enrolled.all().count()
-        elif user.is_teacher:
-            total_courses = user.courses_created.all().count()
-
-        context = {"total_courses": total_courses, "total_posts": total_posts}
-        return render(request, self.template_name, context)
+@login_required
+def dashboard_view(request):
+    user = request.user
+    if user.is_student:
+        pass  # student dashboard
+    if user.is_teacher and user.is_staff:
+        return redirect("dashboard:staff")
+    if user.is_teacher:
+        return redirect("dashboard:instructor-dashboard")
 
 
 @method_decorator([staff_required], name="dispatch")
 class StaffView(View):
+    template_name = "staff/dashboard.html"
+
     def get(self, request, *args, **kwargs):
         total_courses = Course.objects.count()
         total_users = CustomUser.objects.count()
@@ -47,3 +43,23 @@ class StaffView(View):
 class UserLogList(ListView):
     model = UserLog
     context_object_name = "logs"
+
+
+@login_required
+def instructor_dashboard(request):
+    instructor = request.user
+    courses_published = Course.objects.filter(teacher=instructor, published=True)
+    total_sales = courses_published.aggregate(Sum("price"))["price__sum"]
+    total_enroll = courses_published.aggregate(Count("students"))["students__count"]
+    courses_unpublished = Course.objects.filter(teacher=instructor, published=False)
+
+    return render(
+        request,
+        "dashboard/instructor.html",
+        {
+            "total_sales": total_sales,
+            "total_enroll": total_enroll,
+            "courses_published": courses_published,
+            "courses_unpublished": courses_unpublished,
+        },
+    )

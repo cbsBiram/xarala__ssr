@@ -6,7 +6,7 @@ from blog import views as blog_views
 app_name = "dashboard"
 
 urlpatterns = [
-    path("", views.DashboardView.as_view(), name="dashboard"),
+    path("", views.dashboard_view, name="dashboard"),
     path("staff/", views.StaffView.as_view(), name="staff"),
     path("staff/logs/", views.UserLogList.as_view(), name="logs"),
     path(
@@ -14,6 +14,7 @@ urlpatterns = [
         course_views.StudentCourseListView.as_view(),
         name="enrolled-courses",
     ),
+    path("instructor/", views.instructor_dashboard, name="instructor-dashboard"),
     path(
         "teacher/courses/",
         course_views.TeacherCourseListView.as_view(),
