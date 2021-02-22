@@ -1,4 +1,6 @@
 import pytest
+
+# from django.urls import reverse
 from pages.models import Carousel, Contact, Subscribe
 
 
@@ -25,3 +27,10 @@ def test_contact_create():
     assert contact.full_name == "John Doe"
     assert contact.email == "johndoe@test.com"
     assert contact.phone == "+221774444444"
+
+
+# @pytest.mark.django_db
+# def test_home_view(client):
+#     url = reverse("pages:home")
+#     response = client.get(url)
+#     assert response.status_code == 200

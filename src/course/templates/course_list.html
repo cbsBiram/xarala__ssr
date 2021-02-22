@@ -10,27 +10,20 @@ Tous les cours
   <div class="sa4d25">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-xl-12 col-lg-12 ">
+        <div class="col-xl-12 col-lg-12">
           <div class="section3125 mt-50">
             <h4 class="item_title">Nos cours</h4>
             <div class="la5lo1">
               <div class="owl-carousel featured_courses owl-theme">
-
                 {% for course in courses %}
-
                 {% include "partials/_course-card.html" with course=course %}
-
                 {% endfor %}
-
-
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
   </div>
-
 </div>
 {% endblock content %}

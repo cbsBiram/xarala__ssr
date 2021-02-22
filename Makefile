@@ -19,7 +19,7 @@ collectstatic:
 check: checksafety checkstyle
 
 test:
-	$(COMMAND) "pip install tox && tox -e test"
+	cd src && pytest
 
 checksafety:
 	$(COMMAND) "pip install tox && tox -e checksafety"
