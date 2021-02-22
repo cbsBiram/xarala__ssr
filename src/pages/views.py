@@ -2,6 +2,9 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
+from django.contrib.auth.decorators import login_required
+from django.db.models.aggregates import Count, Sum
+from django.db.models.query_utils import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
@@ -59,6 +62,30 @@ def community_page(request):
 def team_page(request):
     teams = Team.objects.all()
     return render(request, "team.html", {"teams": teams})
+
+
+@login_required
+def instructor_dashboard(request):
+    instructor = request.user
+    courses_published = Course.objects.filter(Q(teacher=instructor) & Q(published=True))
+    total_sales = courses_published.aggregate(Sum("price"))["price__sum"]
+    total_enroll = courses_published.aggregate(Count("students"))["students__count"]
+    total_students = CustomUser.objects.count()
+    courses_unpublished = Course.objects.filter(
+        Q(teacher=instructor) & Q(published=False)
+    )
+
+    return render(
+        request,
+        "dashboard/instructor.html",
+        {
+            "total_sales": total_sales,
+            "total_enroll": total_enroll,
+            "total_students": total_students,
+            "courses_published": courses_published,
+            "courses_unpublished": courses_unpublished,
+        },
+    )
 
 
 @method_decorator([check_recaptcha], name="dispatch")
