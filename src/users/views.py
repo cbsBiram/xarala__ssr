@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import authenticate, login as auth_login
@@ -11,6 +12,7 @@ from django.views.generic import DetailView, UpdateView
 
 from course.models import Course
 from userlogs.models import UserLog
+from users.decorators import check_recaptcha
 
 from .forms import (
     ChangePasswordForm,
@@ -23,6 +25,7 @@ from .models import CustomUser
 from .tasks import account_created
 
 
+@check_recaptcha
 def login(request):
     next_ = request.GET.get("next")
     next_post = request.POST.get("next")
@@ -54,9 +57,17 @@ def login(request):
                 else:
                     return redirect("/users/login/")
         else:
-            return render(request, "login.html", {"next": next_})
+            return render(
+                request,
+                "login.html",
+                {
+                    "next": next_,
+                    "GOOGLE_RECAPTCHA_SITE_KEY": settings.GOOGLE_RECAPTCHA_SITE_KEY,
+                },
+            )
 
 
+@check_recaptcha
 def register(request):
     next_ = request.GET.get("next")
     next_post = request.POST.get("next")
@@ -108,7 +119,14 @@ def register(request):
                 messages.error(request, "Les mots de passe ne sont pas identiques")
                 return redirect(f"/users/register/?next={redirect_path}")
         else:
-            return render(request, "register.html", {"next": next_})
+            return render(
+                request,
+                "register.html",
+                {
+                    "next": next_,
+                    "GOOGLE_RECAPTCHA_SITE_KEY": settings.GOOGLE_RECAPTCHA_SITE_KEY,
+                },
+            )
 
 
 # update user

@@ -1,18 +1,22 @@
+from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, TemplateView
 
+from blog.models import Post
+from course.models import Course
+from userlogs.models import UserLog
+from users.decorators import check_recaptcha
+from users.models import CustomUser
 from users.tasks import account_created
 from xarala.utils import SendSubscribeMail
 
 from .forms import ContactForm, TeacherCreationForm
 from .models import Subscribe, Team
-from userlogs.models import UserLog
-from users.models import CustomUser
-from course.models import Course
-from blog.models import Post
 
 
 def home(request):
@@ -57,6 +61,7 @@ def team_page(request):
     return render(request, "team.html", {"teams": teams})
 
 
+@method_decorator([check_recaptcha], name="dispatch")
 class ContactUsView(TemplateView, CreateView):
     form_class = ContactForm
     template_name = "contact.html"
@@ -64,12 +69,18 @@ class ContactUsView(TemplateView, CreateView):
     def get(self, request, *args, **kwargs):
         form = self.form_class()
         return render(
-            request, self.template_name, {"form": form, "title": "Nous contacter"}
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "title": "Nous contacter",
+                "GOOGLE_RECAPTCHA_SITE_KEY": settings.GOOGLE_RECAPTCHA_SITE_KEY,
+            },
         )
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        if form.is_valid():
+        if form.is_valid() and request.recaptcha_is_valid:
             form.save()
             # send mail
             return redirect("pages:thanks")

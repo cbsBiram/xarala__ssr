@@ -49,7 +49,9 @@ Authentification
           </div>
         </div>
       </div>
-
+      <div class="mb-2 mt-15">
+        <div class="g-recaptcha" data-sitekey="{{ GOOGLE_RECAPTCHA_SITE_KEY }}"></div>
+      </div>
       <button class="login-btn" type="submit">Valider</button>
     </form>
     <p class="sgntrm145"> En vous inscrivant, vous acceptez <a href="{% url 'pages:privacy_policy' %}">nos conditions
@@ -60,3 +62,7 @@ Authentification
 </div>
 
 {% endblock content %}
+
+{% block extrajs %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock extrajs %}

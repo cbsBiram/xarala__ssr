@@ -8,3 +8,6 @@ DATABASES = {
         "PORT": "5432",
     },
 }
+
+GOOGLE_RECAPTCHA_SECRET_KEY = ""
+GOOGLE_RECAPTCHA_SITE_KEY = ""

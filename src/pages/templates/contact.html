@@ -47,9 +47,10 @@
                 Vous pouvez contacter notre équipe d'experts
                 24/7 de 8h00 à 20h00
               </p>
+              {% include "partials/_alerts.html" %}
               <div class="row mt-5 mx-0">
                 <div class="col-md-4 mb-4">
-                  {{ form.first_name|as_crispy_field }}
+                  {{ form.full_name|as_crispy_field }}
                 </div>
                 <div class="col-md-4 mb-4">
                   {{ form.email|as_crispy_field }}
@@ -59,6 +60,11 @@
                 </div>
                 <div class="col-12">
                   {{ form.message|as_crispy_field }}
+
+                  <div class="mb-2">
+                    <div class="g-recaptcha" data-sitekey="{{ GOOGLE_RECAPTCHA_SITE_KEY }}"></div>
+                  </div>
+
                   <button type="submit" class="btn1542 btn-block">Envoyer</button>
                 </div>
               </div>
@@ -120,3 +126,7 @@
 </div>
 
 {% endblock %}
+
+{% block extrajs %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock extrajs %}

@@ -4,16 +4,8 @@ from users.models import CustomUser
 from .models import Contact
 
 
-RULES = (
-    ("Étudiant", "Étudiant"),
-    ("Instructeur", "Instructeur"),
-    ("Incubateur", "Incubateur"),
-    ("Autre", "Autre"),
-)
-
-
 class ContactForm(forms.ModelForm):
-    first_name = forms.CharField(
+    full_name = forms.CharField(
         max_length=150,
         label="Nom complet",
         widget=forms.TextInput(
@@ -43,7 +35,12 @@ class ContactForm(forms.ModelForm):
 
     class Meta:
         model = Contact
-        fields = ("first_name", "email", "phone", "message")
+        fields = (
+            "full_name",
+            "email",
+            "phone",
+            "message",
+        )
 
 
 class BecomeTeacherForm(forms.ModelForm):

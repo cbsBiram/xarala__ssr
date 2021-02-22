@@ -32,6 +32,9 @@ Authentification
           <i class="uil uil-key-skeleton-alt icon icon2"></i>
         </div>
       </div>
+      <div class="mb-2 mt-15">
+        <div class="g-recaptcha" data-sitekey="{{ GOOGLE_RECAPTCHA_SITE_KEY }}"></div>
+      </div>
       <button class="login-btn" type="submit">Connexion</button>
     </form>
     <p class="sgntrm145">Ou <a href="{% url 'password_reset' %}">Mot de passe oublié?</a>.</p>
@@ -41,3 +44,8 @@ Authentification
   {% include "_auth_footer.html" %}
 </div>
 {% endblock content %}
+
+
+{% block extrajs %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock extrajs %}
