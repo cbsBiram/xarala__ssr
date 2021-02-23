@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Count, Sum
 from django.utils.decorators import method_decorator
-from users.decorators import staff_required
+from users.decorators import staff_required, teacher_required
 from django.views.generic import View, ListView
 from django.shortcuts import redirect, render
 from course.models import Course
@@ -45,7 +45,7 @@ class UserLogList(ListView):
     context_object_name = "logs"
 
 
-@login_required
+@teacher_required
 def instructor_dashboard(request):
     instructor = request.user
     courses_published = Course.objects.filter(teacher=instructor, published=True)
