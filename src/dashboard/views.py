@@ -55,7 +55,7 @@ def instructor_dashboard(request):
 
     return render(
         request,
-        "dashboard/instructor.html",
+        "instructor/dashboard.html",
         {
             "total_sales": total_sales,
             "total_enroll": total_enroll,
