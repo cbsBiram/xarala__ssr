@@ -57,121 +57,129 @@
     <div class="left_section menu_left" id="js-menu">
       <div class="left_section">
         <ul>
-          <li class="menu--item">
-            <a href="/" class="menu--link active" title="Home">
-              <i class='uil uil-home-alt menu--icon'></i>
-              <span class="menu--label">Accueil</span>
-            </a>
-          </li>
-          <li class="menu--item">
-            <a href="{% url 'course:courses' %}" class="menu--link" title="Cours">
 
-              <i class='uil uil-video menu--icon'></i>
-              <span class="menu--label">Cours</span>
-            </a>
-          </li>
-          <li class="menu--item">
-            <a href="{% url 'blog:posts' %}" class="menu--link" title="Tutoriels">
 
-              <i class='uil uil-book-reader menu--icon'></i>
-              <span class="menu--label">Tutoriels</span>
-            </a>
-          </li>
-          <li class="menu--item">
-            <a href="#" class="menu--link" title="Explorer">
-              <i class='uil uil-search menu--icon'></i>
-              <span class="menu--label">Explorer</span>
-            </a>
-          </li>
-          <li class="menu--item menu--item__has_sub_menu">
-            <label class="menu--link" title="Categories">
-              <i class='uil uil-layers menu--icon'></i>
-              <span class="menu--label">Catégories</span>
-            </label>
-            <ul class="sub_menu">
-              <li class="sub_menu--item">
-                <a href="#" class="sub_menu--link">Development</a>
+          {% if user.is_teacher %}
+          <div class="left_section">
+            <h6 class="left_title">Cours</h6>
+            <ul>
+              <li class="menu--item">
+                <a href="{% url 'dashboard:courses' %}" class="menu--link" title="Vos cours">
+                  <i class='uil uil-video menu--icon'></i>
+                  <span class="menu--label">Vos cours</span>
+                </a>
               </li>
-              <li class="sub_menu--item">
-                <a href="#" class="sub_menu--link">Business</a>
-              </li>
-              <li class="sub_menu--item">
-                <a href="#" class="sub_menu--link">Finance & Accounting</a>
-              </li>
-              <li class="sub_menu--item">
-                <a href="#.html" class="sub_menu--link">IT & Software</a>
-              </li>
-              <li class="sub_menu--item">
-                <a href="#" class="sub_menu--link">Office Productivity</a>
-              </li>
-              <li class="sub_menu--item">
-                <a href="#" class="sub_menu--link">Personal Development</a>
-              </li>
-              <li class="sub_menu--item">
-                <a href="#" class="sub_menu--link">Design</a>
-              </li>
-              <li class="sub_menu--item">
-                <a href="#" class="sub_menu--link">Marketing</a>
-              </li>
-              <li class="sub_menu--item">
-                <a href="#" class="sub_menu--link">Lifestyle</a>
-              </li>
-              <li class="sub_menu--item">
-                <a href="#" class="sub_menu--link">Photography</a>
-              </li>
-              <li class="sub_menu--item">
-                <a href="#" class="sub_menu--link">Health & Fitness</a>
-              </li>
-              <li class="sub_menu--item">
-                <a href="#" class="sub_menu--link">Music</a>
-              </li>
-              <li class="sub_menu--item">
-                <a href="#" class="sub_menu--link">Teaching & Academics</a>
+              <li class="menu--item">
+                <a href="{% url 'dashboard:create-course' %}" class="menu--link" title="Nouveau cours">
+                  <i class='uil uil-plus-circle menu--icon'></i>
+                  <span class="menu--label">Nouveau cours</span>
+                </a>
               </li>
             </ul>
-          </li>
-        </ul>
-      </div>
+          </div>
+          {% endif %}
 
-      {% if user.is_teacher %}
-      <div class="left_section">
-        <h6 class="left_title">Cours</h6>
-        <ul>
-          <li class="menu--item">
-            <a href="#" class="menu--link" title="Vos cours">
-              <i class='uil uil-video menu--icon'></i>
-              <span class="menu--label">Vos cours</span>
-            </a>
-          </li>
-          <li class="menu--item">
-            <a href="#" class="menu--link" title="Nouveau cours">
-              <i class='uil uil-plus-circle menu--icon'></i>
-              <span class="menu--label">Nouveau cours</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      {% endif %}
+          {% if user.is_authenticated %}
+          <div class="left_section">
+            <h6 class="left_title">Tutoriels</h6>
+            <ul>
+              <li class="menu--item">
+                <a href="#" class="menu--link" title="Vos tutos">
+                  <i class='uil uil-book-reader menu--icon'></i>
+                  <span class="menu--label">Vos tutos</span>
+                </a>
+              </li>
+              <li class="menu--item">
+                <a href="#" class="menu--link" title="Nouveau tutoriel">
+                  <i class='uil uil-plus-circle menu--icon'></i>
+                  <span class="menu--label">Nouveau tutoriel</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          {% endif %}
 
-      {% if user.is_authenticated %}
-      <div class="left_section">
-        <h6 class="left_title">Tutoriels</h6>
-        <ul>
-          <li class="menu--item">
-            <a href="#" class="menu--link" title="Vos tutos">
-              <i class='uil uil-book-reader menu--icon'></i>
-              <span class="menu--label">Vos tutos</span>
-            </a>
-          </li>
-          <li class="menu--item">
-            <a href="#" class="menu--link" title="Nouveau tutoriel">
-              <i class='uil uil-plus-circle menu--icon'></i>
-              <span class="menu--label">Nouveau tutoriel</span>
-            </a>
-          </li>
+          <div class="left_section">
+            <h6 class="left_title">La plateforme</h6>
+            <ul>
+              <li class="menu--item">
+                <a href="/" class="menu--link active" title="Home">
+                  <i class='uil uil-home-alt menu--icon'></i>
+                  <span class="menu--label">Accueil</span>
+                </a>
+              </li>
+              <li class="menu--item">
+                <a href="{% url 'course:courses' %}" class="menu--link" title="Cours">
+
+                  <i class='uil uil-video menu--icon'></i>
+                  <span class="menu--label">Cours</span>
+                </a>
+              </li>
+              <li class="menu--item">
+                <a href="{% url 'blog:posts' %}" class="menu--link" title="Tutoriels">
+
+                  <i class='uil uil-book-reader menu--icon'></i>
+                  <span class="menu--label">Tutoriels</span>
+                </a>
+              </li>
+              <li class="menu--item">
+                <a href="#" class="menu--link" title="Explorer">
+                  <i class='uil uil-search menu--icon'></i>
+                  <span class="menu--label">Explorer</span>
+                </a>
+              </li>
+              <!-- <li class="menu--item menu--item__has_sub_menu">
+                <label class="menu--link" title="Categories">
+                  <i class='uil uil-layers menu--icon'></i>
+                  <span class="menu--label">Catégories</span>
+                </label>
+                <ul class="sub_menu">
+                  <li class="sub_menu--item">
+                    <a href="#" class="sub_menu--link">Development</a>
+                  </li>
+                  <li class="sub_menu--item">
+                    <a href="#" class="sub_menu--link">Business</a>
+                  </li>
+                  <li class="sub_menu--item">
+                    <a href="#" class="sub_menu--link">Finance & Accounting</a>
+                  </li>
+                  <li class="sub_menu--item">
+                    <a href="#" class="sub_menu--link">IT & Software</a>
+                  </li>
+                  <li class="sub_menu--item">
+                    <a href="#" class="sub_menu--link">Office Productivity</a>
+                  </li>
+                  <li class="sub_menu--item">
+                    <a href="#" class="sub_menu--link">Personal Development</a>
+                  </li>
+                  <li class="sub_menu--item">
+                    <a href="#" class="sub_menu--link">Design</a>
+                  </li>
+                  <li class="sub_menu--item">
+                    <a href="#" class="sub_menu--link">Marketing</a>
+                  </li>
+                  <li class="sub_menu--item">
+                    <a href="#" class="sub_menu--link">Lifestyle</a>
+                  </li>
+                  <li class="sub_menu--item">
+                    <a href="#" class="sub_menu--link">Photography</a>
+                  </li>
+                  <li class="sub_menu--item">
+                    <a href="#" class="sub_menu--link">Health & Fitness</a>
+                  </li>
+                  <li class="sub_menu--item">
+                    <a href="#" class="sub_menu--link">Music</a>
+                  </li>
+                  <li class="sub_menu--item">
+                    <a href="#" class="sub_menu--link">Teaching & Academics</a>
+                  </li>
+                </ul>
+              </li> -->
+            </ul>
+          </div>
+
         </ul>
       </div>
-      {% endif %}
 
 
       <div class="left_section pt-2">

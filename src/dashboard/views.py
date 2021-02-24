@@ -22,7 +22,7 @@ def dashboard_view(request):
     if user.is_teacher and user.is_staff:
         return redirect("dashboard:staff")
     if user.is_teacher:
-        return redirect("dashboard:instructor-dashboard")
+        return redirect("dashboard:instructor")
 
 
 @method_decorator([staff_required], name="dispatch")
@@ -33,7 +33,7 @@ class StaffView(View):
         total_courses = Course.objects.count()
         total_users = CustomUser.objects.count()
         total_students = CustomUser.objects.filter(is_student=True).count()
-        logs = UserLog.objects.all()[:3]
+        logs = UserLog.objects.all()[:10]
 
         context = {
             "title": "Staff",
@@ -73,29 +73,19 @@ class InstructorView(View):
 
 @method_decorator([teacher_required], name="dispatch")
 class CourseListView(ListView):
+    paginate_by = 6
+
     def get(self, request, *args, **kwargs):
         user = self.request.user
-        page = request.GET.get("page", 1)
-
+        courses = []
         if user.is_teacher:
-            course_list = Course.objects.filter(teacher=user).order_by("-date_created")
+            courses = Course.objects.filter(teacher=user).order_by("-date_created")
             template_name = "instructor/courses.html"
-        elif user.is_student:
-            course_list = Course.objects.filter(students__id__exact=user.id).order_by(
+        if user.is_student:
+            courses = Course.objects.filter(students__id__exact=user.id).order_by(
                 "-date_created"
             )
             template_name = "student/courses.html"
-        else:
-            course_list = []
-            template_name = "student/courses.html"
-
-        paginator = Paginator(course_list, 10)
-        try:
-            courses = paginator.page(page)
-        except PageNotAnInteger:
-            courses = paginator.page(1)
-        except EmptyPage:
-            courses = paginator.page(paginator.num_pages)
 
         context = {"courses": courses}
         return render(request, template_name, context)
