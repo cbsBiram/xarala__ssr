@@ -193,3 +193,13 @@ class TutorialCreateView(CreateView):
             return redirect("dashboard:tutorials")
 
         return render(request, self.template_name, {"form": form})
+
+
+class TutorialDeleteView(DeleteView):
+    # specify the model you want to use
+    model = Post
+
+    # can specify success url
+    # url to redirect after sucessfully
+    # deleting object
+    success_url = reverse_lazy("dashboard:tutorials")
