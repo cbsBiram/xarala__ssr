@@ -41,7 +41,9 @@ class CreateCourse(forms.ModelForm):
         label="Description",
         required=True,
         error_messages={"required": "La description doit être renseignée."},
-        widget=SummernoteWidget(),
+        widget=SummernoteWidget(
+            attrs={"summernote": {"width": "100%", "height": "400px"}}
+        ),
     )
     level = forms.ChoiceField(
         choices=LEVEL,

@@ -20,9 +20,14 @@ from .models import Subscribe, Team
 
 
 def home(request):
-    courses = Course.objects.published()[:3]
-    tutoriels = Post.objects.published()[:3]
-    context = {"courses": courses, "tutoriels": tutoriels}
+    courses = Course.objects.published()
+    tutoriels = Post.objects.published()
+    teachers = CustomUser.objects.filter(is_teacher=True)
+    context = {
+        "courses": courses,
+        "tutoriels": tutoriels,
+        "teachers": teachers,
+    }
     return render(request, "index.html", context)
 
 

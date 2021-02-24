@@ -1,11 +1,16 @@
 from itertools import chain
 from django.views.generic import ListView
+from django.views.generic.base import TemplateView
 
 from blog.models import Post
 from course.models import Course
 
 
-class SearchView(ListView):
+class SearchView(TemplateView):
+    template_name = "search.html"
+
+
+class SearchResultsView(ListView):
     template_name = "results.html"
     paginate_by = 20
     count = 0

@@ -1,46 +1,47 @@
 {% load static %}
 
 <ul>
-    <li class="menu--item">
-        <a href="{% url 'dashboard:instructor' %}" class="menu--link active" title="Dashboard">
-            <i class="uil uil-apps menu--icon"></i>
-            <span class="menu--label">Tableau de bord</span>
-        </a>
-    </li>
-    <li class="menu--item">
-        <a href="instructor_analyics.html" class="menu--link" title="Analyics">
-            <i class="uil uil-analysis menu--icon"></i>
-            <span class="menu--label">Statistiques</span>
-        </a>
-    </li>
-    <li class="menu--item menu--item__has_sub_menu">
-        <label class="menu--link" title="Cours">
-      <i class='uil uil-video menu--icon'></i>
-      <span class="menu--label">Cours</span>
-    </label>
-        <ul class="sub_menu">
-            <li class="sub_menu--item">
-                <a href="{% url 'dashboard:courses' %}" class="sub_menu--link">Liste des cours</a>
+
+
+    <div class="left_section">
+        <h6 class="left_title">Cours</h6>
+        <ul>
+            <li class="menu--item">
+                <a href="{% url 'dashboard:courses' %}" class="menu--link" title="Vos cours">
+                    <i class='uil uil-video menu--icon'></i>
+                    <span class="menu--label">Vos cours</span>
+                </a>
             </li>
-            <li class="sub_menu--item">
-                <a href="{% url 'dashboard:create-course' %}" class="sub_menu--link">Nouveau cours</a>
+            <li class="menu--item">
+                <a href="{% url 'dashboard:create-course' %}" class="menu--link" title="Nouveau cours">
+                    <i class='uil uil-plus-circle menu--icon'></i>
+                    <span class="menu--label">Nouveau cours</span>
+                </a>
             </li>
         </ul>
-    </li>
-    <li class="menu--item menu--item__has_sub_menu">
-        <label class="menu--link" title="Tutoriels">
-      <i class='uil uil-book-alt menu--icon'></i>
-      <span class="menu--label">Tutoriels</span>
-    </label>
-        <ul class="sub_menu">
-            <li class="sub_menu--item">
-                <a href="{% url 'dashboard:tutorials' %}" class="sub_menu--link">Liste des tutoriels</a>
+    </div>
+
+
+
+    <div class="left_section">
+        <h6 class="left_title">Tutoriels</h6>
+        <ul>
+            <li class="menu--item">
+                <a href="#" class="menu--link" title="Vos tutos">
+                    <i class='uil uil-book-reader menu--icon'></i>
+                    <span class="menu--label">Vos tutos</span>
+                </a>
             </li>
-            <li class="sub_menu--item">
-                <a href="{% url 'dashboard:create-tutorial' %}" class="sub_menu--link">Nouveau tutoriel</a>
+            <li class="menu--item">
+                <a href="#" class="menu--link" title="Nouveau tutoriel">
+                    <i class='uil uil-plus-circle menu--icon'></i>
+                    <span class="menu--label">Nouveau tutoriel</span>
+                </a>
             </li>
         </ul>
-    </li>
+    </div>
+
+
     <li class="menu--item">
         <a href="instructor_notifications.html" class="menu--link" title="Notifications">
             <i class="uil uil-bell menu--icon"></i>

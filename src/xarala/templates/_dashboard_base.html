@@ -85,47 +85,28 @@
     {% block extrastyle %} {% endblock extrastyle %}
   </head>
 
-  <body>
-    <!-- Header Start -->
-    <header class="header clearfix">
-      <button type="button" id="toggleMenu" class="toggle_menu">
-        <i class="uil uil-bars"></i>
-      </button>
-      <button id="collapse_menu" class="collapse_menu">
-        <i class="uil uil-bars collapse_menu--icon"></i>
-        <span class="collapse_menu--label"></span>
-      </button>
-      <div class="main_logo" id="logo">
-        <a href="index.html"
-          ><img src="{% static 'images/logo.png' %}" alt="" width="60"
-        /></a>
-        <a href="index.html"
-          ><img
-            class="logo-inverse"
-            src="{% static 'images/logo.png' %}"
-            alt=""
-            width="60"
-        /></a>
-      </div>
-      <div class="top-category">
-        <div class="ui compact menu cate-dpdwn">
-          <div class="ui simple dropdown item">
-            <a href="#" class="option_links p-0" title="categories"
-              ><i class="uil uil-apps"></i
-            ></a>
-            <div class="menu dropdown_category5">
-              <a href="{% url 'course:courses' %}" class="item channel_item"
-                >Cours</a
-              >
-              <a
-                href="{% url 'learning_path:paths' %}"
-                class="item channel_item"
-                >Parcours</a
-              >
-              <a href="{% url 'blog:posts' %}" class="item channel_item"
-                >Tutoriels</a
-              >
-            </div>
+<body>
+  <!-- Header Start -->
+  <header class="header clearfix">
+    <button type="button" id="toggleMenu" class="toggle_menu">
+      <i class="uil uil-bars"></i>
+    </button>
+    <button id="collapse_menu" class="collapse_menu">
+      <i class="uil uil-bars collapse_menu--icon"></i>
+      <span class="collapse_menu--label"></span>
+    </button>
+    <div class="main_logo" id="logo">
+      <a href="/"><img src="{% static 'images/logo.png' %}" alt="" width="60" /></a>
+      <a href="/"><img class="logo-inverse" src="{% static 'images/logo.png' %}" alt="" width="60" /></a>
+    </div>
+    <div class="top-category">
+      <div class="ui compact menu cate-dpdwn">
+        <div class="ui simple dropdown item">
+          <a href="#" class="option_links p-0" title="categories"><i class="uil uil-apps"></i></a>
+          <div class="menu dropdown_category5">
+            <a href="{% url 'course:courses' %}" class="item channel_item">Cours</a>
+            <a href="{% url 'learning_path:paths' %}" class="item channel_item">Parcours</a>
+            <a href="{% url 'blog:posts' %}" class="item channel_item">Tutoriels</a>
           </div>
         </div>
       </div>
@@ -141,18 +122,22 @@
           </div>
         </div>
       </div>
-      <div class="header_right">
-        <ul>
-          {% if request.user.is_authenticated and request.user.is_teacher %}
-          <li>
-            <a
-              href="create_new_course.html"
-              class="upload_btn"
-              title="Create New Course"
-              >Créer votre cours</a
-            >
-          </li>
-          {% endif %} {% if request.user.is_authenticated %}
+    </div>
+    <div class="header_right">
+      <ul>
+        {% if request.user.is_authenticated and request.user.is_teacher %}
+        <li>
+          <a href="{% url 'dashboard:create-course' %}" class="upload_btn" title="Créer votre
+            cours">Créer votre
+            cours</a>
+        </li>
+        {% endif %}
+        {% if request.user.is_authenticated and request.user.is_student %}
+        <li>
+          <a href="#" class="upload_btn" title="Créer un Tutoriel">Créer un Tutoriel</a>
+        </li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
 
           <li class="ui top right pointing dropdown">
             <a href="#" class="opts_account">
@@ -202,18 +187,29 @@
                 </form>
               </a>
             </div>
-          </li>
-          {% else %}
-          <li>
-            <a
-              href="{% url 'register' %}"
-              class="upload_btn d-block"
-              title="Commencez Ici"
-              >Commencez Ici</a
-            >
-            {% endif %}
-          </li>
-        </ul>
+            <a href="{% url 'register' %}" class="item channel_item">Tableau de bord</a>
+            <a class="item channel_item" href="javascript:{document.getElementById('logout').submit()}">Déconnexion
+              <form action="{% url 'logout' %}" method="POST" id="logout">
+                {% csrf_token %}
+                <input type="hidden" />
+              </form>
+            </a>
+          </div>
+        </li>
+        {% else %}
+        <li>
+          <a href="{% url 'register' %}" class="upload_btn d-block" title="Commencez Ici">Commencez Ici</a>
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+  </header>
+  <!-- Header End -->
+  <!-- Left Sidebar Start -->
+  <nav class="vertical_nav">
+    <div class="left_section menu_left" id="js-menu">
+      <div class="left_section">
+        {% block sidebar %} {% endblock sidebar %}
       </div>
     </header>
     <!-- Header End -->

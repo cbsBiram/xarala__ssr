@@ -20,7 +20,9 @@ class CreatePostForm(forms.ModelForm):
         label="Contenu",
         required=True,
         error_messages={"required": "Le contenu doit être rempli."},
-        widget=SummernoteWidget(),
+        widget=SummernoteWidget(
+            attrs={"summernote": {"width": "100%", "height": "400px"}}
+        ),
     )
     description = forms.CharField(label="Description", widget=forms.Textarea())
     image = forms.FileField(

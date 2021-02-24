@@ -61,4 +61,4 @@ superuser:
 
 codestyle:
 	pipenv run flake8
-	pipenv run black --check .
+	pipenv run black  --exclude migrations  --check .

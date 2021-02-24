@@ -1,61 +1,140 @@
-<header class="site-header bg-dark text-white-0_5" data-dark-overlay="6">
-  <div class="container">
-    <div class="row align-items-center justify-content-between mx-0">
-      <ul class="list-inline d-none d-lg-block mb-0">
-        <li class="list-inline-item mr-3">
-          <div class="d-flex align-items-center">
-            <i class="ti-email mr-2"></i>
-            <a href="mailto:contact@xarala.co">contact@xarala.co</a>
+{% load static %}
+
+<header class="header clearfix">
+  <button type="button" id="toggleMenu" class="toggle_menu">
+    <i class='uil uil-bars'></i>
+  </button>
+  <button id="collapse_menu" class="collapse_menu">
+    <i class="uil uil-bars collapse_menu--icon "></i>
+    <span class="collapse_menu--label"></span>
+  </button>
+  <div class="main_logo" id="logo">
+    <a href="/"><img src="{% static 'images/logo.png' %}" alt="Logo Xarala" width="70"></a>
+    <a href="/"><img class="logo-inverse" src="{% static 'images/logo.png' %}" alt="Logo Xarala" width="70"></a>
+  </div>
+  <div class="top-category">
+    <div class="ui compact menu cate-dpdwn">
+      <div class="ui simple dropdown item">
+        <a href="#" class="option_links p-0" title="categories"><i class="uil uil-apps"></i></a>
+        <div class="menu dropdown_category5">
+          <a href="#" class="item channel_item">Development</a>
+          <a href="#" class="item channel_item">Business</a>
+          <a href="#" class="item channel_item">Finance & Accounting</a>
+          <a href="#" class="item channel_item">IT & Software</a>
+          <a href="#" class="item channel_item">Office Productivity</a>
+          <a href="#" class="item channel_item">Personal Development</a>
+          <a href="#" class="item channel_item">Design</a>
+          <a href="#" class="item channel_item">Marketing</a>
+          <a href="#" class="item channel_item">Lifestyle</a>
+          <a href="#" class="item channel_item">Photography</a>
+          <a href="#" class="item channel_item">Health & Fitness</a>
+          <a href="#" class="item channel_item">Music</a>
+          <a href="#" class="item channel_item">Teaching & Academics</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="search120">
+    <form action="{% url 'search:results' %}" method="get">
+      <div class="ui search">
+        <div class="ui left icon input swdh10">
+          <input class="prompt srch10" type="text" placeholder="Que souhaitez-vous apprendre?" name="q" />
+          <i class='uil uil-search-alt icon icon1'></i>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="header_right">
+    <ul>
+
+      {% if request.user.is_authenticated %}
+      <li>
+        <a href="#" class="option_links" title="cart"><i class='uil uil-shopping-cart-alt'></i><span
+            class="noti_count">2</span></a>
+      </li>
+      <li class="ui dropdown">
+        <a href="#" class="option_links" title="Messages"><i class='uil uil-envelope-alt'></i><span
+            class="noti_count">3</span></a>
+        <div class="menu dropdown_ms">
+          <a href="#" class="channel_my item">
+            <div class="profile_link">
+              <img src="images/left-imgs/img-6.jpg" alt="">
+              <div class="pd_content">
+                <h6>Zoena Singh</h6>
+                <p>Hi! Sir, How are you. I ask you one thing please explain it this video price.</p>
+                <span class="nm_time">2 min ago</span>
+              </div>
+            </div>
+          </a>
+          <a href="#" class="channel_my item">
+            <div class="profile_link">
+              <img src="images/left-imgs/img-5.jpg" alt="">
+              <div class="pd_content">
+                <h6>Joy Dua</h6>
+                <p>Hello, I paid you video tutorial but did not play error 404.</p>
+                <span class="nm_time">10 min ago</span>
+              </div>
+            </div>
+          </a>
+          <a href="#" class="channel_my item">
+            <div class="profile_link">
+              <img src="images/left-imgs/img-8.jpg" alt="">
+              <div class="pd_content">
+                <h6>Jass</h6>
+                <p>Thanks Sir, Such a nice video.</p>
+                <span class="nm_time">25 min ago</span>
+              </div>
+            </div>
+          </a>
+          <a class="vbm_btn" href="instructor_messages.html">View All <i class='uil uil-arrow-right'></i></a>
+        </div>
+      </li>
+      <li class="ui top right pointing dropdown">
+        <a href="#" class="opts_account">
+          <img src="{% static 'images/logo.png' %}" alt="Logo Xarala">
+        </a>
+        <div class="menu dropdown_account">
+          <div class="channel_my">
+            <div class="profile_link">
+              <img src="
+                  {% if user.avatar %} {{ user.avatar.url }}
+                  {% else %} {% static 'images/logo.png' %}
+                  {% endif %}
+                  " alt="">
+              <div class="pd_content">
+                <div class="rhte85">
+                  <h6>{{ user.get_full_name }}</h6>
+                  <div class="mef78" title="Verify">
+                    <i class='uil uil-check-circle'></i>
+                  </div>
+                </div>
+                <span>{{ user.email }}</span>
+              </div>
+            </div>
+            <a href="{% url 'profile' %}" class="dp_link_12">Mon profil</a>
           </div>
-        </li>
-        <li class="list-inline-item mr-3">
-          <div class="d-flex align-items-center">
-            <i class="ti-headphone mr-2"></i>
-            <a href="tel:+221779929952">+221779929952</a>
+          <div class="night_mode_switch__btn">
+            <a href="#" id="night-mode" class="btn-night-mode">
+              <i class="uil uil-moon"></i> Mode Sombre
+              <span class="btn-night-mode-switch">
+                <span class="uk-switch-button"></span>
+              </span>
+            </a>
           </div>
-        </li>
-      </ul>
-      <ul class="list-inline mb-0">
-        <li class="list-inline-item mr-0 p-3 border-right border-left border-white-0_1">
-          <a href="https://web.facebook.com/xarala"><i class="ti-facebook"></i></a>
-        </li>
-        <li class="list-inline-item mr-0 p-3 border-right border-white-0_1">
-          <a href="http://bit.ly/xaralaTwitter"><i class="ti-twitter"></i></a>
-        </li>
-        <li class="list-inline-item mr-0 p-3 border-right border-white-0_1">
-          <a href="http://bit.ly/xaralaYouTube"><i class="ti-youtube"></i></a>
-        </li>
-      </ul>
-      <ul class="list-inline mb-0">
-
-        {% if request.user.is_authenticated %}
-
-        <li class="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1 bg-primary">
-          <a class="text-light" href="{% url 'dashboard:dashboard' %}">Dashboard</a>
-        </li>
-
-        <li class="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
-          <a href="javascript:{document.getElementById('logout').submit()}">Déconnexion
+          <a href="{% url 'register' %}" class="item channel_item">Tableau de bord</a>
+          <a class="item channel_item" href="javascript:{document.getElementById('logout').submit()}">Déconnexion
             <form action="{% url 'logout' %}" method="POST" id="logout">
               {% csrf_token %}
               <input type="hidden" />
             </form>
           </a>
-        </li>
-
-        {% else %}
-
-        <li class="list-inline-item mr-0 p-md-3 p-2 border-right border-left border-white-0_1">
-          <a class="text-light" href="{% url 'login' %}">Connexion</a>
-        </li>
-        <li class="list-inline-item mr-0 p-md-3 p-2 border-right border-white-0_1 bg-primary">
-          <a href="{% url 'register' %}">Inscription</a>
-        </li>
-
+        </div>
+      </li>
+      {% else %}
+      <li>
+        <a href="{% url 'register' %}" class="upload_btn d-block" title="Commencez Ici">Commencez Ici</a>
         {% endif %}
-
-
-      </ul>
-    </div> <!-- END END row-->
-  </div> <!-- END container-->
-</header><!-- END site header-->
+      </li>
+    </ul>
+  </div>
+</header>

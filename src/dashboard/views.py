@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models.aggregates import Count, Sum
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -23,7 +22,7 @@ def dashboard_view(request):
     if user.is_teacher and user.is_staff:
         return redirect("dashboard:staff")
     if user.is_teacher:
-        return redirect("dashboard:instructor-dashboard")
+        return redirect("dashboard:instructor")
 
 
 @method_decorator([staff_required], name="dispatch")
@@ -34,7 +33,7 @@ class StaffView(View):
         total_courses = Course.objects.count()
         total_users = CustomUser.objects.count()
         total_students = CustomUser.objects.filter(is_student=True).count()
-        logs = UserLog.objects.all()[:3]
+        logs = UserLog.objects.all()[:10]
 
         context = {
             "title": "Staff",
@@ -74,32 +73,34 @@ class InstructorView(View):
 
 @method_decorator([teacher_required], name="dispatch")
 class CourseListView(ListView):
+    paginate_by = 10
+
     def get(self, request, *args, **kwargs):
         user = self.request.user
-        page = request.GET.get("page", 1)
-
+        courses = []
         if user.is_teacher:
-            course_list = Course.objects.filter(teacher=user).order_by("-date_created")
+            courses = Course.objects.filter(teacher=user).order_by("-date_created")
             template_name = "instructor/courses.html"
-        elif user.is_student:
-            course_list = Course.objects.filter(students__id__exact=user.id).order_by(
+        if user.is_student:
+            courses = Course.objects.filter(students__id__exact=user.id).order_by(
                 "-date_created"
             )
             template_name = "student/courses.html"
-        else:
-            course_list = []
-            template_name = "student/courses.html"
-
-        paginator = Paginator(course_list, 10)
-        try:
-            courses = paginator.page(page)
-        except PageNotAnInteger:
-            courses = paginator.page(1)
-        except EmptyPage:
-            courses = paginator.page(paginator.num_pages)
 
         context = {"courses": courses}
         return render(request, template_name, context)
+
+
+@method_decorator([teacher_required], name="dispatch")
+class TutorialListView(ListView):
+    template_name = "instructor/tutorials.html"
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        tutorials = Post.objects.filter(author=user).order_by("-publish_date")
+        context = {"tutorials": tutorials}
+        return render(request, self.template_name, context)
 
 
 @method_decorator([teacher_required], name="dispatch")
@@ -111,24 +112,13 @@ class CourseCreateView(CreateView):
         form = self.form_class(request.POST, request.FILES)
         teacher = self.request.user
         if form.is_valid():
-            title = form.cleaned_data.get("title")
-            level = form.cleaned_data.get("level")
-            language = form.cleaned_data.get("language")
-            price = form.cleaned_data.get("price")
-            description = form.cleaned_data.get("description")
-            thumbnail = form.cleaned_data.get("thumbnail")
-            course = Course(
-                title=title,
-                level=level,
-                language=language,
-                description=description,
-                price=price,
-                thumbnail=thumbnail,
-                teacher=teacher,
-            )
+            course = form.save(commit=False)
+            course.teacher = teacher
             course.save()
             UserLog.objects.create(
-                action=f"Created {title} course", user_type="Instructeur", user=teacher
+                action=f"Created {course.title} course",
+                user_type="Instructeur",
+                user=teacher,
             )
             return redirect("dashboard:courses")
 
@@ -146,27 +136,6 @@ class CourseDeleteView(DeleteView):
 
 
 @method_decorator([teacher_required], name="dispatch")
-class TutorialListView(ListView):
-    template_name = "instructor/tutorials.html"
-
-    def get(self, request, *args, **kwargs):
-        user = self.request.user
-        page = request.GET.get("page", 1)
-
-        tutorial_list = Post.objects.filter(author=user).order_by("-publish_date")
-        paginator = Paginator(tutorial_list, 10)
-        try:
-            tutorials = paginator.page(page)
-        except PageNotAnInteger:
-            tutorials = paginator.page(1)
-        except EmptyPage:
-            tutorials = paginator.page(paginator.num_pages)
-
-        context = {"tutorials": tutorials}
-        return render(request, self.template_name, context)
-
-
-@method_decorator([teacher_required], name="dispatch")
 class TutorialCreateView(CreateView):
     form_class = CreatePostForm
     template_name = "instructor/create-tutorial.html"
@@ -175,20 +144,11 @@ class TutorialCreateView(CreateView):
         form = self.form_class(request.POST, request.FILES)
         user = self.request.user
         if form.is_valid():
-            title = form.cleaned_data.get("title")
-            content = form.cleaned_data.get("content")
-            description = form.cleaned_data.get("description")
-            image = form.cleaned_data.get("image")
-            post = Post(
-                title=title,
-                content=content,
-                description=description,
-                image=image,
-                author=user,
-            )
+            post = form.save(commit=False)
+            post.author = user
             post.save()
             UserLog.objects.create(
-                action=f"Created {title} post", user_type="Instructeur", user=user
+                action=f"Created {post.title} post", user_type="Writer", user=user
             )
             return redirect("dashboard:tutorials")
 

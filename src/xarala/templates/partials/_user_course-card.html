@@ -1,0 +1,40 @@
+{% load static %}
+
+<div class="col-lg-3 col-md-4">
+  <div class="fcrse_1 mt-30">
+    <a href="{{ course.get_absolute_url }}" class="fcrse_img">
+      <img
+        src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'assets/img/placeholder-1.jpg' %} {% endif %}"
+        alt="{{ course.title }}">
+      <div class="course-overlay">
+        <div class="badge_seller">Bestseller</div>
+        <div class="crse_reviews">
+          <i class="uil uil-star"></i>4.5
+        </div>
+        <span class="play_btn1"><i class="uil uil-play"></i></span>
+        <div class="crse_timer">
+          {{ course.count_duration }}
+        </div>
+      </div>
+    </a>
+    <div class="fcrse_content">
+      <div class="eps_dots more_dropdown">
+        <a href="#"><i class="uil uil-ellipsis-v"></i></a>
+        <div class="dropdown-content">
+          <span><i class="uil uil-share-alt"></i>Share</span>
+          <span><i class="uil uil-edit-alt"></i>Edit</span>
+        </div>
+      </div>
+      <div class="vdtodt">
+        <span class="vdt14">Langue : {{ course.language.name }}</span>
+        <span class="vdt14">{{ course.count_lessons }} lectures</span>
+      </div>
+      <a href="{{ course.get_absolute_url }}" class="crse14s">{{ course.title }}</a>
+      <a href="#" class="crse-cate">{{ course.categories.first }}</a>
+      <div class="auth1lnkprce">
+        <p class="cr1fot">By <a href="#">{{ course.teacher.get_full_name|default_if_none:"Xarala" }}</a></p>
+        <div class="prce142">{{ course.price }} CFA</div>
+      </div>
+    </div>
+  </div>
+</div>
