@@ -50,9 +50,16 @@
                                     {% endif %}
                                         </b></td>
                             <td class="text-center">
-                                <a href="#" title="Edit" class="gray-s"><i class="uil uil-edit-alt"></i></a>
-                                <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
-                                <a href="{% url 'blog:blog-detail' tutorial.slug %}" title="View" class="gray-s"><i class="uil uil-eye"></i></a>
+                                <div class="dropdown">
+                                    <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a href="#" title="Edit" class="dropdown-item gray-s">Modifier</a>
+                                        <a href="{% url 'blog:blog-detail' tutorial.slug %}" title="View" class="dropdown-item gray-s">Détails</a>
+                                        <a href="#" title="Delete" class="dropdown-item gray-s">Supprimer</i></a>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         {% endfor %}

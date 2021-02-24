@@ -22,6 +22,11 @@ urlpatterns = [
         "create-tutorial/", views.TutorialCreateView.as_view(), name="create-tutorial"
     ),
     path(
+        "<int:pk>/delete-course/",
+        views.CourseDeleteView.as_view(),
+        name="delete-course",
+    ),
+    path(
         "teacher/courses/",
         course_views.TeacherCourseListView.as_view(),
         name="created-courses",

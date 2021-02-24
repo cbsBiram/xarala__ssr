@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models.aggregates import Count, Sum
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from blog.forms import CreatePostForm
 from blog.models import Post
 from users.decorators import staff_required, teacher_required
@@ -102,27 +103,6 @@ class CourseListView(ListView):
 
 
 @method_decorator([teacher_required], name="dispatch")
-class TutorialListView(ListView):
-    template_name = "instructor/tutorials.html"
-
-    def get(self, request, *args, **kwargs):
-        user = self.request.user
-        page = request.GET.get("page", 1)
-
-        tutorial_list = Post.objects.filter(author=user).order_by("-publish_date")
-        paginator = Paginator(tutorial_list, 10)
-        try:
-            tutorials = paginator.page(page)
-        except PageNotAnInteger:
-            tutorials = paginator.page(1)
-        except EmptyPage:
-            tutorials = paginator.page(paginator.num_pages)
-
-        context = {"tutorials": tutorials}
-        return render(request, self.template_name, context)
-
-
-@method_decorator([teacher_required], name="dispatch")
 class CourseCreateView(CreateView):
     form_class = CreateCourse
     template_name = "instructor/create-course.html"
@@ -153,6 +133,37 @@ class CourseCreateView(CreateView):
             return redirect("dashboard:courses")
 
         return render(request, self.template_name, {"form": form})
+
+
+class CourseDeleteView(DeleteView):
+    # specify the model you want to use
+    model = Course
+
+    # can specify success url
+    # url to redirect after sucessfully
+    # deleting object
+    success_url = reverse_lazy("dashboard:courses")
+
+
+@method_decorator([teacher_required], name="dispatch")
+class TutorialListView(ListView):
+    template_name = "instructor/tutorials.html"
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        page = request.GET.get("page", 1)
+
+        tutorial_list = Post.objects.filter(author=user).order_by("-publish_date")
+        paginator = Paginator(tutorial_list, 10)
+        try:
+            tutorials = paginator.page(page)
+        except PageNotAnInteger:
+            tutorials = paginator.page(1)
+        except EmptyPage:
+            tutorials = paginator.page(paginator.num_pages)
+
+        context = {"tutorials": tutorials}
+        return render(request, self.template_name, context)
 
 
 @method_decorator([teacher_required], name="dispatch")
