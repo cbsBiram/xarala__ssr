@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models.aggregates import Count, Sum
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
@@ -74,17 +75,27 @@ class InstructorView(View):
 class CourseListView(ListView):
     def get(self, request, *args, **kwargs):
         user = self.request.user
+        page = request.GET.get("page", 1)
+
         if user.is_teacher:
-            courses = Course.objects.filter(teacher=user).order_by("-date_created")
+            course_list = Course.objects.filter(teacher=user).order_by("-date_created")
             template_name = "instructor/courses.html"
         elif user.is_student:
-            courses = Course.objects.filter(students__id__exact=user.id).order_by(
+            course_list = Course.objects.filter(students__id__exact=user.id).order_by(
                 "-date_created"
             )
             template_name = "student/courses.html"
         else:
-            courses = []
+            course_list = []
             template_name = "student/courses.html"
+
+        paginator = Paginator(course_list, 10)
+        try:
+            courses = paginator.page(page)
+        except PageNotAnInteger:
+            courses = paginator.page(1)
+        except EmptyPage:
+            courses = paginator.page(paginator.num_pages)
 
         context = {"courses": courses}
         return render(request, template_name, context)
@@ -96,7 +107,16 @@ class TutorialListView(ListView):
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
-        tutorials = Post.objects.filter(author=user).order_by("-publish_date")
+        page = request.GET.get("page", 1)
+
+        tutorial_list = Post.objects.filter(author=user).order_by("-publish_date")
+        paginator = Paginator(tutorial_list, 10)
+        try:
+            tutorials = paginator.page(page)
+        except PageNotAnInteger:
+            tutorials = paginator.page(1)
+        except EmptyPage:
+            tutorials = paginator.page(paginator.num_pages)
 
         context = {"tutorials": tutorials}
         return render(request, self.template_name, context)
