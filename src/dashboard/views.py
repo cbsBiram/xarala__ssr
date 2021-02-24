@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Count, Sum
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from blog.forms import CreatePostForm
 from blog.models import Post
 from users.decorators import staff_required, teacher_required
@@ -124,6 +125,16 @@ class CourseCreateView(CreateView):
         return render(request, self.template_name, {"form": form})
 
 
+class CourseDeleteView(DeleteView):
+    # specify the model you want to use
+    model = Course
+
+    # can specify success url
+    # url to redirect after sucessfully
+    # deleting object
+    success_url = reverse_lazy("dashboard:courses")
+
+
 @method_decorator([teacher_required], name="dispatch")
 class TutorialCreateView(CreateView):
     form_class = CreatePostForm
@@ -142,3 +153,13 @@ class TutorialCreateView(CreateView):
             return redirect("dashboard:tutorials")
 
         return render(request, self.template_name, {"form": form})
+
+
+class TutorialDeleteView(DeleteView):
+    # specify the model you want to use
+    model = Post
+
+    # can specify success url
+    # url to redirect after sucessfully
+    # deleting object
+    success_url = reverse_lazy("dashboard:tutorials")
