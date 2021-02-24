@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="sa4d25">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-12 col-lg-8">
+        <div class="section3125">
+          <div class="explore_search">
+            <form action="{% url 'search:results' %}" method="get">
+
+              <div class="ui search focus">
+                <div class="ui left icon input swdh11">
+                  <input class="prompt srch_explore" type="text"
+                    placeholder="Recherches des cours, formations, tutoriels.." name="q">
+                  <i class="uil uil-search-alt icon icon2"></i>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
