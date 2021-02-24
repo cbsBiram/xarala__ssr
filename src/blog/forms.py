@@ -7,28 +7,32 @@ class CreatePostForm(forms.ModelForm):
     title = forms.CharField(
         max_length=254,
         label="Titre de l'article",
+        required=True,
+        error_messages={"required": "Le titre doit être renseigné."},
         widget=forms.TextInput(
             {
-                "placeholder": "Tite..",
-                "class": " border w-full py-2 px-3 text-grey-darker mt-2",
+                "placeholder": "Titre",
+                "class": "prompt srch_explore",
             }
         ),
     )
     content = forms.CharField(
-        label="Description",
+        label="Contenu",
+        required=True,
+        error_messages={"required": "Le contenu doit être rempli."},
         widget=SummernoteWidget(),
     )
-    image_url = forms.CharField(
-        max_length=254,
-        label="URL de l'image",
-        widget=forms.TextInput(
+    description = forms.CharField(label="Description", widget=forms.Textarea())
+    image = forms.FileField(
+        label="Thumbnail",
+        widget=forms.FileInput(
             {
-                "placeholder": "URL",
-                "class": " border w-full py-2 px-3 text-grey-darker mt-2",
+                "class": "prompt srch_explore",
+                "accept": "image/*",
             }
         ),
     )
 
     class Meta:
         model = Post
-        fields = ("title", "content", "image_url", "published")
+        fields = ("title", "content", "image", "description")

@@ -14,7 +14,13 @@ urlpatterns = [
         course_views.StudentCourseListView.as_view(),
         name="enrolled-courses",
     ),
-    path("instructor/", views.instructor_dashboard, name="instructor-dashboard"),
+    path("instructor/", views.InstructorView.as_view(), name="instructor"),
+    path("courses/", views.CourseListView.as_view(), name="courses"),
+    path("tutorials/", views.TutorialListView.as_view(), name="tutorials"),
+    path("create-course/", views.CourseCreateView.as_view(), name="create-course"),
+    path(
+        "create-tutorial/", views.TutorialCreateView.as_view(), name="create-tutorial"
+    ),
     path(
         "teacher/courses/",
         course_views.TeacherCourseListView.as_view(),
