@@ -2,11 +2,6 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block extrastyle %}
-<style>
-
-</style>
-{% endblock extrastyle %}
 
 {% block title %}
 {{ user }}
@@ -14,248 +9,166 @@
 
 {% block content %}
 
-{% include "partials/_second-breadcrumbs.html" with previous="Dashbord" previous_url="dashboard:dashboard" current="Profile" text=user.get_full_name|default_if_none:user.email %}
-
-<section class="paddingTop-50 paddingBottom-120 bg-light">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4 mt-4">
-        <div class="card shadow-v1">
-          <div class="card-header text-center border-bottom pt-5 mb-4">
-            <img class="rounded-circle mb-4 profile-pic" src="
-            {% if user.avatar %} {{ user.avatar.url }}
+<div class="_216b01">
+  <div class="container-fluid">
+    <div class="row justify-content-md-center">
+      <div class="col-md-10">
+        <div class="section3125 rpt145">
+          <div class="row">
+            <div class="col-lg-7">
+              <a href="#" class="_216b22">
+                <span><i class="uil uil-cog"></i></span>Mon profil
+              </a>
+              <div class="dp_dt150">
+                <div class="img148">
+                  <img class="profile-pic" src="{% if user.avatar %} {{ user.avatar.url }}
             {% else %} {% static 'assets/img/262x230/6.jpg' %}
-            {% endif %}
-            " width="200" height="200" alt="{{ user }}">
-            <h4>
-              {{ user.get_full_name }}
-            </h4>
-            <p>
-              {{ user.title|default_if_none:"Pas de titre" }}
-            </p>
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item m-2">
-                <i class="ti-user text-primary"></i>
-                <span class="d-block">Quiz</span>
-                <span class="h6">0</span>
-              </li>
-              <li class="list-inline-item m-2">
-                <i class="ti-book text-primary"></i>
-                <span class="d-block">Cours</span>
-                <span class="h6">{{ courses.count }}</span>
-              </li>
-              <li class="list-inline-item m-2">
-                <i class="ti-star text-primary"></i>
-                <span class="d-block">Projets</span>
-                <span class="h6">0</span>
-              </li>
-            </ul>
-          </div>
-          <div class="card-body border-bottom">
-            <ul class="list-unstyled">
-              <li class="mb-3">
-                <span class="d-block">Email:</span>
-                <a class="h6" href="mailto:{{ user.email }}">{{ user.email }}</a>
-              </li>
-              <li class="mb-3">
-                <span class="d-block">Phone:</span>
-                <h6 class="h6">{{ user.phone }}</h6>
-              </li>
-              <li class="mb-3">
-                <span class="d-block">Adresse:</span>
-                <h6 class="h6">{{ user.address }}</h6>
-              </li>
-            </ul>
-          </div>
-          <div class="card-footer">
-            <p>
-              Réseaux Sociaux:
-            </p>
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item">
-                <a href="{{ user.facebook }}" class="btn btn-outline-facebook iconbox iconbox-sm">
-                  <i class="ti-facebook"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="{{ user.twitter }}" class="btn btn-outline-twitter iconbox iconbox-sm">
-                  <i class="ti-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="{{ user.github }}" class="btn btn-outline-google-plus iconbox iconbox-sm">
-                  <i class="ti-github"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="{{ user.linkedin }}" class="btn btn-outline-linkedin iconbox iconbox-sm">
-                  <i class="ti-linkedin"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div> <!-- END col-md-4 -->
-      <div class="col-lg-8 mt-4">
-        <div class="card shadow-v1 padding-30">
-          <ul class="nav tab-line tab-line border-bottom mb-4" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" data-toggle="tab" href="#Tabs_1-1" role="tab" aria-selected="true">
-                <i class="ti-user mr-1"></i> À propos
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#Tabs_1-2" role="tab" aria-selected="true">
-                <i class="ti-blackboard mr-1"></i> Cours
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#Tabs_1-6" role="tab" aria-selected="true">
-                <i class="ti-help mr-1"></i> Quiz
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#Tabs_1-4" role="tab" aria-selected="true">
-                <i class="ti-info mr-1"></i> Annonces
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#Tabs_1-5" role="tab" aria-selected="true">
-                <i class="ti-settings mr-1"></i> Configuration
-              </a>
-            </li>
-          </ul>
-
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="Tabs_1-1" role="tabpanel">
-              <h4>
-                Biographie
-              </h4>
-              <p>
-                {{ user.bio }}
-              </p>
-            </div>
-            <div class="tab-pane fade" id="Tabs_1-2" role="tabpanel">
-              <div class="row">
-
-                {% if user.is_student %}
-                {% include "partials/_student-course-table.html" with courses=courses %}
-                {% elif user.is_teacher %}
-                {% include "partials/_teacher-course-table.html" with courses=courses %}
-                {% endif %}
-
-              </div>
-            </div> <!-- END tab-pane -->
-            <div class="tab-pane fade" id="Tabs_1-6" role="tabpanel">
-              <div class="row">
-                <p class="text-primary">En cours de conception</p>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="Tabs_1-4" role="tabpanel">
-              <p class="text-primary">En cours de conception</p>
-            </div>
-
-            <div class="tab-pane fade" id="Tabs_1-5" role="tabpanel">
-              <div class="border-bottom mb-4 pb-4">
-                <div class="media align-items-end mt-4">
-                  <form class="avatar-form" method="POST" enctype="multipart/form-data"
-                    data-url="{% url 'update-profile-image' %}">
-                    {% csrf_token %}
-                    <div class="position-relative">
-                      {{ avatar_form.avatar|as_crispy_field }}
-                      <img
-                        src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'assets/img/placeholder-1.jpg' %}{% endif %}"
-                        class="profile-pic rounded-circle" alt="{{ user }}" width="200" height="200">
-                    </div>
-                    <div class="media-body ml-4 mb-4 mb-md-0">
-                      <p>
-                        Recommandation : JPG ou PNG 200x200 px
-                      </p>
-                      <button type="submit" class="btn btn-sm btn-outline-primary update-avatar">
-                        Enrégistrer
-                      </button>
-                    </div>
-
-                  </form>
-
+            {% endif %}" alt="{{ user.get_full_name }}">
+                </div>
+                <div class="prfledt1">
+                  <h2>{{ user.get_full_name }}</h2>
+                  <span> {{ user.title|default_if_none:"Pas de titre" }}</span>
                 </div>
               </div>
-
-              <div class="border-bottom mb-4 pb-4">
-                <h4 class="mb-4">
-                  Informations personnelles
-                </h4>
-                <form method="POST" data-url="{% url 'update-personal-info' %}" class="personal-info-form">
-                  <div class="form-group">
-                    {{ form|crispy }}
+              <ul class="_ttl120">
+                <!-- <li>
+                  <div class="_ttl121">
+                    <div class="_ttl122">Enroll Students</div>
+                    <div class="_ttl123">612K</div>
                   </div>
-                  <button type="submit" class="btn btn-sm btn-primary">Enrégistrer</button>
-                </form>
+                </li> -->
+                <li>
+                  <div class="_ttl121">
+                    <div class="_ttl122">Cours</div>
+                    <div class="_ttl123">
 
+                      {% if user.is_student %}
+                      {{ user.courses_enrolled.count }}
+                      {% endif %}
+
+                      {% if user.is_teacher %}
+                      {{ user.courses_created.count }}
+                      {% endif %}
+
+                    </div>
+                  </div>
+                </li>
+
+                <!-- <li>
+                  <div class="_ttl121">
+                    <div class="_ttl122">Subscriptions</div>
+                    <div class="_ttl123">452K</div>
+                  </div>
+                </li> -->
+              </ul>
+            </div>
+            <div class="col-lg-5">
+              <a href="#" class="_216b12">
+                <span><i class="uil uil-cog"></i></span>Configuration
+              </a>
+              <div class="rgt-145">
+                <ul class="tutor_social_links">
+                  <li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a></li>
+                  <li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
+                  <li><a href="#" class="ln"><i class="fab fa-linkedin-in"></i></a></li>
+                  <li><a href="#" class="yu"><i class="fab fa-youtube"></i></a></li>
+                </ul>
               </div>
+              <ul class="_bty149">
+                <li><button class="studio-link-btn btn500" onclick="window.location.href = '/';">Studio</button></li>
+                <li><button class="msg125 btn500" onclick="window.location.href = '#';">Modfier</button></li>
+              </ul>
 
-              <div class="border-bottom mb-4 pb-4">
-                <h4 class="mb-4">
-                  les paramètres de sécurité
-                </h4>
-                <form class="update-password" method="POST" data-url="{% url 'update-password' %}">
-                  <div class="form-group">
-                    {{ password_form.old_password|as_crispy_field }}
-                  </div>
-                  <div class="form-group">
-                    {{ password_form.new_password1|as_crispy_field }}
-                    <small id="hint_id_new_password1" class="form-text text-muted">
-                      <ul>
-                        <li>Votre mot de passe ne peut pas être trop similaire à vos autres informations personnelles.
-                        </li>
-                        <li>Votre mot de passe doit contenir au moins 8 caractères.</li>
-                        <li>Votre mot de passe ne peut pas être un mot de passe couramment utilisé.</li>
-                        <li>Votre mot de passe ne peut pas être entièrement numérique.</li>
-                      </ul>
-                    </small>
-                  </div>
-                  <div class="form-group">
-                    {{ password_form.new_password2|as_crispy_field }}
-                  </div>
-                  <button type="submit" class="btn btn-sm btn-primary">Enrégistrer</button>
-                </form>
-              </div>
-
-              <div class="border-bottom mb-4 pb-4">
-                <h4 class="mb-4">
-                  Réseaux sociaux
-                </h4>
-
-                <form method="POST" data-url="{% url 'update-social' %}" class="social-form">
-                  <div class="form-group">
-                    {{ social_form|crispy }}
-                  </div>
-                  <button type="submit" class="btn btn-sm btn-primary">Enrégistrer</button>
-                </form>
-
-              </div>
-
-              <div class="border-bottom mb-4 pb-4">
-                <h4 class="mb-4">
-                  Biographie
-                </h4>
-                <form method="post" class="update-bio-form" data-url="{% url 'update-bio' %}">
-                  {% csrf_token %}
-                  <div class="form-group">
-                    {{ bio_form|crispy }}
-                  </div>
-                  <button type="submit" class="btn btn-sm btn-primary">Enrégistrer</button>
-                </form>
-              </div>
-            </div> <!-- END tab-pane -->
-          </div> <!-- END tab-content-->
-        </div> <!-- END card-->
-      </div> <!-- END col-md-8 -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <!--END row-->
   </div>
-  <!--END container-->
-</section>
+</div>
+<div class="_215b15">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="course_tabs">
+          <nav>
+            <div class="nav nav-tabs tab_crse" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab"
+                aria-selected="true">A propos</a>
+              <a class="nav-item nav-link" id="nav-courses-tab" data-toggle="tab" href="#nav-courses" role="tab"
+                aria-selected="false">Cours</a>
+              <a class="nav-item nav-link" id="nav-notification-tab" data-toggle="tab" href="#nav-notification"
+                role="tab" aria-selected="false">Notifications</a>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="_215b17">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="course_tab_content">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-about" role="tabpanel">
+              <div class="_htg451">
+                <div class="_htg452">
+                  <h3>A propos</h3>
+                  <p>{{ user.bio|safe }}.</p>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="nav-courses" role="tabpanel">
+              <div class="crse_content">
+                <h3>
+                  Cours ({% if user.is_student %}
+                  {{ user.courses_enrolled.count }}
+                  {% endif %}
+
+                  {% if user.is_teacher %}
+                  {{ user.courses_created.count }}
+                  {% endif %})
+                </h3>
+                <div class="_14d25">
+                  <div class="row">
+                    {% if user.is_student %}
+
+                    {% for course in user.courses_enrolled.all %}
+                    {% include "partials/_user_course-card.html" with course=course %}
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if user.is_teacher %}
+                    {% for course in user.courses_created.all %}
+                    {% include "partials/_user_course-card.html" with course=course %}
+                    {% endfor %}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade show" id="nav-notification" role="tabpanel">
+              <div class="_htg451">
+                <div class="_htg452">
+                  <h3>Notifications</h3>
+                  <div class="row">
+                    <div class="col-md-9">
+                      <p>Vos Notifications s'afficheront ici</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {% endblock content %}
 

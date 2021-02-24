@@ -3,155 +3,88 @@
 
 {% block content %}
 
-<div class="_215zd5">
-    <div class="sa4d25">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12 col-lg-12 ">
-                    <div class="section3125 mt-50">
-                        <h4 class="item_title">Nos cours</h4>
-                        <a href="{% url 'course:courses' %}" class="see150">Voir tout</a>
-                        <div class="la5lo1">
-                            <div class="owl-carousel featured_courses owl-theme">
-
-                                {% for course in courses %}
-
-                                {% include "partials/_course-card.html" with course=course %}
-
-                                {% endfor %}
-
-
-                            </div>
-                        </div>
-                    </div>
-
+<div class="section3125">
+    <h4 class="item_title">Cours en vedette</h4>
+    <a href="#" class="see150">Voir Tout</a>
+    <div class="la5lo1">
+        <div class="owl-carousel featured_courses owl-theme">
+            {% for course in courses %}
+            {% include "partials/_course-card.html" with course=course %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="section3125 mt-30">
+    <h4 class="item_title">Cours les plus récents</h4>
+    <a href="#" class="see150">Voir Tout</a>
+    <div class="la5lo1">
+        <div class="owl-carousel featured_courses owl-theme">
+            {% for course in courses %}
+            {% include "partials/_course-card.html" with course=course %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="section3126">
+    <div class="row">
+        <div class="col-xl-6 col-lg-12 col-md-6">
+            <div class="value_props">
+                <div class="value_icon">
+                    <i class='uil uil-history'></i>
+                </div>
+                <div class="value_content">
+                    <h4>Allez à votre rythme</h4>
+                    <p>Profitez d'un accès à vie aux cours sur Xarala.co</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-lg-12 col-md-6">
+            <div class="value_props">
+                <div class="value_icon">
+                    <i class='uil uil-user-check'></i>
+                </div>
+                <div class="value_content">
+                    <h4>Mentorat</h4>
+                    <p>Vous serez mentoré par les meilleurs formateurs.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-lg-12 col-md-6">
+            <div class="value_props">
+                <div class="value_icon">
+                    <i class='uil uil-play-circle'></i>
+                </div>
+                <div class="value_content">
+                    <h4>Trouvez des cours vidéo sur presque tous les sujets</h4>
+                    <p>Construisez votre bibliothèque pour votre carrière et votre croissance personnelle</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-lg-12 col-md-6">
+            <div class="value_props">
+                <div class="value_icon">
+                    <i class='uil uil-presentation-play'></i>
+                </div>
+                <div class="value_content">
+                    <h4>+10 cours en ligne</h4>
+                    <p>Explorez une variété de sujets nouveaux</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="section3125 mt-50">
+    <h4 class="item_title">Nos formateurs</h4>
+    <a href="#" class="see150">Voir Tout</a>
+    <div class="la5lo1">
+        <div class="owl-carousel top_instrutors owl-theme">
 
-<div class="_new89">
-    <div class="_215td5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <form class="col-lg-7 mx-auto mt-5" method='GET' action="{% url 'search:results' %}">
+            {% for teacher in teachers %}
+            {% include "partials/_teacher-card.html" with teacher=teacher %}
+            {% endfor %}
 
-                        <div class="input-group bg-white rounded p-2">
-                            <input type="text" class="form-control border-white"
-                                placeholder="Que souhaitez-vous apprendre?" required name="q">
-                            <div class="input-group-append">
-                                <button class="btn1542" type="submit">
-                                    Rechercher
-                                    <i class="uil uil-angle-right-b"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="_215td5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="title589 text-center">
-                        <h2>Pourquoi Xarala ?</h2>
-                        <p>Chez Xarala, vous avez accès:</p>
-                        <img class="line-title " src="{% static 'images/line.svg' %}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3  col-sm-6">
-                    <div class="feature125">
-                        <i class="uil uil-mobile-android-alt"></i>
-                        <h4>Formation</h4>
-                        <p>Des formations de qualitées, adaptées à votre besoin.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3  col-sm-6">
-                    <div class="feature125">
-                        <i class="uil uil-users-alt"></i>
-                        <h4>Mentorat</h4>
-                        <p>Vous serez mentoré par les meilleurs formateurs.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3  col-sm-6">
-                    <div class="feature125">
-                        <i class="uil uil-award"></i>
-                        <h4>Certificat</h4>
-                        <p>Des certificats de réussite que vous pouvez ajouter sur votre CV pour booster votre
-                            carrière.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-3  col-sm-6">
-                    <div class="feature125">
-                        <i class="uil uil-globe"></i>
-                        <h4>Projet</h4>
-                        <p>Vous travaillez sur des projets et cas d'utilisation réels.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="_215zd5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="title478">
-                        <h2>Notre approche</h2>
-                        <img class="line-title" src="{% static 'images/line.svg' %}" alt="">
-                        <p>"Learn By Doing". Arretez de payer cher pour juste avoir "un diplôme" qui ne vous garanti
-                            pas
-                            votre "un emploi".</p>
-                        <p>Ici, vous apprenez des competence. Vivez une expérience unique en apprenant la
-                            technologie
-                            dans une langue que vous maitrîsez.</p>
-                        <!-- call to action -->
-                        <a href="{% url 'register' %}" class="crer_btn_link">Je commence</a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="story125">
-                        <img src="{% static 'images/about/stroy_img.png' %}" alt="" class="img-fluid">
-                    </div>
-                </div>
-
-            </div>
         </div>
     </div>
 </div>
-
-
-<div class="_215td5">
-    <div class="sa4d25">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12 col-lg-12 ">
-                    <div class="section3125 mt-50">
-                        <h4 class="item_title">Nos tutoriels</h4>
-                        <a href="{% url 'blog:posts' %}" class="see150">Voir tout</a>
-                        <div class="la5lo1">
-                            <div class="owl-carousel featured_courses owl-theme">
-
-                                {% for post in tutoriels %}
-
-                                {% include "partials/_post-card.html" with post=post %}
-
-                                {% endfor %}
-
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 {% endblock content %}

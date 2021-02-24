@@ -49,100 +49,260 @@
 </head>
 
 <body>
-  <header class="header clearfix">
-    <div class="main_logo" id="logo">
-      <a href="/"><img src="{% static 'images/logo.png' %}" alt="Logo Xarala" width="70"></a>
-      <a href="/"><img class="logo-inverse" src="{% static 'images/logo.png' %}" alt="Logo Xarala" width="70"></a>
-    </div>
-    <div class="top-category d-block">
-      <div class="ui compact menu cate-dpdwn">
-        <div class="ui simple dropdown item">
-          <a href="#" class="option_links p-0" title="categories"><i class="uil uil-apps"></i></a>
-          <div class="menu dropdown_category5">
-            <a href="{% url 'course:courses' %}" class="item channel_item">Cours</a>
-            <a href="{% url 'learning_path:paths' %}" class="item channel_item">Parcours</a>
-            <a href="{% url 'blog:posts' %}" class="item channel_item">Tutoriels</a>
-          </div>
+  <!-- Header Start -->
+  {% include "partials/_header.html" %}
+  <!-- Header End -->
+  <!-- Left Sidebar Start -->
+  <nav class="vertical_nav">
+    <div class="left_section menu_left" id="js-menu">
+      <div class="left_section">
+        <ul>
+          <li class="menu--item">
+            <a href="/" class="menu--link active" title="Home">
+              <i class='uil uil-home-alt menu--icon'></i>
+              <span class="menu--label">Accueil</span>
+            </a>
+          </li>
+          <li class="menu--item">
+            <a href="{% url 'course:courses' %}" class="menu--link" title="Cours">
+
+              <i class='uil uil-video menu--icon'></i>
+              <span class="menu--label">Cours</span>
+            </a>
+          </li>
+          <li class="menu--item">
+            <a href="{% url 'blog:posts' %}" class="menu--link" title="Tutoriels">
+
+              <i class='uil uil-book-reader menu--icon'></i>
+              <span class="menu--label">Tutoriels</span>
+            </a>
+          </li>
+          <li class="menu--item">
+            <a href="#" class="menu--link" title="Explorer">
+              <i class='uil uil-search menu--icon'></i>
+              <span class="menu--label">Explorer</span>
+            </a>
+          </li>
+          <li class="menu--item menu--item__has_sub_menu">
+            <label class="menu--link" title="Categories">
+              <i class='uil uil-layers menu--icon'></i>
+              <span class="menu--label">Catégories</span>
+            </label>
+            <ul class="sub_menu">
+              <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Development</a>
+              </li>
+              <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Business</a>
+              </li>
+              <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Finance & Accounting</a>
+              </li>
+              <li class="sub_menu--item">
+                <a href="#.html" class="sub_menu--link">IT & Software</a>
+              </li>
+              <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Office Productivity</a>
+              </li>
+              <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Personal Development</a>
+              </li>
+              <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Design</a>
+              </li>
+              <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Marketing</a>
+              </li>
+              <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Lifestyle</a>
+              </li>
+              <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Photography</a>
+              </li>
+              <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Health & Fitness</a>
+              </li>
+              <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Music</a>
+              </li>
+              <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Teaching & Academics</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      {% if user.is_teacher %}
+      <div class="left_section">
+        <h6 class="left_title">Cours</h6>
+        <ul>
+          <li class="menu--item">
+            <a href="#" class="menu--link" title="Vos cours">
+              <i class='uil uil-video menu--icon'></i>
+              <span class="menu--label">Vos cours</span>
+            </a>
+          </li>
+          <li class="menu--item">
+            <a href="#" class="menu--link" title="Nouveau cours">
+              <i class='uil uil-plus-circle menu--icon'></i>
+              <span class="menu--label">Nouveau cours</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
+
+      {% if user.is_authenticated %}
+      <div class="left_section">
+        <h6 class="left_title">Tutoriels</h6>
+        <ul>
+          <li class="menu--item">
+            <a href="#" class="menu--link" title="Vos tutos">
+              <i class='uil uil-book-reader menu--icon'></i>
+              <span class="menu--label">Vos tutos</span>
+            </a>
+          </li>
+          <li class="menu--item">
+            <a href="#" class="menu--link" title="Nouveau tutoriel">
+              <i class='uil uil-plus-circle menu--icon'></i>
+              <span class="menu--label">Nouveau tutoriel</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
+
+
+      <div class="left_section pt-2">
+        <ul>
+          <li class="menu--item">
+            <a href="{% url 'pages:about' %}" class="menu--link" title="Setting">
+              <i class='uil uil-cog menu--icon'></i>
+              <span class="menu--label">A propos</span>
+            </a>
+          </li>
+          <li class="menu--item">
+            <a href="#" class="menu--link" title="Help">
+              <i class='uil uil-question-circle menu--icon'></i>
+              <span class="menu--label">Aide</span>
+            </a>
+          </li>
+          <li class="menu--item">
+            <a href="{% url 'pages:contact' %}" class="menu--link" title="Feedback">
+              <i class='uil uil-windsock menu--icon'></i>
+              <span class="menu--label">Feedback</span>
+            </a>
+          </li>
+          <!-- <li class="menu--item">
+            <a href="feedback.html" class="menu--link" title="Send Feedback">
+              <i class='uil uil-comment-alt-exclamation menu--icon'></i>
+              <span class="menu--label">Send Feedback</span>
+            </a>
+          </li> -->
+        </ul>
+      </div>
+      <div class="left_footer">
+        <ul>
+          <li><a href="{% url 'pages:about' %}">A propos</a></li>
+          <li><a href="{% url 'pages:contact' %}">Nous contacter</a></li>
+        </ul>
+        <div class="left_footer_content">
+          <p>© 2021 <strong>Xarala</strong>. Tous droits réservés.</p>
         </div>
       </div>
     </div>
-    <div class="search120">
-      <form action="{% url 'search:results' %}" method="get">
-        <div class="ui search">
-          <div class="ui left icon input swdh10">
-            <input class="prompt srch10" type="text" placeholder="Que souhaitez-vous apprendre?" name="q" />
-            <i class='uil uil-search-alt icon icon1'></i>
+  </nav>
+  <!-- Left Sidebar End -->
+  <!-- Body Start -->
+  <div class="wrapper">
+    <div class="sa4d25">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-9 col-lg-8">
+
+            {% block content %}
+
+            {% endblock content %}
+
           </div>
-        </div>
-      </form>
-    </div>
-    <div class="header_right">
-      <ul>
+          <div class="col-xl-3 col-lg-4">
+            <div class="right_side">
 
-        {% if request.user.is_authenticated %}
-
-        <li class="ui top right pointing dropdown">
-          <a href="#" class="opts_account">
-            <img src="{% static 'images/logo.png' %}" alt="">
-          </a>
-          <div class="menu dropdown_account">
-            <div class="channel_my">
-              <div class="profile_link">
-                <img src="
-                  {% if user.avatar %} {{ user.avatar.url }}
-                  {% else %} {% static 'images/logo.png' %}
-                  {% endif %}
-                  " alt="">
-                <div class="pd_content">
-                  <div class="rhte85">
-                    <h6>{{ user.get_full_name }}</h6>
+              {% if user.is_authenticated %}
+              <div class="fcrse_2 mb-30">
+                <div class="tutor_img">
+                  <a href="{% url 'profile' %}"><img src="{% if user.avatar %} {{ user.avatar.url }}
+            {% else %} {% static 'assets/img/262x230/6.jpg' %}
+            {% endif %}" alt=""></a>
+                </div>
+                <div class="tutor_content_dt">
+                  <div class="tutor150">
+                    <a href="{% url 'profile' %}" class="tutor_name">{{ user.get_full_name }}</a>
                     <div class="mef78" title="Verify">
-                      <i class='uil uil-check-circle'></i>
+                      <i class="uil uil-check-circle"></i>
                     </div>
                   </div>
-                  <span>{{ user.email }}</span>
+                  <div class="tutor_cate">{{ user.title|default_if_none:"Pas de titre" }}</div>
+                  <ul class="tutor_social_links">
+                    <li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#" class="ln"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a href="#" class="yu"><i class="fab fa-youtube"></i></a></li>
+                  </ul>
+                  <div class="tut1250">
+                    <span class="vdt15">
+                      {% if user.is_student %}
+                      {{ user.courses_enrolled.count }}
+                      {% endif %}
+                      {% if user.is_teacher %}
+                      {{ user.courses_created.count }}
+                      {% endif %}
+                      Cours
+                    </span>
+                  </div>
+                  <a href="{% url 'profile' %}" class="prfle12link">Mon profil</a>
                 </div>
               </div>
-              <a href="{% url 'profile' %}" class="dp_link_12">Mon profil</a>
+              {% endif %}
+
+              <div class="strttech120">
+                <h4>Devenir instructeur</h4>
+                <p>Les meilleurs formateurs enseignent à des milliers d'étudiants sur Xarala.co. Nous
+                  fournissons les outils et les compétences pour enseigner ce que vous aimez.</p>
+                <button class="Get_btn" onclick="window.location.href = '#';">Commencer à enseigner</button>
+              </div>
+              <div class="get1452">
+                <h4>Nos recommandations</h4>
+                <p>Répondez à quelques questions pour vos meilleurs choix</p>
+                <button class="Get_btn" onclick="window.location.href = '#';">Commencer</button>
+              </div>
+              <div class="fcrse_3">
+                <div class="cater_ttle">
+                  <h4>Top Catégories</h4>
+                </div>
+                <ul class="allcate15">
+                  <li><a href="#" class="ct_item"><i class='uil uil-arrow'></i>Development</a></li>
+                  <li><a href="#" class="ct_item"><i class='uil uil-graph-bar'></i>Business</a></li>
+                  <li><a href="#" class="ct_item"><i class='uil uil-monitor'></i>IT and Software</a></li>
+                  <li><a href="#" class="ct_item"><i class='uil uil-ruler'></i>Design</a></li>
+                  <li><a href="#" class="ct_item"><i class='uil uil-chart-line'></i>Marketing</a></li>
+                  <li><a href="#" class="ct_item"><i class='uil uil-book-open'></i>Personal Development</a></li>
+                  <li><a href="#" class="ct_item"><i class='uil uil-camera'></i>Photography</a></li>
+                  <li><a href="#" class="ct_item"><i class='uil uil-music'></i>Music</a></li>
+                </ul>
+              </div>
+
             </div>
-            <div class="night_mode_switch__btn">
-              <a href="#" id="night-mode" class="btn-night-mode">
-                <i class="uil uil-moon"></i> Mode Sombre
-                <span class="btn-night-mode-switch">
-                  <span class="uk-switch-button"></span>
-                </span>
-              </a>
-            </div>
-            <a href="{% url 'register' %}" class="item channel_item">Tableau de bord</a>
-            <a class="item channel_item" href="javascript:{document.getElementById('logout').submit()}">Déconnexion
-              <form action="{% url 'logout' %}" method="POST" id="logout">
-                {% csrf_token %}
-                <input type="hidden" />
-              </form>
-            </a>
           </div>
-        </li>
-        {% else %}
-        <li>
-          <a href="{% url 'register' %}" class="upload_btn d-block" title="Commencez Ici">Commencez Ici</a>
-          {% endif %}
-        </li>
-      </ul>
-
-
+          <!-- testimonials -->
+        </div>
+      </div>
     </div>
-  </header>
-
-  <!-- Body Start -->
-  <div class="wrapper _bg4586  p-0 ml-0">
-    {% block content %}{% endblock content %}
+    {% include "partials/_footer.html" %}
   </div>
 
-  {% include "partials/_download_apps.html" %}
-  {% include "partials/_footer.html" %}
-
-  <!-- Body End -->
-
+  <script src="{% static 'js/vertical-responsive-menu.min.js' %}"></script>
   <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'vendor/OwlCarousel/owl.carousel.js' %}"></script>
