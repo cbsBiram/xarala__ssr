@@ -1,0 +1,58 @@
+{% extends "_dashboard_base.html" %} {% load static %} {% load crispy_forms_tags %} {% block title %} {{ title }} {% endblock title %} {% block sidebar %}
+<ul>
+    <li class="menu--item">
+        <a href="instructor_analyics.html" class="menu--link" title="Analyics">
+            <i class="uil uil-analysis menu--icon"></i>
+            <span class="menu--label">Statistiques</span>
+        </a>
+    </li>
+    <li class="menu--item">
+        <a href="instructor_dashboard.html" class="menu--link active" title="Dashboard">
+            <i class="uil uil-apps menu--icon"></i>
+            <span class="menu--label">Tableau de bord</span>
+        </a>
+    </li>
+    <li class="menu--item menu--item__has_sub_menu">
+        <label class="menu--link" title="Cours">
+      <i class='uil uil-video menu--icon'></i>
+      <span class="menu--label">Cours</span>
+    </label>
+        <ul class="sub_menu">
+            <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Liste des cours</a>
+            </li>
+            <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Nouveau cours</a>
+            </li>
+        </ul>
+    </li>
+    <li class="menu--item menu--item__has_sub_menu">
+        <label class="menu--link" title="Tutoriels">
+      <i class='uil uil-book-alt menu--icon'></i>
+      <span class="menu--label">Tutoriels</span>
+    </label>
+        <ul class="sub_menu">
+            <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Liste des tutoriels</a>
+            </li>
+            <li class="sub_menu--item">
+                <a href="#" class="sub_menu--link">Nouveau tutoriel</a>
+            </li>
+        </ul>
+    </li>
+    <li class="menu--item">
+        <a href="instructor_notifications.html" class="menu--link" title="Notifications">
+            <i class="uil uil-bell menu--icon"></i>
+            <span class="menu--label">Notifications</span>
+        </a>
+    </li>
+    {% if request.user.is_student %}
+    <li class="menu--item">
+        <a href="instructor_my_certificates.html" class="menu--link" title="My Certificates">
+            <i class="uil uil-award menu--icon"></i>
+            <span class="menu--label">Mes Certificats</span>
+        </a>
+    </li>
+    {% endif %}
+</ul>
+{% endblock sidebar %} {% block content %} {% endblock %}
