@@ -87,9 +87,17 @@
       <ul>
         {% if request.user.is_authenticated and request.user.is_teacher %}
         <li>
-          <a href="create_new_course.html" class="upload_btn" title="Create New Course">Créer votre cours</a>
+          <a href="{% url 'dashboard:create-course' %}" class="upload_btn" title="Créer votre
+            cours">Créer votre
+            cours</a>
         </li>
-        {% endif %} {% if request.user.is_authenticated %}
+        {% endif %}
+        {% if request.user.is_authenticated and request.user.is_student %}
+        <li>
+          <a href="#" class="upload_btn" title="Créer un Tutoriel">Créer un Tutoriel</a>
+        </li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
 
         <li class="ui top right pointing dropdown">
           <a href="#" class="opts_account">
