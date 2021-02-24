@@ -73,7 +73,7 @@ class InstructorView(View):
 
 @method_decorator([teacher_required], name="dispatch")
 class CourseListView(ListView):
-    paginate_by = 6
+    paginate_by = 10
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
@@ -94,20 +94,11 @@ class CourseListView(ListView):
 @method_decorator([teacher_required], name="dispatch")
 class TutorialListView(ListView):
     template_name = "instructor/tutorials.html"
+    paginate_by = 10
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
-        page = request.GET.get("page", 1)
-
-        tutorial_list = Post.objects.filter(author=user).order_by("-publish_date")
-        paginator = Paginator(tutorial_list, 10)
-        try:
-            tutorials = paginator.page(page)
-        except PageNotAnInteger:
-            tutorials = paginator.page(1)
-        except EmptyPage:
-            tutorials = paginator.page(paginator.num_pages)
-
+        tutorials = Post.objects.filter(author=user).order_by("-publish_date")
         context = {"tutorials": tutorials}
         return render(request, self.template_name, context)
 
@@ -121,24 +112,13 @@ class CourseCreateView(CreateView):
         form = self.form_class(request.POST, request.FILES)
         teacher = self.request.user
         if form.is_valid():
-            title = form.cleaned_data.get("title")
-            level = form.cleaned_data.get("level")
-            language = form.cleaned_data.get("language")
-            price = form.cleaned_data.get("price")
-            description = form.cleaned_data.get("description")
-            thumbnail = form.cleaned_data.get("thumbnail")
-            course = Course(
-                title=title,
-                level=level,
-                language=language,
-                description=description,
-                price=price,
-                thumbnail=thumbnail,
-                teacher=teacher,
-            )
+            course = form.save(commit=False)
+            course.teacher = teacher
             course.save()
             UserLog.objects.create(
-                action=f"Created {title} course", user_type="Instructeur", user=teacher
+                action=f"Created {course.title} course",
+                user_type="Instructeur",
+                user=teacher,
             )
             return redirect("dashboard:courses")
 
@@ -154,20 +134,11 @@ class TutorialCreateView(CreateView):
         form = self.form_class(request.POST, request.FILES)
         user = self.request.user
         if form.is_valid():
-            title = form.cleaned_data.get("title")
-            content = form.cleaned_data.get("content")
-            description = form.cleaned_data.get("description")
-            image = form.cleaned_data.get("image")
-            post = Post(
-                title=title,
-                content=content,
-                description=description,
-                image=image,
-                author=user,
-            )
+            post = form.save(commit=False)
+            post.author = user
             post.save()
             UserLog.objects.create(
-                action=f"Created {title} post", user_type="Instructeur", user=user
+                action=f"Created {post.title} post", user_type="Writer", user=user
             )
             return redirect("dashboard:tutorials")
 
