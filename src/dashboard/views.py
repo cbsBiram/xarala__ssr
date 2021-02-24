@@ -1,12 +1,16 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Count, Sum
 from django.utils.decorators import method_decorator
+from django.views.generic.edit import CreateView
+from blog.forms import CreatePostForm
+from blog.models import Post
 from users.decorators import staff_required, teacher_required
 from django.views.generic import View, ListView
 from django.shortcuts import redirect, render
 from course.models import Course
 from userlogs.models import UserLog
 from users.models import CustomUser
+from course.forms import CreateCourse
 
 
 @login_required
@@ -45,21 +49,116 @@ class UserLogList(ListView):
     context_object_name = "logs"
 
 
-@teacher_required
-def instructor_dashboard(request):
-    instructor = request.user
-    courses_published = Course.objects.filter(teacher=instructor, published=True)
-    total_sales = courses_published.aggregate(Sum("price"))["price__sum"]
-    total_enroll = courses_published.aggregate(Count("students"))["students__count"]
-    courses_unpublished = Course.objects.filter(teacher=instructor, published=False)
+@method_decorator([teacher_required], name="dispatch")
+class InstructorView(View):
+    template_name = "instructor/dashboard.html"
 
-    return render(
-        request,
-        "instructor/dashboard.html",
-        {
+    def get(self, request, *args, **kwargs):
+        instructor = request.user
+        courses_published = Course.objects.filter(teacher=instructor, published=True)
+        total_sales = courses_published.aggregate(Sum("price"))["price__sum"]
+        total_enroll = courses_published.aggregate(Count("students"))["students__count"]
+        courses_unpublished = Course.objects.filter(teacher=instructor, published=False)
+
+        context = {
             "total_sales": total_sales,
             "total_enroll": total_enroll,
             "courses_published": courses_published,
             "courses_unpublished": courses_unpublished,
-        },
-    )
+        }
+
+        return render(request, self.template_name, context)
+
+
+@method_decorator([teacher_required], name="dispatch")
+class CourseListView(ListView):
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        if user.is_teacher:
+            courses = Course.objects.filter(teacher=user).order_by("-date_created")
+            template_name = "instructor/courses.html"
+        elif user.is_student:
+            courses = Course.objects.filter(students__id__exact=user.id).order_by(
+                "-date_created"
+            )
+            template_name = "student/courses.html"
+        else:
+            courses = []
+            template_name = "student/courses.html"
+
+        context = {"courses": courses}
+        return render(request, template_name, context)
+
+
+@method_decorator([teacher_required], name="dispatch")
+class TutorialListView(ListView):
+    template_name = "instructor/tutorials.html"
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        tutorials = Post.objects.filter(author=user).order_by("-publish_date")
+
+        context = {"tutorials": tutorials}
+        return render(request, self.template_name, context)
+
+
+@method_decorator([teacher_required], name="dispatch")
+class CourseCreateView(CreateView):
+    form_class = CreateCourse
+    template_name = "instructor/create-course.html"
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        teacher = self.request.user
+        if form.is_valid():
+            title = form.cleaned_data.get("title")
+            level = form.cleaned_data.get("level")
+            language = form.cleaned_data.get("language")
+            price = form.cleaned_data.get("price")
+            description = form.cleaned_data.get("description")
+            thumbnail = form.cleaned_data.get("thumbnail")
+            course = Course(
+                title=title,
+                level=level,
+                language=language,
+                description=description,
+                price=price,
+                thumbnail=thumbnail,
+                teacher=teacher,
+            )
+            course.save()
+            UserLog.objects.create(
+                action=f"Created {title} course", user_type="Instructeur", user=teacher
+            )
+            return redirect("dashboard:courses")
+
+        return render(request, self.template_name, {"form": form})
+
+
+@method_decorator([teacher_required], name="dispatch")
+class TutorialCreateView(CreateView):
+    form_class = CreatePostForm
+    template_name = "instructor/create-tutorial.html"
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        user = self.request.user
+        if form.is_valid():
+            title = form.cleaned_data.get("title")
+            content = form.cleaned_data.get("content")
+            description = form.cleaned_data.get("description")
+            image = form.cleaned_data.get("image")
+            post = Post(
+                title=title,
+                content=content,
+                description=description,
+                image=image,
+                author=user,
+            )
+            post.save()
+            UserLog.objects.create(
+                action=f"Created {title} post", user_type="Instructeur", user=user
+            )
+            return redirect("dashboard:tutorials")
+
+        return render(request, self.template_name, {"form": form})

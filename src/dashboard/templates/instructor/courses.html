@@ -1,0 +1,70 @@
+{% extends "_dashboard_base.html" %} {% load static %} {% load crispy_forms_tags %} {% block title %} {{ title }} {% endblock title %} {% block sidebar %} {% include "partials/_sidebar_instructor.html" %} {% endblock sidebar %} {% block content %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="st_title"><i class="uil uil-book-alt"></i>Cours</h2>
+    </div>
+    <div class="col-md-12">
+        <div class="card_dash1">
+            <div class="card_dash_left1">
+                <i class="uil uil-video"></i>
+                <h1>Passez à la création de vos cours</h1>
+            </div>
+            <div class="card_dash_right1">
+                <button class="create_btn_dash" onclick="window.location.href = 'create_new_course.html';">Créer votre cours</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="my_courses_tabs">
+            <div class="table-responsive mt-30">
+                <table class="table ucp-table">
+                    <thead class="thead-s">
+                        <tr>
+                            <th class="text-center" scope="col">#</th>
+                            <th>Titre</th>
+                            <th class="text-center" scope="col">Date de création</th>
+                            <th class="text-center" scope="col">Prix (F CFA)</th>
+                            <th class="text-center" scope="col">Etudiants</th>
+                            <th class="text-center" scope="col">Catégorie</th>
+                            <th class="text-center" scope="col">Statut</th>
+                            <th class="text-center" scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for course in courses %}
+                        <tr>
+                            <td class="text-center">{{ forloop.counter }}</td>
+                            <td>{{ course.title }}</td>
+                            <td class="text-center">{{ course.date_created|date:"D d M Y" }}</td>
+                            <td class="text-center">{{ course.price|floatformat|default_if_none:"0" }}</td>
+                            <td class="text-center">{{ course.students.count|default_if_none:"0" }}</td>
+                            <td class="text-center">
+                                {% for category in course.categories.all %}
+                                <a href="#">{{ category.name|default_if_none:"" }}</a> {% endfor %}
+                            </td>
+                            <td class="text-center"><b class="course_active">
+                                    {% if course.published %}
+                                        Publié
+                                    {% else %}
+                                        En attente
+                                    {% endif %}
+                                        </b></td>
+                            <td class="text-center">
+                                <a href="#" title="Edit" class="gray-s"><i class="uil uil-edit-alt"></i></a>
+                                <a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

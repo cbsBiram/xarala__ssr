@@ -28,33 +28,60 @@ class CreateCourse(forms.ModelForm):
     title = forms.CharField(
         max_length=254,
         label="Titre de la formation",
+        required=True,
+        error_messages={"required": "Le titre doit être renseigné."},
         widget=forms.TextInput(
             {
                 "placeholder": "Titre",
-                "class": " border w-full py-2 px-3 text-grey-darker mt-2",
+                "class": "prompt srch_explore",
             }
         ),
+    )
+    description = forms.CharField(
+        label="Description",
+        required=True,
+        error_messages={"required": "La description doit être renseignée."},
+        widget=SummernoteWidget(),
     )
     level = forms.ChoiceField(
         choices=LEVEL,
         label="Niveau",
-        widget=forms.Select(attrs={"class": "form-select block w-full mt-1"}),
+        widget=forms.Select(
+            attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+        ),
     )
     language = forms.ModelChoiceField(
         queryset=Language.objects.all(),
         label="Langue de la formation",
-        widget=forms.Select(attrs={"class": "form-select block w-full mt-1"}),
+        initial="Français - FR",
+        widget=forms.Select(
+            attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+        ),
     )
-    published = forms.BooleanField(label="Publié", required=False)
-    description = forms.CharField(
-        widget=forms.Textarea(
-            attrs={"class": "form-textarea mt-1 block w-full border", "rows": "3"}
-        )
+    price = forms.IntegerField(
+        label="Titre de la formation",
+        required=True,
+        initial=0,
+        widget=forms.NumberInput(
+            {
+                "placeholder": "Prix",
+                "class": "prompt srch_explore",
+            }
+        ),
+    )
+    thumbnail = forms.FileField(
+        label="Thumbnail",
+        widget=forms.FileInput(
+            {
+                "class": "prompt srch_explore",
+                "accept": "image/*",
+            }
+        ),
     )
 
     class Meta:
         model = Course
-        fields = ("title", "level", "published", "language", "description", "thumbnail")
+        fields = ("title", "level", "language", "price", "description", "thumbnail")
 
 
 class CreateChapter(forms.ModelForm):
