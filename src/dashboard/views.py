@@ -2,16 +2,16 @@ from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Count, Sum
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from blog.forms import CreatePostForm
 from blog.models import Post
 from users.decorators import staff_required, student_required, teacher_required
 from django.views.generic import View, ListView
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from course.models import Course
 from userlogs.models import UserLog
 from users.models import CustomUser
-from course.forms import CreateCourse
+from course.forms import CreateCourse, UpdateCourse
 
 
 @login_required
@@ -131,6 +131,28 @@ class CourseCreateView(CreateView):
             course.save()
             UserLog.objects.create(
                 action=f"Created {course.title} course",
+                user_type="Instructeur",
+                user=teacher,
+            )
+            return redirect("dashboard:courses")
+
+        return render(request, self.template_name, {"form": form})
+
+
+class CourseUpdateView(UpdateView):
+    model = CustomUser
+    form_class = UpdateCourse
+    template_name = "instructor/edit-course.html"
+
+    def post(self, request, id, *args, **kwargs):
+        instance = get_object_or_404(Course, id)
+        form = self.form_class(request.POST, request.FILES, instance)
+        teacher = self.request.user
+        if form.is_valid():
+            course = form.save(commit=False)
+            course.save()
+            UserLog.objects.create(
+                action=f"Updated {course.title} course",
                 user_type="Instructeur",
                 user=teacher,
             )
