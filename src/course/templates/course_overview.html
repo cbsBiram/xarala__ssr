@@ -8,7 +8,7 @@
 
 {% block content %}
 
-<div class="new-section">
+<div class="section3125">
 
   <div class="modal vd_mdl fade" id="videoModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -38,18 +38,10 @@
                       src="{% if course.thumbnail %} {{ course.thumbnail.url }} {% else %} {% static 'images/logo.png' %} {% endif %}"
                       alt="{{ course.title }}">
                     <div class="course-overlay">
-                      <div class="badge_seller">Bestseller</div>
+                      <div class="badge_seller">Recommandé</div>
                       <span class="play_btn1"><i class="uil uil-play"></i></span>
                       <span class="_215b02">Aperçu du cours</span>
                     </div>
-                  </a>
-                </div>
-                <div class="_215b10">
-                  <a href="#" class="_215b11">
-                    <span><i class="uil uil-heart"></i></span>Save
-                  </a>
-                  <a href="#" class="_215b12">
-                    <span><i class="uil uil-windsock"></i></span>Report abuse
                   </a>
                 </div>
               </div>
@@ -58,32 +50,22 @@
                   <h2>{{ course.title }}</h2>
                   <span class="_215b04"> {{ course.description|safe }}!</span>
                 </div>
-                <!-- <div class="_215b05">
-                  <div class="crse_reviews mr-2">
-                    <i class="uil uil-star"></i>4.5
-                  </div>
-                  (81,665 ratings)
-                </div> -->
                 <div class="_215b05">
-                  {{ course.count_students }} Étudiants
+                  <span><i class='uil uil-user'></i></span> {{ course.count_students }} Étudiants inscrits
                 </div>
                 <div class="_215b06">
                   <div class="_215b07">
                     <span><i class='uil uil-comment'></i></span>
-                    {{ course.language.name }}
+                    Langue: {{ course.language.name }}
                   </div>
 
                 </div>
-                <div class="_215b05">
-                  Mise à jour 1/2021
-                </div>
                 <ul class="_215b31">
-
                   {% if course.price == 0 %}
 
                   <li>
                     <button class="btn_adcart">
-                      <a href="{% if button_text == 'Enroller'  %}{% url 'course:subscribe_user_to_course' course.slug %}{% else %}/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}{% endif %}"
+                      <a href="{% if button_text == 'S\'inscrire'  %}{% url 'course:subscribe_user_to_course' course.slug %}{% else %}/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}{% endif %}"
                         class="text-light">{{ button_text }}</a>
                     </button>
 
@@ -95,9 +77,6 @@
                   {% endif %}
 
                 </ul>
-                <div class="_215fgt1">
-                  Garantie de remboursement
-                </div>
               </div>
             </div>
           </div>
@@ -111,37 +90,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <div class="user_dt5">
-            <div class="user_dt_left">
-              <div class="live_user_dt">
-                <div class="user_img5">
-                  <a href="#"><img src="{% if course.teacher.avatar %} {{ course.teacher.avatar }}
-                    {% else %} {% static 'images/logo.png' %}
-                    {% endif %}" alt=""></a>
-                </div>
-                <div class="user_cntnt">
-                  <a href="#" class="_df7852"> {{ course.teacher.get_full_name|default_if_none:"Formateur" }}</a>
-                  <button class="subscribe-btn">Suivre</button>
-                </div>
-              </div>
-            </div>
-            <div class="user_dt_right">
-              <ul>
-                <li>
-                  <a href="#" class="lkcm152"><i class="uil uil-eye"></i><span>1452</span></a>
-                </li>
-                <li>
-                  <a href="#" class="lkcm152"><i class="uil uil-thumbs-up"></i><span>100</span></a>
-                </li>
-                <li>
-                  <a href="#" class="lkcm152"><i class="uil uil-thumbs-down"></i><span>20</span></a>
-                </li>
-                <li>
-                  <a href="#" class="lkcm152"><i class="uil uil-share-alt"></i><span>9</span></a>
-                </li>
-              </ul>
-            </div>
-          </div>
+
           <div class="course_tabs">
             <nav>
               <div class="nav nav-tabs tab_crse justify-content-center" id="nav-tab" role="tablist">
@@ -149,8 +98,8 @@
                   aria-selected="true">À propos de ce cours</a>
                 <a class="nav-item nav-link" id="nav-courses-tab" data-toggle="tab" href="#nav-courses" role="tab"
                   aria-selected="false">Contenu</a>
-                <!-- <a class="nav-item nav-link" id="nav-reviews-tab" data-toggle="tab" href="#nav-reviews" role="tab"
-                  aria-selected="false">Reviews</a> -->
+                <a class="nav-item nav-link" id="nav-teacher-tab" data-toggle="tab" href="#nav-teacher" role="tab"
+                  aria-selected="false">Formateur</a>
               </div>
             </nav>
           </div>
@@ -165,34 +114,35 @@
           <div class="course_tab_content">
             <div class="tab-content" id="nav-tabContent">
               <div class="tab-pane fade show active" id="nav-about" role="tabpanel">
-                <div class="_htg451">
-                  <div class="_htg452">
-                    <h3>Objectifs</h2>
-                      <span class="_215b04"> Aucun!</span>
-                  </div>
-                  <div class="_htg452  mt-35">
-                    <h3>Description</h2>
-                      <span class="_215b04"> {{ course.description|safe }}!</span>
-                  </div>
-                  <div class="_htg452">
-                    <h3>Projets</h2>
-                      <span class="_215b04"> Aucun!</span>
-                  </div>
-                  <div class="_htg452 mt-35">
-                    <h3>Pré-requis</h2>
-                      <span class="_215b04"> Aucun!</span>
+                <div class="fcrse_2">
+                  <div class="_htg451">
+                    <div class="_htg452">
+                      <h3>Objectifs</h2>
+                        <span> Aucun!</span>
+                    </div>
+                    <div class="_htg452  mt-35">
+                      <h3>Description</h2>
+                        <span> {{ course.description|safe }}!</span>
+                    </div>
+                    <div class="_htg452 mt-35">
+                      <h3>Projets</h2>
+                        <span> Aucun!</span>
+                    </div>
+                    <div class="_htg452 mt-35">
+                      <h3>Pré-requis</h2>
+                        <span> Aucun!</span>
+                    </div>
                   </div>
                 </div>
 
+
               </div>
               <div class="tab-pane fade" id="nav-courses" role="tabpanel">
-                <div class="crse_content">
-                  <h3>Contenu du cours</h3>
+                <div class="fcrse_2">
                   <div class="_112456">
                     <ul class="accordion-expand-holder">
                       <li><span class="accordion-expand-all _d1452">Développer tout</span></li>
                       <li><span class="_fgr123"> {{ course.count_lessons }} lectures</span></li>
-                      <!-- <li><span class="_fgr123">47:06:29</span></li> -->
                     </ul>
                   </div>
                   <div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
@@ -201,17 +151,13 @@
                     {% for chapter in object.course_chapters.all %}
                     <a href="javascript:void(0)"
                       class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all">
-                      <div class="section-header-left">
+                      <div class="">
                         <span class="section-title-wrapper">
                           <i class='uil uil-presentation-play crse_icon'></i>
                           <span class="section-title-text">{{ chapter.name }}</span>
                         </span>
                       </div>
-                      <div class="section-header-right">
-                        <span class="num-items-in-section">{{ chapter.course_lessons.count }} lectures</span>
-                        <span class="section-header-length">01.16:28
-                        </span>
-                      </div>
+
                     </a>
                     <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
 
@@ -220,14 +166,11 @@
                       {% if lesson.chapter.id == chapter.id %}
 
                       <div class="lecture-container">
-                        <div class="left-content">
+                        <div class="left-content w-100">
                           <i class='uil uil-play-circle icon_142'></i>
                           <div class="top">
                             <div class="title"> {{ lesson.title }}</div>
                           </div>
-                        </div>
-                        <div class="details">
-                          <span class="content-summary"> {{ lesson.duration }}</span>
                         </div>
                       </div>
 
@@ -243,6 +186,36 @@
 
                   </div>
                   <!-- <a class="btn1458" href="#">20 More Sections</a> -->
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="nav-teacher" role="tabpanel">
+                <div class="fcrse_2">
+                  <div class="tutor_img">
+                    <a href="{% url 'profile' %}"><img src="{% if course.teacher.avatar %} {{ course.teacher.avatar.url }}
+            {% else %} {% static 'assets/img/262x230/6.jpg' %}
+            {% endif %}" alt=""></a>
+                  </div>
+                  <div class="tutor_content_dt">
+                    <div class="tutor150">
+                      <a href="{% url 'profile' %}" class="tutor_name">{{ course.teacher.get_full_name }}</a>
+                      <div class="mef78" title="Verify">
+                        <i class="uil uil-check-circle"></i>
+                      </div>
+                    </div>
+                    <div class="tutor_cate">{{ course.teacher.title|default_if_none:"Pas de titre" }}</div>
+                    <ul class="tutor_social_links">
+                      <li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a></li>
+                      <li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
+                      <li><a href="#" class="ln"><i class="fab fa-linkedin-in"></i></a></li>
+                      <li><a href="#" class="yu"><i class="fab fa-youtube"></i></a></li>
+                    </ul>
+                    <div class="tut1250">
+                      <span class="vdt15">
+                        {{ course.teacher.courses_created.count }} Cours
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
 

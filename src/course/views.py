@@ -38,7 +38,7 @@ class CourseOverviewView(DetailView):
         ):
             pass
         else:
-            button_text = "Enroller"
+            button_text = "S'inscrire"
         context["button_text"] = button_text
         return context
 
