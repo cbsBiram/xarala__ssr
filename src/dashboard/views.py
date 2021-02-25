@@ -27,29 +27,29 @@ def dashboard_view(request):
         return redirect("oauth-new-password")
 
 
+class UserLogList(ListView):
+    model = UserLog
+    context_object_name = "logs"
+
+
 @method_decorator([staff_required], name="dispatch")
 class StaffView(View):
     template_name = "staff/dashboard.html"
 
     def get(self, request, *args, **kwargs):
         total_courses = Course.objects.count()
-        total_users = CustomUser.objects.count()
+        total_teachers = CustomUser.objects.filter(is_teacher=True).count()
         total_students = CustomUser.objects.filter(is_student=True).count()
         logs = UserLog.objects.all()[:10]
 
         context = {
             "title": "Staff",
             "total_courses": total_courses,
-            "total_users": total_users,
+            "total_teachers": total_teachers,
             "total_students": total_students,
             "logs": logs,
         }
         return render(request, self.template_name, context)
-
-
-class UserLogList(ListView):
-    model = UserLog
-    context_object_name = "logs"
 
 
 @method_decorator([teacher_required], name="dispatch")
@@ -58,7 +58,9 @@ class InstructorView(View):
 
     def get(self, request, *args, **kwargs):
         instructor = request.user
-        courses_published = Course.objects.filter(teacher=instructor, published=True)
+        courses_published = Course.objects.filter(teacher=instructor, published=True)[
+            :10
+        ]
         total_sales = courses_published.aggregate(Sum("price"))["price__sum"]
         total_enroll = courses_published.aggregate(Count("students"))["students__count"]
         courses_unpublished = Course.objects.filter(teacher=instructor, published=False)
