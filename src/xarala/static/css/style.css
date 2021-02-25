@@ -6162,6 +6162,10 @@ a.rmv-btn i {
   color: #fff;
 }
 
+.color_btn_github {
+  background: #6e5494 !important;
+}
+
 /* --- Forgot Password Page --- */
 
 .main-tabs {

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "celery",
     "embed_video",
     "import_export",
+    "social_django",
     # refresh tokens are optional
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     "django_filters",
@@ -108,6 +109,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = "xarala.wsgi.application"
 
 
@@ -143,8 +145,24 @@ AUTHENTICATION_BACKENDS = [
     "graphql_jwt.backends.JSONWebTokenBackend",
     "social_core.backends.google.GoogleOAuth2",
     "django.contrib.auth.backends.ModelBackend",
+    "social_core.backends.github.GithubOAuth2",
+    "social_core.backends.google.GoogleOAuth2",
+    "social_core.backends.twitter.TwitterOAuth",
+    "social_core.backends.facebook.FacebookOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
+SOCIAL_AUTH_FACEBOOK_KEY = ("1815308661957053",)
+SOCIAL_AUTH_FACEBOOK_SECRET = ("c634b6ef2157ddf8ae5262f6c1dce23d",)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
+    "223000822798-sv84dnbqhahq5bubmkta1tq95fa6i7rl.apps.googleusercontent.com",
+)
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "YK_NOViediU9xeQkLScSSvIR"
+
+
+SOCIAL_AUTH_GITHUB_KEY = "a changer"
+SOCIAL_AUTH_GITHUB_SECRET = "a changer"
 
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "profile"
