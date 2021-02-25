@@ -88,21 +88,20 @@ class InstructorView(View):
 @method_decorator([teacher_required], name="dispatch")
 class CourseListView(ListView):
     paginate_by = 10
+    template_name = "courses.html"
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
         courses = []
         if user.is_teacher:
             courses = Course.objects.filter(teacher=user).order_by("-date_created")
-            template_name = "instructor/courses.html"
         if user.is_student:
             courses = Course.objects.filter(students__id__exact=user.id).order_by(
                 "-date_created"
             )
-            template_name = "student/courses.html"
 
-        context = {"courses": courses}
-        return render(request, template_name, context)
+        context = {"courses": courses, "user": user}
+        return render(request, self.template_name, context)
 
 
 @method_decorator([teacher_required], name="dispatch")
@@ -140,13 +139,13 @@ class CourseDeleteView(DeleteView):
 
 @method_decorator([login_required], name="dispatch")
 class TutorialListView(ListView):
-    template_name = "instructor/tutorials.html"
+    template_name = "tutorials.html"
     paginate_by = 10
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
         tutorials = Post.objects.filter(author=user).order_by("-publish_date")
-        context = {"tutorials": tutorials}
+        context = {"tutorials": tutorials, "user": user}
         return render(request, self.template_name, context)
 
 
