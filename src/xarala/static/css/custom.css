@@ -15,6 +15,12 @@
   color: #cacaca !important;
 }
 
-.new-section {
-  padding: 4rem 0;
+/* framework */
+.bg-xarala {
+  background-color: #10a8e5ff !important;
+  color: #fff;
+}
+
+.text-xarala {
+  color: #10a8e5ff im !important;
 }

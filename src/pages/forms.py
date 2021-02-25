@@ -7,9 +7,9 @@ from .models import Contact
 class ContactForm(forms.ModelForm):
     full_name = forms.CharField(
         max_length=150,
-        label="Nom complet",
+        label="Nom & prénom(s)",
         widget=forms.TextInput(
-            {"placeholder": "Ex: Modou Diop", "class": "form-control"}
+            {"placeholder": "Ex: John Diop", "class": "form-control"}
         ),
     )
     email = forms.EmailField(

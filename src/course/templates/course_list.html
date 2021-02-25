@@ -32,7 +32,6 @@ Tous les cours
     <div class="container-fluid">
       <div class="row">
         <div class="col-xl-12 col-lg-12">
-
           <h4 class="item_title">Cours populaires</h4>
           <div class="la5lo1">
             <div class="owl-carousel featured_courses owl-theme">
@@ -47,4 +46,29 @@ Tous les cours
     </div>
   </div>
 </div>
+
+<!-- course by category -->
+
+{% for category in categories %}
+<div class="section3125">
+  <div class="sa4d25">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12">
+          <h4 class="item_title">{{ category }}</h4>
+          <div class="la5lo1">
+            <div class="owl-carousel featured_courses owl-theme">
+              {% for course in category.course_set.published %}
+              {% include "partials/_course-card.html" with course=course %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
 {% endblock content %}

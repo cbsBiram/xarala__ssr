@@ -11,13 +11,13 @@ Authentification
 
 <div class="col-lg-6 col-md-8">
   <div class="sign_form">
-    <h2>Content de te revoir</h2>
-    <p>Connectez-vous à votre compte</p>
-    <!-- <button class="social_lnk_btn color_btn_fb"><i class="uil uil-facebook-f"></i>Continuez avec Facebook</button>
-    <button class="social_lnk_btn mt-15 color_btn_tw"><i class="uil uil-twitter"></i>Continuez avec
-      Twitter</button>
-    <button class="social_lnk_btn mt-15 color_btn_go"><i class="uil uil-google"></i>Continuez avec
-      Google</button> -->
+    <h2>Se connecter sur Xarala!</h2>
+    <button class="social_lnk_btn color_btn_go">
+      <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-light">
+        <i class="uil uil-google"></i>Se connecter avec
+        Google
+      </a>
+    </button>
     <form method="POST">
       {% csrf_token %}
       <div class="ui search focus mt-15">
@@ -30,16 +30,22 @@ Authentification
         <div class="ui left icon input swdh95">
           <input class="prompt srch_explore" type="password" name="password" required placeholder="Mot de passe">
           <i class="uil uil-key-skeleton-alt icon icon2"></i>
+
         </div>
+
       </div>
+      <div class="mt-4 text-right">
+        <a href="{% url 'password_reset' %}">Mot de passe oublié ?</a>
+      </div>
+
       <div class="mt-15">
         <div class="g-recaptcha" data-sitekey="{{ GOOGLE_RECAPTCHA_SITE_KEY }}"></div>
       </div>
-      <button class="login-btn" type="submit">Connexion</button>
+      <button class="login-btn" type="submit">Se connecter</button>
     </form>
-    <p class="sgntrm145">Ou <a href="{% url 'password_reset' %}">Mot de passe oublié?</a>.</p>
-    <p class="mb-0 mt-30 hvsng145">Pas encore membre? <a
-        href="{% url 'register' %}?next={{ next|default_if_none:'/' }}">S'inscrire</a></p>
+
+    <p class="mb-0 mt-30 hvsng145"> <a href="{% url 'register' %}?next={{ next|default_if_none:'/' }}">S'inscrire/Créer
+        un compte</a></p>
   </div>
   {% include "_auth_footer.html" %}
 </div>

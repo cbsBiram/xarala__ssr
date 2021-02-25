@@ -11,11 +11,17 @@ Authentification
 
 <div class="col-lg-6 col-md-8">
   <div class="sign_form">
-    <h2>Bienvenue chez Xarala</h2>
-    <p>Inscrivez-vous et commencez à apprendre!</p>
+    <h2>S'inscrire sur Xarala</h2>
+
+    <button class="social_lnk_btn  color_btn_go">
+      <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-light">
+        <i class="uil uil-google"></i>S'inscrire avec
+        Google
+      </a>
+    </button>
     <form method="POST">
       {% csrf_token %}
-      <div class="ui search focus">
+      <div class="ui search focus mt-15">
         <div class="ui left icon input swdh11 swdh19">
           <input class="prompt srch_explore" type="text" name="first_name" required placeholder="Prénom">
         </div>
@@ -49,14 +55,14 @@ Authentification
           </div>
         </div>
       </div>
-      <div class="mb-2 mt-15">
+      <div class="mb-2 mt-10">
         <div class="g-recaptcha" data-sitekey="{{ GOOGLE_RECAPTCHA_SITE_KEY }}"></div>
       </div>
-      <button class="login-btn" type="submit">Valider</button>
+      <button class="login-btn" type="submit">S'inscrire</button>
     </form>
-    <p class="sgntrm145"> En vous inscrivant, vous acceptez <a href="{% url 'pages:privacy_policy' %}">nos conditions
-        d'utilisation</a></p>
-    <p class="mb-0 mt-30">Déja membre? <a href="{% url 'login' %}?next={{ next|default_if_none:'/' }}">Connexion</a></p>
+    <p class="sgntrm145"> J'accepte <a target="_blank" href="{% url 'pages:privacy_policy' %}">les conditions
+        d'utilisation du site</a></p>
+    <p class="mb-0 mt-10"><a href="{% url 'login' %}?next={{ next|default_if_none:'/' }}">J'ai déja un compte</a></p>
   </div>
   {% include "_auth_footer.html" %}
 </div>

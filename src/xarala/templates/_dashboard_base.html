@@ -113,11 +113,7 @@
       <div class="search120">
         <div class="ui search">
           <div class="ui left icon input swdh10">
-            <input
-              class="prompt srch10"
-              type="text"
-              placeholder="Search for Tuts Videos, Tutors, Tests and more.."
-            />
+            <input class="prompt srch10" type="text" placeholder="Search for Tuts Videos, Tutors, Tests and more.." />
             <i class="uil uil-search-alt icon icon1"></i>
           </div>
         </div>
@@ -195,13 +191,15 @@
               </form>
             </a>
           </div>
-        </li>
-        {% else %}
-        <li>
-          <a href="{% url 'register' %}" class="upload_btn d-block" title="Commencez Ici">Commencez Ici</a>
-          {% endif %}
-        </li>
-      </ul>
+
+    </div>
+    </li>
+    {% else %}
+    <li>
+      <a href="{% url 'register' %}" class="upload_btn d-block" title="Commencez Ici">Commencez Ici</a>
+      {% endif %}
+    </li>
+    </ul>
     </div>
   </header>
   <!-- Header End -->
@@ -211,15 +209,14 @@
       <div class="left_section">
         {% block sidebar %} {% endblock sidebar %}
       </div>
-    </header>
-    </nav>
-    <!-- Left Sidebar End -->
-    <!-- Body Start -->
-    <div class="wrapper">
-      <div class="sa4d25">
-        <div class="container-fluid">
-          {% block content %}{% endblock content %}
-        </div>
+      </header>
+  </nav>
+  <!-- Left Sidebar End -->
+  <!-- Body Start -->
+  <div class="wrapper">
+    <div class="sa4d25">
+      <div class="container-fluid">
+        {% block content %}{% endblock content %}
       </div>
       {% include "partials/_footer.html" %}
     </div>

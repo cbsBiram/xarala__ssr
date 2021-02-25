@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, DeleteView
 from blog.forms import CreatePostForm
 from blog.models import Post
-from users.decorators import staff_required, teacher_required
+from users.decorators import staff_required, student_required, teacher_required
 from django.views.generic import View, ListView
 from django.shortcuts import redirect, render
 from course.models import Course
@@ -18,11 +18,13 @@ from course.forms import CreateCourse
 def dashboard_view(request):
     user = request.user
     if user.is_student:
-        pass  # student dashboard
+        return redirect("dashboard:student")
     if user.is_teacher and user.is_staff:
         return redirect("dashboard:staff")
     if user.is_teacher:
         return redirect("dashboard:instructor")
+    else:
+        return redirect("oauth-new-password")
 
 
 @method_decorator([staff_required], name="dispatch")
@@ -48,6 +50,18 @@ class StaffView(View):
 class UserLogList(ListView):
     model = UserLog
     context_object_name = "logs"
+
+
+@method_decorator([student_required], name="dispatch")
+class StudentView(View):
+    template_name = "student/dashboard.html"
+
+    def get(self, request, *args, **kwargs):
+        student = request.user
+
+        context = {"student": student}
+
+        return render(request, self.template_name, context)
 
 
 @method_decorator([teacher_required], name="dispatch")
@@ -91,7 +105,7 @@ class CourseListView(ListView):
         return render(request, template_name, context)
 
 
-@method_decorator([teacher_required], name="dispatch")
+@method_decorator([login_required], name="dispatch")
 class TutorialListView(ListView):
     template_name = "instructor/tutorials.html"
     paginate_by = 10
@@ -135,7 +149,7 @@ class CourseDeleteView(DeleteView):
     success_url = reverse_lazy("dashboard:courses")
 
 
-@method_decorator([teacher_required], name="dispatch")
+@method_decorator([login_required], name="dispatch")
 class TutorialCreateView(CreateView):
     form_class = CreatePostForm
     template_name = "instructor/create-tutorial.html"

@@ -22,6 +22,7 @@ urlpatterns = [
     path("payment/", include("payment.urls", namespace="payment")),
     path("search/", include("search.urls", namespace="search")),
     path("summernote/", include("django_summernote.urls")),
+    path("oauth/", include("social_django.urls", namespace="social")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

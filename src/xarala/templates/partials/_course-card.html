@@ -9,31 +9,37 @@
       <div class="course-overlay">
         <span class="play_btn1"><i class="uil uil-play"></i></span>
         <div class="crse_timer">
-          {{ course.count_duration }}
+          {{ course.price }} XOF
         </div>
       </div>
     </a>
     <div class="fcrse_content">
-      <div class="eps_dots more_dropdown">
-        <a href="#"><i class="uil uil-ellipsis-v"></i></a>
-        <div class="dropdown-content">
-          <span><i class="uil uil-share-alt"></i>Partager</span>
-          <span><i class="uil uil-heart"></i>Ajouter au panier</span>
-          <!-- <span><i class="uil uil-ban"></i>Not Interested</span>
-          <span><i class="uil uil-windsock"></i>Report</span> -->
-        </div>
-      </div>
+      <a href="{{ course.get_absolute_url }}" class="crse14s">{{ course.title }}</a>
       <div class="vdtodt">
         <span class="vdt14">Langue : {{ course.language.name }}</span>
-        <span class="vdt14">{{ course.count_lessons }} lectures</span>
+        <span class="vdt14">{{ course.count_lessons }} Vidéos</span>
       </div>
-      <a href="{{ course.get_absolute_url }}" class="crse14s">{{ course.title }}</a>
-      <a href="#" class="crse-cate">{{ course.categories.first }}</a>
-      <div class="auth1lnkprce">
-        <p class="cr1fot">Par <a href="#">{{ course.teacher.get_full_name|default_if_none:"Xarala" }}</a></p>
-        <div class="prce142">{{ course.price }} CFA</div>
-        <!-- <button class="shrt-cart-btn" title="Ajouter au panier"><i class="uil uil-shopping-cart-alt"></i></button> -->
+      <div class="vdtodt">
+        <span class="vdt14">Par : <a href="#">{{ course.teacher.get_full_name|default_if_none:"Xarala" }}</a></span>
+        <span class="vdt14">dans : {{ course.categories.first }}</span>
       </div>
     </div>
+
+
+    {% if course.price > 0 %}
+    <a href="#" class="text-light">
+      <button class="btn-block btn_adcart">Ajouter au panier</button>
+    </a>
+    {% elif course in request.user.courses_enrolled.all %}
+    <a href="/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}" class="text-light">
+      <button class="btn-block btn_adcart">Continue</button></a>
+    {% else %}
+    <a href="{% url 'course:subscribe_user_to_course' course.slug %}" class="text-light">
+      <button class="btn-block btn_adcart">S'inscrire</button></a>
+    {% endif %}
+
+
+
   </div>
+
 </div>
