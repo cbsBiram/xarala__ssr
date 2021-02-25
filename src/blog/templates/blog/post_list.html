@@ -7,7 +7,7 @@ Le blog de Xarala
 
 {% block content %}
 
-<div class="new-section">
+<div class="section3125">
   <div class="_205ef5">
     <div class="container">
       <div class="row">
@@ -57,8 +57,8 @@ Le blog de Xarala
             </a>
             <div class="hs_content">
               <div class="vdtodt">
-                <span class="vdt14">109k vues</span>
-                <span class="vdt14">{{ post.date_created|date:"d, M, Y" }}</span>
+                <span class="vdt14">Par : {{ post.author.get_full_name }} dans : {{ post.tags.first  }}</span>
+                <!-- <span class="vdt14">{{ post.date_created|date:"d, M, Y" }}</span> -->
               </div>
               <a href="{{ post.get_absolute_url }}" class="crse14s title900">{{ post.title }}</a>
               <p class="blog_des"> {{ post.description|safe|truncatewords:"20" }}</p>
