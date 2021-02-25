@@ -1,0 +1,84 @@
+{% extends "_dashboard_base.html" %} {% load static %} {% load crispy_forms_tags %} {% block title %} {{ title }} {% endblock title %} {% block sidebar %} {% include "partials/_sidebar_instructor.html" %} {% endblock sidebar %} {% block content %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="st_title"><i class="uil uil-analysis"></i>Modifier le cours sur <span class="text-primary">{{ course.title }}</span></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="course__form mb-4">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="general_info10">
+                    <div class="row">
+                        {{ form.non_field_errors }}
+                        <div class="col-lg-6 col-md-6">
+                            <small id="titleHelp" class="text-danger">
+                            {{ form.title.errors }}
+                            </small>
+                            <div class="ui search focus mt-30 lbel25">
+                                <label for="{{ form.title.id_for_label }}">Titre</label>
+                                <div class="ui left icon input swdh19">
+                                    {{ form.title }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            {{ form.description.errors }}
+                            <div class="course_des_textarea mt-30 lbel25">
+                                <label for="{{ form.description.id_for_label }}">Description</label>
+                                <div class="course_des_bg">
+                                    <div class="textarea_dt">
+                                        <div class="ui form swdh339">
+                                            <div class="field">
+                                                {{ form.description }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            {{ form.language.errors }}
+                            <div class="mt-30 lbel25">
+                                <label for="{{ form.language.id_for_label }}">Langue</label>
+                            </div>
+                            {{ form.language }}
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            {{ form.level.errors }}
+                            <div class="mt-30 lbel25">
+                                <label for="{{ form.level.id_for_label }}">Niveau</label>
+                            </div>
+                            {{ form.level }}
+                        </div>
+                        <div class="col-lg-6 col-md-6 ">
+                            {{ form.price.errors }}
+                            <div class="ui search focus mt-30 lbel25">
+                                <label for="{{ form.price.id_for_label }}">Prix (F CFA)</label>
+
+                                <div class="ui left icon input swdh19">
+                                    {{ form.price }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            {{ form.thumbnail.errors }}
+                            <div class="ui search focus mt-30 lbel25">
+                                <label for="{{ form.price.id_for_label }}">Thumbnail</label>
+                                <div class="ui left icon input swdh19">
+                                    {{ form.thumbnail }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 mt-30">
+                            <button type="submit" class="create_btn_dash">Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

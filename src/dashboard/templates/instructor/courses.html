@@ -55,7 +55,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <button class="btn btn-sm">
-                                            <a href="#" title="Edit" class="dropdown-item">Modifier</a>
+                                            <a href="{% url 'dashboard:update-course' course.id %}" title="Edit" class="dropdown-item">Modifier</a>
                                         </button>
                                         <button class="btn btn-sm">
                                             <a href="{% url 'course:course-overview' course.slug %}" title="View" class="dropdown-item">Détails</a>
