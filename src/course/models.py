@@ -74,6 +74,7 @@ class Course(models.Model):
     language = models.ForeignKey(Language, models.SET_NULL, null=True)
     drafted = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
+    submitted = models.BooleanField(default=False)
     publish_date = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     promote_video = models.TextField(null=True)
 

@@ -17,20 +17,30 @@ urlpatterns = [
     path("student/", views.StudentView.as_view(), name="student"),
     path("instructor/", views.InstructorView.as_view(), name="instructor"),
     path("courses/", views.CourseListView.as_view(), name="courses"),
-    path("tutorials/", views.TutorialListView.as_view(), name="tutorials"),
-    path("create-course/", views.CourseCreateView.as_view(), name="create-course"),
+    path("course/create/", views.CourseCreateView.as_view(), name="create-course"),
     path(
-        "create-tutorial/", views.TutorialCreateView.as_view(), name="create-tutorial"
-    ),
-    path(
-        "<int:pk>/delete-course/",
+        "course/<int:pk>/delete/",
         views.CourseDeleteView.as_view(),
         name="delete-course",
     ),
     path(
-        "<int:pk>/delete-tutorial/",
+        "course/edit/<int:pk>",
+        views.CourseUpdateView.as_view(),
+        name="update-course",
+    ),
+    path("tutorials/", views.TutorialListView.as_view(), name="tutorials"),
+    path(
+        "tutorial/create/", views.TutorialCreateView.as_view(), name="create-tutorial"
+    ),
+    path(
+        "tutorial/<int:pk>/delete/",
         views.TutorialDeleteView.as_view(),
         name="delete-tutorial",
+    ),
+    path(
+        "tutorial/edit/<int:pk>",
+        views.TutorialUpdateView.as_view(),
+        name="update-tutorial",
     ),
     path(
         "teacher/courses/",

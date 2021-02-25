@@ -86,6 +86,62 @@ class CreateCourse(forms.ModelForm):
         fields = ("title", "level", "language", "price", "description", "thumbnail")
 
 
+class UpdateCourse(forms.ModelForm):
+    title = forms.CharField(
+        max_length=254,
+        label="Titre de la formation",
+        widget=forms.TextInput(
+            {
+                "class": "prompt srch_explore",
+            }
+        ),
+    )
+    description = forms.CharField(
+        label="Description",
+        widget=SummernoteWidget(
+            attrs={"summernote": {"width": "100%", "height": "400px"}}
+        ),
+    )
+    level = forms.ChoiceField(
+        choices=LEVEL,
+        label="Niveau",
+        widget=forms.Select(
+            attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+        ),
+    )
+    language = forms.ModelChoiceField(
+        queryset=Language.objects.all(),
+        label="Langue de la formation",
+        initial="Français - FR",
+        widget=forms.Select(
+            attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+        ),
+    )
+    price = forms.IntegerField(
+        label="Titre de la formation",
+        initial=0,
+        widget=forms.NumberInput(
+            {
+                "placeholder": "Prix",
+                "class": "prompt srch_explore",
+            }
+        ),
+    )
+    thumbnail = forms.FileField(
+        label="Thumbnail",
+        widget=forms.FileInput(
+            {
+                "class": "prompt srch_explore",
+                "accept": "image/*",
+            }
+        ),
+    )
+
+    class Meta:
+        model = Course
+        fields = ("title", "level", "language", "price", "description", "thumbnail")
+
+
 class CreateChapter(forms.ModelForm):
     name = forms.CharField(
         max_length=254,
