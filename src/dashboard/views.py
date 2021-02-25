@@ -52,18 +52,6 @@ class UserLogList(ListView):
     context_object_name = "logs"
 
 
-@method_decorator([student_required], name="dispatch")
-class StudentView(View):
-    template_name = "student/dashboard.html"
-
-    def get(self, request, *args, **kwargs):
-        student = request.user
-
-        context = {"student": student}
-
-        return render(request, self.template_name, context)
-
-
 @method_decorator([teacher_required], name="dispatch")
 class InstructorView(View):
     template_name = "instructor/dashboard.html"
@@ -85,14 +73,34 @@ class InstructorView(View):
         return render(request, self.template_name, context)
 
 
-@method_decorator([teacher_required], name="dispatch")
+@method_decorator([student_required], name="dispatch")
+class StudentView(View):
+    template_name = "student/dashboard.html"
+
+    def get(self, request, *args, **kwargs):
+        student = request.user
+        courses_purchased = Course.objects.filter(students__id__exact=student.id)
+        total_instructor_subscribing = (
+            courses_purchased.order_by("teacher").distinct("teacher").count()
+        )
+
+        context = {
+            "courses": courses_purchased,
+            "total_instructor_subscribing": total_instructor_subscribing,
+        }
+
+        return render(request, self.template_name, context)
+
+
+@method_decorator([login_required], name="dispatch")
 class CourseListView(ListView):
-    paginate_by = 10
     template_name = "courses.html"
+    paginate_by = 10
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
-        courses = []
+        print("User", user)
+        courses = None
         if user.is_teacher:
             courses = Course.objects.filter(teacher=user).order_by("-date_created")
         if user.is_student:
