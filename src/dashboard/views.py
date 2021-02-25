@@ -23,6 +23,8 @@ def dashboard_view(request):
         return redirect("dashboard:staff")
     if user.is_teacher:
         return redirect("dashboard:instructor")
+    else:
+        return redirect("oauth-new-password")
 
 
 @method_decorator([staff_required], name="dispatch")

@@ -30,6 +30,7 @@ class Language(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
+    icon = models.CharField(max_length=50, default="uil-arrow")
     description = models.TextField()
     thumbnail = models.FileField(upload_to=upload_image_path, null=True, blank=True)
 

@@ -224,8 +224,19 @@
   <!-- Left Sidebar End -->
   <!-- Body Start -->
   <div class="wrapper">
+
     <div class="sa4d25">
       <div class="container-fluid">
+        {% if user.is_authenticated and not user.has_usable_password %}
+        <div class="text-center pt-4 mt-4">
+          <div class="alert alert-danger" role="alert">
+            <a href="{% url 'oauth-new-password' %}" class="text-danger">Cliquez ici pour ajouter un mot de
+              passe</a>
+          </div>
+        </div>
+        {% else %}
+
+        {% endif %}
         <div class="row">
           <div class="col-xl-9 col-lg-8">
 

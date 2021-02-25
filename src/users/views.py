@@ -67,6 +67,35 @@ def login(request):
             )
 
 
+def set_password_for_oauth(request):
+    user = request.user
+    if user.is_authenticated and not user.has_usable_password():
+        return redirect("profile")
+    else:
+        return redirect("dashboard:dashboard")
+    if request.method == "POST":
+        password = request.POST["password"]
+        password2 = request.POST["password2"]
+        if password == password2:
+            user.set_password(password)
+            user.is_student = True
+            user.save()
+            user = authenticate(request, email=user.email, password=password)
+            if user is not None:
+                auth_login(request, user)
+                return redirect("profile")
+            else:
+                messages.success(
+                    request,
+                    f"Utilisez cet email {user.email} et votre nouveau mot de passe",
+                )
+            return redirect("login")
+        else:
+            messages.error(request, "Les mots de passe ne sont pas identiques")
+            return redirect("/users/new-password/")
+    return render(request, "new-password-oauth.html")
+
+
 @check_recaptcha
 def register(request):
     next_ = request.GET.get("next")

@@ -18,6 +18,11 @@ urlpatterns = [
         name="update-personal-info",
     ),
     path(
+        "profile/oauth-new-password/",
+        views.set_password_for_oauth,
+        name="oauth-new-password",
+    ),
+    path(
         "profile/update_password/",
         views.update_password,
         name="update-password",
