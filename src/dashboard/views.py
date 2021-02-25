@@ -105,7 +105,7 @@ class CourseListView(ListView):
         return render(request, template_name, context)
 
 
-@method_decorator([teacher_required], name="dispatch")
+@method_decorator([login_required], name="dispatch")
 class TutorialListView(ListView):
     template_name = "instructor/tutorials.html"
     paginate_by = 10
@@ -149,7 +149,7 @@ class CourseDeleteView(DeleteView):
     success_url = reverse_lazy("dashboard:courses")
 
 
-@method_decorator([teacher_required], name="dispatch")
+@method_decorator([login_required], name="dispatch")
 class TutorialCreateView(CreateView):
     form_class = CreatePostForm
     template_name = "instructor/create-tutorial.html"
