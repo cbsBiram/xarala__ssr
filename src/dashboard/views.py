@@ -2,8 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Count, Sum
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic.edit import CreateView, DeleteView
-from blog.forms import CreatePostForm
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from blog.forms import CreatePostForm, UpdatePostForm
 from blog.models import Post
 from users.decorators import staff_required, student_required, teacher_required
 from django.views.generic import View, ListView
@@ -11,7 +11,7 @@ from django.shortcuts import redirect, render
 from course.models import Course
 from userlogs.models import UserLog
 from users.models import CustomUser
-from course.forms import CreateCourse
+from course.forms import CreateCourse, UpdateCourse
 
 
 @login_required
@@ -27,40 +27,28 @@ def dashboard_view(request):
         return redirect("oauth-new-password")
 
 
+class UserLogList(ListView):
+    model = UserLog
+    context_object_name = "logs"
+
+
 @method_decorator([staff_required], name="dispatch")
 class StaffView(View):
     template_name = "staff/dashboard.html"
 
     def get(self, request, *args, **kwargs):
         total_courses = Course.objects.count()
-        total_users = CustomUser.objects.count()
+        total_teachers = CustomUser.objects.filter(is_teacher=True).count()
         total_students = CustomUser.objects.filter(is_student=True).count()
         logs = UserLog.objects.all()[:10]
 
         context = {
             "title": "Staff",
             "total_courses": total_courses,
-            "total_users": total_users,
+            "total_teachers": total_teachers,
             "total_students": total_students,
             "logs": logs,
         }
-        return render(request, self.template_name, context)
-
-
-class UserLogList(ListView):
-    model = UserLog
-    context_object_name = "logs"
-
-
-@method_decorator([student_required], name="dispatch")
-class StudentView(View):
-    template_name = "student/dashboard.html"
-
-    def get(self, request, *args, **kwargs):
-        student = request.user
-
-        context = {"student": student}
-
         return render(request, self.template_name, context)
 
 
@@ -70,7 +58,9 @@ class InstructorView(View):
 
     def get(self, request, *args, **kwargs):
         instructor = request.user
-        courses_published = Course.objects.filter(teacher=instructor, published=True)
+        courses_published = Course.objects.filter(teacher=instructor, published=True)[
+            :10
+        ]
         total_sales = courses_published.aggregate(Sum("price"))["price__sum"]
         total_enroll = courses_published.aggregate(Count("students"))["students__count"]
         courses_unpublished = Course.objects.filter(teacher=instructor, published=False)
@@ -85,35 +75,42 @@ class InstructorView(View):
         return render(request, self.template_name, context)
 
 
-@method_decorator([teacher_required], name="dispatch")
+@method_decorator([student_required], name="dispatch")
+class StudentView(View):
+    template_name = "student/dashboard.html"
+
+    def get(self, request, *args, **kwargs):
+        student = request.user
+        courses_purchased = Course.objects.filter(students__id__exact=student.id)
+        total_instructor_subscribing = (
+            courses_purchased.order_by("teacher").distinct("teacher").count()
+        )
+
+        context = {
+            "courses": courses_purchased,
+            "total_instructor_subscribing": total_instructor_subscribing,
+        }
+
+        return render(request, self.template_name, context)
+
+
+@method_decorator([login_required], name="dispatch")
 class CourseListView(ListView):
+    template_name = "courses.html"
     paginate_by = 10
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
-        courses = []
+        print("User", user)
+        courses = None
         if user.is_teacher:
             courses = Course.objects.filter(teacher=user).order_by("-date_created")
-            template_name = "instructor/courses.html"
         if user.is_student:
             courses = Course.objects.filter(students__id__exact=user.id).order_by(
                 "-date_created"
             )
-            template_name = "student/courses.html"
 
-        context = {"courses": courses}
-        return render(request, template_name, context)
-
-
-@method_decorator([login_required], name="dispatch")
-class TutorialListView(ListView):
-    template_name = "instructor/tutorials.html"
-    paginate_by = 10
-
-    def get(self, request, *args, **kwargs):
-        user = self.request.user
-        tutorials = Post.objects.filter(author=user).order_by("-publish_date")
-        context = {"tutorials": tutorials}
+        context = {"courses": courses, "user": user}
         return render(request, self.template_name, context)
 
 
@@ -139,14 +136,27 @@ class CourseCreateView(CreateView):
         return render(request, self.template_name, {"form": form})
 
 
-class CourseDeleteView(DeleteView):
-    # specify the model you want to use
+class CourseUpdateView(UpdateView):
     model = Course
+    form_class = UpdateCourse
+    template_name = "instructor/edit-course.html"
 
-    # can specify success url
-    # url to redirect after sucessfully
-    # deleting object
+
+class CourseDeleteView(DeleteView):
+    model = Course
     success_url = reverse_lazy("dashboard:courses")
+
+
+@method_decorator([login_required], name="dispatch")
+class TutorialListView(ListView):
+    template_name = "tutorials.html"
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        tutorials = Post.objects.filter(author=user).order_by("-publish_date")
+        context = {"tutorials": tutorials, "user": user}
+        return render(request, self.template_name, context)
 
 
 @method_decorator([login_required], name="dispatch")
@@ -170,10 +180,11 @@ class TutorialCreateView(CreateView):
 
 
 class TutorialDeleteView(DeleteView):
-    # specify the model you want to use
     model = Post
-
-    # can specify success url
-    # url to redirect after sucessfully
-    # deleting object
     success_url = reverse_lazy("dashboard:tutorials")
+
+
+class TutorialUpdateView(UpdateView):
+    model = Post
+    form_class = UpdatePostForm
+    template_name = "instructor/edit-tutorial.html"

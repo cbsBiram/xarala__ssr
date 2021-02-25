@@ -1,6 +1,4 @@
-{% extends "_dashboard_base.html" %} {% load static %} {% load crispy_forms_tags %} {% block title %} {{ title }}
-{% endblock title %} {% block sidebar %} {% include "partials/_sidebar_instructor.html" %} {% endblock sidebar %}
-{% block content %}
+{% extends "_dashboard_base.html" %} {% load static %} {% load crispy_forms_tags %} {% block title %} {{ title }} {% endblock title %} {% block sidebar %} {% include "partials/_sidebar_dashboard.html" %} {% endblock sidebar %} {% block content %}
 
 <div class="row">
     <div class="col-lg-12">
@@ -8,52 +6,27 @@
             <i class="uil uil-apps"></i>Tableau de bord Apprenant
         </h2>
     </div>
-    <div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="col-xl-6 col-lg-6 col-md-6">
         <div class="card_dash">
             <div class="card_dash_left">
-                <h5>Total des ventes (F CFA)</h5>
-                <h2>{{ total_sales|floatformat|default_if_none:"0" }}</h2>
-                <span class="crdbg_1">New $50</span>
+                <h5>Total des cours achetés</h5>
+                <h2>{{ courses.count|default_if_none:"0" }}</h2>
+                <span class="crdbg_1">New 5</span>
             </div>
             <div class="card_dash_right">
-                <img src="{% static 'images/dashboard/achievement.svg'%}" alt="" />
+                <img src="{% static 'images/dashboard/online-course.svg' %}" alt="">
             </div>
         </div>
     </div>
-    <div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="col-xl-6 col-lg-6 col-md-6">
         <div class="card_dash">
             <div class="card_dash_left">
-                <h5>Nombre total d'inscrits</h5>
-                <h2>{{ total_enroll|default_if_none:"0" }}</h2>
-                <span class="crdbg_2">New 125</span>
+                <h5>Total des instructeurs suivis</h5>
+                <h2>{{ total_instructor_subscribing|default_if_none:"0" }}</h2>
+                <span class="crdbg_2">New 3</span>
             </div>
             <div class="card_dash_right">
-                <img src="{% static 'images/dashboard/graduation-cap.svg' %}" alt="" />
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-4 col-lg-6 col-md-6">
-        <div class="card_dash">
-            <div class="card_dash_left">
-                <h5>Nombre de cours total</h5>
-                <h2>{{ courses_published.count|default_if_none:"0" }}</h2>
-                <span class="crdbg_3">New 5</span>
-            </div>
-            <div class="card_dash_right">
-                <img src="{% static 'images/dashboard/online-course.svg' %}" alt="" />
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="card_dash1">
-            <div class="card_dash_left1">
-                <i class="uil uil-book-alt"></i>
-                <h1>Passez à la création de vos propres cours</h1>
-            </div>
-            <div class="card_dash_right1">
-                <button class="create_btn_dash" onclick="window.location.href = 'create_new_course.html';">
-                    Créer votre cours
-                </button>
+                <img src="{% static 'images/dashboard/knowledge.svg' %}" alt="">
             </div>
         </div>
     </div>
@@ -61,10 +34,10 @@
 <div class="row">
     <div class="col-xl-6 col-lg-6 col-md-6">
         <div class="section3125 mt-50">
-            <h4 class="item_title">Performance des derniers cours</h4>
+            <h4 class="item_title">Derniers cours achetés</h4>
             <div class="la5lo1">
                 <div class="owl-carousel courses_performance owl-theme">
-                    {% for course in courses_published %}
+                    {% for course in courses %}
                     <div class="item">
                         <div class="fcrse_1">
                             <a href="{% url 'course:course-overview' course.slug %}" class="fcrse_img">
@@ -96,26 +69,6 @@
                         </div>
                     </div>
                     {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-6 col-lg-6 col-md-6">
-        <div class="section3125 mt-50">
-            <h4 class="item_title">Cours en attente</h4>
-            <div class="la5lo1">
-                <div class="fcrse_1">
-                    <div class="fcrse_content">
-                        {% for course in courses_unpublished %}
-                        <div class="upcming_card">
-                            <a href="#" class="crsedt145">{{ course.title }}<span class="pndng_145">Pending</span></a>
-                            <p class="submit-course">
-                                Submitted<span>{{ course.date_created|date:"D d M Y" }}</span>
-                            </p>
-                            <a href="#" class="delete_link10">Delete</a>
-                        </div>
-                        {% endfor %}
-                    </div>
                 </div>
             </div>
         </div>
