@@ -12,7 +12,7 @@
           {{ post.image.url }}
           {% elif post.image_url %}
           {{ post.image_url }}
-          {% else %}{% static 'assets/img/placeholder-1.jpg'  %}
+          {% else %}{% static 'images/logo.png'  %}
           {% endif %}" alt="{{ post.title }}">
     </a>
   </div>
@@ -29,9 +29,8 @@
       </div>
       <div class="card-footer">
         <div class="media">
-          <img class="iconbox"
-            src="{% if post.author.avatar %} {{ post.author.avatar.url }} {% else %} {% static 'assets/img/262x230/1.jpg' %} {% endif %}"
-            alt="{{ post.author.get_full_name }}">
+          <img class="iconbox" src="{% if post.author.avatar %} {{ post.author.avatar.url }} {% else %} {% static 'images/logo.png' %}
+            {% endif %}" alt="{{ post.author.get_full_name }}">
           <div class="media-body ml-4">
             <a href="#" class="text-primary"> {{ post.author.get_full_name }}</a> <br>
             {{ post.date_created|date:"d, M, Y" }} - <a href="{% url 'blog:blog_tag' post.tags.first  %}"
