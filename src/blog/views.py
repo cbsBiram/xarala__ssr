@@ -24,10 +24,11 @@ class PostDetailView(DetailView):
         return context
 
 
-def blog_tag(request, tag):
-    posts = Post.objects.filter(tags__name__contains=tag).published()
+def blog_tag(request, id):
+    tag = Tag.objects.get(pk=id)
+    posts = Post.objects.filter(tags__name__contains=tag.name).published()
     context = {"tag": tag, "posts": posts}
-    return render(request, "post_tag.html", context)
+    return render(request, "blog/post_tag.html", context)
 
 
 class PostListCreateView(ListView, CreateView):

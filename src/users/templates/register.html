@@ -12,13 +12,12 @@ Authentification
 <div class="col-lg-6 col-md-8">
   <div class="sign_form">
     <h2>S'inscrire sur Xarala</h2>
-
-    <button class="social_lnk_btn  color_btn_go">
-      <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-light">
-        <i class="uil uil-google"></i>S'inscrire avec
+    <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-light">
+      <button class="social_lnk_btn color_btn_go">
+        <i class="uil uil-google"></i>Se connecter avec
         Google
-      </a>
-    </button>
+      </button>
+    </a>
     <form method="POST">
       {% csrf_token %}
       <div class="ui search focus mt-15">

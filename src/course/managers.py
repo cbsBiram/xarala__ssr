@@ -8,6 +8,9 @@ class CourseQuerySet(models.QuerySet):
         now = timezone.now()
         return self.filter(publish_date__lte=now)
 
+    def unpublished(self):
+        return self.filter(published=False, submitted=True)
+
     def search(self, query):
         lookup = (
             Q(title__icontains=query)
@@ -27,6 +30,9 @@ class CourseManager(models.Manager):
 
     def published(self):
         return self.get_queryset().published()
+
+    def unpublished(self):
+        return self.get_queryset().unpublished()
 
     def search(self, query=None):
         if query is None:

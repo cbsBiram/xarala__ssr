@@ -3,20 +3,20 @@
     <h6 class="left_title">Cours</h6>
     <ul>
       <li class="menu--item">
-        <a href="{% url 'dashboard:courses' %}" class="menu--link" title="Vos cours">
+        <a href="{% url 'dashboard:all_courses' %}" class="menu--link" title="Vos cours">
           <i class='uil uil-video menu--icon'></i>
           <span class="menu--label">Tous les cours</span>
         </a>
       </li>
       <li class="menu--item">
-        <a href="{% url 'dashboard:courses' %}" class="menu--link" title="Vos cours">
-          <i class='uil uil-video menu--icon'></i>
+        <a href="{% url 'dashboard:unpublished_courses' %}" class="menu--link" title="Vos cours">
+          <i class='uil uil-step-backward menu--icon'></i>
           <span class="menu--label">Cours non publié</span>
         </a>
       </li>
       <li class="menu--item">
-        <a href="{% url 'dashboard:courses' %}" class="menu--link" title="Vos cours">
-          <i class='uil uil-video menu--icon'></i>
+        <a href="{% url 'dashboard:published_courses' %}" class="menu--link" title="Vos cours">
+          <i class='uil uil-step-forward menu--icon'></i>
           <span class="menu--label">Cours publié</span>
         </a>
       </li>
@@ -27,21 +27,21 @@
     <h6 class="left_title">Tutoriels</h6>
     <ul>
       <li class="menu--item">
-        <a href="{% url 'dashboard:tutorials' %}" class="menu--link" title="Vos tutos">
+        <a href="{% url 'dashboard:all_tutorials' %}" class="menu--link" title="Vos tutos">
           <i class='uil uil-book-reader menu--icon'></i>
           <span class="menu--label">Tous les tutos</span>
         </a>
       </li>
       <li class="menu--item">
-        <a href="{% url 'dashboard:tutorials' %}" class="menu--link" title="Vos tutos">
-          <i class='uil uil-book-reader menu--icon'></i>
-          <span class="menu--label">Tutos non publiés</span>
+        <a href="{% url 'dashboard:published_tutorials' %}" class="menu--link" title="Vos tutos">
+          <i class='uil uil-link-alt menu--icon'></i>
+          <span class="menu--label">Tutos publiés</span>
         </a>
       </li>
       <li class="menu--item">
-        <a href="{% url 'dashboard:tutorials' %}" class="menu--link" title="Vos tutos">
-          <i class='uil uil-book-reader menu--icon'></i>
-          <span class="menu--label">Tutos publiés</span>
+        <a href="{% url 'dashboard:unpublished_tutorials' %}" class="menu--link" title="Vos tutos">
+          <i class='uil uil-link-h menu--icon'></i>
+          <span class="menu--label">Tutos non publiés</span>
         </a>
       </li>
 

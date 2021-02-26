@@ -61,8 +61,8 @@
           {% if user.is_authenticated %}
           <li class="menu--item">
             <a href="{% url 'dashboard:dashboard' %}"
-              class="menu--link  {% if 'dashboard' in request.path %} active {% endif %}" title="Home">
-              <i class='uil uil-rocket menu--icon'></i>
+              class="menu--link {% if 'dashboard' in request.path %} active {% endif %}" title="Tableau de Bord">
+              <i class='uil uil-dashboard menu--icon'></i>
               <span class="menu--label">Tableau de Bord</span>
             </a>
           </li>
@@ -216,7 +216,7 @@
               <div class="fcrse_2 mb-30">
                 <div class="tutor_img">
                   <a href="{% url 'profile' %}"><img src="{% if user.avatar %} {{ user.avatar.url }}
-            {% else %} {% static 'assets/img/262x230/6.jpg' %}
+            {% else %} {% static 'images/logo.png' %}
             {% endif %}" alt=""></a>
                 </div>
                 <div class="tutor_content_dt">

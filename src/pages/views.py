@@ -21,11 +21,11 @@ from .models import Subscribe, Team
 
 def home(request):
     courses = Course.objects.published()
-    tutoriels = Post.objects.published()
+    tutorials = Post.objects.published()
     teachers = CustomUser.objects.filter(is_teacher=True)
     context = {
         "courses": courses,
-        "tutoriels": tutoriels,
+        "tutorials": tutorials,
         "teachers": teachers,
     }
     return render(request, "index.html", context)

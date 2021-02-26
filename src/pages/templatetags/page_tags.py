@@ -6,6 +6,6 @@ register = template.Library()
 
 
 @register.simple_tag
-def get_categories(course_id, student):
+def get_categories():
     categories = Category.objects.all()
     return categories

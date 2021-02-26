@@ -6,7 +6,6 @@ urlpatterns = [
     path("login/", views.login, name="login"),
     path("register/", views.register, name="register"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
-    
     path("profile/", views.CustomUserUpdateDetailView.as_view(), name="profile"),
     path(
         "profile/update_profile_image/",

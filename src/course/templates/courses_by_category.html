@@ -7,23 +7,25 @@ Les cours sur {{ category }}
 
 
 {% block content %}
+<div class="section3125">
+  <div class="sa4d25">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12">
 
-{% include "partials/_breadcrumbs.html" with previous="Cours" previous_url="course:courses" current=category text="Tous les cours" %}
+          <h4 class="item_title">Les cours sur <span class="text-xarala">{{ category }}</span> </h4>
+          <div class="la5lo1">
+            <div class="owl-carousel featured_courses owl-theme">
+              {% for course in course_list %}
+              {% include "partials/_course-card.html" with course=course %}
+              {% endfor %}
+            </div>
+          </div>
 
-<section class="paddingTop-50 paddingBottom-100 bg-light-v2">
-  <div class="container">
-    <div class="row align-items-start">
-
-      <div class="col-lg-12 order-1 order-lg-2">
-
-        {% include "partials/_course-list.html" with courses=course_list %}
-      </div> <!-- END col-lg-9 -->
-
-    </div> <!-- END row-->
-    {% include "partials/_pagination.html" %}
-
-  </div> <!-- END container-->
-</section>
-
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

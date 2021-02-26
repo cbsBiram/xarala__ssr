@@ -10,7 +10,7 @@
       {{ post.image.url }}
       {% elif post.image_url %}
       {{ post.image_url }}
-      {% else %}{% static 'assets/img/placeholder-1.jpg'  %}
+      {% else %}{% static 'images/logo.png'  %}
       {% endif %}" alt="{{ post.title }}" alt="{{ post.title }}">
     <div class="card-body px-0">
       <a href="{% url 'blog:blog_tag' post.tags.first %}" class="text-primary">{{ post.tags.first }}</a>
