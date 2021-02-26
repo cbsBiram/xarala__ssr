@@ -19,6 +19,9 @@ class Tag(models.Model):
     def tag_posts(self):
         return self.post_set.filter(drafted=False)
 
+    def posts_published(self):
+        return self.post_set.filter(published=True)
+
 
 class Post(models.Model):
     author = models.ForeignKey(
