@@ -32,7 +32,7 @@ Le blog de Xarala
                   <ul class="category-card">
                     <li>
                       {% for tag in tags %}
-                      <a href="#" class="category-item1">{{ tag.name }} ({{ tag.post_set.count }})</a>
+                      <a href="{% url 'blog:blog_tag' tag.id %}" class="category-item1">{{ tag.name }} ({{ tag.posts_published.count }})</a>
                       {% endfor %}
                     </li>
                   </ul>
