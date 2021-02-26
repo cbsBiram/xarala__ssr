@@ -36,6 +36,7 @@ class StaffView(View):
 @method_decorator([staff_required], name="dispatch")
 class AllCoursesView(ListView):
     queryset = Course.objects.all()
+    context_object_name = "courses"
     paginate_by = 20
     template_name = "staff/all_courses.html"
 
@@ -47,6 +48,7 @@ class AllCoursesView(ListView):
 @method_decorator([staff_required], name="dispatch")
 class PublishedCoursesView(ListView):
     queryset = Course.objects.published()
+    context_object_name = "courses"
     paginate_by = 20
     template_name = "staff/published_courses.html"
 
@@ -58,6 +60,7 @@ class PublishedCoursesView(ListView):
 @method_decorator([staff_required], name="dispatch")
 class UnPublishedCoursesView(ListView):
     queryset = Course.objects.unpublished()
+    context_object_name = "courses"
     paginate_by = 20
     template_name = "staff/unpublished_courses.html"
 
