@@ -14,7 +14,7 @@ all_tests:
     - cd src && pytest
   when: on_success
   only:
-    - main
+    - branches
 
 codestyle:
   stage: test
@@ -23,4 +23,4 @@ codestyle:
     - cd src && flake8 && black  --exclude migrations  --check .
   when: on_success
   only:
-    - main
+    - branches
