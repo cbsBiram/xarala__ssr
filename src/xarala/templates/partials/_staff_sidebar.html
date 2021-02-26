@@ -3,19 +3,19 @@
     <h6 class="left_title">Cours</h6>
     <ul>
       <li class="menu--item">
-        <a href="{% url 'dashboard:courses' %}" class="menu--link" title="Vos cours">
+        <a href="{% url 'dashboard:all_courses' %}" class="menu--link" title="Vos cours">
           <i class='uil uil-video menu--icon'></i>
           <span class="menu--label">Tous les cours</span>
         </a>
       </li>
       <li class="menu--item">
-        <a href="{% url 'dashboard:courses' %}" class="menu--link" title="Vos cours">
+        <a href="{% url 'dashboard:unpublished_courses' %}" class="menu--link" title="Vos cours">
           <i class='uil uil-step-backward menu--icon'></i>
           <span class="menu--label">Cours non publié</span>
         </a>
       </li>
       <li class="menu--item">
-        <a href="{% url 'dashboard:courses' %}" class="menu--link" title="Vos cours">
+        <a href="{% url 'dashboard:published_courses' %}" class="menu--link" title="Vos cours">
           <i class='uil uil-step-forward menu--icon'></i>
           <span class="menu--label">Cours publié</span>
         </a>
