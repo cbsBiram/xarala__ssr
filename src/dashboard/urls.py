@@ -13,6 +13,19 @@ urlpatterns = [
     # staff
     path("staff/", staff_views.StaffView.as_view(), name="staff"),
     path("staff/logs/", staff_views.UserLogList.as_view(), name="logs"),
+    path(
+        "staff/all-courses/", staff_views.AllCoursesView.as_view(), name="all_courses"
+    ),
+    path(
+        "staff/published-courses/",
+        staff_views.PublishedCoursesView.as_view(),
+        name="published_courses",
+    ),
+    path(
+        "staff/unpublished-courses/",
+        staff_views.UnPublishedCoursesView.as_view(),
+        name="unpublished_courses",
+    ),
     # student
     path(
         "student/courses/",
