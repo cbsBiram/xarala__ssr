@@ -1,12 +1,12 @@
-{% extends "_dashboard_base.html" %} 
-{% load static %} 
-{% load crispy_forms_tags %} 
+{% extends "_dashboard_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
 
-{% block title %} {{ title }} {% endblock title %} 
+{% block title %} {{ title }} {% endblock title %}
 
-{% block sidebar %} 
-    {% include "partials/_sidebar_dashboard.html" %} 
-{% endblock sidebar %} 
+{% block sidebar %}
+{% include "partials/_sidebar_dashboard.html" %}
+{% endblock sidebar %}
 
 {% block content %} {% include 'partials/_courses.html' %} {% endblock %}
 
