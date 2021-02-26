@@ -28,6 +28,7 @@ urlpatterns = [
         views.CourseUpdateView.as_view(),
         name="update-course",
     ),
+    path("submit-course/", views.publish_course, name="submit-course"),
     path("tutorials/", views.TutorialListView.as_view(), name="tutorials"),
     path(
         "tutorial/create/", views.TutorialCreateView.as_view(), name="create-tutorial"
@@ -42,6 +43,7 @@ urlpatterns = [
         views.TutorialUpdateView.as_view(),
         name="update-tutorial",
     ),
+    path("submit-tutorial/", views.publish_tutorial, name="submit-tutorial"),
     path(
         "teacher/courses/",
         course_views.TeacherCourseListView.as_view(),
