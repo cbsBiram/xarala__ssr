@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     # refresh tokens are optional
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     "django_filters",
-    "social_django",
     # custom apps,
     "course.apps.CourseConfig",
     "pages.apps.PagesConfig",
