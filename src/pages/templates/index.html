@@ -5,7 +5,7 @@
 
 <div class="section3125">
     <h4 class="item_title">Cours en vedette</h4>
-    <a href="#" class="see150">Voir Tout</a>
+    <a href="{% url 'course:courses' %}" class="see150">Voir Tout</a>
     <div class="la5lo1">
         <div class="owl-carousel featured_courses owl-theme">
             {% for course in courses %}
@@ -16,7 +16,7 @@
 </div>
 <div class="section3125 mt-30">
     <h4 class="item_title">Cours les plus récents</h4>
-    <a href="#" class="see150">Voir Tout</a>
+    <a href="{% url 'course:courses' %}" class="see150">Voir Tout</a>
     <div class="la5lo1">
         <div class="owl-carousel featured_courses owl-theme">
             {% for course in courses %}

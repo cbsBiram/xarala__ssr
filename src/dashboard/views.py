@@ -101,7 +101,6 @@ class CourseListView(ListView):
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
-        print("User", user)
         courses = None
         if user.is_teacher:
             courses = Course.objects.filter(teacher=user).order_by("-date_created")

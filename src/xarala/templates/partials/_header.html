@@ -121,7 +121,7 @@
               </span>
             </a>
           </div>
-          <a href="{% url 'register' %}" class="item channel_item">Tableau de bord</a>
+          <a href="{% url 'dashboard:dashboard' %}" class="item channel_item">Tableau de bord</a>
           <a class="item channel_item" href="javascript:{document.getElementById('logout').submit()}">Déconnexion
             <form action="{% url 'logout' %}" method="POST" id="logout">
               {% csrf_token %}

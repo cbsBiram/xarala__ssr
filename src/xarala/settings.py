@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     "celery",
     "embed_video",
     "import_export",
-    "social_django",
     # refresh tokens are optional
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     "django_filters",
