@@ -26,6 +26,21 @@ urlpatterns = [
         staff_views.UnPublishedCoursesView.as_view(),
         name="unpublished_courses",
     ),
+    path(
+        "staff/all-tutorials/",
+        staff_views.AllTutorialsView.as_view(),
+        name="all_tutorials",
+    ),
+    path(
+        "staff/published-tutorials/",
+        staff_views.PublishedTutorialsView.as_view(),
+        name="published_tutorials",
+    ),
+    path(
+        "staff/unpublished-tutorials/",
+        staff_views.UnPublishedTutorialsView.as_view(),
+        name="unpublished_tutorials",
+    ),
     # student
     path(
         "student/courses/",

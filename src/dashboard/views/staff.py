@@ -5,6 +5,7 @@ from django.views.generic import ListView, View
 from userlogs.models import UserLog
 from users.decorators import staff_required
 from users.models import CustomUser
+from blog.models import Post
 
 
 @method_decorator([staff_required], name="dispatch")
@@ -63,6 +64,42 @@ class UnPublishedCoursesView(ListView):
     context_object_name = "courses"
     paginate_by = 20
     template_name = "staff/unpublished_courses.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+@method_decorator([staff_required], name="dispatch")
+class AllTutorialsView(ListView):
+    queryset = Post.objects.all()
+    context_object_name = "tutorials"
+    paginate_by = 20
+    template_name = "staff/all_tutorials.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+@method_decorator([staff_required], name="dispatch")
+class PublishedTutorialsView(ListView):
+    queryset = Post.objects.published()
+    context_object_name = "tutorials"
+    paginate_by = 20
+    template_name = "staff/published_tutorials.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+@method_decorator([staff_required], name="dispatch")
+class UnPublishedTutorialsView(ListView):
+    queryset = Post.objects.unpublished()
+    context_object_name = "tutorials"
+    paginate_by = 20
+    template_name = "staff/unpublished_tutorials.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
