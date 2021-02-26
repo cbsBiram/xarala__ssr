@@ -52,6 +52,8 @@
                             <td class="text-center"><b class="course_active">
                                     {% if tutorial.published %}
                                     Publié
+                                    {% elif tutorial.submitted %}
+                                    Soumis
                                     {% else %}
                                     En attente
                                     {% endif %}
@@ -66,23 +68,25 @@
                                                 title="View" class="dropdown-item">Détails</a>
                                         </button>
                                         {% if user.is_teacher or user.is_student %}
-                                        <button class="btn"><a href="{% url 'dashboard:update-tutorial' tutorial.id %}" title="Submit"
-                                                class="dropdown-item">Soumettre</a>
-                                        </button>
+                                            {% if not tutorial.submitted and not tutorial.published %}
+                                                <button id="submit_tutorial" tutorial_id="{{tutorial.id}}" class="btn"><a href="#" title="Submit"
+                                                    class="dropdown-item">Soumettre</a>
+                                            </button>
+                                            {% endif %}
                                         <button class="btn"><a href="{% url 'dashboard:update-tutorial' tutorial.id %}" title="Edit"
                                                 class="dropdown-item">Modifier</a>
                                         </button>
                                         <form id="delete-form" action="{% url 'dashboard:delete-tutorial' tutorial.id %}" method="post">
                                             {% csrf_token %}
                                             <button type="submit" class="btn">
-                                                <a onclick="return confirm('Are you sure you want to delete this item?');"
+                                                <a onclick="return confirm('Etes-vous sûr de vouloir supprimer ce tutoriel?');"
                                                     title="Delete" class="dropdown-item">Supprimer</i></a>
                                             </button>
                                         </form>
                                         {% endif %}
 
-                                        {% if user.is_staff %}
-                                        <button class="btn"><a href="{% url 'dashboard:update-tutorial' tutorial.id %}" title="Publish"
+                                        {% if user.is_staff and tutorial.submitted %}
+                                        <button id="publish_tutorial" tutorial_id="{{tutorial.id}}" class="btn btn-sm"><a href="#" title="Publish"
                                                 class="dropdown-item">Publier</a>
                                         </button>
                                         {% endif %}

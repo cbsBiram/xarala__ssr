@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Count, Sum
+from django.http.response import JsonResponse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -135,15 +136,36 @@ class CourseCreateView(CreateView):
         return render(request, self.template_name, {"form": form})
 
 
+@method_decorator([teacher_required], name="dispatch")
 class CourseUpdateView(UpdateView):
     model = Course
     form_class = UpdateCourse
     template_name = "instructor/edit-course.html"
 
 
+@method_decorator([teacher_required], name="dispatch")
 class CourseDeleteView(DeleteView):
     model = Course
     success_url = reverse_lazy("dashboard:courses")
+
+
+@teacher_required
+def publish_course(request):
+    user = request.user
+    values = {"error": "", "has_error": 0}
+    course_id = int(request.POST.get("id"))
+    try:
+        course = Course.objects.get(pk=course_id, teacher=user)
+        if not course.submitted and not course.published:
+            course.submitted = True
+        elif course.submitted:
+            course.published = True
+        course.save()
+    except Exception as e:
+        values["error"] = e
+        values["has_error"] = -1
+        print(e)
+    return JsonResponse(values)
 
 
 @method_decorator([login_required], name="dispatch")
@@ -178,12 +200,33 @@ class TutorialCreateView(CreateView):
         return render(request, self.template_name, {"form": form})
 
 
+@method_decorator([login_required], name="dispatch")
 class TutorialDeleteView(DeleteView):
     model = Post
     success_url = reverse_lazy("dashboard:tutorials")
 
 
+@method_decorator([login_required], name="dispatch")
 class TutorialUpdateView(UpdateView):
     model = Post
     form_class = UpdatePostForm
     template_name = "instructor/edit-tutorial.html"
+
+
+@login_required
+def publish_tutorial(request):
+    user = request.user
+    values = {"error": "", "has_error": 0}
+    tutorial_id = int(request.POST.get("id"))
+    try:
+        tutorial = Post.objects.get(pk=tutorial_id, author=user)
+        if not tutorial.submitted and not tutorial.published:
+            tutorial.submitted = True
+        elif tutorial.submitted:
+            tutorial.published = True
+        tutorial.save()
+    except Exception as e:
+        values["error"] = e
+        values["has_error"] = -1
+        print(e)
+    return JsonResponse(values)
