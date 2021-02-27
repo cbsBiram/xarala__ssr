@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from course.models import Course
-from course.recommender import Recommender
+
+# from course.recommender import Recommender
 from coupons.forms import CouponApplyForm
 from .cart import Cart
 from .forms import CartAddCourseForm
@@ -43,8 +44,8 @@ def cart_detail(request):
         )
     coupon_apply_form = CouponApplyForm()
 
-    r = Recommender()
-    cart_courses = [item["course"] for item in cart]
+    # r = Recommender()
+    # cart_courses = [item["course"] for item in cart]
     # recommended_courses = r.suggest_courses_for(cart_courses, max_results=4)
 
     return render(
