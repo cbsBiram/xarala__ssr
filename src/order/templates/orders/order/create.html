@@ -11,20 +11,20 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8">
+
         <div class="membership_chk_bg">
-          <div class="membership_chk_bg">
-            <div class="checkout_title">
-              <h4>Information de facturation</h4>
-              <img src="{% static 'images/line.svg' %}" alt="">
-            </div>
-            <div class="address_text">
-
-              M. {{ user.get_full_name|default_if_none:user.email }}<br>
-              {{ user.address|default_if_none:"" }}
-            </div>
+          <div class="checkout_title">
+            <h4>Information de facturation</h4>
+            <img src="{% static 'images/line.svg' %}" alt="">
           </div>
+          <div class="address_text">
 
+            M. {{ user.get_full_name|default_if_none:user.email }}<br>
+            {{ user.address|default_if_none:"" }}
+          </div>
         </div>
+
+
       </div>
       <div class="col-lg-4">
         <div class="membership_chk_bg rght1528">
