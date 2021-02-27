@@ -59,7 +59,8 @@ Authentification
       </div>
       <button class="login-btn" type="submit">S'inscrire</button>
     </form>
-    <p class="sgntrm145"> J'accepte <a target="_blank" href="{% url 'pages:privacy_policy' %}">les conditions
+    <p class="sgntrm145">En vous inscrivant vous acceptez <a target="_blank" href="{% url 'pages:privacy_policy' %}">les
+        conditions
         d'utilisation du site</a></p>
     <p class="mb-0 mt-10"><a href="{% url 'login' %}?next={{ next|default_if_none:'/' }}">J'ai déja un compte</a></p>
   </div>
