@@ -65,6 +65,7 @@ urlpatterns = [
         name="update-course",
     ),
     path("submit-course/", teacher_views.publish_course, name="submit-course"),
+    # shared
     path("tutorials/", shared_views.TutorialListView.as_view(), name="tutorials"),
     path(
         "tutorial/create/",
@@ -82,6 +83,11 @@ urlpatterns = [
         name="update-tutorial",
     ),
     path("submit-tutorial/", shared_views.publish_tutorial, name="submit-tutorial"),
+    path(
+        "tutorials/<str:slug>/overview/",
+        shared_views.tutorial_overview,
+        name="tutorial_overview",
+    ),
     path(
         "teacher/courses/",
         course_views.TeacherCourseListView.as_view(),

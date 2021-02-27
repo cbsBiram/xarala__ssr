@@ -1,0 +1,45 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+Le blog de Xarala - {{ tutorial.title }}
+{% endblock title %}
+
+{% block content %}
+<div class="section3125">
+  <div class="faq1256">
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col-md-8">
+          <div class="bg_blog2">
+            <img src="
+            {% if tutorial.image %}
+            {{ tutorial.image.url }}
+            {% elif tutorial.image_url %}
+            {{ tutorial.image_url }}
+            {% else %}{% static 'images/logo.png'  %}
+            {% endif %}" alt="{{ tutorial.title }}" class="img-fluid">
+          </div>
+          <div class="vew120 frc123">
+            <div class="vdtodt55">
+              <span class="vdt24">Par : {{ tutorial.author.get_full_name }}</span>
+              <span class="vdt24">{{ tutorial.date_created|date:"d, M, Y" }}</span>
+            </div>
+            <p>{{ tutorial.description|safe }}</p>
+          </div>
+          <div class="vew120 mt-35 mb-30">
+            {{ tutorial.content|safe }}
+          </div>
+
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock content %}
