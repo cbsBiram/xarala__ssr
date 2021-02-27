@@ -27,7 +27,7 @@
 
 
     {% if course.price > 0 %}
-    <a href="#" class="text-light">
+    <a href="{% url 'cart:add_course_to_cart' course.slug %}" class="text-light">
       <button class="btn-block btn_adcart">Ajouter au panier</button>
     </a>
     {% elif course in request.user.courses_enrolled.all %}

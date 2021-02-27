@@ -1,37 +1,68 @@
-{% extends "shop/base.html" %}
+{% extends "_base.html" %}
+{% load static %}
 {% load i18n %}
 
 {% block title %}
-  {% trans "Checkout" %}
+{% trans "Checkout" %}
 {% endblock %}
 
 {% block content %}
-  <h1>{% trans "Checkout" %}</h1>
+<div class="section3125">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="membership_chk_bg">
+          <div class="membership_chk_bg">
+            <div class="checkout_title">
+              <h4>Information de facturation</h4>
+              <img src="{% static 'images/line.svg' %}" alt="">
+            </div>
+            <div class="address_text">
 
-  <div class="order-info">
-    <h3>{% trans "Your order" %}</h3>
-    <ul>
-      {% for item in cart %}
-        <li>
-          {{ item.quantity }}x {{ item.product.name }}
-          <span>${{ item.total_price|floatformat:2 }}</span>
-        </li>
-      {% endfor %}
-      {% if cart.coupon %}
-        <li>
-          {% blocktrans with code=cart.coupon.code discount=cart.coupon.discount %}
-            "{{ code }}" ({{ discount }}% off)
-          {% endblocktrans %}
-          <span class="neg">- ${{ cart.get_discount|floatformat:2 }}</span>
-        </li>
-      {% endif %}
-    </ul>
-    <p>{% trans "Total" %}: ${{ cart.get_total_price_after_discount|floatformat:2 }}</p>
+              M. {{ user.get_full_name|default_if_none:user.email }}<br>
+              {{ user.address|default_if_none:"" }}
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="membership_chk_bg rght1528">
+          <div class="checkout_title">
+            <h4>Résumé de la commande</h4>
+            <img src="images/line.svg" alt="">
+          </div>
+          <div class="order_dt_section">
+            <ul>
+              {% for item in cart %}
+              <li>
+                {{ item.quantity }}x {{ item.course.title }}
+                <span>${{ item.total_price|floatformat:2 }}</span>
+              </li>
+              {% endfor %}
+              {% if cart.coupon %}
+              <li>
+                {% blocktrans with code=cart.coupon.code discount=cart.coupon.discount %}
+                "{{ code }}" ({{ discount }}% off)
+                {% endblocktrans %}
+                <span class="neg">- ${{ cart.get_discount|floatformat:2 }}</span>
+              </li>
+              {% endif %}
+            </ul>
+            <p>{% trans "Total" %}: ${{ cart.get_total_price_after_discount|floatformat:2 }}</p>
+            <a href="#">
+              <button class="btn-block btn_adcart">
+                <i class="uil uil-lock-alt"></i>Paiement securié
+              </button>
+            </a>
+
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
   </div>
-
-  <form method="post" class="order-form">
-    {{ form.as_p }}
-    <p><input type="submit" value="{% trans "Place order" %}"></p>
-    {% csrf_token %}
-  </form>
-{% endblock %}
+</div>
+{% endblock content %}
