@@ -151,17 +151,11 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
-SOCIAL_AUTH_FACEBOOK_KEY = ("1815308661957053",)
-SOCIAL_AUTH_FACEBOOK_SECRET = ("c634b6ef2157ddf8ae5262f6c1dce23d",)
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
-    "223000822798-sv84dnbqhahq5bubmkta1tq95fa6i7rl.apps.googleusercontent.com",
-)
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "YK_NOViediU9xeQkLScSSvIR"
-
-
-SOCIAL_AUTH_GITHUB_KEY = "a changer"
-SOCIAL_AUTH_GITHUB_SECRET = "a changer"
+SOCIAL_AUTH_FACEBOOK_SCOPE = ["email"]
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    "fields": "id, name, email, age_range",
+}
 
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "profile"
