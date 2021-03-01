@@ -19,6 +19,7 @@ urlpatterns = [
     # path("quiz/", include("quiz.urls", namespace="quiz")),
     path("cart/", include("cart.urls", namespace="cart")),
     path("orders/", include("order.urls", namespace="orders")),
+    path("coupons/", include("coupons.urls", namespace="coupons")),
     path("payment/", include("payment.urls", namespace="payment")),
     path("search/", include("search.urls", namespace="search")),
     path("summernote/", include("django_summernote.urls")),

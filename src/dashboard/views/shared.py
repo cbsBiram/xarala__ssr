@@ -1,12 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.http.response import JsonResponse
+from django.http.response import HttpResponseForbidden, JsonResponse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from blog.forms import CreatePostForm, UpdatePostForm
 from blog.models import Post
 from django.views.generic import ListView
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from userlogs.models import UserLog
 
 
@@ -86,3 +86,12 @@ def publish_tutorial(request):
         values["has_error"] = -1
         print(e)
     return JsonResponse(values)
+
+
+@login_required
+def tutorial_overview(request, slug):
+    tutorial = get_object_or_404(Post, slug=slug)
+    user = request.user
+    if tutorial.author != user and not user.is_staff:
+        return HttpResponseForbidden("Non authorise")
+    return render(request, "tutorial_overview.html", {"tutorial": tutorial})

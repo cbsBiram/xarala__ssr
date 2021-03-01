@@ -6728,7 +6728,7 @@ a.rmv-btn i {
   font-family: 'Roboto', sans-serif;
   color: #333;
   float: left;
-  width: 70%;
+  width: 50%;
   text-align: left;
   line-height: 24px;
   margin-bottom: 0;
@@ -6741,7 +6741,7 @@ a.rmv-btn i {
   color: #333;
   text-align: right;
   float: right;
-  width: 30%;
+  width: 50%;
   margin-bottom: 0;
 }
 

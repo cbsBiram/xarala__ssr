@@ -1,0 +1,82 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+Le blog de Xarala
+{% endblock title %}
+
+{% block content %}
+
+<div class="section3125">
+  <div class="_205ef5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-5">
+          <div class="fcrse_3 mt-50">
+            <ul class="blogleft12">
+              <li>
+                <div class="explore_search blg152">
+                  <div class="ui search focus">
+                    <div class="ui left icon input swdh11 swdh15">
+                      <input class="prompt srch_explore" type="text" placeholder="Rechercher un tutoriel">
+                      <i class="uil uil-search-alt icon icon2"></i>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a href="#collapse1" class="category-topics cate-right collapsed " data-toggle="collapse" role="button"
+                  aria-expanded="true" aria-controls="collapse1">Filtrer par
+                  tag</a>
+                <div class="collapse" id="collapse1">
+                  <ul class="category-card">
+                    <li>
+                      {% for tag in tags %}
+                      <a href="{% url 'blog:blog_tag' tag.name %}" class="category-item1">{{ tag.name }}
+                        ({{ tag.posts_published.count }})</a>
+                      {% endfor %}
+                    </li>
+                  </ul>
+                </div>
+
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-9 col-md-7">
+          {% for post in posts %}
+          <div class="blogbg_1 mt-50">
+            <a href="{{ post.get_absolute_url }}" class="hf_img">
+              <img src="
+              {% if post.image %}
+              {{ post.image.url }}
+              {% elif post.image_url %}
+              {{ post.image_url }}
+              {% else %}{% static 'images/logo.png'  %}
+              {% endif %}" alt="{{ post.title }}">
+              <div class="course-overlay"></div>
+            </a>
+            <div class="hs_content">
+              <div class="vdtodt">
+                <span class="vdt14">Par : {{ post.author.get_full_name }} dans : {{ post.tags.first  }}</span>
+                <!-- <span class="vdt14">{{ post.date_created|date:"d, M, Y" }}</span> -->
+              </div>
+              <a href="{{ post.get_absolute_url }}" class="crse14s title900">{{ post.title }}</a>
+              <p class="blog_des"> {{ post.description|safe|truncatewords:"20" }}</p>
+              <a href="{{ post.get_absolute_url }}" class="view-blog-link">En savoir plus<i
+                  class="uil uil-arrow-right"></i></a>
+            </div>
+          </div>
+          {% endfor %}
+
+          <!-- post pagination -->
+          {% include "partials/_pagination.html" %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}

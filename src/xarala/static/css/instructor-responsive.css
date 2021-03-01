@@ -14,9 +14,9 @@
 	display: none;
 }
 
-.header_right ul li:nth-child(2) {
+/* .header_right ul li:nth-child(2) {
 	display: none !important;
-}
+} */
 
 .option_links {
     padding: 10px 3px !important;

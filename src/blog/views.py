@@ -7,7 +7,8 @@ from .forms import CreatePostForm
 class PostListView(ListView):
     queryset = Post.objects.published()
     context_object_name = "posts"
-    paginate_by = 3
+    paginate_by = 6
+    template_name = "post_list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -17,6 +18,7 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+    template_name = "post_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -24,11 +26,11 @@ class PostDetailView(DetailView):
         return context
 
 
-def blog_tag(request, id):
-    tag = Tag.objects.get(pk=id)
-    posts = Post.objects.filter(tags__name__contains=tag.name).published()
-    context = {"tag": tag, "posts": posts}
-    return render(request, "blog/post_tag.html", context)
+def blog_tag(request, tag_name):
+    posts = Post.objects.filter(tags__name__contains=tag_name).published()
+    tags = Tag.objects.all()
+    context = {"tag_name": tag_name, "posts": posts, "tags": tags}
+    return render(request, "post_by_tag.html", context)
 
 
 class PostListCreateView(ListView, CreateView):
