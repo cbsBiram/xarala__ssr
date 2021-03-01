@@ -89,6 +89,22 @@ def publish_tutorial(request):
 
 
 @login_required
+def draft_tutorial(request):
+    user = request.user
+    values = {"error": "", "has_error": 0}
+    tutorial_id = int(request.POST.get("id"))
+    try:
+        tutorial = Post.objects.get(pk=tutorial_id, author=user)
+        tutorial.drafted = True
+        tutorial.save()
+    except Exception as e:
+        values["error"] = e
+        values["has_error"] = -1
+        print(e)
+    return JsonResponse(values)
+
+
+@login_required
 def tutorial_overview(request, slug):
     tutorial = get_object_or_404(Post, slug=slug)
     user = request.user

@@ -95,12 +95,29 @@ def publish_course(request):
     user = request.user
     values = {"error": "", "has_error": 0}
     course_id = int(request.POST.get("id"))
+    print('a')
     try:
         course = Course.objects.get(pk=course_id, teacher=user)
         if not course.submitted and not course.published:
             course.submitted = True
         elif course.submitted:
             course.published = True
+        course.save()
+    except Exception as e:
+        values["error"] = e
+        values["has_error"] = -1
+        print(e)
+    return JsonResponse(values)
+
+
+@teacher_required
+def draft_course(request):
+    user = request.user
+    values = {"error": "", "has_error": 0}
+    course_id = int(request.POST.get("id"))
+    try:
+        course = Course.objects.get(pk=course_id, teacher=user)
+        course.drafted = True
         course.save()
     except Exception as e:
         values["error"] = e

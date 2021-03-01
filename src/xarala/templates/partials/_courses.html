@@ -60,7 +60,9 @@
                                 {% endfor %}
                             </td>
                             <td class="text-center"><b class="course_active">
-                                    {% if course.published %}
+                                    {% if course.drafted %}
+                                        Archivé
+                                    {% elif course.published %}
                                         Publié
                                     {% elif course.submitted %}
                                         Soumis
@@ -83,7 +85,7 @@
                                             <a href="#" title="Submit" class="dropdown-item">Soumettre</a>
                                         </button>
                                         {% endif %}
-                                        {% if user.is_teacher %}
+                                        {% if user.is_teacher and not course.drafted %}
                                         <button class="btn btn-sm">
                                             <a href="{% url 'dashboard:update-course' course.id %}" title="Edit" class="dropdown-item">Modifier</a>
                                         </button>
@@ -95,10 +97,16 @@
                                         </form>
                                         {% endif %}
 
-                                        {% if user.is_staff and course.submitted %}
-                                        <button id="publish_course" course_id="{{course.id}}" class="btn btn-sm">
-                                            <a href="#" title="Publish" class="dropdown-item">Publier</a>
-                                        </button>
+                                        {% if user.is_teacher and not course.drafted %}
+                                            <button id="draft_course" course_id="{{course.id}}" class="btn btn-sm">
+                                                <a href="#" title="Draft" class="dropdown-item">Archiver</a>
+                                            </button>
+                                        {% endif %}
+
+                                        {% if user.is_staff and course.submitted and not course.published %}
+                                            <button id="publish_course" course_id="{{course.id}}" class="btn btn-sm">
+                                                <a href="#" title="Publish" class="dropdown-item">Publier</a>
+                                            </button>
                                         {% endif %}
                                             
                                     </div>

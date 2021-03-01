@@ -48,6 +48,24 @@
                     }
                 });
         })
+
+        $("button#draft_course").on("click", function() {
+            const courseId = $(this).attr("course_id")
+            let confirmation = confirm('Etes-vous sûr de vouloir archiver ce cours?'); 
+            if (confirmation)
+                $.ajax({
+                    type: "POST",
+                    url: '{% url "dashboard:draft-course" %}',
+                    data: {
+                        'id': courseId,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        document.location.reload()
+                    }
+                });
+        })
     })
 </script> 
 {% endblock extrajs %}
