@@ -36,7 +36,7 @@
                             {% if user.is_teacher or user.is_staff %}
                             <th class="text-center" scope="col">Etudiants</th>
                             {% endif %}
-
+                            <th class="text-center" scope="col">Catégorie</th>
                             <th class="text-center" scope="col">Statut</th>
                             <th class="text-center" scope="col">Action</th>
                         </tr>
@@ -54,6 +54,11 @@
                             <td class="text-center">{{ course.students.count|default_if_none:"0" }}</td>
                             {% endif %}
 
+                            <td class="text-center">
+                                {% for category in course.categories.all %}
+                                <a href="#">{{ category.name|default_if_none:"" }}</a> 
+                                {% endfor %}
+                            </td>
                             <td class="text-center"><b class="course_active">
                                     {% if course.published %}
                                         Publié

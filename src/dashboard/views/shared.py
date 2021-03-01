@@ -47,6 +47,7 @@ class TutorialCreateView(CreateView):
             post = form.save(commit=False)
             post.author = user
             post.save()
+            form.save_m2m()
             UserLog.objects.create(
                 action=f"Created {post.title} post", user_type="Writer", user=user
             )

@@ -1,7 +1,7 @@
 from django import forms
 from django_summernote.widgets import SummernoteWidget
 from .models import (
-    Course,
+    Category, Course,
     Chapter,
     Language,
     Lesson,
@@ -55,11 +55,20 @@ class CreateCourse(forms.ModelForm):
     language = forms.ModelChoiceField(
         queryset=Language.objects.all(),
         label="Langue de la formation",
-        initial="Français - FR",
+        initial=Language.objects.first(),
         widget=forms.Select(
             attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
         ),
     )
+    categories = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(),
+        label="Catégories",
+        required=True,
+        initial=Category.objects.first(),
+        widget=forms.SelectMultiple(
+            attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+        ),
+    ),
     price = forms.IntegerField(
         label="Titre de la formation",
         required=True,
@@ -83,7 +92,7 @@ class CreateCourse(forms.ModelForm):
 
     class Meta:
         model = Course
-        fields = ("title", "level", "language", "price", "description", "thumbnail")
+        fields = ("title", "level", "language", "categories", "price", "description", "thumbnail")
 
 
 class UpdateCourse(forms.ModelForm):

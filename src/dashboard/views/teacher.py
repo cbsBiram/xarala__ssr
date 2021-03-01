@@ -66,6 +66,7 @@ class CourseCreateView(CreateView):
             course = form.save(commit=False)
             course.teacher = teacher
             course.save()
+            form.save_m2m()
             UserLog.objects.create(
                 action=f"Created {course.title} course",
                 user_type="Instructeur",

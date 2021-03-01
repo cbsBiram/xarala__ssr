@@ -1,6 +1,6 @@
 from django import forms
 from django_summernote.widgets import SummernoteWidget
-from .models import Post
+from .models import Post, Tag
 
 
 class CreatePostForm(forms.ModelForm):
@@ -33,6 +33,15 @@ class CreatePostForm(forms.ModelForm):
             }
         ),
     )
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        label="Catégories",
+        required=True,
+        initial=Tag.objects.first(),
+        widget=forms.SelectMultiple(
+            attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+        ),
+    ),
     image = forms.FileField(
         label="Thumbnail",
         widget=forms.FileInput(
@@ -45,7 +54,7 @@ class CreatePostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ("title", "content", "image", "description")
+        fields = ("title", "content", "image", "description", "tags")
 
 
 class UpdatePostForm(forms.ModelForm):

@@ -39,19 +39,26 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-4 col-md-12">
                             {{ form.language.errors }}
                             <div class="mt-30 lbel25">
                                 <label for="{{ form.language.id_for_label }}">Langue*</label>
                             </div>
                             {{ form.language }}
                         </div>
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-4 col-md-12">
                             {{ form.level.errors }}
                             <div class="mt-30 lbel25">
                                 <label for="{{ form.level.id_for_label }}">Niveau*</label>
                             </div>
                             {{ form.level }}
+                        </div>
+                        <div class="col-lg-4 col-md-12 d-flex mt-35">
+                            {{ form.categories.errors }}
+                            <div class="mt-30 lbel25" style="margin-right: 10px !important;">
+                                <label for="{{ form.categories.id_for_label }}">Catégories*</label>
+                            </div>
+                            {{ form.categories }}
                         </div>
                         <div class="col-lg-6 col-md-6 ">
                             {{ form.price.errors }}
@@ -72,6 +79,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6 col-md-6 col-sm-12 mt-30">
                             <button type="submit" class="create_btn_dash">Enregistrer</button>
                         </div>
