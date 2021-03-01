@@ -95,7 +95,6 @@ def publish_course(request):
     user = request.user
     values = {"error": "", "has_error": 0}
     course_id = int(request.POST.get("id"))
-    print('a')
     try:
         course = Course.objects.get(pk=course_id, teacher=user)
         if not course.submitted and not course.published:

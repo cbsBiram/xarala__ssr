@@ -38,6 +38,7 @@
   <link href="{% static 'css/instructor-dashboard.css' %}" rel="stylesheet" />
   <link href="{% static 'css/instructor-responsive.css' %}" rel="stylesheet" />
   <link href="{% static 'css/night-mode.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/jquery-steps.css' %}" rel="stylesheet">
 
   <!-- Vendor Stylesheets -->
   <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" />
@@ -157,8 +158,10 @@
     <script src="{% static 'vendor/OwlCarousel/owl.carousel.js' %}"></script>
     <script src="{% static 'vendor/semantic/semantic.min.js' %}"></script>
     <script src="{% static 'js/custom1.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
     <script src="{% static 'js/night-mode.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% static 'js/jquery-steps.min.js' %}"></script>
+    
     {% block extrajs %} {% endblock extrajs %}
 </body>
 
