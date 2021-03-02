@@ -157,6 +157,11 @@
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'vendor/OwlCarousel/owl.carousel.js' %}"></script>
+    {% block semantic %}
+    <script src="{% static 'vendor/semantic/semantic.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    {% endblock semantic %}
+
     <!-- <script src="{% static 'vendor/semantic/semantic.min.js' %}"></script> -->
     <!-- <script src="{% static 'js/custom.js' %}"></script> -->
     <script src="{% static 'js/night-mode.js' %}"></script>
