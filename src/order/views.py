@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 import weasyprint
 from django.urls import reverse
 from django.shortcuts import render, redirect
@@ -12,6 +13,7 @@ from .forms import OrderCreateForm
 from .tasks import order_created
 
 
+@login_required
 def order_create(request):
     cart = Cart(request)
     if request.method == "POST":
