@@ -64,6 +64,19 @@ urlpatterns = [
         teacher_views.CourseUpdateView.as_view(),
         name="update-course",
     ),
+    path(
+        "manage-course/<slug:slug>",
+        teacher_views.CourseManagementView.as_view(),
+        name="manage-course",
+    ),
+    path(
+        "add-chapter/<slug:slug>/", teacher_views.create_chapter, name="create-chapter"
+    ),
+    path(
+        "update-chapter/<slug:slug>/",
+        teacher_views.update_chapter,
+        name="update-chapter",
+    ),
     path("submit-course/", teacher_views.publish_course, name="submit-course"),
     path("draft-course/", teacher_views.draft_course, name="draft-course"),
     # shared

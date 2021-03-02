@@ -6,10 +6,10 @@ from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from users.decorators import teacher_required
 from django.views.generic import View, ListView
-from django.shortcuts import redirect, render
-from course.models import Course
+from django.shortcuts import get_object_or_404, redirect, render
+from course.models import Chapter, Course
 from userlogs.models import UserLog
-from course.forms import CreateCourse, UpdateCourse
+from course.forms import CreateChapter, CreateCourse, UpdateChapter, UpdateCourse
 
 
 @method_decorator([teacher_required], name="dispatch")
@@ -90,6 +90,29 @@ class CourseDeleteView(DeleteView):
     success_url = reverse_lazy("dashboard:courses")
 
 
+@method_decorator([teacher_required], name="dispatch")
+class CourseManagementView(View):
+    template_name = "instructor/manage-course.html"
+    form_class = CreateChapter
+    form_class_update = UpdateChapter
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        course = Course.objects.get(slug=self.kwargs["slug"])
+        form = self.form_class()
+        form_update = self.form_class_update()
+        return render(
+            request,
+            self.template_name,
+            {
+                "chapters": course.get_chapters(),
+                "course": course,
+                "form": form,
+                "form_update": form_update,
+            },
+        )
+
+
 @teacher_required
 def publish_course(request):
     user = request.user
@@ -123,3 +146,42 @@ def draft_course(request):
         values["has_error"] = -1
         print(e)
     return JsonResponse(values)
+
+
+@teacher_required
+def create_chapter(request, slug):
+    # template_name = "instructor/manage-course.html"
+    form_class = CreateChapter
+    form = form_class(request.POST)
+    values = {"error": "", "has_error": 0}
+    course = Course.objects.get(slug=slug)
+    if form.is_valid():
+        chapter = form.save(commit=False)
+        chapter.course = course
+        chapter.save()
+        course.course_chapters.add(chapter)
+    return JsonResponse(values)
+
+
+@teacher_required
+def update_chapter(request, slug):
+    # template_name = "instructor/manage-course.html"
+    instance = get_object_or_404(Chapter, slug=slug)
+    form_class = CreateChapter
+    form = form_class(request.POST, instance=instance)
+    values = {"error": "", "has_error": 0}
+    if form.is_valid():
+        form.save()
+    return JsonResponse(values)
+
+
+# @teacher_required
+# def delete_chapter(request, slug):
+#     # template_name = "instructor/manage-course.html"
+#     instance = get_object_or_404(Chapter, slug=slug)
+#     form_class = CreateChapter
+#     form = form_class(request.POST, instance=instance)
+#     values = {"error": "", "has_error": 0}
+#     if form.is_valid():
+#         form.save()
+#     return JsonResponse(values)

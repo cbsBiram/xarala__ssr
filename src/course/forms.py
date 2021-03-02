@@ -1,7 +1,8 @@
 from django import forms
 from django_summernote.widgets import SummernoteWidget
 from .models import (
-    Category, Course,
+    Category,
+    Course,
     Chapter,
     Language,
     Lesson,
@@ -60,15 +61,17 @@ class CreateCourse(forms.ModelForm):
             attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
         ),
     )
-    categories = forms.ModelMultipleChoiceField(
-        queryset=Category.objects.all(),
-        label="Catégories",
-        required=True,
-        initial=Category.objects.first(),
-        widget=forms.SelectMultiple(
-            attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+    categories = (
+        forms.ModelMultipleChoiceField(
+            queryset=Category.objects.all(),
+            label="Catégories",
+            required=True,
+            initial=Category.objects.first(),
+            widget=forms.SelectMultiple(
+                attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+            ),
         ),
-    ),
+    )
     price = forms.IntegerField(
         label="Titre de la formation",
         required=True,
@@ -92,7 +95,15 @@ class CreateCourse(forms.ModelForm):
 
     class Meta:
         model = Course
-        fields = ("title", "level", "language", "categories", "price", "description", "thumbnail")
+        fields = (
+            "title",
+            "level",
+            "language",
+            "categories",
+            "price",
+            "description",
+            "thumbnail",
+        )
 
 
 class UpdateCourse(forms.ModelForm):
@@ -154,11 +165,27 @@ class UpdateCourse(forms.ModelForm):
 class CreateChapter(forms.ModelForm):
     name = forms.CharField(
         max_length=254,
-        label="Titre de la chapittre",
+        required=True,
+        label="Titre du chapitre",
         widget=forms.TextInput(
             {
-                "placeholder": "Section 1 ou Introduction..",
-                "class": " border w-full py-2 px-3 text-grey-darker mt-2",
+                "class": "border w-full py-2 px-3 text-grey-darker mt-2",
+            }
+        ),
+    )
+
+    class Meta:
+        model = Chapter
+        fields = ("name",)
+
+
+class UpdateChapter(forms.ModelForm):
+    name = forms.CharField(
+        max_length=254,
+        label="Titre du chapitre",
+        widget=forms.TextInput(
+            {
+                "class": "border w-full py-2 px-3 text-grey-darker mt-2",
             }
         ),
     )

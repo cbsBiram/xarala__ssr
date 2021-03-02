@@ -79,11 +79,16 @@
                                             <a href="{% url 'course:course-overview' course.slug %}" title="View" class="dropdown-item">Détails</a>
                                         </button>
                                         <button class="btn btn-sm">
-                                            <a href="#" title="View" class="dropdown-item">Gestion</a>
-                                        </button> {% if user.is_teacher and not course.submitted and not course.published and course.get_chapters and course.get_lessons %}
+                                            <a href="{% url 'dashboard:manage-course' course.slug %}" title="View" class="dropdown-item">Gestion</a>
+                                        </button> 
+                                        {% if user.is_teacher and not course.submitted and not course.published %}
+                                        {% if course.get_chapters and course.count_lessons  %}
                                         <button id="submit_course" course_id="{{course.id}}" class="btn btn-sm">
                                             <a href="#" title="Submit" class="dropdown-item">Soumettre</a>
-                                        </button> {% endif %} {% if user.is_teacher and not course.drafted %}
+                                        </button> 
+                                        {% endif %}
+                                        {% endif %} 
+                                        {% if user.is_teacher and not course.drafted %}
                                         <button class="btn btn-sm">
                                             <a href="{% url 'dashboard:update-course' course.id %}" title="Edit" class="dropdown-item">Modifier</a>
                                         </button>
