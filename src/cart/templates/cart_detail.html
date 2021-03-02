@@ -11,9 +11,8 @@
 
 
 
-
-
 <div class="section3125">
+  {% include "partials/_alerts.html" %}
   <div class="container">
     {% if cart|length  %}
 
@@ -81,7 +80,7 @@
                 {{ cart.get_total_price_after_discount|floatformat:2 }} XOF</div>
             </div>
             <div class="coupon_code">
-              <p>Learn now is applied.</p>
+              <p></p>
               <div class="coupon_input">
                 <div class="ui search focus mt-15">
                   <div class="ui left icon input swdh11 swdh19">

@@ -50,7 +50,7 @@
               {% endif %}
             </ul>
             <p>{% trans "Total" %}: ${{ cart.get_total_price_after_discount|floatformat:2 }}</p>
-            <a href="#">
+            <a href="{% url 'payment:process' %}">
               <button class="btn-block btn_adcart">
                 <i class="uil uil-lock-alt"></i>Paiement securié
               </button>

@@ -1,55 +1,41 @@
-# import braintree
-from django.shortcuts import render, get_object_or_404
+import paydunya
+from django.contrib import messages
 
-# from django.conf import settings
+from django.shortcuts import get_object_or_404, redirect, render
+
+from django.conf import settings
 from order.models import Order
+from payment.services.paydunya import get_invoice, get_items, invoice_confirmation
 
 # from .tasks import payment_completed
 
+# Activer le mode 'test'. Le debug est à False par défaut
+paydunya.debug = False
 
-# instantiate Braintree payment gateway
-# gateway = braintree.BraintreeGateway(settings.BRAINTREE_CONF)
+# Configurer les clés d'API
+paydunya.api_keys = settings.PAYDUNYA_ACCESS_TOKENS
 
 
 def payment_process(request):
     order_id = request.session.get("order_id")
     order = get_object_or_404(Order, id=order_id)
     total_cost = order.get_total_cost()
-    return total_cost
-
-    # if request.method == 'POST':
-    #     # retrieve nonce
-    #     nonce = request.POST.get('payment_method_nonce', None)
-    #     # create and submit transaction
-    #     result = gateway.transaction.sale({
-    #         'amount': f'{total_cost:.2f}',
-    #         'payment_method_nonce': nonce,
-    #         'options': {
-    #             'submit_for_settlement': True
-    #         }
-    #     })
-    #     if result.is_success:
-    #         # mark the order as paid
-    #         order.paid = True
-    #         # store the unique transaction id
-    #         order.braintree_id = result.transaction.id
-    #         order.save()
-    #         # launch asynchronous task
-    #         payment_completed.delay(order.id)
-    #         return redirect('payment:done')
-    #     else:
-    #         return redirect('payment:canceled')
-    # else:
-    #     # generate token
-    #     client_token = gateway.client_token.generate()
-    #     return render(request,
-    #                   'payment/process.html',
-    #                   {'order': order,
-    #                    'client_token': client_token})
+    items = get_items(order.items.all())
+    successful, response = get_invoice(items, total_cost, request.get_host())
+    if successful:
+        # payment_completed.delay(order.id)
+        return redirect(response.get("response_text"))
+    messages.error(request, "Une erreur s'est produit, veuillez ressayer")
+    return redirect("cart:cart_detail")
 
 
 def payment_done(request):
-    return render(request, "payment/done.html")
+    token = request.GET.get("token")
+    successful, response = invoice_confirmation(token)
+    if successful:
+        return render(request, "payment/done.html")
+    messages.error(request, "Paiement non complete")
+    return redirect("cart:cart_detail")
 
 
 def payment_canceled(request):

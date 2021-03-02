@@ -17,3 +17,15 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ""
 
 SOCIAL_AUTH_FACEBOOK_KEY = ""
 SOCIAL_AUTH_FACEBOOK_SECRET = ""
+
+PAYDUNYA_ACCESS_TOKENS = {
+    "PAYDUNYA-MASTER-KEY": "cle principale",
+    "PAYDUNYA-PRIVATE-KEY": "cle privee",
+    "PAYDUNYA-TOKEN": "token",
+}
+
+# Activer le mode 'test'. Le debug est à False par défaut
+paydunya.debug = False
+
+# Configurer les clés d'API
+paydunya.api_keys = PAYDUNYA_ACCESS_TOKENS
