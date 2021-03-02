@@ -13,7 +13,7 @@ class UserLogList(ListView):
     model = UserLog
     context_object_name = "logs"
     template_name = "staff/logs.html"
-    paginate_by = 20
+    paginate_by = 50
 
 
 @method_decorator([staff_required], name="dispatch")
@@ -100,6 +100,30 @@ class UnPublishedTutorialsView(ListView):
     context_object_name = "tutorials"
     paginate_by = 20
     template_name = "staff/unpublished_tutorials.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+@method_decorator([staff_required], name="dispatch")
+class AllTeachersView(ListView):
+    queryset = CustomUser.objects.teachers()
+    context_object_name = "teachers"
+    paginate_by = 20
+    template_name = "staff/all_teachers.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+@method_decorator([staff_required], name="dispatch")
+class AllStudentsView(ListView):
+    queryset = CustomUser.objects.students()
+    context_object_name = "students"
+    paginate_by = 50
+    template_name = "staff/all_students.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

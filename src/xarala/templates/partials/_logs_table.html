@@ -1,0 +1,32 @@
+<div class="table-responsive mt-30">
+  <table class="table ucp-table earning__table" id="logs">
+    <thead class="thead-s">
+      <tr>
+        <th>Action effectuée</th>
+        <th>Utilisateur</th>
+        <th>Type Utilisateur</th>
+        <th>Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for log in logs %}
+      <tr>
+        <td>{{ log.action }}</td>
+        <td>{{ log.user }}</td>
+        <td>{{ log.user_type }}</td>
+        <td>{{ log.created_at|date:"D d M Y" }}</td>
+
+        <td>
+          <a href="#">Voir</a>
+        </td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+
+  {% include "partials/_pagination.html" %}
+
+</div>

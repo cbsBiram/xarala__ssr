@@ -52,20 +52,20 @@
     <h6 class="left_title">Formateurs</h6>
     <ul>
       <li class="menu--item">
-        <a href="{% url 'dashboard:tutorials' %}" class="menu--link" title="Vos tutos">
-          <i class='uil uil-book-reader menu--icon'></i>
+        <a href="{% url 'dashboard:all_teachers' %}" class="menu--link" title="Vos tutos">
+          <i class='uil uil-users-alt menu--icon'></i>
           <span class="menu--label">Tous les formateus</span>
         </a>
       </li>
       <li class="menu--item">
         <a href="{% url 'dashboard:tutorials' %}" class="menu--link" title="Vos tutos">
-          <i class='uil uil-book-reader menu--icon'></i>
+          <i class='uil uil-user-plus menu--icon'></i>
           <span class="menu--label">Formateurs validés</span>
         </a>
       </li>
       <li class="menu--item">
         <a href="{% url 'dashboard:tutorials' %}" class="menu--link" title="Vos tutos">
-          <i class='uil uil-book-reader menu--icon'></i>
+          <i class='uil uil-user-times menu--icon'></i>
           <span class="menu--label">Formateurs non validés</span>
         </a>
       </li>
@@ -77,24 +77,35 @@
     <h6 class="left_title">Apprenants</h6>
     <ul>
       <li class="menu--item">
-        <a href="{% url 'dashboard:tutorials' %}" class="menu--link" title="Vos tutos">
-          <i class='uil uil-book-reader menu--icon'></i>
+        <a href="{% url 'dashboard:all_students' %}" class="menu--link" title="Vos tutos">
+          <i class='uil uil-user menu--icon'></i>
           <span class="menu--label">Tous les apprenants</span>
         </a>
       </li>
       <li class="menu--item">
         <a href="{% url 'dashboard:tutorials' %}" class="menu--link" title="Vos tutos">
-          <i class='uil uil-book-reader menu--icon'></i>
+          <i class='uil uil-user-check menu--icon'></i>
           <span class="menu--label">Apprenants enrollés</span>
         </a>
       </li>
       <li class="menu--item">
         <a href="{% url 'dashboard:tutorials' %}" class="menu--link" title="Vos tutos">
-          <i class='uil uil-book-reader menu--icon'></i>
+          <i class='uil uil-user-minus menu--icon'></i>
           <span class="menu--label">Apprenants non enrollés</span>
         </a>
       </li>
 
+    </ul>
+  </div>
+  <div class="left_section">
+    <h6 class="left_title">Logs</h6>
+    <ul>
+      <li class="menu--item">
+        <a href="{% url 'dashboard:logs' %}" class="menu--link" title="Vos tutos">
+          <i class='uil uil-bug menu--icon'></i>
+          <span class="menu--label">Tous les logs</span>
+        </a>
+      </li>
     </ul>
   </div>
 

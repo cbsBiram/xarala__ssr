@@ -1,17 +1,17 @@
 {% extends "admin/base_site.html" %}
 
 {% block title %}
-  Order {{ order.id }} {{ block.super }}
+Order {{ order.id }} {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
-  <div class="breadcrumbs">
-    <a href="{% url "admin:index" %}">Home</a> &rsaquo;
-    <a href="{% url "admin:orders_order_changelist" %}">Orders</a>
-    &rsaquo;
-    <a href="{% url "admin:orders_order_change" order.id %}">Order {{ order.id }}</a>
-    &rsaquo; Detail
-  </div>
+<div class="breadcrumbs">
+  <a href="{% url "admin:index" %}">Home</a> &rsaquo;
+  <a href="{% url "admin:order_order_changelist" %}">Orders</a>
+  &rsaquo;
+  <a href="{% url "admin:order_order_change" order.id %}">Order {{ order.id }}</a>
+  &rsaquo; Detail
+</div>
 {% endblock %}
 
 {% block content %}
@@ -53,7 +53,7 @@
   <table style="width:100%">
     <thead>
       <tr>
-        <th>Product</th>
+        <th>Course</th>
         <th>Price</th>
         <th>Quantity</th>
         <th>Total</th>
@@ -61,12 +61,12 @@
     </thead>
     <tbody>
       {% for item in order.items.all %}
-        <tr class="row{% cycle "1" "2" %}">
-          <td>{{ item.product.name }}</td>
-          <td class="num">${{ item.price }}</td>
-          <td class="num">{{ item.quantity }}</td>
-          <td class="num">${{ item.get_cost }}</td>
-        </tr>
+      <tr class="row{% cycle "1" "2" %}">
+        <td>{{ item.course.title }}</td>
+        <td class="num">${{ item.price }}</td>
+        <td class="num">{{ item.quantity }}</td>
+        <td class="num">${{ item.get_cost }}</td>
+      </tr>
       {% endfor %}
       <tr class="total">
         <td colspan="3">Total</td>

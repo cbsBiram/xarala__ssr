@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 import weasyprint
 from django.urls import reverse
 from django.shortcuts import render, redirect
@@ -8,38 +9,40 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from cart.cart import Cart
 from .models import OrderItem, Order
-from .forms import OrderCreateForm
-from .tasks import order_created
+
+# from .tasks import order_created
 
 
+@login_required
 def order_create(request):
     cart = Cart(request)
-    if request.method == "POST":
-        form = OrderCreateForm(request.POST)
-        if form.is_valid():
-            order = form.save(commit=False)
-            if cart.coupon:
-                order.coupon = cart.coupon
-                order.discount = cart.coupon.discount
-            order.save()
-            for item in cart:
-                OrderItem.objects.create(
-                    order=order,
-                    product=item["product"],
-                    price=item["price"],
-                    quantity=item["quantity"],
-                )
-            # clear the cart
-            cart.clear()
-            # launch asynchronous task
-            order_created.delay(order.id)
-            # set the order in the session
-            request.session["order_id"] = order.id
-            # redirect for payment
-            return redirect(reverse("payment:process"))
-    else:
-        form = OrderCreateForm()
-    return render(request, "orders/order/create.html", {"cart": cart, "form": form})
+    user = request.user
+    first_name = user.first_name
+    last_name = user.last_name
+    email = user.email
+    address = user.address
+    order = Order.objects.create(
+        first_name=first_name, last_name=last_name, email=email, address=address
+    )
+    if cart.coupon:
+        order.coupon = cart.coupon
+        order.discount = cart.coupon.discount
+    order.save()
+    for item in cart:
+        OrderItem.objects.create(
+            order=order,
+            course=item["course"],
+            price=item["price"],
+            quantity=item["quantity"],
+        )
+    # clear the cart
+    cart.clear()
+    # launch asynchronous task
+    # order_created.delay(order.id)
+    # set the order in the session
+    request.session["order_id"] = order.id
+    # redirect for payment
+    return redirect(reverse("payment:process"))
 
 
 @staff_member_required

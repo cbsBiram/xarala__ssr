@@ -1,0 +1,43 @@
+<div class="table-responsive mt-30">
+  <table class="table ucp-table earning__table" id="usersTable">
+    <thead class="thead-s">
+      <tr>
+        <th>Nom complet</th>
+        <th>Email</th>
+        <th>Téléphone</th>
+        <th>Date rejoint</th>
+        <th>Nombre de cours</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for user in users %}
+      <tr>
+        <td>{{ user.get_full_name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone|default_if_none:"Non renseigné" }}</td>
+        <td>{{ user.date_joined|date:"D d M Y" }}</td>
+        <td>
+
+          {% if user.is_teacher %}
+          {{ user.courses_created.count }}
+          {% endif %}
+
+          {% if user.is_student %}
+          {{ user.courses_enrolled.count }}
+          {% endif %}
+
+        </td>
+        <td>
+          <a href="#">Voir</a>
+        </td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+
+  {% include "partials/_pagination.html" %}
+
+</div>
