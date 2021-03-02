@@ -13,7 +13,7 @@ class UserLogList(ListView):
     model = UserLog
     context_object_name = "logs"
     template_name = "staff/logs.html"
-    paginate_by = 20
+    paginate_by = 50
 
 
 @method_decorator([staff_required], name="dispatch")
@@ -122,7 +122,7 @@ class AllTeachersView(ListView):
 class AllStudentsView(ListView):
     queryset = CustomUser.objects.students()
     context_object_name = "students"
-    paginate_by = 20
+    paginate_by = 50
     template_name = "staff/all_students.html"
 
     def get_context_data(self, **kwargs):

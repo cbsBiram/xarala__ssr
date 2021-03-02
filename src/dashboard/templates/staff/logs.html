@@ -4,6 +4,10 @@
 
 {% block title %} Logs {% endblock title %}
 
+{% block extrastyle %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+{% endblock extrastyle %}
+
 {% block sidebar %}
 {% include "partials/_staff_sidebar.html" %}
 {% endblock sidebar %}
@@ -11,7 +15,7 @@
 {% block content %}
 
 
-<div class="row">
+<div class=" row">
   <div class="col-lg-12">
     {% include "partials/_logs_table.html" with logs=logs %}
   </div>
@@ -19,3 +23,15 @@
 
 
 {% endblock %}
+
+{% block extrajs %}
+<script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#logs').DataTable({
+      "paging": false,
+      "info": false
+    });
+  });
+</script>
+{% endblock extrajs %}
