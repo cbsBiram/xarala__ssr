@@ -34,7 +34,7 @@
 
         $("#publish_course").on("click", function() {
             const courseId = $(this).attr("course_id")
-            let confirmation = confirm('Etes-vous sûr de vouloir soumettre ce cours?'); 
+            let confirmation = confirm('Etes-vous sûr de vouloir publier ce cours?'); 
             if (confirmation)
                 $.ajax({
                     type: "POST",
