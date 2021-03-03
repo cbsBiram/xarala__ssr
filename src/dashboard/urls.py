@@ -51,6 +51,8 @@ urlpatterns = [
         staff_views.AllStudentsView.as_view(),
         name="all_students",
     ),
+    path("publish-tutorial/", staff_views.publish_tutorial, name="publish-tutorial"),
+    path("publish-course/", staff_views.publish_course, name="publish-course"),
     # student
     path(
         "student/courses/",

@@ -1,12 +1,10 @@
-from django.utils import timezone
 from django.db import models
 from django.db.models import Q
 
 
 class BlogPostQuerySet(models.QuerySet):
     def published(self):
-        now = timezone.now()
-        return self.filter(publish_date__lte=now, drafted=False)
+        return self.filter(published=True, drafted=False)
 
     def unpublished(self):
         return self.filter(published=False, submitted=True)

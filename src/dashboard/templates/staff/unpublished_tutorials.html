@@ -10,3 +10,29 @@
 {% block content %}
 {% include 'partials/_tutorials_table.html' %}
 {% endblock %}
+{% block extrajs %}
+<script>
+  $(document).ready(function () {
+    $(document).on("click", ".publish_tutorial", function () {
+
+      const tutorialId = $(this).attr("tutorial_id")
+      console.log("clicked", tutorialId)
+      let confirmation = confirm('Etes-vous sûr de vouloir publier ce tutoriel?');
+      if (confirmation)
+        $.ajax({
+          type: "POST",
+          url: '{% url "dashboard:publish-tutorial" %}',
+          data: {
+            'id': tutorialId,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+          },
+          dataType: 'json',
+          success: function (data) {
+            document.location.reload()
+          }
+        });
+    })
+
+  });
+</script>
+{% endblock extrajs %}

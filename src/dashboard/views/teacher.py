@@ -114,16 +114,13 @@ class CourseManagementView(View):
 
 
 @teacher_required
-def publish_course(request):
+def submit_course(request):
     user = request.user
     values = {"error": "", "has_error": 0}
     course_id = int(request.POST.get("id"))
     try:
         course = Course.objects.get(pk=course_id, teacher=user)
-        if not course.submitted and not course.published:
-            course.submitted = True
-        elif course.submitted:
-            course.published = True
+        course.submitted = True
         course.save()
     except Exception as e:
         values["error"] = e

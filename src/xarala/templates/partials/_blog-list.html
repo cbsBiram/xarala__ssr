@@ -8,8 +8,8 @@
   <div class="col-md-4 px-md-0">
     <a href="{{ post.get_absolute_url }}">
       <img class="w-100" src="
-          {% if post.image %}
-          {{ post.image.url }}
+          {% if post.thumbnail %}
+          {{ post.thumbnail.url }}
           {% elif post.image_url %}
           {{ post.image_url }}
           {% else %}{% static 'images/logo.png'  %}

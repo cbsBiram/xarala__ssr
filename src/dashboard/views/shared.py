@@ -70,16 +70,13 @@ class TutorialUpdateView(UpdateView):
 
 
 @login_required
-def publish_tutorial(request):
+def submit_tutorial(request):
     user = request.user
     values = {"error": "", "has_error": 0}
     tutorial_id = int(request.POST.get("id"))
     try:
         tutorial = Post.objects.get(pk=tutorial_id, author=user)
-        if not tutorial.submitted and not tutorial.published:
-            tutorial.submitted = True
-        elif tutorial.submitted:
-            tutorial.published = True
+        tutorial.submitted = True
         tutorial.save()
     except Exception as e:
         values["error"] = e

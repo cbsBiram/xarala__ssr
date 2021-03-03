@@ -100,7 +100,7 @@ class CreatePost(graphene.Mutation):
             raise GraphQLError("Log in to add a post!")
         final_file_url = save_base_64(image)
         post = Post(title=title, content=content, description=description, author=user)
-        post.image = final_file_url
+        post.thumbnail = final_file_url
         post.save()
         return CreatePost(post=post)
 
@@ -123,12 +123,12 @@ class UpdatePost(graphene.Mutation):
         post = Post.objects.get(id=postId)
         if user.is_anonymous or post.author != user:
             raise GraphQLError("Acces denied!")
-        final_file_url = save_base_64(image) if image else post.image
+        final_file_url = save_base_64(image) if image else post.thumbnail
         if post.author != user:
             raise GraphQLError("Not permited to update this post")
         post.title = title
         post.description = description
-        post.image = final_file_url
+        post.thumbnail = final_file_url
         post.content = content
         post.save()
         return UpdatePost(post=post)
