@@ -1,3 +1,5 @@
+from datetime import datetime
+from django.http.response import JsonResponse
 from course.models import Course
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -128,3 +130,34 @@ class AllStudentsView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+@staff_required
+def publish_course(request):
+    values = {"error": "", "has_error": 0}
+    course_id = int(request.POST.get("id"))
+    try:
+        course = Course.objects.get(pk=course_id)
+        course.published = True
+        course.save()
+    except Exception as e:
+        values["error"] = e
+        values["has_error"] = -1
+        print(e)
+    return JsonResponse(values)
+
+
+@staff_required
+def publish_tutorial(request):
+    values = {"error": "", "has_error": 0}
+    tutorial_id = int(request.POST.get("id"))
+    try:
+        tutorial = Post.objects.get(pk=tutorial_id)
+        tutorial.published = True
+        tutorial.publish_date = datetime.now()
+        tutorial.save()
+    except Exception as e:
+        values["error"] = e
+        values["has_error"] = -1
+        print(e)
+    return JsonResponse(values)

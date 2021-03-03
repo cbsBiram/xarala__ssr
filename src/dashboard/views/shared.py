@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from datetime import datetime
 from django.http.response import HttpResponseForbidden, JsonResponse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -9,7 +8,6 @@ from blog.models import Post
 from django.views.generic import ListView
 from django.shortcuts import get_object_or_404, redirect, render
 from userlogs.models import UserLog
-from users.decorators import staff_required
 
 
 @login_required
@@ -78,22 +76,6 @@ def submit_tutorial(request):
     try:
         tutorial = Post.objects.get(pk=tutorial_id, author=user)
         tutorial.submitted = True
-        tutorial.save()
-    except Exception as e:
-        values["error"] = e
-        values["has_error"] = -1
-        print(e)
-    return JsonResponse(values)
-
-
-@staff_required
-def publish_tutorial(request):
-    values = {"error": "", "has_error": 0}
-    tutorial_id = int(request.POST.get("id"))
-    try:
-        tutorial = Post.objects.get(pk=tutorial_id)
-        tutorial.published = True
-        tutorial.publish_date = datetime.now()
         tutorial.save()
     except Exception as e:
         values["error"] = e
