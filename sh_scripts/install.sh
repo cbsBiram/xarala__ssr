@@ -26,9 +26,12 @@ echo "***********************************************"
 echo "---install dependencies (including django)  ---"
 echo "***********************************************"
 pip3 install --upgrade pip
+pip3 install --user pipenv
 # activate env
-python3 -m venv xarala-env
-source xarala-env/bin/activate
-pip3 install -r requirements.txt
+# python3 -m venv xarala-env
+# source xarala-env/bin/activate
+# pip3 install -r requirements.txt
+pipenv install
+pipenv shell
 python src/manage.py makemigrations
 python src/manage.py migrate
