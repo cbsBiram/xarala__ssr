@@ -31,6 +31,6 @@ pip3 install --upgrade pip
 # python3 -m venv xarala-env
 # source xarala-env/bin/activate
 # pip3 install -r requirements.txt
-pipenv install --skip-lock && pipenv shell
+pipenv shell && pipenv install --skip-lock
 python src/manage.py makemigrations
 python src/manage.py migrate
