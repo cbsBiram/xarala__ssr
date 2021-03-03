@@ -48,10 +48,10 @@ Le blog de Xarala
           <div class="blogbg_1 mt-50">
             <a href="{{ post.get_absolute_url }}" class="hf_img">
               <img src="
-              {% if post.image %}
-              {{ post.image.url }}
-              {% elif post.image_url %}
-              {{ post.image_url }}
+              {% if post.thumbnail %}
+              {{ post.thumbnail.url }}
+              {% elif post.thumbnail_url %}
+              {{ post.thumbnail_url }}
               {% else %}{% static 'images/logo.png'  %}
               {% endif %}" alt="{{ post.title }}">
               <div class="course-overlay"></div>

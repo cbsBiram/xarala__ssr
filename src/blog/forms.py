@@ -33,7 +33,7 @@ class CreatePostForm(forms.ModelForm):
             }
         ),
     )
-    image = forms.FileField(
+    thumbnail = forms.FileField(
         label="Thumbnail",
         widget=forms.FileInput(
             {
@@ -45,7 +45,7 @@ class CreatePostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ("title", "content", "image", "description")
+        fields = ("title", "content", "thumbnail", "description")
 
 
 class UpdatePostForm(forms.ModelForm):
@@ -74,7 +74,7 @@ class UpdatePostForm(forms.ModelForm):
             }
         ),
     )
-    image = forms.FileField(
+    thumbnail = forms.FileField(
         label="Thumbnail",
         widget=forms.FileInput(
             {
@@ -86,4 +86,4 @@ class UpdatePostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ("title", "content", "image", "description")
+        fields = ("title", "content", "thumbnail", "description")

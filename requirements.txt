@@ -76,7 +76,7 @@ regex==2020.11.13
 requests==2.25.1
 requests-oauthlib==1.3.0
 Rx==1.6.1
-paydunya==1.0.6
+paydunya
 sentry-sdk==0.20.1
 singledispatch==3.4.0.3
 six==1.15.0

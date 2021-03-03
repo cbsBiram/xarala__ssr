@@ -92,7 +92,8 @@ urlpatterns = [
         shared_views.TutorialUpdateView.as_view(),
         name="update-tutorial",
     ),
-    path("submit-tutorial/", shared_views.publish_tutorial, name="submit-tutorial"),
+    path("submit-tutorial/", shared_views.submit_tutorial, name="submit-tutorial"),
+    path("publish-tutorial/", shared_views.publish_tutorial, name="publish-tutorial"),
     path(
         "tutorials/<str:slug>/overview/",
         shared_views.tutorial_overview,

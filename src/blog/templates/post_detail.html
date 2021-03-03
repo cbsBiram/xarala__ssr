@@ -13,10 +13,10 @@ Le blog de Xarala - {{ post.title }}
         <div class="col-md-8">
           <div class="bg_blog2">
             <img src="
-            {% if post.image %}
-            {{ post.image.url }}
-            {% elif post.image_url %}
-            {{ post.image_url }}
+            {% if post.thumbnail %}
+            {{ post.thumbnail.url }}
+            {% elif post.thumbnail_url %}
+            {{ post.thumbnail_url }}
             {% else %}{% static 'images/logo.png'  %}
             {% endif %}" alt="{{ post.title }}" class="img-fluid">
           </div>
@@ -76,7 +76,7 @@ Le blog de Xarala - {{ post.title }}
     var d = document,
       s = d.createElement('script');
     s.src = 'https://xarala-academy.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('data-created_at', +new Date());
     (d.head || d.body).appendChild(s);
   })();
 </script>
