@@ -157,7 +157,6 @@ class CourseManagementView(View):
 def create_chapter(request, slug):
     form_class = CreateChapter
     form = form_class(request.POST)
-    print(request.POST.get("name"))
     values = {"error": "", "has_error": 0}
     try:
         course = Course.objects.get(slug=slug)
