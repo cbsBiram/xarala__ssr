@@ -95,6 +95,11 @@ urlpatterns = [
         name="delete-chapter",
     ),
     path(
+        "draft-chapter/<int:id>/",
+        teacher_views.draft_chapter,
+        name="draft-chapter",
+    ),
+    path(
         "manage-chapter/<slug:slug>",
         teacher_views.ChapterManagementView.as_view(),
         name="manage-chapter",
@@ -109,6 +114,11 @@ urlpatterns = [
         "delete-lesson/<int:id>/",
         teacher_views.delete_lesson,
         name="delete-lesson",
+    ),
+    path(
+        "draft-lesson/<int:id>/",
+        teacher_views.draft_lesson,
+        name="draft-lesson",
     ),
     path("submit-course/", teacher_views.submit_course, name="submit-course"),
     path("draft-course/", teacher_views.draft_course, name="draft-course"),

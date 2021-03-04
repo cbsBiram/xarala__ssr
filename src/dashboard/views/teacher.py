@@ -215,6 +215,21 @@ def delete_chapter(request, id):
     return JsonResponse(values)
 
 
+@teacher_required
+def draft_chapter(request, id):
+    values = {"error": "", "has_error": 0}
+    try:
+        chapter = get_object_or_404(Chapter, id=id)
+        chapter.drafted = True
+        chapter.save()
+        messages.success(request, "Chapitre archivé avec succès!")
+    except Exception as e:
+        print("error ", e)
+        values["error"] = e
+        values["has_error"] = -1
+    return JsonResponse(values)
+
+
 class ChapterManagementView(View):
     template_name = "instructor/manage-chapter.html"
     form_class = CreateLesson
@@ -229,7 +244,7 @@ class ChapterManagementView(View):
             request,
             self.template_name,
             {
-                "lessons": chapter.course_lessons,
+                "lessons": chapter.course_lessons.all(),
                 "chapter": chapter,
                 "form": form,
                 "form_update": form_update,
@@ -249,13 +264,11 @@ def create_lesson(request, slug):
             lesson.chapter = chapter
             lesson.save()
             values["id"] = lesson.id
-            values["title"] = lesson.name
+            values["title"] = lesson.title
             values["lesson_slug"] = lesson.slug
             values["date_created"] = lesson.date_created
             values["order"] = lesson.order
             values["drafted"] = "Oui" if lesson.drafted else "Non"
-            values["chapter_slug"] = slug
-            values["chapter_id"] = chapter.id
             chapter.course_lessons.add(lesson)
             messages.success(request, "Leçon ajoutée avec succès!")
     except Exception as e:
@@ -269,10 +282,18 @@ def update_lesson(request, id):
     values = {"error": "", "has_error": 0}
     try:
         instance = get_object_or_404(Lesson, id=id)
-        form_class = CreateLesson
+        form_class = UpdateLesson
         form = form_class(request.POST, instance=instance)
+
         if form.is_valid():
-            form.save()
+            lesson = form.save(commit=False)
+            lesson.save()
+            values["id"] = lesson.id
+            values["title"] = lesson.title
+            values["lesson_slug"] = lesson.slug
+            values["date_created"] = lesson.date_created
+            values["order"] = lesson.order
+            values["drafted"] = "Oui" if lesson.drafted else "Non"
             messages.success(request, "Leçon modifiée avec succès!")
     except Exception as e:
         values["error"] = e
@@ -288,6 +309,20 @@ def delete_lesson(request, id):
         if request.method == "POST":
             lesson.delete()
             messages.success(request, "Leçon Supprimée avec succès.")
+    except Exception as e:
+        values["error"] = e
+        values["has_error"] = -1
+    return JsonResponse(values)
+
+
+@teacher_required
+def draft_lesson(request, id):
+    values = {"error": "", "has_error": 0}
+    try:
+        lesson = get_object_or_404(Lesson, id=id)
+        lesson.drafted = True
+        lesson.save()
+        messages.success(request, "Leçon archivée avec succès!")
     except Exception as e:
         values["error"] = e
         values["has_error"] = -1

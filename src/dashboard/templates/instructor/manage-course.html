@@ -108,7 +108,7 @@
                                                     </td>
 
                                                     <td class="text-center">
-                                                        <b class="course_active">
+                                                        <b class="course_active" id="draft-str-{{chapter.id}}">
                                                             {% if chapter.drafted %}
                                                             Oui
                                                             {% else %}
@@ -137,6 +137,12 @@
                                                                     <a data-toggle="modal" data-target="#delete_chapter_{{chapter.id}}"
                                                                         chapter_id={{chapter.id}}
                                                                         title="Delete" class="dropdown-item delete-chapter-btn">Supprimer
+                                                                    </a>
+                                                                </button>
+                                                                <button id="draft_chapter" class="btn btn-sm">
+                                                                    <a data-toggle="modal" data-target="#draft_chapter_{{chapter.id}}"
+                                                                        chapter_id={{chapter.id}}
+                                                                        title="Draft" class="dropdown-item draft-chapter-btn">Archiver
                                                                     </a>
                                                                 </button>
                                                             </div>
@@ -185,11 +191,11 @@
                                                 </div>
 
                                                 <!-- Delete Chapter Modal-->
-                                                <div class="modal fade delete_chapter" id="delete_chapter_{{chapter.id}}" tabindex="-1" role="dialog" aria-labelledby="delChapterModalLabel" aria-hidden="true">
+                                                <div class="modal fade delete_chapter" id="delete_chapter_{{chapter.id}}" tabindex="-1" role="dialog" aria-labelledby="draftChapterModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h2 class="st_title" id="delChapterModalLabel"><i class="uil uil-analysis"></i>Supprimer le chapitre <b class="course_active">{{ chapter.name }}</b>
+                                                                <h2 class="st_title" id="draftChapterModalLabel"><i class="uil uil-analysis"></i>Supprimer le chapitre <b class="course_active">{{ chapter.name }}</b>
                                                                 </h2>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
                                                                         <span aria-hidden="true">&times;</span>
@@ -202,14 +208,49 @@
                                                                         <div class="row">
                                                                             <div class="col-12">
                                                                                 <div class="ui search focus mt-10 lbel25">
-                                                                                    <label for="{{ form_update.name.id_for_label }}">Êtes-vous
-                                                                                            sûr de vouloir supprimer ce
-                                                                                            chapitre?</label>
+                                                                                    <label>
+                                                                                        Êtes-vous sûr de vouloir supprimer ce chapitre?
+                                                                                    </label>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-12">
                                                                                 <button data-dismiss="modal" class="create_btn_dash btn-danger" style="float: right;">Annuler</button>
                                                                                 <button type="button" class="create_btn_dash mr-2 submit-deleted-chapter-data" style="float: right;">Confirmer</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Draft Chapter Modal-->
+                                                <div class="modal fade draft_chapter" id="draft_chapter_{{chapter.id}}" tabindex="-1" role="dialog" aria-labelledby="delChapterModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h2 class="st_title" id="delChapterModalLabel"><i class="uil uil-analysis"></i>Archiver le chapitre <b class="course_active">{{ chapter.name }}</b>
+                                                                </h2>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div id="draft-chapter-{{chapter.id}}" method="POST" data-url="{% url 'dashboard:draft-chapter' chapter.id %}">
+                                                                    {% csrf_token %}
+                                                                    <div class="general_info10">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <div class="ui search focus mt-10 lbel25">
+                                                                                    <label>
+                                                                                        Êtes-vous sûr de vouloir archiver ce chapitre?
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-12">
+                                                                                <button data-dismiss="modal" class="create_btn_dash btn-danger" style="float: right;">Annuler</button>
+                                                                                <button type="button" class="create_btn_dash mr-2 submit-drafted-chapter-data" style="float: right;">Confirmer</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -292,9 +333,11 @@
                 dataType: 'json',
                 success: function(data) {
                     $nameInput.val('')
-                    $('#new_chapter').modal('toggle');
+                    $('#new_chapter').modal('hide');
                     let editUrl = "dashboard/update-chapter/" + data['id'] + "/"
                     let viewUrl = "dashboard/manage-chapter/" + data['chapter_slug'] + "/"
+                    var deleteUrl = "dashboard/delete-chapter/" + data['id'] + "/"
+                    var draftUrl = "dashboard/draft-chapter/" + data['chapter_slug'] + "/"
 
                     const trId = "chapter_" + data['id']
                     var newLine = '<tr id="' + trId + '">' +
@@ -310,8 +353,16 @@
                         '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
                         '<button id="edit_chapter" class="btn btn-sm">' +
                         '<a href="' + editUrl + '"' +
-                        'title="Edit" class="dropdown-item" data-toggle="modal"' +
-                        'data-target="#edit_chapter">Modifier</a></button>' +
+                        'title="Edit" class="dropdown-item edit-chapter-btn" chapter_id=' + data['id'] + ' data-toggle="modal"' +
+                        'data-target="#edit_chapter_' + data['id'] + '">Modifier</a></button>' +
+                        '<button id="delete_chapter" class="btn btn-sm">' +
+                        '<a href="' + deleteUrl + '"' +
+                        'title="Delete" class="dropdown-item delete-chapter-btn" chapter_id=' + data['id'] + ' data-toggle="modal"' +
+                        'data-target="#delete_chapter_' + data['id'] + '">Modifier</a></button>' +
+                        '<button id="delete_chapter" class="btn btn-sm">' +
+                        '<a href="' + draftUrl + '"' +
+                        'title="Draft" class="dropdown-item draft-chapter-btn" chapter_id=' + data['id'] + ' data-toggle="modal"' +
+                        'data-target="#draft_chapter_' + data['id'] + '">Archiver</a></button>' +
                         '<button class="btn btn-sm"> <a href = "' + viewUrl + '"' +
                         'title = "View" class="dropdown-item">Détails</a></button>' +
                         '</div></div></td>' +
@@ -345,10 +396,12 @@
                     dataType: 'json',
                     success: function(data) {
                         $nameInput.val('')
-                        $modalDialog.modal('toggle')
+                        $modalDialog.modal('hide')
                         var $lineToUpdate = $('tr#chapter_' + $chapterId)
-                        var editUrl = "dashboard/update-chapter/" + data['id'] + "/"
                         var viewUrl = "dashboard/manage-chapter/" + data['chapter_slug'] + "/"
+                        var editUrl = "dashboard/update-chapter/" + data['id'] + "/"
+                        var deleteUrl = "dashboard/delete-chapter/" + data['id'] + "/"
+                        var draftUrl = "dashboard/draft-chapter/" + data['id'] + "/"
                         console.log($lineToUpdate)
 
                         var updatedLine = '<td class="text-center">' + (data['order'] + 1) + '</td>' +
@@ -363,8 +416,16 @@
                             '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
                             '<button id="edit_chapter" class="btn btn-sm">' +
                             '<a href="' + editUrl + '"' +
-                            'title="Edit" class="dropdown-item" data-toggle="modal"' +
-                            'data-target="#edit_chapter">Modifier</a></button>' +
+                            'title="Edit" class="dropdown-item edit-chapter-btn" chapter_id=' + data['id'] + ' data-toggle="modal"' +
+                            'data-target="#edit_chapter_' + data['id'] + '">Modifier</a></button>' +
+                            '<button id="delete_chapter" class="btn btn-sm">' +
+                            '<a href="' + deleteUrl + '"' +
+                            'title="Delete" class="dropdown-item delete-chapter-btn" chapter_id=' + data['id'] + ' data-toggle="modal"' +
+                            'data-target="#delete_chapter_' + data['id'] + '">Modifier</a></button>' +
+                            '<button id="delete_chapter" class="btn btn-sm">' +
+                            '<a href="' + draftUrl + '"' +
+                            'title="Draft" class="dropdown-item draft-chapter-btn" chapter_id=' + data['id'] + ' data-toggle="modal"' +
+                            'data-target="#draft_chapter_' + data['id'] + '">Archiver</a></button>' +
                             '<button class="btn btn-sm"> <a href = "' + viewUrl + '"' +
                             'title = "View" class="dropdown-item">Détails</a></button>' +
                             '</div></div></td>'
@@ -394,12 +455,36 @@
                     },
                     dataType: 'json',
                     success: function(data) {
-                        $modalDialog.modal('toggle')
-                        var $lineToUpdate = $('tr#chapter_' + $chapterId)
-                        var editUrl = "dashboard/update-chapter/" + data['id'] + "/"
-                        var viewUrl = "dashboard/manage-chapter/" + data['chapter_slug'] + "/"
-                        console.log($lineToUpdate)
-                        $lineToUpdate.html('')
+                        $modalDialog.modal('hide')
+                        var $lineToDelete = $('tr#chapter_' + $chapterId)
+                        $lineToDelete.html('')
+                    }
+                });
+            })
+        })
+
+        $(document).on('click', ".draft-chapter-btn", function() {
+
+            var $chapterId = $(this).attr('chapter_id')
+            $(document).on('click', ".submit-drafted-chapter-data", function(event) {
+                event.preventDefault();
+                var $form = '#draft-chapter-' + $chapterId
+                var $thisURL = $($form).attr('data-url');
+                var $modalDialog = $('#draft_chapter_' + $chapterId)
+
+                $.ajax({
+                    type: "POST",
+                    url: $thisURL,
+                    data: {
+                        'chapter_id': $chapterId,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        $modalDialog.modal('hide')
+                        var $cellToUpdate = $('tr#chapter_' + $chapterId + ' td b#draft-str-' + $chapterId)
+                        console.log($cellToUpdate)
+                        $cellToUpdate.html('Oui')
                     }
                 });
             })

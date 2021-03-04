@@ -208,6 +208,7 @@ class CreateLesson(forms.ModelForm):
     )
     text = forms.CharField(
         label="Description",
+        required=True,
         widget=SummernoteWidget(),
     )
     # widget=forms.Textarea(
@@ -215,6 +216,7 @@ class CreateLesson(forms.ModelForm):
     video_id = forms.CharField(
         max_length=254,
         label="URL de YouTube",
+        required=True,
         widget=forms.TextInput(
             {
                 "placeholder": "Leçon...",
@@ -225,7 +227,10 @@ class CreateLesson(forms.ModelForm):
     platform = forms.ChoiceField(
         choices=PLATFORM,
         label="Plateforme",
-        widget=forms.Select(attrs={"class": "form-select block w-full mt-1"}),
+        initial=(YOUTUBE, YOUTUBE),
+        widget=forms.Select(
+            attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+        ),
     )
 
     class Meta:
@@ -263,7 +268,10 @@ class UpdateLesson(forms.ModelForm):
     platform = forms.ChoiceField(
         choices=PLATFORM,
         label="Plateforme",
-        widget=forms.Select(attrs={"class": "form-select block w-full mt-1"}),
+        initial=(YOUTUBE, YOUTUBE),
+        widget=forms.Select(
+            attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+        ),
     )
 
     class Meta:

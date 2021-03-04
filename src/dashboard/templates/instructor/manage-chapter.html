@@ -1,5 +1,4 @@
 {% extends "_dashboard_base.html" %} {% load static %} {% load crispy_forms_tags %} {% block title %} Gestion Chapitre {% endblock title %} {% block sidebar %} {% include "partials/_sidebar_dashboard.html" %} {% endblock sidebar %} {% block content %}
-
 <div class="_215b15 _byt1458">
     <div class="container-fluid">
         <div class="row">
@@ -51,14 +50,14 @@
                                             <tbody>
 
                                                 {% for lesson in lessons %}
-                                                <tr id="{{lesson.id}}">
+                                                <tr id="lesson_{{lesson.id}}">
                                                     <td class="text-center">{{ forloop.counter }}</td>
                                                     <td id="{{lesson.name}}_{{lesson.id}}">{{ lesson.title }}</td>
                                                     <td class="text-center">{{ lesson.date_created|date:"D d M Y" }}
                                                     </td>
 
                                                     <td class="text-center">
-                                                        <b class="course_active">
+                                                        <b class="course_active" id="draft-str-{{lesson.id}}">
                                                             {% if lesson.drafted %}
                                                             Oui
                                                             {% else %}
@@ -73,14 +72,22 @@
                                                                 <i class="fas fa-ellipsis-v"></i>
                                                             </a>
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                <button id="edit_lesson" chapter_id="{{chapter.id}}" class="btn btn-sm">
-                                                                    <a title="Edit" class="dropdown-item"
-                                                                        data-toggle="modal"
+                                                                <button id="edit_lesson" class="btn btn-sm">
+                                                                    <a title="Edit"
+                                                                        class="dropdown-item edit-lesson-btn"
+                                                                        lesson_id={{lesson.id}} data-toggle="modal"
                                                                         data-target="#edit_lesson_{{lesson.id}}">Modifier</a>
                                                                 </button>
-                                                                <button class="btn btn-sm">
-                                                                    <a data-toggle="modal" data-target="#delete_lesson"
-                                                                        title="Delete" class="dropdown-item">Supprimer
+                                                                <button id="delete_lesson" class="btn btn-sm">
+                                                                    <a data-toggle="modal" data-target="#delete_lesson_{{lesson.id}}"
+                                                                        lesson_id={{lesson.id}}
+                                                                        title="Delete" class="dropdown-item delete-lesson-btn">Supprimer
+                                                                    </a>
+                                                                </button>
+                                                                <button id="draft_lesson" class="btn btn-sm">
+                                                                    <a data-toggle="modal" data-target="#draft_lesson_{{lesson.id}}"
+                                                                        lesson_id={{lesson.id}}
+                                                                        title="Draft" class="dropdown-item draft-lesson-btn">Archiver
                                                                     </a>
                                                                 </button>
                                                             </div>
@@ -88,38 +95,38 @@
                                                     </td>
                                                 </tr>
 
-                                                <!-- Update Lesson Modal-->
-                                                <div class="modal fade edit_lesson" id="edit_lesson_{{lesson.id}}" tabindex="-1" role="dialog" aria-labelledby="editLessonModalLabel" aria-hidden="true">
+                                                <!-- Update lesson Modal-->
+                                                <div class="modal fade edit_lesson" id="edit_lesson_{{lesson.id}}" tabindex="-1" role="dialog" aria-labelledby="editlessonModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h2 class="st_title" id="editLessonModalLabel"><i class="uil uil-analysis"></i>Modifier la leçon<b class="course_active">{{ lesson.title }}</b>
+                                                                <h2 class="st_title" id="editlessonModalLabel"><i class="uil uil-analysis"></i>Modifier le leçon <b class="course_active">{{ lesson.name }}</b>
                                                                 </h2>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form id="edit-lesson" lesson_id={{lesson.id}} method="POST" data-url="{% url 'dashboard:update-lesson' lesson.id %}">
+                                                                <div id="edit-lesson-{{lesson.id}}" lesson_id={{lesson.id}} data-url="{% url 'dashboard:update-lesson' lesson.id %}">
                                                                     {% csrf_token %}
                                                                     <div class="general_info10">
                                                                         <div class="row">
                                                                             {{ form_update.non_field_errors }}
-                                                                            <div class="col-lg-6 col-md-12">
+                                                                            <div class="col-12">
                                                                                 <small id="titleHelp" class="text-danger">
-                                                                                    {{ form_update.title.errors }}
-                                                                                </small>
+                                    {{ form_update.title.errors }}
+                                </small>
                                                                                 <div class="ui search focus mt-10 lbel25">
-                                                                                    <label for="{{ form_update.title.id_for_label }}">Titre</label>
+                                                                                    <label for="{{ form_update.title.id_for_label }}">Titre*</label>
                                                                                     <div class="ui left icon input swdh19">
                                                                                         {{ form_update.title }}
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-lg-6 col-md-12">
+                                                                            <div class="col-12">
                                                                                 <small id="textHelp" class="text-danger">
-                                                                                    {{ form_update.text.errors }}
-                                                                                </small>
+                                    {{ form_update.text.errors }}
+                                </small>
                                                                                 <div class="ui search focus mt-10 lbel25">
                                                                                     <label for="{{ form_update.text.id_for_label }}">Texte</label>
                                                                                     <div class="ui left icon input swdh19">
@@ -129,65 +136,101 @@
                                                                             </div>
                                                                             <div class="col-lg-6 col-md-12">
                                                                                 <small id="videoHelp" class="text-danger">
-                                                                                    {{ form_update.video_id.errors }}
-                                                                                </small>
+                                    {{ form_update.video_id.errors }}
+                                </small>
                                                                                 <div class="ui search focus mt-10 lbel25">
-                                                                                    <label for="{{ form_update.video_id.id_for_label }}">Video</label>
+                                                                                    <label for="{{ form_update.video_id.id_for_label }}">Id Video*</label>
                                                                                     <div class="ui left icon input swdh19">
                                                                                         {{ form_update.video_id }}
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-lg-6 col-md-12">
-                                                                                <small id="videoHelp" class="text-danger">
-                                                                                    {{ form_update.platform.errors }}
-                                                                                </small>
-                                                                                <div class="ui search focus mt-10 lbel25">
-                                                                                    <label for="{{ form_update.platform.id_for_label }}">Plateform</label>
-                                                                                    <div class="ui left icon input swdh19">
-                                                                                        {{ form_update.platform }}
-                                                                                    </div>
+                                                                                <small id="platformHelp" class="text-danger">
+                                    {{ form_update.platform.errors }}
+                                </small>
+                                                                                <div class="mt-20 lbel25">
+                                                                                    <label for="{{ form_update.platform.id_for_label }}">Plateforme*</label>
                                                                                 </div>
+                                                                                {{ form_update.platform }}
                                                                             </div>
                                                                             <div class="col-lg-6 col-md-6 col-sm-12 mt-30">
-                                                                                <button type="submit" class="create_btn_dash">Enregistrer</button>
+                                                                                <button type="button" class="create_btn_dash submit-editted-lesson-data">Enregistrer</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </form>
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <!-- Delete Lesson Modal-->
-                                                <div class="modal fade" id="delete_lesson" tabindex="-1" role="dialog" aria-labelledby="delLessonModalLabel" aria-hidden="true">
+                                                <!-- Delete lesson Modal-->
+                                                <div class="modal fade delete_lesson" id="delete_lesson_{{lesson.id}}" tabindex="-1" role="dialog" aria-labelledby="draftlessonModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h2 class="st_title" id="delLessonModalLabel"><i class="uil uil-analysis"></i>Supprimer la leçon <b class="course_active">{{ lesson.name }}</b>
+                                                                <h2 class="st_title" id="draftlessonModalLabel"><i class="uil uil-analysis"></i>Supprimer le leçon <b class="course_active">{{ lesson.name }}</b>
                                                                 </h2>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form id="delete-lesson" method="POST" data-url="{% url 'dashboard:delete-lesson' lesson.id %}">
+                                                                <div id="delete-lesson-{{lesson.id}}" method="POST" data-url="{% url 'dashboard:delete-lesson' lesson.id %}">
                                                                     {% csrf_token %}
                                                                     <div class="general_info10">
                                                                         <div class="row">
                                                                             <div class="col-12">
                                                                                 <div class="ui search focus mt-10 lbel25">
-                                                                                    <label for="{{ form_update.name.id_for_label }}">Êtes-vous sûr de vouloir supprimer cette leçon?</label>
+                                                                                    <label>
+                                                                                        Êtes-vous sûr de vouloir supprimer ce leçon?
+                                                                                    </label>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-12">
                                                                                 <button data-dismiss="modal" class="create_btn_dash btn-danger" style="float: right;">Annuler</button>
-                                                                                <button type="submit" class="create_btn_dash mr-2" style="float: right;">Confirmer</button>
+                                                                                <button type="button" class="create_btn_dash mr-2 submit-deleted-lesson-data" style="float: right;">Confirmer</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Draft lesson Modal-->
+                                                <div class="modal fade draft_lesson" id="draft_lesson_{{lesson.id}}" tabindex="-1" role="dialog" aria-labelledby="dellessonModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h2 class="st_title" id="dellessonModalLabel"><i class="uil uil-analysis"></i>Archiver le chapitre <b class="course_active">{{ lesson.name }}</b>
+                                                                </h2>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div id="draft-lesson-{{lesson.id}}" method="POST" data-url="{% url 'dashboard:draft-lesson' lesson.id %}">
+                                                                    {% csrf_token %}
+                                                                    <div class="general_info10">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <div class="ui search focus mt-10 lbel25">
+                                                                                    <label>
+                                                                                        Êtes-vous sûr de vouloir archiver ce leçon?
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-12">
+                                                                                <button data-dismiss="modal" class="create_btn_dash btn-danger" style="float: right;">Annuler</button>
+                                                                                <button type="button" class="create_btn_dash mr-2 submit-drafted-lesson-data" style="float: right;">Confirmer</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -196,47 +239,6 @@
 
                                             </tbody>
                                         </table>
-
-                                        {% if lessons.has_other_pages %}
-                                        <div class="main-p-pagination text-center">
-                                            <nav aria-label="Page navigation example">
-                                                <ul class="pagination">
-
-                                                    {% if lessons.has_previous %}
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="?page={{ lessons.previous_page_number }}" aria-label="Previous">
-                                                            &laquo;
-                                                        </a>
-                                                    </li>
-                                                    {% else %}
-                                                    <li class="page-item disabled">
-                                                        <a class="page-link" href="#" aria-label="Previous">
-                                                            &laquo;
-                                                        </a>
-                                                    </li>
-                                                    {% endif %} {% for i in lessons.paginator.page_range %} {% if lessons.number == i %}
-                                                    <li class="page-item"><a class="page-link active" href="#">{{ i }}</a></li>
-                                                    {% else %}
-                                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                                                    {% endif %} {% endfor %} {% if lessons.has_next %}
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="?page={{ lessons.next_page_number }}" aria-label="Next">
-                                                            &raquo;
-                                                        </a>
-                                                    </li>
-                                                    {% else %}
-                                                    <li class="page-item disabled">
-                                                        <a class="page-link" href="#" aria-label="Next">
-                                                            &raquo;
-                                                        </a>
-                                                    </li>
-                                                    {% endif %}
-
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                        {% endif %}
-
                                     </div>
                                 </div>
                             </div>
@@ -251,39 +253,38 @@
 </div>
 
 
-<!-- Create Chapter Modal-->
-<div class="modal fade" id="new_lesson" tabindex="-1" role="dialog" aria-labelledby="addLessonModalLabel" aria-hidden="true">
+<!-- Create lesson Modal-->
+<div class="modal fade" id="new_lesson" tabindex="-1" role="dialog" aria-labelledby="addlessonModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="st_title" id="addLessonModalLabel">
-                    <i class="uil uil-analysis"></i> Créer une nouvelle leçon
+                <h2 class="st_title" id="addlessonModalLabel"><i class="uil uil-analysis"></i>Créer un nouveau leçon
                 </h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="add-lesson" method="POST" data-url="{% url 'dashboard:create-lesson' course.slug %}">
+                <form id="add-lesson" method="POST" data-url="{% url 'dashboard:create-lesson' chapter.slug %}">
                     {% csrf_token %}
                     <div class="general_info10">
                         <div class="row">
                             {{ form.non_field_errors }}
-                            <div class="col-lg-6 col-md-12">
+                            <div class="col-12">
                                 <small id="titleHelp" class="text-danger">
-                                                                                    {{ form.title.errors }}
-                                                                                </small>
+                                    {{ form.title.errors }}
+                                </small>
                                 <div class="ui search focus mt-10 lbel25">
-                                    <label for="{{ form.title.id_for_label }}">Titre</label>
+                                    <label for="{{ form.title.id_for_label }}">Titre*</label>
                                     <div class="ui left icon input swdh19">
                                         {{ form.title }}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12">
+                            <div class="col-12">
                                 <small id="textHelp" class="text-danger">
-                                                                                    {{ form.text.errors }}
-                                                                                </small>
+                                    {{ form.text.errors }}
+                                </small>
                                 <div class="ui search focus mt-10 lbel25">
                                     <label for="{{ form.text.id_for_label }}">Texte</label>
                                     <div class="ui left icon input swdh19">
@@ -293,25 +294,23 @@
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <small id="videoHelp" class="text-danger">
-                                                                                    {{ form.video_id.errors }}
-                                                                                </small>
+                                    {{ form.video_id.errors }}
+                                </small>
                                 <div class="ui search focus mt-10 lbel25">
-                                    <label for="{{ form.video_id.id_for_label }}">Video</label>
+                                    <label for="{{ form.video_id.id_for_label }}">Id Video*</label>
                                     <div class="ui left icon input swdh19">
                                         {{ form.video_id }}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
-                                <small id="videoHelp" class="text-danger">
-                                                                                    {{ form.platform.errors }}
-                                                                                </small>
-                                <div class="ui search focus mt-10 lbel25">
-                                    <label for="{{ form.platform.id_for_label }}">Plateform</label>
-                                    <div class="ui left icon input swdh19">
-                                        {{ form.platform }}
-                                    </div>
+                                <small id="platformHelp" class="text-danger">
+                                    {{ form.platform.errors }}
+                                </small>
+                                <div class="mt-20 lbel25">
+                                    <label for="{{ form.platform.id_for_label }}">Plateforme*</label>
                                 </div>
+                                {{ form.platform }}
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 mt-30">
                                 <button type="submit" class="create_btn_dash">Enregistrer</button>
@@ -329,70 +328,190 @@
         $("#add-lesson").on('submit', function() {
             event.preventDefault();
             var $thisURL = $('form#add-lesson').attr('data-url');
-            var nameInput = $("input[id=title]")
+            var $titleInput = $("input[id=id_title]")
+            var $textInput = $("textarea[id=id_text]")
+            var $videoIdInput = $("input[id=id_video_id]")
+            var $platformInput = $("select[id=id_platform]")
 
             $.ajax({
                 type: "POST",
                 url: $thisURL,
                 data: {
-                    'title': titleInput.val(),
+                    'title': $titleInput.val(),
+                    'text': $textInput.val(),
+                    'video_id': $videoIdInput.val(),
+                    'platform': $platformInput.val(),
                     csrfmiddlewaretoken: '{{ csrf_token }}'
                 },
                 dataType: 'json',
                 success: function(data) {
-                    nameInput.val('')
-                    $('#new_lesson').modal('toggle');
-                    let editUrl = "dashboard/update-lesson/" + data['id'] + "/"
+                    $titleInput.val('')
+                    $titleInput.val('')
+                    $textInput.val('')
+                    $videoIdInput.val('')
+                    $platformInput.val('')
 
-                    const tr_id = "lesson_" + data['id']
-                    var new_line = '<tr id="' + tr_id + '">' +
+                    $('#new_lesson').modal('hide');
+                    var editUrl = "dashboard/update-lesson/" + data['id'] + "/"
+                    var deleteUrl = "dashboard/delete-lesson/" + data['id'] + "/"
+                    var draftUrl = "dashboard/draft-lesson/" + data['id'] + "/"
+
+                    const trId = "lesson_" + data['id']
+                    var newLine = '<tr id="' + trId + '">' +
                         '<td class="text-center">' + (data['order'] + 1) + '</td>' +
-                        '<td>' + data['name'] + '</td>' +
+                        '<td>' + data['title'] + '</td>' +
                         '<td class="text-center">' + data['date_created'] + '</td>' +
-                        '<td class="text-center"><b class="course_active">' + data['drafted'] + '</b></td>' +
+                        '<td class="text-center"><b class="course_active">' + data[
+                            'drafted'] + '</b></td>' +
                         '<td class="text-center">' + data['order'] + '</td>' +
                         '<td class="text-center"> <div class="dropdown">' +
                         '<a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                         '<i class="fas fa-ellipsis-v"></i></a>' +
                         '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
-                        '<button id="edit_lesson" course_id="' + data['course_id'] + '" class="btn btn-sm">' +
+                        '<button id="edit_lesson" class="btn btn-sm">' +
                         '<a href="' + editUrl + '"' +
-                        'title="Edit" class="dropdown-item" data-toggle="modal"' +
-                        'data-target="#edit_lesson">Modifier</a></button>' +
+                        'title="Edit" class="dropdown-item edit-lesson-btn" lesson_id=' + data['id'] + ' data-toggle="modal"' +
+                        'data-target="#edit_lesson_' + data['id'] + '">Modifier</a></button>' +
+                        '<button id="delete_lesson" class="btn btn-sm">' +
+                        '<a href="' + deleteUrl + '"' +
+                        'title="Delete" class="dropdown-item delete-lesson-btn" lesson_id=' + data['id'] + ' data-toggle="modal"' +
+                        'data-target="#delete_lesson_' + data['id'] + '">Modifier</a></button>' +
+                        '<button id="delete_lesson" class="btn btn-sm">' +
+                        '<a href="' + draftUrl + '"' +
+                        'title="Draft" class="dropdown-item draft-lesson-btn" lesson_id=' + data['id'] + ' data-toggle="modal"' +
+                        'data-target="#draft_lesson_' + data['id'] + '">Archiver</a></button>' +
                         '</div></div></td>' +
                         '</tr>'
 
-                    $('#lessons_list').append(new_line)
+                    $('#lessons_list').append(newLine)
 
                 },
                 error: function(err) {}
             });
         })
 
-        $("#edit-lesson").on('submit', function() {
-            event.preventDefault();
-            var $thisURL = $('form#edit-lesson').attr('data-url');
-            var nameInput = $("input[id=update_title]")
-            var lessonId = $('form#edit-lesson').attr('lesson_id')
-            var modalDialog = $('#edit_lesson' + lessonId)
+        $(document).on('click', ".edit-lesson-btn", function() {
 
-            /* $.ajax({
-                type: "POST",
-                url: $thisURL,
-                data: {
-                    'title': titleInput.val(),
-                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                },
-                dataType: 'json',
-                success: function(data) {
-                    // document.location.reload()
-                    nameInput.val('')
-                    $('#edit_lesson').modal('toggle');chapter
-chapter
-                }
-            }); */
+            var $lessonId = $(this).attr('lesson_id')
+            $(document).on('click', ".submit-editted-lesson-data", function(event) {
+                event.preventDefault();
+                var $form = '#edit-lesson-' + $lessonId
+                var $thisURL = $($form).attr('data-url');
+                var $modalDialog = $('#edit_lesson_' + $lessonId)
+                var $titleInput = $("input[name=title]")
+                var $textInput = $("textarea[name=text]")
+                var $videoIdInput = $("input[name=video_id]")
+                var $platformInput = $("select[name=platform]")
+
+
+                $.ajax({
+                    type: "POST",
+                    url: $thisURL,
+                    data: {
+                        'title': $titleInput.val(),
+                        'text': $textInput.val(),
+                        'video_id': $videoIdInput.val(),
+                        'platform': $platformInput.val(),
+                        'lesson_id': $lessonId,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        $titleInput.val('')
+                        $titleInput.val('')
+                        $textInput.val('')
+                        $videoIdInput.val('')
+                        $platformInput.val('')
+                        $modalDialog.modal('hide')
+
+                        var $lineToUpdate = $('tr#lesson_' + $lessonId)
+                        var editUrl = "dashboard/update-lesson/" + data['id'] + "/"
+                        var deleteUrl = "dashboard/delete-lesson/" + data['id'] + "/"
+                        var draftUrl = "dashboard/draft-lesson/" + data['id'] + "/"
+
+                        var updatedLine = '<td class="text-center">' + (data['order'] + 1) + '</td>' +
+                            '<td>' + data['title'] + '</td>' +
+                            '<td class="text-center">' + data['date_created'] + '</td>' +
+                            '<td class="text-center"><b class="course_active">' + data[
+                                'drafted'] + '</b></td>' +
+                            '<td class="text-center">' + data['order'] + '</td>' +
+                            '<td class="text-center"> <div class="dropdown">' +
+                            '<a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                            '<i class="fas fa-ellipsis-v"></i></a>' +
+                            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                            '<button id="edit_lesson" class="btn btn-sm">' +
+                            '<a href="' + editUrl + '"' +
+                            'title="Edit" class="dropdown-item edit-lesson-btn" lesson_id=' + data['id'] + ' data-toggle="modal"' +
+                            'data-target="#edit_lesson_' + data['id'] + '">Modifier</a></button>' +
+                            '<button id="delete_lesson" class="btn btn-sm">' +
+                            '<a href="' + deleteUrl + '"' +
+                            'title="Delete" class="dropdown-item delete-lesson-btn" lesson_id=' + data['id'] + ' data-toggle="modal"' +
+                            'data-target="#delete_lesson_' + data['id'] + '">Modifier</a></button>' +
+                            '<button id="delete_lesson" class="btn btn-sm">' +
+                            '<a href="' + draftUrl + '"' +
+                            'title="Draft" class="dropdown-item draft-lesson-btn" lesson_id=' + data['id'] + ' data-toggle="modal"' +
+                            'data-target="#draft_lesson_' + data['id'] + '">Archiver</a></button>' +
+                            '</div></div></td>'
+
+                        $lineToUpdate.html(updatedLine)
+                    }
+                });
+
+            })
         })
 
+        $(document).on('click', ".delete-lesson-btn", function() {
+
+            var $lessonId = $(this).attr('lesson_id')
+            $(document).on('click', ".submit-deleted-lesson-data", function(event) {
+                event.preventDefault();
+                var $form = '#delete-lesson-' + $lessonId
+                var $thisURL = $($form).attr('data-url');
+                var $modalDialog = $('#delete_lesson_' + $lessonId)
+
+                $.ajax({
+                    type: "POST",
+                    url: $thisURL,
+                    data: {
+                        'lesson_id': $lessonId,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        $modalDialog.modal('hide')
+                        var $lineToDelete = $('tr#lesson_' + $lessonId)
+                        $lineToDelete.html('')
+                    }
+                });
+            })
+        })
+
+        $(document).on('click', ".draft-lesson-btn", function() {
+
+            var $lessonId = $(this).attr('lesson_id')
+            $(document).on('click', ".submit-drafted-lesson-data", function(event) {
+                event.preventDefault();
+                var $form = '#draft-lesson-' + $lessonId
+                var $thisURL = $($form).attr('data-url');
+                var $modalDialog = $('#draft_lesson_' + $lessonId)
+
+                $.ajax({
+                    type: "POST",
+                    url: $thisURL,
+                    data: {
+                        'lesson_id': $lessonId,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        $modalDialog.modal('hide')
+                        var $cellToUpdate = $('tr#lesson_' + $lessonId + ' td b#draft-str-' + $lessonId)
+                        console.log($cellToUpdate)
+                        $cellToUpdate.html('Oui')
+                    }
+                });
+            })
+        })
     })
 </script>
 {% endblock extrajs %}
