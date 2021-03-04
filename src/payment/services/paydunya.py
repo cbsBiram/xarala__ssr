@@ -28,9 +28,18 @@ def get_items(order_items):
     return items
 
 
-def get_invoice(items, total_cost, host):
+def get_user_and_course(course_id, user_id):
+    user_and_course = [
+        ("course_id", course_id),
+        ("user_id", user_id),
+    ]
+    return user_and_course
+
+
+def get_invoice(items, total_cost, host, custom_data=None):
     invoice = Invoice(store)
     invoice.add_items(items)
+    invoice.add_custom_data(custom_data)
     invoice.total_amount = int(total_cost)
     invoice.cancel_url = f"{host}/payment/cancel/"
     invoice.return_url = f"{host}/payment/done/"
