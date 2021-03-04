@@ -340,7 +340,6 @@
                 },
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data)
                     nameInput.val('')
                     $('#new_lesson').modal('toggle');
                     let editUrl = "dashboard/update-lesson/" + data['id'] + "/"

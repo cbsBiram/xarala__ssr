@@ -170,8 +170,6 @@ def create_chapter(request, slug):
             values["date_created"] = chapter.date_created
             values["order"] = chapter.order
             values["drafted"] = "Oui" if chapter.drafted else "Non"
-            values["course_slug"] = slug
-            values["course_id"] = course.id
             course.course_chapters.add(chapter)
             messages.success(request, "Chapitre ajouté avec succès!")
             print(values)
@@ -189,6 +187,12 @@ def update_chapter(request, id):
         chapter = get_object_or_404(Chapter, id=id)
         chapter.name = name
         chapter.save()
+        values["id"] = chapter.id
+        values["name"] = chapter.name
+        values["chapter_slug"] = chapter.slug
+        values["date_created"] = chapter.date_created
+        values["order"] = chapter.order
+        values["drafted"] = "Oui" if chapter.drafted else "Non"
         messages.success(request, "Chapitre modifié avec succès!")
     except Exception as e:
         print("error ", e)
