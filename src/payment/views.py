@@ -18,9 +18,7 @@ from payment.services.paydunya import (
 paydunya.debug = False
 
 # Configurer les clés d'API
-paydunya.api_keys = (
-    None if not settings.PAYDUNYA_ACCESS_TOKENS else settings.PAYDUNYA_ACCESS_TOKENS
-)
+paydunya.api_keys = settings.PAYDUNYA_ACCESS_TOKENS
 
 
 def payment_process(request):

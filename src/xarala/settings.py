@@ -231,7 +231,7 @@ REDIS_HOST = "localhost"
 REDIS_PORT = 6379
 REDIS_DB = 1
 
-
+PAYDUNYA_ACCESS_TOKENS = {}  # put the valid token on local_settings.py
 try:
     from .local_settings import *  # noqa
 except ImportError:
