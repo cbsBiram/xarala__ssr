@@ -5,7 +5,12 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from django.conf import settings
 from order.models import Order
-from payment.services.paydunya import get_invoice, get_items, invoice_confirmation
+from payment.services.paydunya import (
+    get_invoice,
+    get_items,
+    get_user_and_course,
+    invoice_confirmation,
+)
 
 # from .tasks import payment_completed
 
@@ -18,10 +23,21 @@ paydunya.api_keys = settings.PAYDUNYA_ACCESS_TOKENS
 
 def payment_process(request):
     order_id = request.session.get("order_id")
+    user = request.user
     order = get_object_or_404(Order, id=order_id)
     total_cost = order.get_total_cost()
     items = get_items(order.items.all())
-    successful, response = get_invoice(items, total_cost, request.get_host())
+    order_item_first = order.items.all()[0]
+    custom_data = get_user_and_course(
+        order_item_first.course.id,
+        user.id,
+    )
+    successful, response = get_invoice(
+        items,
+        total_cost,
+        request.get_host(),
+        custom_data=custom_data,
+    )
     if successful:
         # payment_completed.delay(order.id)
         return redirect(response.get("response_text"))
