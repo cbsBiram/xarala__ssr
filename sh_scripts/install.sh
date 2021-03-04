@@ -26,11 +26,12 @@ apt-get -y install virtualenv
 echo "***********************************************"
 echo "---install dependencies (including django)  ---"
 echo "***********************************************"
-pip install --upgrade pip
+pip3 install --upgrade pip
+pip3 install requests
 # activate env
 python3 -m venv xarala-env
 source xarala-env/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 # pipenv shell && pipenv install --skip-lock
 python src/manage.py makemigrations
 python src/manage.py migrate
