@@ -85,11 +85,32 @@ urlpatterns = [
         "add-chapter/<slug:slug>/", teacher_views.create_chapter, name="create-chapter"
     ),
     path(
-        "update-chapter/<slug:slug>/",
+        "update-chapter/<int:id>/",
         teacher_views.update_chapter,
         name="update-chapter",
     ),
-    path("submit-course/", teacher_views.publish_course, name="submit-course"),
+    path(
+        "delete-chapter/<int:id>/",
+        teacher_views.delete_chapter,
+        name="delete-chapter",
+    ),
+    path(
+        "manage-chapter/<slug:slug>",
+        teacher_views.ChapterManagementView.as_view(),
+        name="manage-chapter",
+    ),
+    path("add-lesson/<slug:slug>/", teacher_views.create_lesson, name="create-lesson"),
+    path(
+        "update-lesson/<int:id>/",
+        teacher_views.update_lesson,
+        name="update-lesson",
+    ),
+    path(
+        "delete-lesson/<int:id>/",
+        teacher_views.delete_lesson,
+        name="delete-lesson",
+    ),
+    path("submit-course/", teacher_views.submit_course, name="submit-course"),
     path("draft-course/", teacher_views.draft_course, name="draft-course"),
     # shared
     path("tutorials/", shared_views.TutorialListView.as_view(), name="tutorials"),
@@ -108,7 +129,7 @@ urlpatterns = [
         shared_views.TutorialUpdateView.as_view(),
         name="update-tutorial",
     ),
-    path("submit-tutorial/", shared_views.publish_tutorial, name="submit-tutorial"),
+    path("submit-tutorial/", shared_views.submit_tutorial, name="submit-tutorial"),
     path("draft-tutorial/", shared_views.draft_tutorial, name="draft-tutorial"),
     path(
         "tutorials/<str:slug>/overview/",

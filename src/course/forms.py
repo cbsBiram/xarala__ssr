@@ -198,10 +198,48 @@ class UpdateChapter(forms.ModelForm):
 class CreateLesson(forms.ModelForm):
     title = forms.CharField(
         max_length=254,
-        label="Titre de la chapittre",
+        label="Titre de la leçon",
         widget=forms.TextInput(
             {
                 "placeholder": "Cours..",
+                "class": " border w-full py-2 px-3 text-grey-darker mt-2",
+            }
+        ),
+    )
+    text = forms.CharField(
+        label="Description",
+        widget=SummernoteWidget(),
+    )
+    # widget=forms.Textarea(
+    # attrs={'class': 'form-textarea mt-1 block w-full border', 'rows': '3'})
+    video_id = forms.CharField(
+        max_length=254,
+        label="URL de YouTube",
+        widget=forms.TextInput(
+            {
+                "placeholder": "Leçon...",
+                "class": " border w-full py-2 px-3 text-grey-darker mt-2",
+            }
+        ),
+    )
+    platform = forms.ChoiceField(
+        choices=PLATFORM,
+        label="Plateforme",
+        widget=forms.Select(attrs={"class": "form-select block w-full mt-1"}),
+    )
+
+    class Meta:
+        model = Lesson
+        fields = ("title", "text", "video_id", "platform")
+
+
+class UpdateLesson(forms.ModelForm):
+    title = forms.CharField(
+        max_length=254,
+        label="Titre de la leçon",
+        widget=forms.TextInput(
+            {
+                "placeholder": "Leçon...",
                 "class": " border w-full py-2 px-3 text-grey-darker mt-2",
             }
         ),
