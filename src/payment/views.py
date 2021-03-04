@@ -19,7 +19,7 @@ paydunya.debug = False
 
 # Configurer les clés d'API
 paydunya.api_keys = (
-    settings.PAYDUNYA_ACCESS_TOKENS if settings.PAYDUNYA_ACCESS_TOKENS else None
+    None if not settings.PAYDUNYA_ACCESS_TOKENS else settings.PAYDUNYA_ACCESS_TOKENS
 )
 
 
