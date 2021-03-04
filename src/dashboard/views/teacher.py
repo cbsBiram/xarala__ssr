@@ -184,16 +184,14 @@ def create_chapter(request, slug):
 @teacher_required
 def update_chapter(request, id):
     values = {"error": "", "has_error": 0}
+    name = request.POST.get("name")
     try:
-        instance = get_object_or_404(Chapter, id=id)
-        print(id)
-        print(instance)
-        form_class = CreateChapter
-        form = form_class(request.POST, instance=instance)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Chapitre modifié avec succès!")
+        chapter = get_object_or_404(Chapter, id=id)
+        chapter.name = name
+        chapter.save()
+        messages.success(request, "Chapitre modifié avec succès!")
     except Exception as e:
+        print("error ", e)
         values["error"] = e
         values["has_error"] = -1
     return JsonResponse(values)
