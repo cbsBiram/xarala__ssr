@@ -318,7 +318,7 @@
         $("#add-chapter").on('submit', function() {
             event.preventDefault();
             var $thisURL = $('form#add-chapter').attr('data-url');
-            var nameInput = $("input[id=name]")
+            var nameInput = $("input[id=id_name]")
 
             $.ajax({
                 type: "POST",
