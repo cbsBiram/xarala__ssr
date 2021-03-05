@@ -181,6 +181,7 @@ class UpdateChapter(forms.ModelForm):
     name = forms.CharField(
         max_length=254,
         label="Titre du chapitre",
+        required=True,
         widget=forms.TextInput(
             {
                 "class": "border w-full py-2 px-3 text-grey-darker mt-2",
@@ -249,6 +250,7 @@ class UpdateLesson(forms.ModelForm):
     )
     text = forms.CharField(
         label="Description",
+        required=True,
         widget=SummernoteWidget(),
     )
     # widget=forms.Textarea(

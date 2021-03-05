@@ -272,7 +272,6 @@ def create_lesson(request, slug):
             values["date_created"] = format_date(lesson.date_created)
             values["order"] = lesson.order
             values["drafted"] = "Oui" if lesson.drafted else "Non"
-            print(values)
             chapter.course_lessons.add(lesson)
             messages.success(request, "Leçon ajoutée avec succès!")
     except Exception as e:
@@ -288,6 +287,7 @@ def update_lesson(request, id):
         instance = get_object_or_404(Lesson, id=id)
         form_class = UpdateLesson
         form = form_class(request.POST, instance=instance)
+        print(form.errors)
 
         if form.is_valid():
             lesson = form.save(commit=False)
