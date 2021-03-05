@@ -1,5 +1,10 @@
-{% extends "_dashboard_base.html" %} {% load static %} {% load crispy_forms_tags %} {% block title %} Gestion Cours
-{% endblock title %} {% block sidebar %} {% include "partials/_sidebar_dashboard.html" %} {% endblock sidebar %}
+{% extends "_dashboard_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Gestion Cours {% endblock title %}
+{% block sidebar %}
+{% include "partials/_teacher_sidebar.html" %}
+{% endblock sidebar %}
 {% block content %}
 <div class="_215b01">
     <div class="container-fluid">
@@ -371,7 +376,9 @@
         </div>
     </div>
 </div>
-{% endblock %} {% block extrajs %} {% block semantic %} {% endblock semantic %}
+{% endblock %}
+{% block extrajs %}
+{% block semantic %} {% endblock semantic %}
 <script>
     $(document).ready(function () {
         $("#add-chapter").on('submit', function () {
@@ -579,7 +586,7 @@
                             '<button class="btn btn-sm"> <a href = "' +
                             viewUrl + '"' +
                             'title = "View" class="dropdown-item">Détails</a></button>'
-                            )
+                        )
                         $statusCell.html('Oui')
                     }
                 });
