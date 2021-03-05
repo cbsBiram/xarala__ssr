@@ -11,6 +11,7 @@
 {% block content %} {% include 'partials/_tutorials.html' %} {% endblock %}
 
 {% block extrajs %} 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
         $("#submit_tutorial").on("click", function() {
@@ -38,6 +39,24 @@
                 $.ajax({
                     type: "POST",
                     url: '{% url "dashboard:submit-tutorial" %}',
+                    data: {
+                        'id': tutorialId,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        document.location.reload()
+                    }
+                });
+        })
+
+        $("#draft_tutorial").on("click", function() {
+            const tutorialId = $(this).attr("tutorial_id")
+            let confirmation = confirm('Etes-vous sûr de vouloir archiver ce tutoriel?'); 
+            if (confirmation)
+                $.ajax({
+                    type: "POST",
+                    url: '{% url "dashboard:draft-tutorial" %}',
                     data: {
                         'id': tutorialId,
                         csrfmiddlewaretoken: '{{ csrf_token }}'

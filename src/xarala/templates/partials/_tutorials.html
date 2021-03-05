@@ -50,7 +50,9 @@
                                 <a href="#">{{ tag.name|default_if_none:"" }}</a> {% endfor %}
                             </td>
                             <td class="text-center"><b class="course_active">
-                                    {% if tutorial.published %}
+                                    {% if tutorial.drafted %}
+                                    Archivé
+                                    {% elif tutorial.published %}
                                     Publié
                                     {% elif tutorial.submitted %}
                                     Soumis
@@ -65,34 +67,42 @@
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <button class="btn"><a
+                                        <button class="btn btn-sm"><a
                                                 href="{% url 'dashboard:tutorial_overview' tutorial.slug %}"
                                                 title="View" class="dropdown-item">Détails</a>
                                         </button>
                                         {% if user.is_teacher or user.is_student %}
-                                        {% if not tutorial.submitted and not tutorial.published %}
-                                        <button id="submit_tutorial" tutorial_id="{{tutorial.id}}" class="btn"><a
-                                                href="#" title="Submit" class="dropdown-item">Soumettre</a>
-                                        </button>
-                                        {% endif %}
-                                        <button class="btn"><a href="{% url 'dashboard:update-tutorial' tutorial.id %}"
-                                                title="Edit" class="dropdown-item">Modifier</a>
-                                        </button>
-                                        <form id="delete-form"
-                                            action="{% url 'dashboard:delete-tutorial' tutorial.id %}" method="post">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn">
-                                                <a onclick="return confirm('Etes-vous sûr de vouloir supprimer ce tutoriel?');"
-                                                    title="Delete" class="dropdown-item">Supprimer</i></a>
+                                            {% if not tutorial.drafted %}
+                                            {% if not tutorial.submitted and not tutorial.published %}
+                                            <button id="submit_tutorial" tutorial_id="{{tutorial.id}}" class="btn btn-sm"><a
+                                                    href="#" title="Submit" class="dropdown-item">Soumettre</a>
                                             </button>
-                                        </form>
+                                            {% endif %}
+                                            <button class="btn btn-sm"><a href="{% url 'dashboard:update-tutorial' tutorial.id %}"
+                                                    title="Edit" class="dropdown-item">Modifier</a>
+                                            </button>
+                                            <form id="delete-form"
+                                                action="{% url 'dashboard:delete-tutorial' tutorial.id %}" method="post">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-sm">
+                                                    <a onclick="return confirm('Etes-vous sûr de vouloir supprimer ce tutoriel?');"
+                                                        title="Delete" class="dropdown-item">Supprimer</i></a>
+                                                </button>
+                                            </form>
+                                            {% endif %}
                                         {% endif %}
 
-                                        {% if user.is_staff and tutorial.submitted %}
-                                        <button id="publish_tutorial" tutorial_id="{{tutorial.id}}"
-                                            class="btn btn-sm"><a href="#" title="Publish"
-                                                class="dropdown-item">Publier</a>
-                                        </button>
+                                        {% if not tutorial.drafted %}
+                                            <button id="draft_tutorial" tutorial_id="{{tutorial.id}}" class="btn btn-sm">
+                                                <a href="#" title="Draft" class="dropdown-item">Archiver</a>
+                                            </button>
+                                        {% endif %}
+
+                                        {% if user.is_staff and tutorial.submitted and not tutorial.published %}
+                                            <button id="publish_tutorial" tutorial_id="{{tutorial.id}}"
+                                                class="btn btn-sm"><a href="#" title="Publish"
+                                                    class="dropdown-item">Publier</a>
+                                            </button>
                                         {% endif %}
                                     </div>
                                 </div>

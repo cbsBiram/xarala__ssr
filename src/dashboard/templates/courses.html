@@ -11,6 +11,7 @@
 {% block content %} {% include 'partials/_courses.html' %} {% endblock %}
 
 {% block extrajs %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
         $("#submit_course").on("click", function() {
@@ -33,11 +34,29 @@
 
         $("#publish_course").on("click", function() {
             const courseId = $(this).attr("course_id")
-            let confirmation = confirm('Etes-vous sûr de vouloir soumettre ce cours?'); 
+            let confirmation = confirm('Etes-vous sûr de vouloir publier ce cours?'); 
             if (confirmation)
                 $.ajax({
                     type: "POST",
                     url: '{% url "dashboard:submit-course" %}',
+                    data: {
+                        'id': courseId,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        document.location.reload()
+                    }
+                });
+        })
+
+        $("button#draft_course").on("click", function() {
+            const courseId = $(this).attr("course_id")
+            let confirmation = confirm('Etes-vous sûr de vouloir archiver ce cours?'); 
+            if (confirmation)
+                $.ajax({
+                    type: "POST",
+                    url: '{% url "dashboard:draft-course" %}',
                     data: {
                         'id': courseId,
                         csrfmiddlewaretoken: '{{ csrf_token }}'
