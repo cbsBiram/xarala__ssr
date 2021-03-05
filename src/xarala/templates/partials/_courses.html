@@ -36,7 +36,7 @@
                             {% if user.is_teacher or user.is_staff %}
                             <th class="text-center" scope="col">Etudiants</th>
                             {% endif %}
-
+                            <th class="text-center" scope="col">Catégorie</th>
                             <th class="text-center" scope="col">Statut</th>
                             <th class="text-center" scope="col">Action</th>
                         </tr>
@@ -54,8 +54,14 @@
                             <td class="text-center">{{ course.students.count|default_if_none:"0" }}</td>
                             {% endif %}
 
+                            <td class="text-center">
+                                {% for category in course.categories.all %}
+                                <a href="#">{{ category.name|default_if_none:"" }}</a> {% endfor %}
+                            </td>
                             <td class="text-center"><b class="course_active">
-                                    {% if course.published %}
+                                    {% if course.drafted %}
+                                        Archivé
+                                    {% elif course.published %}
                                         Publié
                                     {% elif course.submitted %}
                                         Soumis
@@ -72,13 +78,17 @@
                                         <button class="btn btn-sm">
                                             <a href="{% url 'course:course-overview' course.slug %}" title="View" class="dropdown-item">Détails</a>
                                         </button>
-                                        
+                                        <button class="btn btn-sm">
+                                            <a href="{% url 'dashboard:manage-course' course.slug %}" title="View" class="dropdown-item">Gestion</a>
+                                        </button> 
                                         {% if user.is_teacher and not course.submitted and not course.published %}
+                                        {% if course.get_chapters and course.count_lessons  %}
                                         <button id="submit_course" course_id="{{course.id}}" class="btn btn-sm">
                                             <a href="#" title="Submit" class="dropdown-item">Soumettre</a>
-                                        </button>
+                                        </button> 
                                         {% endif %}
-                                        {% if user.is_teacher %}
+                                        {% endif %} 
+                                        {% if user.is_teacher and not course.drafted %}
                                         <button class="btn btn-sm">
                                             <a href="{% url 'dashboard:update-course' course.id %}" title="Edit" class="dropdown-item">Modifier</a>
                                         </button>
@@ -88,14 +98,14 @@
                                                 <a  onclick="return confirm('Etes-vous sûr de vouloir supprimer ce cours?');" title="Delete" class="dropdown-item">Supprimer</i></a>
                                             </button>
                                         </form>
-                                        {% endif %}
-
-                                        {% if user.is_staff and course.submitted %}
+                                        {% endif %} {% if user.is_teacher and not course.drafted %}
+                                        <button id="draft_course" course_id="{{course.id}}" class="btn btn-sm">
+                                            <a href="#" title="Draft" class="dropdown-item">Archiver</a>
+                                        </button> {% endif %} {% if user.is_staff and course.submitted and not course.published %}
                                         <button id="publish_course" course_id="{{course.id}}" class="btn btn-sm">
                                             <a href="#" title="Publish" class="dropdown-item">Publier</a>
-                                        </button>
-                                        {% endif %}
-                                            
+                                        </button> {% endif %}
+
                                     </div>
                                 </div>
                             </td>

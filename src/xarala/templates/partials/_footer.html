@@ -1,87 +1,83 @@
 {% load static %}
 
 <footer class="footer mt-30">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-3 col-md-3 col-sm-6">
-        <div class="item_f1">
-          <a href="{% url 'blog:posts' %}">Tutoriels</a>
-          <a href="{% url 'course:courses' %}">Cours</a>
-          <a href="{% url 'learning_path:paths' %}">Parcours</a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-6">
-        <div class="item_f1">
-          <a href="{% url 'pages:contact' %}">Nous contacter</a>
-          <a href="{% url 'pages:about' %}">À propos</a>
-          <a href="{% url 'pages:community' %}">Communauté</a>
-
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-6">
-        <div class="item_f1">
-          <a href="{% url 'pages:faq' %}">FAQ</a>
-          <a href="{% url 'pages:privacy_policy' %}">Politique de confidentialité</a>
-          <a href="#">Sitemap</a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-6">
-        <div class="item_f3">
-          <a href="{% url 'register' %}" class="btn1542">Enseigner sur Xarala</a>
-          <div class="lng_btn">
-            <div class="ui language bottom right pointing dropdown floating" id="languages"
-              data-content="Select Language">
-              <a href="#"><i class='uil uil-globe lft'></i>Languge<i class='uil uil-angle-down rgt'></i></a>
-              <div class="menu">
-                <div class="scrolling menu">
-                  <div class="item" data-percent="100" data-value="en" data-english="English">
-                    <span class="description">English</span>
-                    English
-                  </div>
-                  <div class="item" data-percent="94" data-value="da" data-english="Français">
-                    <span class="description">french</span>
-                    Français
-                  </div>
-                  <div class="item" data-percent="94" data-value="es" data-english="Wolof">
-                    <span class="description">Wolof</span>
-                    Wolof
-                  </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="item_f1">
+                    <a href="{% url 'blog:posts' %}">Tutoriels</a>
+                    <a href="{% url 'course:courses' %}">Cours</a>
+                    <a href="{% url 'learning_path:paths' %}">Parcours</a>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-12">
-        <div class="footer_bottm">
-          <div class="row">
-            <div class="col-md-6">
-              <ul class="fotb_left">
-                <li>
-                  <a href="/">
-                    <div class="footer_logo">
-                      <img src="{% static 'images/logo1.svg' %}" alt="">
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="item_f1">
+                    <a href="{% url 'pages:contact' %}">Nous contacter</a>
+                    <a href="{% url 'pages:about' %}">À propos</a>
+                    <a href="{% url 'pages:community' %}">Communauté</a>
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="item_f1">
+                    <a href="{% url 'pages:faq' %}">FAQ</a>
+                    <a href="{% url 'pages:privacy_policy' %}">Politique de confidentialité</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="item_f3">
+                    <a href="{% url 'register' %}" class="btn1542">Enseigner sur Xarala</a>
+                    <div class="lng_btn">
+                        <div class="ui language bottom right pointing dropdown floating" id="languages" data-content="Select Language">
+                            <a href="#"><i class='uil uil-globe lft'></i>Langue<i class='uil uil-angle-down rgt'></i></a>
+                            <div class="menu">
+                                <div class="scrolling menu">
+                                    <div class="item" data-percent="100" data-value="en" data-english="English">
+                                        <span class="description">English</span> English
+                                    </div>
+                                    <div class="item" data-percent="94" data-value="da" data-english="Français">
+                                        <span class="description">french</span> Français
+                                    </div>
+                                    <div class="item" data-percent="94" data-value="es" data-english="Wolof">
+                                        <span class="description">Wolof</span> Wolof
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </a>
-                </li>
-                <li>
-                  <p>© 2021 <strong>Xarala</strong>. Tous droits réservés.</p>
-                </li>
-              </ul>
+                </div>
             </div>
-            <div class="col-md-6">
-              <div class="edu_social_links">
-                <a target="_blank" href="https://web.facebook.com/xarala"><i class="fab fa-facebook-f"></i></a>
-                <a target="_blank" href="https://twitter.com/xaralatech"><i class="fab fa-twitter"></i></a>
-                <a target="_blank" href="https://linkedin.com/in/xarala221"><i class="fab fa-linkedin-in"></i></a>
-                <a target="_blank" href="https://linkedin.com/in/xarala221"><i class="fab fa-instagram"></i></a>
-                <a target="_blank" href="http://bit.ly/xaralaYouTube"><i class="fab fa-youtube"></i></a>
-                <a target="_blank" href="https://discord.gg/2gZqqp5"><i class="fab fa-discord"></i></a>
-              </div>
+            <div class="col-lg-12">
+                <div class="footer_bottm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="fotb_left">
+                                <li>
+                                    <a href="/">
+                                        <div class="footer_logo">
+                                            <img src="{% static 'images/logo1.svg' %}" alt="">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <p>© 2021 <strong>Xarala</strong>. Tous droits réservés.</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="edu_social_links">
+                                <a target="_blank" href="https://web.facebook.com/xarala"><i class="fab fa-facebook-f"></i></a>
+                                <a target="_blank" href="https://twitter.com/xaralatech"><i class="fab fa-twitter"></i></a>
+                                <a target="_blank" href="https://linkedin.com/in/xarala221"><i class="fab fa-linkedin-in"></i></a>
+                                <a target="_blank" href="https://linkedin.com/in/xarala221"><i class="fab fa-instagram"></i></a>
+                                <a target="_blank" href="http://bit.ly/xaralaYouTube"><i class="fab fa-youtube"></i></a>
+                                <a target="_blank" href="https://discord.gg/2gZqqp5"><i class="fab fa-discord"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </footer>

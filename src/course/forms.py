@@ -1,6 +1,7 @@
 from django import forms
 from django_summernote.widgets import SummernoteWidget
 from .models import (
+    Category,
     Course,
     Chapter,
     Language,
@@ -55,9 +56,18 @@ class CreateCourse(forms.ModelForm):
     language = forms.ModelChoiceField(
         queryset=Language.objects.all(),
         label="Langue de la formation",
-        initial="Français - FR",
         widget=forms.Select(
             attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+        ),
+    )
+    categories = (
+        forms.ModelMultipleChoiceField(
+            queryset=Category.objects.all(),
+            label="Catégories",
+            required=True,
+            widget=forms.SelectMultiple(
+                attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+            ),
         ),
     )
     price = forms.IntegerField(
@@ -83,7 +93,15 @@ class CreateCourse(forms.ModelForm):
 
     class Meta:
         model = Course
-        fields = ("title", "level", "language", "price", "description", "thumbnail")
+        fields = (
+            "title",
+            "level",
+            "language",
+            "categories",
+            "price",
+            "description",
+            "thumbnail",
+        )
 
 
 class UpdateCourse(forms.ModelForm):
@@ -145,11 +163,27 @@ class UpdateCourse(forms.ModelForm):
 class CreateChapter(forms.ModelForm):
     name = forms.CharField(
         max_length=254,
-        label="Titre de la chapittre",
+        required=True,
+        label="Titre du chapitre",
         widget=forms.TextInput(
             {
-                "placeholder": "Section 1 ou Introduction..",
-                "class": " border w-full py-2 px-3 text-grey-darker mt-2",
+                "class": "border w-full py-2 px-3 text-grey-darker mt-2",
+            }
+        ),
+    )
+
+    class Meta:
+        model = Chapter
+        fields = ("name",)
+
+
+class UpdateChapter(forms.ModelForm):
+    name = forms.CharField(
+        max_length=254,
+        label="Titre du chapitre",
+        widget=forms.TextInput(
+            {
+                "class": "border w-full py-2 px-3 text-grey-darker mt-2",
             }
         ),
     )
@@ -162,10 +196,53 @@ class CreateChapter(forms.ModelForm):
 class CreateLesson(forms.ModelForm):
     title = forms.CharField(
         max_length=254,
-        label="Titre de la chapittre",
+        label="Titre de la leçon",
         widget=forms.TextInput(
             {
                 "placeholder": "Cours..",
+                "class": " border w-full py-2 px-3 text-grey-darker mt-2",
+            }
+        ),
+    )
+    text = forms.CharField(
+        label="Description",
+        required=True,
+        widget=SummernoteWidget(),
+    )
+    # widget=forms.Textarea(
+    # attrs={'class': 'form-textarea mt-1 block w-full border', 'rows': '3'})
+    video_id = forms.CharField(
+        max_length=254,
+        label="URL de YouTube",
+        required=True,
+        widget=forms.TextInput(
+            {
+                "placeholder": "Leçon...",
+                "class": " border w-full py-2 px-3 text-grey-darker mt-2",
+            }
+        ),
+    )
+    platform = forms.ChoiceField(
+        choices=PLATFORM,
+        label="Plateforme",
+        initial=(YOUTUBE, YOUTUBE),
+        widget=forms.Select(
+            attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+        ),
+    )
+
+    class Meta:
+        model = Lesson
+        fields = ("title", "text", "video_id", "platform")
+
+
+class UpdateLesson(forms.ModelForm):
+    title = forms.CharField(
+        max_length=254,
+        label="Titre de la leçon",
+        widget=forms.TextInput(
+            {
+                "placeholder": "Leçon...",
                 "class": " border w-full py-2 px-3 text-grey-darker mt-2",
             }
         ),
@@ -189,7 +266,10 @@ class CreateLesson(forms.ModelForm):
     platform = forms.ChoiceField(
         choices=PLATFORM,
         label="Plateforme",
-        widget=forms.Select(attrs={"class": "form-select block w-full mt-1"}),
+        initial=(YOUTUBE, YOUTUBE),
+        widget=forms.Select(
+            attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+        ),
     )
 
     class Meta:
