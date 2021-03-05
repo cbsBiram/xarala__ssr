@@ -38,7 +38,6 @@ class CreatePostForm(forms.ModelForm):
             queryset=Tag.objects.all(),
             label="Catégories",
             required=True,
-            initial=Tag.objects.first(),
             widget=forms.SelectMultiple(
                 attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
             ),
