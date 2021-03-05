@@ -56,7 +56,6 @@ class CreateCourse(forms.ModelForm):
     language = forms.ModelChoiceField(
         queryset=Language.objects.all(),
         label="Langue de la formation",
-        initial=Language.objects.first(),
         widget=forms.Select(
             attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
         ),
@@ -66,7 +65,6 @@ class CreateCourse(forms.ModelForm):
             queryset=Category.objects.all(),
             label="Catégories",
             required=True,
-            initial=Category.objects.first(),
             widget=forms.SelectMultiple(
                 attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
             ),
