@@ -46,6 +46,13 @@
                 <a href="{% url 'course:course-overview' course.slug %}" title="View" class="dropdown-item">Détails</a>
               </button>
 
+              {% if user.is_staff %}
+              <button class="btn btn-sm publish_course_btn" data-url="{% url 'dashboard:publish-course' %}"
+                data-course-id="{{ course.id }}">
+                <a href="#" title="Publish" class="dropdown-item">Publier</a>
+              </button>
+              {% endif %}
+
               {% if user.is_teacher %}
               <button class="btn btn-sm">
                 <a href="{% url 'dashboard:update-course' course.id %}" title="Submit"
@@ -63,12 +70,7 @@
               </form>
               {% endif %}
 
-              {% if user.is_staff %}
-              <button class="btn btn-sm">
-                <a href="{% url 'dashboard:update-course' course.id %}" title="Publish"
-                  class="dropdown-item">Publier</a>
-              </button>
-              {% endif %}
+
 
             </div>
           </div>

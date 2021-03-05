@@ -1,12 +1,10 @@
-from django.utils import timezone
 from django.db import models
 from django.db.models import Q
 
 
 class CourseQuerySet(models.QuerySet):
     def published(self):
-        now = timezone.now()
-        return self.filter(publish_date__lte=now)
+        return self.filter(published=True)
 
     def unpublished(self):
         return self.filter(published=False, submitted=True)

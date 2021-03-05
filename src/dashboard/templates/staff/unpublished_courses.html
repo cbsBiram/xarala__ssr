@@ -19,3 +19,30 @@
 
 
 {% endblock %}
+
+{% block extrajs %}
+<script>
+  $(document).ready(function () {
+
+    $(document).on("click", ".publish_course_btn", function () {
+      console.log("clicked")
+      var url = $(this).attr("data-url")
+      var courseId = $(this).attr("data-course-id")
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+          'course_id': courseId,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        dataType: "json",
+        success: function (response) {
+          alert("cours publie")
+        }
+      });
+
+    })
+
+  });
+</script>
+{% endblock extrajs %}

@@ -135,10 +135,11 @@ class AllStudentsView(ListView):
 @staff_required
 def publish_course(request):
     values = {"error": "", "has_error": 0}
-    course_id = int(request.POST.get("id"))
+    course_id = int(request.POST.get("course_id"))
     try:
         course = Course.objects.get(pk=course_id)
         course.published = True
+        course.publish_date = datetime.now()
         course.save()
     except Exception as e:
         values["error"] = e
