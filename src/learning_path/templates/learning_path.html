@@ -7,59 +7,37 @@ Parcours d'apprentissage
 
 {% block content %}
 
-{% comment %} <div class="new-section">
-  <div class="_215b15">
-    <section class="height-100vh">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 text-center">
-            <h1 class="text-primary text-uppercase display-1">Parcours</h1>
-            <h2 class="mb-4">
-              Oups! <i class="fas fa-frown text-warning" aria-hidden="true"></i>
-            </h2>
-            <p>
-              La page est en cours de conception.
-            </p>
-            <a href="/" class="btn btn-rounded btn-primary mt-5 mb-4">Retour à la page d'accueil</a>
-          </div>
-        </div>
-        <!-- END row-->
-      </div>
-      <!-- END container-->
-    </section>
-  </div>
-</div> {% endcomment %}
 
 <div class="section3125">
   <div class="sa4d25">
     <div class="container-fluid">
       <div class="row">
         <div class="col-xl-12 col-lg-12">
-                  <h4 class="item_title">Learning Path</h4>
-            {% for i in learning_path %}
+          <h4 class="item_title">Parcours professionnel</h4>
+          {% for i in learning_paths %}
           <div class="blogbg_1 mt-30">
-							<a href="blog_single_view.html" class="hf_img">
-								<img src="
-                          {% if i.thumbnail %}
-                          {{ i.thumbnail.url }}
-                          {% elif i.thumbnail_url %}
-                          {{ i.thumbnail_url }}
+            <a href="{{ learning_path.get_absolute_url }}" class="hf_img">
+              <img src="
+                          {% if learning_path.thumbnail %}
+                          {{ learning_path.thumbnail.url }}
+                          {% elif learning_path.thumbnail_url %}
+                          {{ learning_path.thumbnail_url }}
                           {% else %}{% static 'images/logo.png'  %}
-                          {% endif %}" alt="{{ i.title }}" alt=""> 
-								<div class="course-overlay">
-                </div>
-							</a>
-							<div class="hs_content">
-								<div class="vdtodt">
-									<span class="vdt14">109k views</span>
-									<span class="vdt14">{{ i.created_at | date:"d, M, Y"}}</span>
-								</div>
-								<a href="{% url 'learning_path:show_path' i.title %}" class="crse14s title900">{{i.title}}</a>
-								<p class="blog_des">{{ i.description |slice:":200" }}</p>
-								<a href="{% url 'learning_path:show_path' i.title %}" class="view-blog-link">Read More<i class="uil uil-arrow-right"></i></a>
-							</div>
-						</div>
-            {% endfor %}
+                          {% endif %}" alt="{{ learning_path.title }}" alt="">
+              <div class="course-overlay">
+              </div>
+            </a>
+            <div class="hs_content">
+              <div class="vdtodt">
+                <span class="vdt14">{{ learning_path.created_at | date:"d, M, Y"}}</span>
+              </div>
+              <a href="{{ learning_path.get_absolute_url }}" class="crse14s title900">{{learning_path.title}}</a>
+              <p class="blog_des">{{ learning_path.description |slice:":200" }}</p>
+              <a href="{{ learning_path.get_absolute_url }}" class="view-blog-link">En savoir plus<i
+                  class="uil uil-arrow-right"></i></a>
+            </div>
+          </div>
+          {% endfor %}
 
         </div>
       </div>
