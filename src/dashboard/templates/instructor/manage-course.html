@@ -139,7 +139,7 @@
                                                                 id="actions-{{chapter.id}}">
                                                                 <button class="btn btn-sm">
                                                                     <a href="{% url 'dashboard:manage-chapter' chapter.slug %}"
-                                                                        title="View" class="dropdown-item">Détails</a>
+                                                                        title="View" class="dropdown-item">Aperçu</a>
                                                                 </button> {% if not chapter.drafted %}
                                                                 <button id="edit_chapter" class="btn btn-sm">
                                                                     <a title="Edit"
@@ -225,12 +225,12 @@
                                                 <!-- Delete Chapter Modal-->
                                                 <div class="modal fade delete_chapter"
                                                     id="delete_chapter_{{chapter.id}}" tabindex="-1" role="dialog"
-                                                    aria-labelledby="draftChapterModalLabel" aria-hidden="true">
+                                                    aria-labelledby="delChapterModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg modal-dialog-centered"
                                                         role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h2 class="st_title" id="draftChapterModalLabel"><i
+                                                                <h2 class="st_title" id="delChapterModalLabel"><i
                                                                         class="uil uil-analysis"></i>Supprimer le
                                                                     chapitre <b
                                                                         class="course_active">{{ chapter.name }}</b>
@@ -273,13 +273,13 @@
 
                                                 <!-- Draft Chapter Modal-->
                                                 <div class="modal fade draft_chapter" id="draft_chapter_{{chapter.id}}"
-                                                    tabindex="-1" role="dialog" aria-labelledby="delChapterModalLabel"
+                                                    tabindex="-1" role="dialog" aria-labelledby="draftChapterModalLabel"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog modal-lg modal-dialog-centered"
                                                         role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h2 class="st_title" id="delChapterModalLabel"><i
+                                                                <h2 class="st_title" id="draftChapterModalLabel"><i
                                                                         class="uil uil-analysis"></i>Archiver le
                                                                     chapitre <b
                                                                         class="course_active">{{ chapter.name }}</b>
@@ -440,7 +440,7 @@
                         'data-target="#draft_chapter_' + data['id'] +
                         '">Archiver</a></button>' +
                         '<button class="btn btn-sm"> <a href = "' + viewUrl + '"' +
-                        'title = "View" class="dropdown-item">Détails</a></button>' +
+                        'title = "View" class="dropdown-item">Aperçu</a></button>' +
                         '</div></div></td>' +
                         '</tr>'
 
@@ -519,7 +519,7 @@
                             '">Archiver</a></button>' +
                             '<button class="btn btn-sm"> <a href = "' + viewUrl +
                             '"' +
-                            'title = "View" class="dropdown-item">Détails</a></button>' +
+                            'title = "View" class="dropdown-item">Aperçu</a></button>' +
                             '</div></div></td>'
 
                         $lineToUpdate.html(updatedLine)
@@ -585,7 +585,7 @@
                         $actionsCell.html(
                             '<button class="btn btn-sm"> <a href = "' +
                             viewUrl + '"' +
-                            'title = "View" class="dropdown-item">Détails</a></button>'
+                            'title = "View" class="dropdown-item">Aperçu</a></button>'
                         )
                         $statusCell.html('Oui')
                     }

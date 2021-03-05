@@ -69,7 +69,11 @@ def submit_tutorial(request):
     tutorial_id = int(request.POST.get("id"))
     try:
         tutorial = Post.objects.get(pk=tutorial_id, author=user)
-        tutorial.submitted = True
+        if not tutorial.submitted:
+            tutorial.submitted = True
+        else:
+            if not tutorial.published:
+                tutorial.published = True
         tutorial.save()
     except Exception as e:
         values["error"] = e

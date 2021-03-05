@@ -99,7 +99,11 @@ def submit_course(request):
     course_id = int(request.POST.get("id"))
     try:
         course = Course.objects.get(pk=course_id, teacher=user)
-        course.submitted = True
+        if not course.submitted:
+            course.submitted = True
+        else:
+            if not course.published:
+                course.published = True
         course.save()
     except Exception as e:
         values["error"] = e
