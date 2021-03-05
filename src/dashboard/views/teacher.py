@@ -1,9 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Count, Sum
 from django.http.response import JsonResponse
-from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 from users.decorators import teacher_required
 from django.views.generic import View, ListView
 from django.shortcuts import get_object_or_404, redirect, render
@@ -123,12 +122,6 @@ def draft_course(request):
         values["has_error"] = -1
         print(e)
     return JsonResponse(values)
-
-
-@method_decorator([teacher_required], name="dispatch")
-class CourseDeleteView(DeleteView):
-    model = Course
-    success_url = reverse_lazy("dashboard:courses")
 
 
 @method_decorator([teacher_required], name="dispatch")

@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseForbidden, JsonResponse
-from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 from blog.forms import CreatePostForm, UpdatePostForm
 from blog.models import Post
 from django.views.generic import ListView
@@ -54,12 +53,6 @@ class TutorialCreateView(CreateView):
             return redirect("dashboard:tutorials")
 
         return render(request, self.template_name, {"form": form})
-
-
-@method_decorator([login_required], name="dispatch")
-class TutorialDeleteView(DeleteView):
-    model = Post
-    success_url = reverse_lazy("dashboard:tutorials")
 
 
 @method_decorator([login_required], name="dispatch")

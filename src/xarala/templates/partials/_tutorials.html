@@ -69,7 +69,7 @@
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <button class="btn btn-sm"><a
                                                 href="{% url 'dashboard:tutorial_overview' tutorial.slug %}"
-                                                title="View" class="dropdown-item">Détails</a>
+                                                title="View" class="dropdown-item">Aperçu</a>
                                         </button>
                                         {% if user.is_teacher or user.is_student %}
                                             {% if not tutorial.drafted %}
@@ -81,14 +81,6 @@
                                             <button class="btn btn-sm"><a href="{% url 'dashboard:update-tutorial' tutorial.id %}"
                                                     title="Edit" class="dropdown-item">Modifier</a>
                                             </button>
-                                            <form id="delete-form"
-                                                action="{% url 'dashboard:delete-tutorial' tutorial.id %}" method="post">
-                                                {% csrf_token %}
-                                                <button type="submit" class="btn btn-sm">
-                                                    <a onclick="return confirm('Etes-vous sûr de vouloir supprimer ce tutoriel?');"
-                                                        title="Delete" class="dropdown-item">Supprimer</i></a>
-                                                </button>
-                                            </form>
                                             {% endif %}
                                         {% endif %}
 
