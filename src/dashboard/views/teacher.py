@@ -1,9 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Count, Sum
 from django.http.response import JsonResponse
-from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 from users.decorators import teacher_required
 from django.views.generic import View, ListView
 from django.shortcuts import get_object_or_404, redirect, render
@@ -100,7 +99,11 @@ def submit_course(request):
     course_id = int(request.POST.get("id"))
     try:
         course = Course.objects.get(pk=course_id, teacher=user)
-        course.submitted = True
+        if not course.submitted:
+            course.submitted = True
+        else:
+            if not course.published:
+                course.published = True
         course.save()
     except Exception as e:
         values["error"] = e
@@ -123,12 +126,6 @@ def draft_course(request):
         values["has_error"] = -1
         print(e)
     return JsonResponse(values)
-
-
-@method_decorator([teacher_required], name="dispatch")
-class CourseDeleteView(DeleteView):
-    model = Course
-    success_url = reverse_lazy("dashboard:courses")
 
 
 @method_decorator([teacher_required], name="dispatch")
@@ -272,7 +269,6 @@ def create_lesson(request, slug):
             values["date_created"] = format_date(lesson.date_created)
             values["order"] = lesson.order
             values["drafted"] = "Oui" if lesson.drafted else "Non"
-            print(values)
             chapter.course_lessons.add(lesson)
             messages.success(request, "Leçon ajoutée avec succès!")
     except Exception as e:
@@ -288,6 +284,7 @@ def update_lesson(request, id):
         instance = get_object_or_404(Lesson, id=id)
         form_class = UpdateLesson
         form = form_class(request.POST, instance=instance)
+        print(form.errors)
 
         if form.is_valid():
             lesson = form.save(commit=False)

@@ -67,11 +67,6 @@ urlpatterns = [
         "course/create/", teacher_views.CourseCreateView.as_view(), name="create-course"
     ),
     path(
-        "course/<int:pk>/delete/",
-        teacher_views.CourseDeleteView.as_view(),
-        name="delete-course",
-    ),
-    path(
         "course/edit/<int:pk>",
         teacher_views.CourseUpdateView.as_view(),
         name="update-course",
@@ -128,11 +123,6 @@ urlpatterns = [
         "tutorial/create/",
         shared_views.TutorialCreateView.as_view(),
         name="create-tutorial",
-    ),
-    path(
-        "tutorial/<int:pk>/delete/",
-        shared_views.TutorialDeleteView.as_view(),
-        name="delete-tutorial",
     ),
     path(
         "tutorial/edit/<int:pk>",

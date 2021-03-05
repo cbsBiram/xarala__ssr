@@ -21,7 +21,7 @@
       <tr>
         <td class="text-center">{{ forloop.counter }}</td>
         <td>{{ course.title }}</td>
-        <td class="text-center">{{ course.date_created|date:"D d M Y" }}</td>
+        <td class="text-center">{{ course.date_created|date:"d-m-Y" }}</td>
         <td class="text-center">{{ course.price|floatformat|default_if_none:"0" }}</td>
 
         {% if user.is_teacher or user.is_staff %}

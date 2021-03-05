@@ -16,7 +16,7 @@
       <tr>
         <td class="text-center">{{ forloop.counter }}</td>
         <td>{{ tutorial.title }}</td>
-        <td class="text-center">{{ tutorial.created_at|date:"D d M Y" }}</td>
+        <td class="text-center">{{ tutorial.created_at|date:"d-m-Y" }}</td>
         <td class="text-center">
           {% for tag in tutorial.tags.all %}
           <a href="#">{{ tag.name|default_if_none:"" }}</a> {% endfor %}

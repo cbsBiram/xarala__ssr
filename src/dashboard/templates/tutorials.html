@@ -11,62 +11,106 @@
 {% block content %} {% include 'partials/_tutorials.html' %} {% endblock %}
 
 {% block extrajs %} 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% block semantic %} {% endblock semantic %}
+
 <script>
-    $(document).ready(function() {
-        $("#submit_tutorial").on("click", function() {
-            const tutorialId = $(this).attr("tutorial_id")
-            let confirmation = confirm('Etes-vous sûr de vouloir soumettre ce tutoriel?'); 
-            if (confirmation)
+    $(document).ready(function () {
+
+        $(document).on('click', ".submit-tutorial-btn", function () {
+
+            var $tutorialId = $(this).attr('tutorial_id')
+            $(document).on('click', ".submit-submitted-tutorial-data", function (event) {
+                event.preventDefault();
+                var $form = '#submit-tutorial-' + $tutorialId
+                var $thisURL = $($form).attr('data-url');
+                var $modalDialog = $('#submit_tutorial_' + $tutorialId)
+
                 $.ajax({
                     type: "POST",
-                    url: '{% url "dashboard:submit-tutorial" %}',
+                    url: $thisURL,
                     data: {
-                        'id': tutorialId,
+                        'id': $tutorialId,
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
                     dataType: 'json',
-                    success: function(data) {
-                        document.location.reload()
+                    success: function (data) {
+                        $modalDialog.modal('hide')
+                        var $statusCell = $('tr#tutorial_' + $tutorialId +
+                            ' td b#status-' + $tutorialId)
+                        $statusCell.html('Soumis')
                     }
                 });
+            })
         })
 
-        $("#publish_tutorial").on("click", function() {
-            const tutorialId = $(this).attr("tutorial_id")
-            let confirmation = confirm('Etes-vous sûr de vouloir publier ce tutoriel?'); 
-            if (confirmation)
+        $(document).on('click', ".publish-tutorial-btn", function () {
+
+            var $tutorialId = $(this).attr('tutorial_id')
+            $(document).on('click', ".submit-published-tutorial-data", function (event) {
+                event.preventDefault();
+                var $form = '#publish-tutorial-' + $tutorialId
+                var $thisURL = $($form).attr('data-url');
+                var $modalDialog = $('#publish_tutorial_' + $tutorialId)
+
                 $.ajax({
                     type: "POST",
-                    url: '{% url "dashboard:submit-tutorial" %}',
+                    url: $thisURL,
                     data: {
-                        'id': tutorialId,
+                        'id': $tutorialId,
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
                     dataType: 'json',
-                    success: function(data) {
-                        document.location.reload()
+                    success: function (data) {
+                        $modalDialog.modal('hide')
+                        var $lineToPublish = $('tr#tutorial_' + $tutorialId)
+                        var $statusCell = $('tr#tutorial_' + $tutorialId +
+                            ' td b#status-' + $tutorialId)
+                        $statusCell.html('Publié')
                     }
                 });
+            })
         })
 
-        $("#draft_tutorial").on("click", function() {
-            const tutorialId = $(this).attr("tutorial_id")
-            let confirmation = confirm('Etes-vous sûr de vouloir archiver ce tutoriel?'); 
-            if (confirmation)
+        $(document).on('click', ".draft-tutorial-btn", function () {
+
+            var $tutorialId = $('.draft-tutorial-btn').attr('tutorial_id')
+            console.log($tutorialId)
+            $(document).on('click', ".submit-drafted-tutorial-data", function (event) {
+                event.preventDefault();
+                var $form = '#draft-tutorial-' + $tutorialId
+                var $thisURL = $($form).attr('data-url');
+                var $modalDialog = $('#draft_tutorial_' + $tutorialId)
+
+                $modalDialog.modal('toggle')
+
                 $.ajax({
                     type: "POST",
-                    url: '{% url "dashboard:draft-tutorial" %}',
+                    url: $thisURL,
                     data: {
-                        'id': tutorialId,
+                        'id': $tutorialId,
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
                     dataType: 'json',
-                    success: function(data) {
-                        document.location.reload()
-                    }
+                    success: function (data) {
+                        $modalDialog.modal('hide')
+                        var tutorialSlug = data['tutorial_slug']
+                        var viewUrl = "{% url 'dashboard:tutorial_overview' 123 %}"
+                            .replace('123', tutorialSlug)
+                        var $statusCell = $('tr#tutorial_' + $tutorialId +
+                            ' td b#status-' + $tutorialId)
+                        var $actionsCell = $('tr#tutorial_' + $tutorialId +
+                            ' div#actions-' + $tutorialId)
+
+                        $actionsCell.html(
+                            '<button class="btn btn-sm"> <a href = "' +
+                            viewUrl + '"' +
+                            'title = "View" class="dropdown-item">Aperçu</a></button>' 
+                        )
+                        $statusCell.html('Archivé')
+                    } 
                 });
+            })
         })
     })
-</script> 
+</script>
 {% endblock extrajs %}
