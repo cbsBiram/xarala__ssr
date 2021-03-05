@@ -11,63 +11,112 @@
 {% block content %} {% include 'partials/_courses.html' %} {% endblock %}
 
 {% block extrajs %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% block semantic %} {% endblock semantic %}
 <script>
-    $(document).ready(function() {
-        $("#submit_course").on("click", function() {
-            const courseId = $(this).attr("course_id")
-            let confirmation = confirm('Etes-vous sûr de vouloir soumettre ce cours?'); 
-            if (confirmation)
+    $(document).ready(function () {
+
+        $(document).on('click', ".submit-course-btn", function () {
+
+            var $courseId = $(this).attr('course_id')
+            $(document).on('click', ".submit-submitted-course-data", function (event) {
+                event.preventDefault();
+                var $form = '#submit-course-' + $courseId
+                var $thisURL = $($form).attr('data-url');
+                var $modalDialog = $('#submit_course_' + $courseId)
+
                 $.ajax({
                     type: "POST",
-                    url: '{% url "dashboard:submit-course" %}',
+                    url: $thisURL,
                     data: {
-                        'id': courseId,
+                        'id': $courseId,
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
                     dataType: 'json',
-                    success: function(data) {
-                        document.location.reload()
+                    success: function (data) {
+                        $modalDialog.modal('hide')
+                        var $statusCell = $('tr#course_' + $courseId +
+                            ' td b#status-' + $courseId)
+                        $statusCell.html('Soumis')
                     }
                 });
+            })
         })
 
-        $("#publish_course").on("click", function() {
-            const courseId = $(this).attr("course_id")
-            let confirmation = confirm('Etes-vous sûr de vouloir publier ce cours?'); 
-            if (confirmation)
+        $(document).on('click', ".publish-course-btn", function () {
+
+            var $courseId = $(this).attr('course_id')
+            $(document).on('click', ".submit-published-course-data", function (event) {
+                event.preventDefault();
+                var $form = '#publish-course-' + $courseId
+                var $thisURL = $($form).attr('data-url');
+                var $modalDialog = $('#publish_course_' + $courseId)
+
                 $.ajax({
                     type: "POST",
-                    url: '{% url "dashboard:submit-course" %}',
+                    url: $thisURL,
                     data: {
-                        'id': courseId,
+                        'id': $courseId,
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
                     dataType: 'json',
-                    success: function(data) {
-                        document.location.reload()
+                    success: function (data) {
+                        $modalDialog.modal('hide')
+                        var $lineToPublish = $('tr#course_' + $courseId)
+                        var $statusCell = $('tr#course_' + $courseId +
+                            ' td b#status-' + $courseId)
+                        $statusCell.html('Publié')
                     }
                 });
+            })
         })
 
-        $("button#draft_course").on("click", function() {
-            const courseId = $(this).attr("course_id")
-            let confirmation = confirm('Etes-vous sûr de vouloir archiver ce cours?'); 
-            if (confirmation)
+        $(document).on('click', ".draft-course-btn", function () {
+
+            var $courseId = $('.draft-course-btn').attr('course_id')
+            console.log($courseId)
+            $(document).on('click', ".submit-drafted-course-data", function (event) {
+                event.preventDefault();
+                var $form = '#draft-course-' + $courseId
+                var $thisURL = $($form).attr('data-url');
+                var $modalDialog = $('#draft_course_' + $courseId)
+
+                console.log($modalDialog)
+                $modalDialog.modal('toggle')
+
                 $.ajax({
                     type: "POST",
-                    url: '{% url "dashboard:draft-course" %}',
+                    url: $thisURL,
                     data: {
-                        'id': courseId,
+                        'id': $courseId,
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
                     dataType: 'json',
-                    success: function(data) {
-                        document.location.reload()
-                    }
+                    success: function (data) {
+                        $modalDialog.modal('hide')
+                        var courseSlug = data['course_slug']
+                        var manageUrl = "{% url 'dashboard:manage-course' 123 %}"
+                            .replace('123', courseSlug)
+                        var viewUrl = "{% url 'course:course-overview' 123 %}"
+                            .replace('123', courseSlug)
+                        var $statusCell = $('tr#course_' + $courseId +
+                            ' td b#status-' + $courseId)
+                        var $actionsCell = $('tr#course_' + $courseId +
+                            ' div#actions-' + $courseId)
+
+                        $actionsCell.html(
+                            '<button class="btn btn-sm"> <a href = "' +
+                            viewUrl + '"' +
+                            'title = "View" class="dropdown-item">Aperçu</a></button>' +
+                            '<button class="btn btn-sm"> <a href = "' +
+                            manageUrl + '"' +
+                            'title = "Manage" class="dropdown-item">Gestion</a></button>'
+                        )
+                        $statusCell.html('Archivé')
+                    } 
                 });
+            })
         })
     })
-</script> 
+</script>
 {% endblock extrajs %}
 

@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseForbidden, JsonResponse
-from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 from blog.forms import CreatePostForm, UpdatePostForm
 from blog.models import Post
 from django.views.generic import ListView
@@ -57,12 +56,6 @@ class TutorialCreateView(CreateView):
 
 
 @method_decorator([login_required], name="dispatch")
-class TutorialDeleteView(DeleteView):
-    model = Post
-    success_url = reverse_lazy("dashboard:tutorials")
-
-
-@method_decorator([login_required], name="dispatch")
 class TutorialUpdateView(UpdateView):
     model = Post
     form_class = UpdatePostForm
@@ -76,7 +69,11 @@ def submit_tutorial(request):
     tutorial_id = int(request.POST.get("id"))
     try:
         tutorial = Post.objects.get(pk=tutorial_id, author=user)
-        tutorial.submitted = True
+        if not tutorial.submitted:
+            tutorial.submitted = True
+        else:
+            if not tutorial.published:
+                tutorial.published = True
         tutorial.save()
     except Exception as e:
         values["error"] = e

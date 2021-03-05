@@ -41,15 +41,15 @@
                     <tbody>
 
                         {% for tutorial in tutorials %}
-                        <tr>
+                        <tr id="tutorial_{{tutorial.id}}">
                             <td class="text-center">{{ forloop.counter }}</td>
                             <td>{{ tutorial.title }}</td>
-                            <td class="text-center">{{ tutorial.created_at|date:"D d M Y" }}</td>
+                            <td class="text-center">{{ tutorial.created_at|date:"d-m-Y" }}</td>
                             <td class="text-center">
                                 {% for tag in tutorial.tags.all %}
                                 <a href="#">{{ tag.name|default_if_none:"" }}</a> {% endfor %}
                             </td>
-                            <td class="text-center"><b class="course_active">
+                            <td class="text-center"><b class="course_active" id="status-{{tutorial.id}}">
                                     {% if tutorial.drafted %}
                                     Archivé
                                     {% elif tutorial.published %}
@@ -69,45 +69,257 @@
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <button class="btn btn-sm"><a
                                                 href="{% url 'dashboard:tutorial_overview' tutorial.slug %}"
-                                                title="View" class="dropdown-item">Détails</a>
+                                                title="View" class="dropdown-item">Aperçu</a>
                                         </button>
                                         {% if user.is_teacher or user.is_student %}
                                             {% if not tutorial.drafted %}
                                             {% if not tutorial.submitted and not tutorial.published %}
-                                            <button id="submit_tutorial" tutorial_id="{{tutorial.id}}" class="btn btn-sm"><a
-                                                    href="#" title="Submit" class="dropdown-item">Soumettre</a>
+                                            <button id="submit_tutorial" tutorial_id="{{tutorial.id}}" class="btn btn-sm">
+                                                <a href="#" title="Submit" class="dropdown-item submit-tutorial-btn"
+                                                    tutorial_id="{{tutorial.id}}"
+                                                    data-toggle="modal"
+                                                    data-target="#submit_tutorial_{{tutorial.id}}">
+                                                Soumettre
+                                                </a>
                                             </button>
                                             {% endif %}
                                             <button class="btn btn-sm"><a href="{% url 'dashboard:update-tutorial' tutorial.id %}"
                                                     title="Edit" class="dropdown-item">Modifier</a>
                                             </button>
-                                            <form id="delete-form"
-                                                action="{% url 'dashboard:delete-tutorial' tutorial.id %}" method="post">
-                                                {% csrf_token %}
-                                                <button type="submit" class="btn btn-sm">
-                                                    <a onclick="return confirm('Etes-vous sûr de vouloir supprimer ce tutoriel?');"
-                                                        title="Delete" class="dropdown-item">Supprimer</i></a>
-                                                </button>
-                                            </form>
                                             {% endif %}
                                         {% endif %}
 
                                         {% if not tutorial.drafted %}
                                             <button id="draft_tutorial" tutorial_id="{{tutorial.id}}" class="btn btn-sm">
-                                                <a href="#" title="Draft" class="dropdown-item">Archiver</a>
+                                                <a href="#" title="Draft" class="dropdown-item draft-tutorial-btn"
+                                                    tutorial_id="{{tutorial.id}}"
+                                                    data-toggle="modal"
+                                                    data-target="#draft_tutorial_{{tutorial.id}}">
+                                                Archiver
+                                                </a>
                                             </button>
                                         {% endif %}
 
                                         {% if user.is_staff and tutorial.submitted and not tutorial.published %}
                                             <button id="publish_tutorial" tutorial_id="{{tutorial.id}}"
                                                 class="btn btn-sm"><a href="#" title="Publish"
-                                                    class="dropdown-item">Publier</a>
+                                                class="dropdown-item publish-tutorial-btn"
+                                                tutorial_id="{{tutorial.id}}"
+                                                data-toggle="modal"
+                                                data-target="#publish_tutorial_{{tutorial.id}}">Publier</a>
                                             </button>
                                         {% endif %}
                                     </div>
                                 </div>
                             </td>
                         </tr>
+
+                        <!-- Submit Tutorial Modal-->
+                        <div
+                            class="modal fade submit_tutorial"
+                            id="submit_tutorial_{{course.id}}"
+                            tabindex="-1"
+                            role="dialog"
+                            aria-labelledby="submitTutorialModalLabel"
+                            aria-hidden="true"
+                        >
+                        <div
+                            class="modal-dialog modal-lg modal-dialog-centered"
+                            role="document"
+                        >
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="st_title" id="submitTutorialModalLabel">
+                                <i class="uil uil-analysis"></i>Soumettre le tutoriel
+                                <b class="course_active">{{ tutorial.title }}</b>
+                                </h2>
+                                <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                                style="color: red"
+                                >
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div
+                                id="submit-tutorial-{{tutorial.id}}"
+                                method="POST"
+                                data-url="{% url 'dashboard:submit-tutorial' %}"
+                                >
+                                {% csrf_token %}
+                                <div class="general_info10">
+                                    <div class="row">
+                                    <div class="col-12">
+                                        <div class="ui search focus mt-10 lbel25">
+                                        <label>
+                                            Êtes-vous sûr de vouloir soumettre ce tutoriel?
+                                        </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button
+                                        data-dismiss="modal"
+                                        class="create_btn_dash btn-danger"
+                                        style="float: right"
+                                        >
+                                        Annuler
+                                        </button>
+                                        <button
+                                        type="button"
+                                        class="create_btn_dash mr-2 submit-submitted-tutorial-data"
+                                        style="float: right"
+                                        >
+                                        Confirmer
+                                        </button>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- Publish Tutorial Modal-->
+                        <div
+                        class="modal fade publish_tutorial"
+                        id="publish_tutorial_{{tutorial.id}}"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="publishTutorialModalLabel"
+                        aria-hidden="true"
+                        >
+                        <div
+                            class="modal-dialog modal-lg modal-dialog-centered"
+                            role="document"
+                        >
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="st_title" id="publishTutorialModalLabel">
+                                <i class="uil uil-analysis"></i>Publier le tutoriel
+                                <b class="course_active">{{ tutorial.title }}</b>
+                                </h2>
+                                <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                                style="color: red"
+                                >
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div
+                                id="publish-tutorial-{{tutorial.id}}"
+                                method="POST"
+                                data-url="{% url 'dashboard:submit-tutorial' %}"
+                                >
+                                {% csrf_token %}
+                                <div class="general_info10">
+                                    <div class="row">
+                                    <div class="col-12">
+                                        <div class="ui search focus mt-10 lbel25">
+                                        <label>
+                                            Êtes-vous sûr de vouloir publier ce cours?
+                                        </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button
+                                        data-dismiss="modal"
+                                        class="create_btn_dash btn-danger"
+                                        style="float: right"
+                                        >
+                                        Annuler
+                                        </button>
+                                        <button
+                                        type="button"
+                                        class="create_btn_dash mr-2 submit-published-tutorial-data"
+                                        style="float: right"
+                                        >
+                                        Confirmer
+                                        </button>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- Draft Tutorial Modal-->
+                        <div
+                        class="modal fade draft_tutorial"
+                        id="draft_tutorial_{{tutorial.id}}"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="draftTutorialModalLabel"
+                        aria-hidden="true"
+                        >
+                        <div
+                            class="modal-dialog modal-lg modal-dialog-centered"
+                            role="document"
+                        >
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="st_title" id="draftTutorialModalLabel">
+                                <i class="uil uil-analysis"></i>Archiver le tutoriel
+                                <b class="course_active">{{ tutorial.title }}</b>
+                                </h2>
+                                <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close"
+                                    style="color: red"
+                                >
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div
+                                id="draft-tutorial-{{tutorial.id}}"
+                                method="POST"
+                                data-url="{% url 'dashboard:draft-tutorial' %}"
+                                >
+                                {% csrf_token %}
+                                <div class="general_info10">
+                                    <div class="row">
+                                    <div class="col-12">
+                                        <div class="ui search focus mt-10 lbel25">
+                                        <label>
+                                            Êtes-vous sûr de vouloir archiver ce tutoriel?
+                                        </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button
+                                        data-dismiss="modal"
+                                        class="create_btn_dash btn-danger"
+                                        style="float: right"
+                                        >
+                                        Annuler
+                                        </button>
+                                        <button
+                                        type="button"
+                                        class="create_btn_dash mr-2 submit-drafted-tutorial-data"
+                                        style="float: right"
+                                        >
+                                        Confirmer
+                                        </button>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
                         {% endfor %}
 
                     </tbody>

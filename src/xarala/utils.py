@@ -80,8 +80,7 @@ def save_base_64(file):
 
 
 def format_date(date_object):
-    day = date_object.strftime("%a")
     day_of_month = date_object.strftime("%d")
-    month = date_object.strftime("%b")
+    month = date_object.strftime("%m")
     year = date_object.strftime("%Y")
-    return "{} {} {} {}".format(day, day_of_month, month, year)
+    return "{}-{}-{}".format(day_of_month, month, year)
