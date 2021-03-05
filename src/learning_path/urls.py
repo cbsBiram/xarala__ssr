@@ -5,4 +5,9 @@ app_name = "learning_path"
 
 urlpatterns = [
     path("learning-path/", views.LearningPathView.as_view(), name="paths"),
+    path(
+        "learning-path/show/<str:title>/",
+        views.ShowLearningPathView.as_view(),
+        name="show_path",
+    ),
 ]
