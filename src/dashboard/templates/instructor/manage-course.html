@@ -57,8 +57,8 @@
                 <div class="course_tabs">
                     <nav>
                         <div class="nav nav-tabs tab_crse justify-content-center" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-selected="true">About</a>
-                            <a class="nav-item nav-link" id="nav-courses-tab" data-toggle="tab" href="#nav-courses" role="tab" aria-selected="false">Courses Content</a>
+                            <a class="nav-item nav-link active" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-selected="true">Liste</a>
+                            <a class="nav-item nav-link" id="nav-courses-tab" data-toggle="tab" href="#nav-courses" role="tab" aria-selected="false">Ordonner</a>
                         </div>
                     </nav>
                 </div>
@@ -71,7 +71,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="course_tab_content">
-                    <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-content" id="nav-t123ontent">
                         <div class="tab-pane fade show active" id="nav-about" role="tabpanel">
                             <div class="_htg451">
                                 <div class="_htg452">
@@ -122,16 +122,16 @@
                                                             <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 <i class="fas fa-ellipsis-v"></i>
                                                             </a>
-                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="actions-{{chapter.id}}">
+                                                                <button class="btn btn-sm">
+                                                                    <a href="{% url 'dashboard:manage-chapter' chapter.slug %}"
+                                                                        title="View" class="dropdown-item">Détails</a>
+                                                                </button> {% if not chapter.drafted %}
                                                                 <button id="edit_chapter" class="btn btn-sm">
                                                                     <a title="Edit"
                                                                         class="dropdown-item edit-chapter-btn"
                                                                         chapter_id={{chapter.id}} data-toggle="modal"
                                                                         data-target="#edit_chapter_{{chapter.id}}">Modifier</a>
-                                                                </button>
-                                                                <button class="btn btn-sm">
-                                                                    <a href="{% url 'dashboard:manage-chapter' chapter.slug %}"
-                                                                        title="View" class="dropdown-item">Détails</a>
                                                                 </button>
                                                                 <button id="delete_chapter" class="btn btn-sm">
                                                                     <a data-toggle="modal" data-target="#delete_chapter_{{chapter.id}}"
@@ -144,7 +144,8 @@
                                                                         chapter_id={{chapter.id}}
                                                                         title="Draft" class="dropdown-item draft-chapter-btn">Archiver
                                                                     </a>
-                                                                </button>
+                                                                </button> {% endif %}
+
                                                             </div>
                                                         </div>
                                                     </td>
@@ -333,24 +334,26 @@
                 dataType: 'json',
                 success: function(data) {
                     $nameInput.val('')
+                    var chapterSlug = data['chapter_slug']
+                    var chapterId = data['id']
                     $('#new_chapter').modal('hide');
-                    let editUrl = "dashboard/update-chapter/" + data['id'] + "/"
-                    let viewUrl = "dashboard/manage-chapter/" + data['chapter_slug'] + "/"
-                    var deleteUrl = "dashboard/delete-chapter/" + data['id'] + "/"
-                    var draftUrl = "dashboard/draft-chapter/" + data['chapter_slug'] + "/"
+                    var viewUrl = "{% url 'dashboard:manage-chapter' 123 %}".replace('123', chapterSlug)
+                    var editUrl = "{% url 'dashboard:update-chapter' 123 %}".replace(123, chapterId)
+                    var deleteUrl = "{% url 'dashboard:delete-chapter' 123 %}".replace(123, chapterId)
+                    var draftUrl = "{% url 'dashboard:draft-chapter' 123 %}".replace(123, chapterId)
 
                     const trId = "chapter_" + data['id']
                     var newLine = '<tr id="' + trId + '">' +
                         '<td class="text-center">' + (data['order'] + 1) + '</td>' +
                         '<td>' + data['name'] + '</td>' +
-                        '<td class="text-center">' + data['date_created'] + '</td>' +
+                        '<td class="text-center">' + dateCreated + '</td>' +
                         '<td class="text-center"><b class="course_active">' + data[
                             'drafted'] + '</b></td>' +
                         '<td class="text-center">' + data['order'] + '</td>' +
                         '<td class="text-center"> <div class="dropdown">' +
                         '<a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                         '<i class="fas fa-ellipsis-v"></i></a>' +
-                        '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                        '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="actions-' + data['id'] + '">' +
                         '<button id="edit_chapter" class="btn btn-sm">' +
                         '<a href="' + editUrl + '"' +
                         'title="Edit" class="dropdown-item edit-chapter-btn" chapter_id=' + data['id'] + ' data-toggle="modal"' +
@@ -358,8 +361,8 @@
                         '<button id="delete_chapter" class="btn btn-sm">' +
                         '<a href="' + deleteUrl + '"' +
                         'title="Delete" class="dropdown-item delete-chapter-btn" chapter_id=' + data['id'] + ' data-toggle="modal"' +
-                        'data-target="#delete_chapter_' + data['id'] + '">Modifier</a></button>' +
-                        '<button id="delete_chapter" class="btn btn-sm">' +
+                        'data-target="#delete_chapter_' + data['id'] + '">Supprimer</a></button>' +
+                        '<button id="draft_chapter" class="btn btn-sm">' +
                         '<a href="' + draftUrl + '"' +
                         'title="Draft" class="dropdown-item draft-chapter-btn" chapter_id=' + data['id'] + ' data-toggle="modal"' +
                         'data-target="#draft_chapter_' + data['id'] + '">Archiver</a></button>' +
@@ -397,12 +400,13 @@
                     success: function(data) {
                         $nameInput.val('')
                         $modalDialog.modal('hide')
+                        var chapterSlug = data['chapter_slug']
+                        var chapterId = data['id']
                         var $lineToUpdate = $('tr#chapter_' + $chapterId)
-                        var viewUrl = "dashboard/manage-chapter/" + data['chapter_slug'] + "/"
-                        var editUrl = "dashboard/update-chapter/" + data['id'] + "/"
-                        var deleteUrl = "dashboard/delete-chapter/" + data['id'] + "/"
-                        var draftUrl = "dashboard/draft-chapter/" + data['id'] + "/"
-                        console.log($lineToUpdate)
+                        var viewUrl = "{% url 'dashboard:manage-chapter' 123 %}".replace('123', chapterSlug)
+                        var editUrl = "{% url 'dashboard:update-chapter' 123 %}".replace('123', chapterId)
+                        var deleteUrl = "{% url 'dashboard:delete-chapter' 123 %}".replace('123', chapterId)
+                        var draftUrl = "{% url 'dashboard:draft-chapter' 123 %}".replace('123', chapterId)
 
                         var updatedLine = '<td class="text-center">' + (data['order'] + 1) + '</td>' +
                             '<td>' + data['name'] + '</td>' +
@@ -413,7 +417,7 @@
                             '<td class="text-center"> <div class="dropdown">' +
                             '<a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                             '<i class="fas fa-ellipsis-v"></i></a>' +
-                            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="actions-' + data['id'] + '">' +
                             '<button id="edit_chapter" class="btn btn-sm">' +
                             '<a href="' + editUrl + '"' +
                             'title="Edit" class="dropdown-item edit-chapter-btn" chapter_id=' + data['id'] + ' data-toggle="modal"' +
@@ -421,7 +425,7 @@
                             '<button id="delete_chapter" class="btn btn-sm">' +
                             '<a href="' + deleteUrl + '"' +
                             'title="Delete" class="dropdown-item delete-chapter-btn" chapter_id=' + data['id'] + ' data-toggle="modal"' +
-                            'data-target="#delete_chapter_' + data['id'] + '">Modifier</a></button>' +
+                            'data-target="#delete_chapter_' + data['id'] + '">Supprimer</a></button>' +
                             '<button id="delete_chapter" class="btn btn-sm">' +
                             '<a href="' + draftUrl + '"' +
                             'title="Draft" class="dropdown-item draft-chapter-btn" chapter_id=' + data['id'] + ' data-toggle="modal"' +
@@ -482,9 +486,14 @@
                     dataType: 'json',
                     success: function(data) {
                         $modalDialog.modal('hide')
-                        var $cellToUpdate = $('tr#chapter_' + $chapterId + ' td b#draft-str-' + $chapterId)
-                        console.log($cellToUpdate)
-                        $cellToUpdate.html('Oui')
+                        var chapterSlug = data['chapter_slug']
+                        var viewUrl = "{% url 'dashboard:manage-chapter' 123 %}".replace('123', chapterSlug)
+                        var $statusCell = $('tr#chapter_' + $chapterId + ' td b#draft-str-' + $chapterId)
+                        var $actionsCell = $('tr#chapter_' + $chapterId + ' div#actions-' + $chapterId)
+
+                        $actionsCell.html('<button class="btn btn-sm"> <a href = "' + viewUrl + '"' +
+                            'title = "View" class="dropdown-item">Détails</a></button>')
+                        $statusCell.html('Oui')
                     }
                 });
             })

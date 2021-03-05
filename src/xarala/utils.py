@@ -77,3 +77,11 @@ def save_base_64(file):
     ext = format.split("/")[-1]
     data = ContentFile(base64.b64decode(imgstr), name="temp." + ext)
     return data
+
+
+def format_date(date_object):
+    day = date_object.strftime("%a")
+    day_of_month = date_object.strftime("%d")
+    month = date_object.strftime("%b")
+    year = date_object.strftime("%Y")
+    return "{} {} {} {}".format(day, day_of_month, month, year)

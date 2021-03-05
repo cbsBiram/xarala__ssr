@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="course_tab_content">
-                    <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-content" id="nav-t123ontent">
                         <div class="tab-pane fade show active" id="nav-about" role="tabpanel">
                             <div class="_htg451">
                                 <div class="_htg452">
@@ -71,7 +71,9 @@
                                                             <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 <i class="fas fa-ellipsis-v"></i>
                                                             </a>
-                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="actions-{{lesson.id}}">
+
+                                                                {% if not lesson.drafted %}
                                                                 <button id="edit_lesson" class="btn btn-sm">
                                                                     <a title="Edit"
                                                                         class="dropdown-item edit-lesson-btn"
@@ -89,7 +91,9 @@
                                                                         lesson_id={{lesson.id}}
                                                                         title="Draft" class="dropdown-item draft-lesson-btn">Archiver
                                                                     </a>
-                                                                </button>
+                                                                </button> {% else %}
+                                                                <span>Leçon archivée</span> {% endif %}
+
                                                             </div>
                                                         </div>
                                                     </td>
@@ -350,11 +354,13 @@
                     $textInput.val('')
                     $videoIdInput.val('')
                     $platformInput.val('')
+                    console.log(data['id'])
 
                     $('#new_lesson').modal('hide');
-                    var editUrl = "dashboard/update-lesson/" + data['id'] + "/"
-                    var deleteUrl = "dashboard/delete-lesson/" + data['id'] + "/"
-                    var draftUrl = "dashboard/draft-lesson/" + data['id'] + "/"
+                    var lessonId = data['id']
+                    var editUrl = "{% url 'dashboard:update-lesson' 123 %}".replace('123', lessonId)
+                    var deleteUrl = "{% url 'dashboard:delete-lesson' 123 %}".replace('123', lessonId)
+                    var draftUrl = "{% url 'dashboard:draft-lesson' 123 %}".replace('123', lessonId)
 
                     const trId = "lesson_" + data['id']
                     var newLine = '<tr id="' + trId + '">' +
@@ -367,7 +373,7 @@
                         '<td class="text-center"> <div class="dropdown">' +
                         '<a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                         '<i class="fas fa-ellipsis-v"></i></a>' +
-                        '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                        '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="lesson-' + data['id'] + '">' +
                         '<button id="edit_lesson" class="btn btn-sm">' +
                         '<a href="' + editUrl + '"' +
                         'title="Edit" class="dropdown-item edit-lesson-btn" lesson_id=' + data['id'] + ' data-toggle="modal"' +
@@ -425,9 +431,9 @@
                         $modalDialog.modal('hide')
 
                         var $lineToUpdate = $('tr#lesson_' + $lessonId)
-                        var editUrl = "dashboard/update-lesson/" + data['id'] + "/"
-                        var deleteUrl = "dashboard/delete-lesson/" + data['id'] + "/"
-                        var draftUrl = "dashboard/draft-lesson/" + data['id'] + "/"
+                        var editUrl = "{% url 'dashboard:update-lesson' 123 %}".replace('123', lessonId)
+                        var deleteUrl = "{% url 'dashboard:delete-lesson' 123 %}".replace('123', lessonId)
+                        var draftUrl = "{% url 'dashboard:draft-lesson' 123 %}".replace('123', lessonId)
 
                         var updatedLine = '<td class="text-center">' + (data['order'] + 1) + '</td>' +
                             '<td>' + data['title'] + '</td>' +
@@ -438,7 +444,7 @@
                             '<td class="text-center"> <div class="dropdown">' +
                             '<a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                             '<i class="fas fa-ellipsis-v"></i></a>' +
-                            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="lesson-' + data['id'] + '">' +
                             '<button id="edit_lesson" class="btn btn-sm">' +
                             '<a href="' + editUrl + '"' +
                             'title="Edit" class="dropdown-item edit-lesson-btn" lesson_id=' + data['id'] + ' data-toggle="modal"' +
@@ -505,9 +511,11 @@
                     dataType: 'json',
                     success: function(data) {
                         $modalDialog.modal('hide')
-                        var $cellToUpdate = $('tr#lesson_' + $lessonId + ' td b#draft-str-' + $lessonId)
-                        console.log($cellToUpdate)
-                        $cellToUpdate.html('Oui')
+                        var $statusCell = $('tr#lesson_' + $lessonId + ' td b#draft-str-' + $lessonId)
+                        var $actionsCell = $('tr#lesson_' + $chapterId + ' div#actions-' + $lessonId)
+
+                        $statusCell.html('Oui')
+                        $actionsCell.html('Leçon archivée!')
                     }
                 });
             })

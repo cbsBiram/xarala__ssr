@@ -18,6 +18,7 @@ from course.forms import (
     UpdateChapter,
     UpdateCourse,
 )
+from xarala.utils import format_date
 
 
 @method_decorator([teacher_required], name="dispatch")
@@ -167,7 +168,7 @@ def create_chapter(request, slug):
             values["id"] = chapter.id
             values["name"] = chapter.name
             values["chapter_slug"] = chapter.slug
-            values["date_created"] = chapter.date_created
+            values["date_created"] = format_date(chapter.date_created)
             values["order"] = chapter.order
             values["drafted"] = "Oui" if chapter.drafted else "Non"
             course.course_chapters.add(chapter)
@@ -190,7 +191,7 @@ def update_chapter(request, id):
         values["id"] = chapter.id
         values["name"] = chapter.name
         values["chapter_slug"] = chapter.slug
-        values["date_created"] = chapter.date_created
+        values["date_created"] = format_date(chapter.date_created)
         values["order"] = chapter.order
         values["drafted"] = "Oui" if chapter.drafted else "Non"
         messages.success(request, "Chapitre modifié avec succès!")
@@ -222,6 +223,7 @@ def draft_chapter(request, id):
         chapter = get_object_or_404(Chapter, id=id)
         chapter.drafted = True
         chapter.save()
+        values["chapter_slug"] = chapter.slug
         messages.success(request, "Chapitre archivé avec succès!")
     except Exception as e:
         print("error ", e)
@@ -238,6 +240,7 @@ class ChapterManagementView(View):
 
     def get(self, request, *args, **kwargs):
         chapter = Chapter.objects.get(slug=self.kwargs["slug"])
+        print(chapter)
         form = self.form_class()
         form_update = self.form_class_update(auto_id="update_%s")
         return render(
@@ -266,9 +269,10 @@ def create_lesson(request, slug):
             values["id"] = lesson.id
             values["title"] = lesson.title
             values["lesson_slug"] = lesson.slug
-            values["date_created"] = lesson.date_created
+            values["date_created"] = format_date(lesson.date_created)
             values["order"] = lesson.order
             values["drafted"] = "Oui" if lesson.drafted else "Non"
+            print(values)
             chapter.course_lessons.add(lesson)
             messages.success(request, "Leçon ajoutée avec succès!")
     except Exception as e:
@@ -291,7 +295,7 @@ def update_lesson(request, id):
             values["id"] = lesson.id
             values["title"] = lesson.title
             values["lesson_slug"] = lesson.slug
-            values["date_created"] = lesson.date_created
+            values["date_created"] = format_date(lesson.date_created)
             values["order"] = lesson.order
             values["drafted"] = "Oui" if lesson.drafted else "Non"
             messages.success(request, "Leçon modifiée avec succès!")
