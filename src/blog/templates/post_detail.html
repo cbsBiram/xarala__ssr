@@ -1,6 +1,28 @@
 {% extends "_base.html" %}
 {% load static %}
 
+{% block meta %}
+<meta property="og:url" content="{{ request.get_host() }}/{{ post.slug }}" />
+<meta property="og:title" content="{{ post.title }}" />
+<meta property="og:image" content="{% if post.thumbnail %}
+            {{ post.thumbnail.url }}
+            {% elif post.thumbnail_url %}
+            {{ post.thumbnail_url }}
+            {% else %}{% static 'images/logo.png'  %}
+            {% endif %}" />
+<meta property="og:image:alt" content="{{ post.title }}" />
+
+<meta name="twitter:image" content="{% if post.thumbnail %}
+            {{ post.thumbnail.url }}
+            {% elif post.thumbnail_url %}
+            {{ post.thumbnail_url }}
+            {% else %}{% static 'images/logo.png'  %}
+            {% endif %}" />
+<meta property="twitter:image:alt" content="{{ post.title }}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@xaralatech" />
+{% endblock meta %}
+
 {% block title %}
 Le blog de Xarala - {{ post.title }}
 {% endblock title %}

@@ -19,12 +19,14 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, shrink-to-fit=9">
-  <meta name="description" content="Xarala Academy La technologie dans votre langue">
+  <meta name="description" property="og:description" content="Xarala Academy La technologie dans votre langue">
   <meta name="keywords"
     content="Xarala Academy, Xarala, Apprendre à coder, Apprendre Python, Formation Xarala, Formation Python">
   <meta name="author" content="xarala">
+  {% block meta %} {% endblock meta %}
   <title> Xarala Academy - {% block title %} Accueil, Cours en ligne - La technologie dans votre langue
-    {% endblock title %}</title>
+    {% endblock title %}
+  </title>
 
   <!-- Favicon Icon -->
   <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
