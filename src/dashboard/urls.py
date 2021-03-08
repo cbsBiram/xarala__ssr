@@ -99,7 +99,11 @@ urlpatterns = [
         teacher_views.ChapterManagementView.as_view(),
         name="manage-chapter",
     ),
-    path("add-lesson/<slug:slug>/", teacher_views.LessonCreateView.as_view(), name="create-lesson"),
+    path(
+        "add-lesson/<slug:slug>/",
+        teacher_views.LessonCreateView.as_view(),
+        name="create-lesson",
+    ),
     path(
         "update-lesson/<int:id>/",
         teacher_views.update_lesson,
