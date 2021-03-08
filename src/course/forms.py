@@ -1,5 +1,7 @@
 from django import forms
 from django_summernote.widgets import SummernoteWidget
+
+from quiz.models import Quiz
 from .models import (
     Category,
     Course,
@@ -167,7 +169,7 @@ class CreateChapter(forms.ModelForm):
         label="Titre du chapitre",
         widget=forms.TextInput(
             {
-                "class": "border w-full py-2 px-3 text-grey-darker mt-2",
+                "class": "prompt srch_explore",
             }
         ),
     )
@@ -184,7 +186,7 @@ class UpdateChapter(forms.ModelForm):
         required=True,
         widget=forms.TextInput(
             {
-                "class": "border w-full py-2 px-3 text-grey-darker mt-2",
+                "class": "prompt srch_explore",
             }
         ),
     )
@@ -201,7 +203,7 @@ class CreateLesson(forms.ModelForm):
         widget=forms.TextInput(
             {
                 "placeholder": "Cours..",
-                "class": " border w-full py-2 px-3 text-grey-darker mt-2",
+                "class": "prompt srch_explore",
             }
         ),
     )
@@ -219,16 +221,17 @@ class CreateLesson(forms.ModelForm):
         widget=forms.TextInput(
             {
                 "placeholder": "Leçon...",
-                "class": " border w-full py-2 px-3 text-grey-darker mt-2",
+                "class": "prompt srch_explore",
             }
         ),
     )
     platform = forms.ChoiceField(
         choices=PLATFORM,
         label="Plateforme",
-        initial=(YOUTUBE, YOUTUBE),
         widget=forms.Select(
-            attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+            attrs={
+                "class": "ui hj145 dropdown cntry152 prompt srch_explore platform-select"
+            }
         ),
     )
 
@@ -244,13 +247,12 @@ class UpdateLesson(forms.ModelForm):
         widget=forms.TextInput(
             {
                 "placeholder": "Leçon...",
-                "class": " border w-full py-2 px-3 text-grey-darker mt-2",
+                "class": "prompt srch_explore",
             }
         ),
     )
     text = forms.CharField(
         label="Description",
-        required=True,
         widget=SummernoteWidget(),
     )
     # widget=forms.Textarea(
@@ -261,7 +263,7 @@ class UpdateLesson(forms.ModelForm):
         widget=forms.TextInput(
             {
                 "placeholder": "Cours..",
-                "class": " border w-full py-2 px-3 text-grey-darker mt-2",
+                "class": "prompt srch_explore",
             }
         ),
     )
@@ -277,3 +279,25 @@ class UpdateLesson(forms.ModelForm):
     class Meta:
         model = Lesson
         fields = ("title", "text", "video_id", "platform")
+
+
+class CreateQuiz(forms.ModelForm):
+    title = forms.CharField(
+        max_length=254,
+        label="Titre du quiz",
+        widget=forms.TextInput(
+            {
+                "placeholder": "Quiz..",
+                "class": "prompt srch_explore",
+            }
+        ),
+    )
+    description = forms.CharField(
+        label="Description",
+        required=True,
+        widget=SummernoteWidget(),
+    )
+
+    class Meta:
+        model = Quiz
+        fields = ("title", "description")

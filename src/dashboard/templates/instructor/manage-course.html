@@ -85,11 +85,6 @@
                             <div class="_htg451">
                                 <div class="_htg452">
                                     <h3><i class='uil uil-file-download-alt icon_142'></i>Liste des chapitres</h3>
-                                    {% if messages %} {% for message in messages %}
-                                    <div class="alert alert-info" role="alert">
-                                        {{ message }}
-                                    </div>
-                                    {% endfor %} {% endif %}
                                 </div>
                                 <div class="_htgdrt mt-35">
                                     <div class="card_dash_right1 mb-2">
@@ -139,7 +134,7 @@
                                                                 id="actions-{{chapter.id}}">
                                                                 <button class="btn btn-sm">
                                                                     <a href="{% url 'dashboard:manage-chapter' chapter.slug %}"
-                                                                        title="View" class="dropdown-item">Aperçu</a>
+                                                                        title="View" class="dropdown-item">Gestion</a>
                                                                 </button> {% if not chapter.drafted %}
                                                                 <button id="edit_chapter" class="btn btn-sm">
                                                                     <a title="Edit"
@@ -154,13 +149,14 @@
                                                                         class="dropdown-item delete-chapter-btn">Supprimer
                                                                     </a>
                                                                 </button>
-                                                                <button id="draft_chapter" class="btn btn-sm">
+                                                                <!-- <button id="draft_chapter" class="btn btn-sm">
                                                                     <a data-toggle="modal"
                                                                         data-target="#draft_chapter_{{chapter.id}}"
                                                                         chapter_id={{chapter.id}} title="Draft"
                                                                         class="dropdown-item draft-chapter-btn">Archiver
                                                                     </a>
-                                                                </button> {% endif %}
+                                                                </button>  -->
+                                                                {% endif %}
 
                                                             </div>
                                                         </div>
@@ -272,7 +268,7 @@
                                                 </div>
 
                                                 <!-- Draft Chapter Modal-->
-                                                <div class="modal fade draft_chapter" id="draft_chapter_{{chapter.id}}"
+                                                <!-- <div class="modal fade draft_chapter" id="draft_chapter_{{chapter.id}}"
                                                     tabindex="-1" role="dialog" aria-labelledby="draftChapterModalLabel"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog modal-lg modal-dialog-centered"
@@ -318,7 +314,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 {% endfor %}
 
                                             </tbody>
@@ -405,8 +401,6 @@
                         chapterId)
                     var deleteUrl = "{% url 'dashboard:delete-chapter' 123 %}".replace('123',
                         chapterId)
-                    var draftUrl = "{% url 'dashboard:draft-chapter' 123 %}".replace('123',
-                        chapterId)
 
                     const trId = "chapter_" + data['id']
                     var newLine = '<tr id="' + trId + '">' +
@@ -433,14 +427,8 @@
                         data['id'] + ' data-toggle="modal"' +
                         'data-target="#delete_chapter_' + data['id'] +
                         '">Supprimer</a></button>' +
-                        '<button id="draft_chapter" class="btn btn-sm">' +
-                        '<a href="' + draftUrl + '"' +
-                        'title="Draft" class="dropdown-item draft-chapter-btn" chapter_id=' +
-                        data['id'] + ' data-toggle="modal"' +
-                        'data-target="#draft_chapter_' + data['id'] +
-                        '">Archiver</a></button>' +
                         '<button class="btn btn-sm"> <a href = "' + viewUrl + '"' +
-                        'title = "View" class="dropdown-item">Aperçu</a></button>' +
+                        'title = "View" class="dropdown-item">Gestion</a></button>' +
                         '</div></div></td>' +
                         '</tr>'
 
@@ -482,8 +470,6 @@
                             .replace('123', chapterId)
                         var deleteUrl = "{% url 'dashboard:delete-chapter' 123 %}"
                             .replace('123', chapterId)
-                        var draftUrl = "{% url 'dashboard:draft-chapter' 123 %}"
-                            .replace('123', chapterId)
 
                         var updatedLine = '<td class="text-center">' + (data[
                                 'order'] + 1) + '</td>' +
@@ -511,15 +497,9 @@
                             data['id'] + ' data-toggle="modal"' +
                             'data-target="#delete_chapter_' + data['id'] +
                             '">Supprimer</a></button>' +
-                            '<button id="delete_chapter" class="btn btn-sm">' +
-                            '<a href="' + draftUrl + '"' +
-                            'title="Draft" class="dropdown-item draft-chapter-btn" chapter_id=' +
-                            data['id'] + ' data-toggle="modal"' +
-                            'data-target="#draft_chapter_' + data['id'] +
-                            '">Archiver</a></button>' +
                             '<button class="btn btn-sm"> <a href = "' + viewUrl +
                             '"' +
-                            'title = "View" class="dropdown-item">Aperçu</a></button>' +
+                            'title = "View" class="dropdown-item">Gestion</a></button>' +
                             '</div></div></td>'
 
                         $lineToUpdate.html(updatedLine)
@@ -555,7 +535,7 @@
             })
         })
 
-        $(document).on('click', ".draft-chapter-btn", function () {
+        /* $(document).on('click', ".draft-chapter-btn", function () {
 
             var $chapterId = $(this).attr('chapter_id')
             $(document).on('click', ".submit-drafted-chapter-data", function (event) {
@@ -585,13 +565,13 @@
                         $actionsCell.html(
                             '<button class="btn btn-sm"> <a href = "' +
                             viewUrl + '"' +
-                            'title = "View" class="dropdown-item">Aperçu</a></button>'
+                            'title = "View" class="dropdown-item">Gestion</a></button>'
                         )
                         $statusCell.html('Oui')
                     }
                 });
             })
-        })
+        }) */
     })
 </script>
 {% endblock extrajs %}

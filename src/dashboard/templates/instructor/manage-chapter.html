@@ -1,7 +1,12 @@
-{% extends "_dashboard_base.html" %} {% load static %} {% load crispy_forms_tags
-%} {% block title %} Gestion Chapitre {% endblock title %} {% block sidebar %}
-{% include "partials/_teacher_sidebar.html" %} {% endblock sidebar %} {% block
-content %}
+{% extends "_dashboard_base.html" %} 
+{% load static %} 
+{% load crispy_forms_tags %} 
+{% block title %} Gestion Chapitre 
+{% endblock title %} 
+{% block sidebar %}
+{% include "partials/_teacher_sidebar.html" %} 
+{% endblock sidebar %} 
+{% block content %}
 <div class="_215b15 _byt1458">
   <div class="container-fluid">
     <div class="row">
@@ -55,19 +60,16 @@ content %}
                     <i class="uil uil-file-download-alt icon_142"></i>Liste des
                     leçons
                   </h3>
-                  {% if messages %} {% for message in messages %}
-                  <div class="alert alert-info" role="alert">{{ message }}</div>
-                  {% endfor %} {% endif %}
                 </div>
                 <div class="_htgdrt mt-35">
                   <div class="card_dash_right1 mb-2">
-                    <button
+                    <a href="{% url 'dashboard:create-lesson' chapter.slug %}"><button
                       class="create_btn_dash"
                       data-toggle="modal"
                       data-target="#new_lesson"
                     >
                       Ajouter une leçon
-                    </button>
+                    </button></a>
                   </div>
                   <div class="table-responsive mt-30">
                     <table class="table ucp-table" id="lessons_list">
@@ -127,10 +129,13 @@ content %}
                                     title="Edit"
                                     class="dropdown-item edit-lesson-btn"
                                     lesson_id="{{lesson.id}}"
-                                    data-toggle="modal"
-                                    data-target="#edit_lesson_{{lesson.id}}"
+                                    href="{% url 'dashboard:update-lesson' lesson.id %}"
                                     >Modifier</a
                                   >
+                                  <!--
+                                    data-toggle="modal"
+                                    data-target="#edit_lesson_{{lesson.id}}"
+                                  -->
                                 </button>
                                 <button id="delete_lesson" class="btn btn-sm">
                                   <a
@@ -142,25 +147,15 @@ content %}
                                     >Supprimer
                                   </a>
                                 </button>
-                                <button id="draft_lesson" class="btn btn-sm">
-                                  <a
-                                    data-toggle="modal"
-                                    data-target="#draft_lesson_{{lesson.id}}"
-                                    lesson_id="{{lesson.id}}"
-                                    title="Draft"
-                                    class="dropdown-item draft-lesson-btn"
-                                    >Archiver
-                                  </a>
-                                </button>
-                                {% else %} <span>Leçon archivée</span> {% endif
-                                %}
+                                {% else %} <span>Leçon archivée</span> 
+                                {% endif %}
                               </div>
                             </div>
                           </td>
                         </tr>
 
                         <!-- Update lesson Modal-->
-                        <div
+                        <!-- <div
                           class="modal fade edit_lesson"
                           id="edit_lesson_{{lesson.id}}"
                           tabindex="-1"
@@ -175,7 +170,7 @@ content %}
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h2 class="st_title" id="editlessonModalLabel">
-                                  <i class="uil uil-analysis"></i>Modifier le
+                                  <i class="uil uil-analysis"></i>Modifier la
                                   leçon
                                   <b class="course_active">{{ lesson.name }}</b>
                                 </h2>
@@ -293,7 +288,7 @@ content %}
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </div> -->
 
                         <!-- Delete lesson Modal-->
                         <div
@@ -456,7 +451,7 @@ content %}
 </div>
 
 <!-- Create lesson Modal-->
-<div
+<!-- <div
   class="modal fade"
   id="new_lesson"
   tabindex="-1"
@@ -468,7 +463,7 @@ content %}
     <div class="modal-content">
       <div class="modal-header">
         <h2 class="st_title" id="addlessonModalLabel">
-          <i class="uil uil-analysis"></i>Créer un nouveau leçon
+          <i class="uil uil-analysis"></i>Créer une nouvelle leçon
         </h2>
         <button
           type="button"
@@ -481,72 +476,76 @@ content %}
         </button>
       </div>
       <div class="modal-body">
-        <form
-          id="add-lesson"
-          method="POST"
-          data-url="{% url 'dashboard:create-lesson' chapter.slug %}"
-        >
-          {% csrf_token %}
-          <div class="general_info10">
-            <div class="row">
-              {{ form.non_field_errors }}
-              <div class="col-12">
-                <small id="titleHelp" class="text-danger">
-                  {{ form.title.errors }}
-                </small>
-                <div class="ui search focus mt-10 lbel25">
-                  <label for="{{ form.title.id_for_label }}">Titre*</label>
-                  <div class="ui left icon input swdh19">{{ form.title }}</div>
-                </div>
-              </div>
-              <div class="col-12">
-                <small id="textHelp" class="text-danger">
-                  {{ form.text.errors }}
-                </small>
-                <div class="ui search focus mt-10 lbel25">
-                  <label for="{{ form.text.id_for_label }}">Texte</label>
-                  <div class="ui left icon input swdh19">{{ form.text }}</div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-12">
-                <small id="videoHelp" class="text-danger">
-                  {{ form.video_id.errors }}
-                </small>
-                <div class="ui search focus mt-10 lbel25">
-                  <label for="{{ form.video_id.id_for_label }}"
-                    >Id Video*</label
-                  >
-                  <div class="ui left icon input swdh19">
-                    {{ form.video_id }}
+      
+        <div class="course__form mb-4">
+          <form
+            id="add-lesson"
+            method="POST"
+            data-url="{% url 'dashboard:create-lesson' chapter.slug %}"
+          >
+            {% csrf_token %}
+            <div class="general_info10">
+              <div class="row">
+                {{ form.non_field_errors }}
+                <div class="col-12">
+                  <small id="titleHelp" class="text-danger">
+                    {{ form.title.errors }}
+                  </small>
+                  <div class="ui search focus mt-10 lbel25">
+                    <label for="{{ form.title.id_for_label }}">Titre*</label>
+                    <div class="ui left icon input swdh19">{{ form.title }}</div>
                   </div>
                 </div>
-              </div>
-              <div class="col-lg-6 col-md-12">
-                <small id="platformHelp" class="text-danger">
-                  {{ form.platform.errors }}
-                </small>
-                <div class="mt-20 lbel25">
-                  <label for="{{ form.platform.id_for_label }}"
-                    >Plateforme*</label
-                  >
+                <div class="col-12">
+                  <small id="textHelp" class="text-danger">
+                    {{ form.text.errors }}
+                  </small>
+                  <div class="ui search focus mt-10 lbel25">
+                    <label for="{{ form.text.id_for_label }}">Texte</label>
+                    <div class="ui left icon input swdh19">{{ form.text }}</div>
+                  </div>
                 </div>
-                {{ form.platform }}
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-12 mt-30">
-                <button type="submit" class="create_btn_dash">
-                  Enregistrer
-                </button>
+                <div class="d-flex justify-items-center col-12">
+                  <div class="col-lg-6 col-md-12 flex-1">
+                    <small id="videoHelp" class="text-danger">
+                      {{ form.video_id.errors }}
+                    </small>
+                    <div class="ui search focus mt-10 lbel25">
+                      <label for="{{ form.video_id.id_for_label }}"
+                        >Id Video*</label
+                      >
+                      <div class="ui left icon input swdh19">
+                        {{ form.video_id }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-12 flex-1">
+                    <small id="platformHelp" class="text-danger">
+                      {{ form.platform.errors }}
+                    </small>
+                    <div class="mt-10 lbel25">
+                        <label for="{{ form.platform.id_for_label }}">Plateforme*</label>
+                    </div>
+                    {{ form.platform }}
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 mt-30">
+                  <button type="submit" class="create_btn_dash">
+                    Enregistrer
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</div> -->
 {% endblock %} {% block extrajs %} {% block semantic %} {% endblock semantic %}
 <script>
   $(document).ready(function () {
+    /* 
     $("#add-lesson").on("submit", function () {
       event.preventDefault();
       var $thisURL = $("form#add-lesson").attr("data-url");
@@ -581,10 +580,6 @@ content %}
             lessonId
           );
           var deleteUrl = "{% url 'dashboard:delete-lesson' 123 %}".replace(
-            "123",
-            lessonId
-          );
-          var draftUrl = "{% url 'dashboard:draft-lesson' 123 %}".replace(
             "123",
             lessonId
           );
@@ -635,16 +630,6 @@ content %}
             'data-target="#delete_lesson_' +
             data["id"] +
             '">Modifier</a></button>' +
-            '<button id="delete_lesson" class="btn btn-sm">' +
-            '<a href="' +
-            draftUrl +
-            '"' +
-            'title="Draft" class="dropdown-item draft-lesson-btn" lesson_id=' +
-            data["id"] +
-            ' data-toggle="modal"' +
-            'data-target="#draft_lesson_' +
-            data["id"] +
-            '">Archiver</a></button>' +
             "</div></div></td>" +
             "</tr>";
 
@@ -653,7 +638,7 @@ content %}
         error: function (err) {},
       });
     });
-
+    
     $(document).on("click", ".edit-lesson-btn", function () {
       var $lessonId = $(this).attr("lesson_id");
       $(document).on("click", ".submit-editted-lesson-data", function (event) {
@@ -693,10 +678,6 @@ content %}
               lessonId
             );
             var deleteUrl = "{% url 'dashboard:delete-lesson' 123 %}".replace(
-              "123",
-              lessonId
-            );
-            var draftUrl = "{% url 'dashboard:draft-lesson' 123 %}".replace(
               "123",
               lessonId
             );
@@ -744,16 +725,6 @@ content %}
               'data-target="#delete_lesson_' +
               data["id"] +
               '">Modifier</a></button>' +
-              '<button id="delete_lesson" class="btn btn-sm">' +
-              '<a href="' +
-              draftUrl +
-              '"' +
-              'title="Draft" class="dropdown-item draft-lesson-btn" lesson_id=' +
-              data["id"] +
-              ' data-toggle="modal"' +
-              'data-target="#draft_lesson_' +
-              data["id"] +
-              '">Archiver</a></button>' +
               "</div></div></td>";
 
             $lineToUpdate.html(updatedLine);
@@ -761,6 +732,7 @@ content %}
         });
       });
     });
+    */
 
     $(document).on("click", ".delete-lesson-btn", function () {
       var $lessonId = $(this).attr("lesson_id");
