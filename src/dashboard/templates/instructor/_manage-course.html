@@ -1,7 +1,7 @@
 {% extends "_dashboard_base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% block title %} Gestion Cours {% endblock title %}
+{% block title %} Gestion Cours {{ course.title }} {% endblock title %}
 {% block sidebar %}
 {% include "partials/_teacher_sidebar.html" %}
 {% endblock sidebar %}
@@ -98,7 +98,6 @@
                                                     <th class="text-center" scope="col">#</th>
                                                     <th>Titre</th>
                                                     <th class="text-center" scope="col">Date de création</th>
-                                                    <th class="text-center" scope="col">Archivé</th>
                                                     <th class="text-center" scope="col">Ordre</th>
                                                     <th class="text-center" scope="col">Action</th>
                                                 </tr>
@@ -107,19 +106,17 @@
 
                                                 {% for chapter in chapters %}
                                                 <tr id="chapter_{{chapter.id}}">
-                                                    <td class="text-center">{{ forloop.counter }}</td>
-                                                    <td id="{{chapter.name}}_{{chapter.id}}">{{ chapter.name }}</td>
-                                                    <td class="text-center">{{ chapter.date_created|date:"d-m-Y" }}
+                                                    <td class="text-center">C-{{ forloop.counter }}</td>
+                                                    <td id="{{chapter.name}}_{{chapter.id}}">
+                                                        <button class="btn btn-link collapsed" data-toggle="collapse"
+                                                            data-target="#collapseOne-{{chapter.id}}"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseOne-{{chapter.id}}">
+                                                            {{ chapter.name }}
+                                                            <i class="fas fa-angle-down ml-2"></i>
+                                                        </button>
                                                     </td>
-
-                                                    <td class="text-center">
-                                                        <b class="course_active" id="draft-str-{{chapter.id}}">
-                                                            {% if chapter.drafted %}
-                                                            Oui
-                                                            {% else %}
-                                                            Non
-                                                            {% endif %}
-                                                        </b>
+                                                    <td class="text-center">{{ chapter.date_created|date:"d-m-Y" }}
                                                     </td>
                                                     <td class="text-center">{{ chapter.order }}</td>
                                                     <td class="text-center">
@@ -135,7 +132,8 @@
                                                                 <button class="btn btn-sm">
                                                                     <a href="{% url 'dashboard:manage-chapter' chapter.slug %}"
                                                                         title="View" class="dropdown-item">Gestion</a>
-                                                                </button> {% if not chapter.drafted %}
+                                                                </button>
+                                                                {% if not chapter.drafted %}
                                                                 <button id="edit_chapter" class="btn btn-sm">
                                                                     <a title="Edit"
                                                                         class="dropdown-item edit-chapter-btn"
@@ -149,172 +147,66 @@
                                                                         class="dropdown-item delete-chapter-btn">Supprimer
                                                                     </a>
                                                                 </button>
-                                                                <!-- <button id="draft_chapter" class="btn btn-sm">
-                                                                    <a data-toggle="modal"
-                                                                        data-target="#draft_chapter_{{chapter.id}}"
-                                                                        chapter_id={{chapter.id}} title="Draft"
-                                                                        class="dropdown-item draft-chapter-btn">Archiver
-                                                                    </a>
-                                                                </button>  -->
                                                                 {% endif %}
 
                                                             </div>
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                {% for lesson in chapter.course_lessons.all %}
+                                                <tr id="collapseOne-{{chapter.id}}"
+                                                    class="collapse lesson_{{lesson.id}} table-active">
+                                                    <td class="text-center">
+                                                        <span>
+                                                            L-{{forloop.counter}}
 
-                                                <!-- Update Chapter Modal-->
-                                                <div class="modal fade edit_chapter" id="edit_chapter_{{chapter.id}}"
-                                                    tabindex="-1" role="dialog" aria-labelledby="editChapterModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg modal-dialog-centered"
-                                                        role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h2 class="st_title" id="editChapterModalLabel"><i
-                                                                        class="uil uil-analysis"></i>Modifier le
-                                                                    chapitre <b class="course_active">{{ chapter.name
-                                                                        }}</b>
-                                                                </h2>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close" style="color: red">
-                                                                    <span aria-hidden="true">&times;</span>
+                                                        </span>
+                                                    </td>
+                                                    <td id="{{lesson.title}}_{{lesson.id}}">
+                                                        {{ lesson.title }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ lesson.date_created|date:"d-m-Y" }}
+                                                    </td>
+                                                    <td class="text-center">{{ lesson.order }}</td>
+                                                    <td class="text-center">
+                                                        <div class="dropdown">
+                                                            <a class="btn" href="#" role="button" id="dropdownMenuLink"
+                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                <i class="fas fa-ellipsis-v"></i>
+                                                            </a>
+                                                            <div class="dropdown-menu"
+                                                                aria-labelledby="dropdownMenuButton"
+                                                                id="actions-{{lesson.id}}">
+                                                                <button id="edit_lesson" class="btn btn-sm">
+                                                                    <a title="Edit"
+                                                                        class="dropdown-item edit-lesson-btn"
+                                                                        lesson_id="{{lesson.id}}"
+                                                                        href="{% url 'dashboard:update-lesson' lesson.id %}">Modifier</a>
+                                                                </button>
+                                                                <button id="delete_lesson" class="btn btn-sm">
+                                                                    <a data-toggle="modal"
+                                                                        data-target="#delete_lesson_{{lesson.id}}"
+                                                                        lesson_id="{{lesson.id}}" title="Delete"
+                                                                        class="dropdown-item delete-lesson-btn">Supprimer
+                                                                    </a>
                                                                 </button>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <div id="edit-chapter-{{chapter.id}}"
-                                                                    chapter_id={{chapter.id}}
-                                                                    data-url="{% url 'dashboard:update-chapter' chapter.id %}">
-                                                                    {% csrf_token %}
-                                                                    <div class="general_info10">
-                                                                        <div class="row">
-                                                                            {{ form_update.non_field_errors }}
-                                                                            <div class="col-12">
-                                                                                <small id="titleHelp"
-                                                                                    class="text-danger">
-                                                                                    {{ form_update.name.errors }}
-                                                                                </small>
-                                                                                <div
-                                                                                    class="ui search focus mt-10 lbel25">
-                                                                                    <label
-                                                                                        for="{{ form_update.name.id_for_label }}">Titre*</label>
-                                                                                    <div
-                                                                                        class="ui left icon input swdh19">
-                                                                                        {{ form_update.name }}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-lg-6 col-md-6 col-sm-12 mt-30">
-                                                                                <button type="button"
-                                                                                    class="create_btn_dash submit-editted-chapter-data">Enregistrer</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
+                                                    </td>
+                                                </tr>
 
-                                                <!-- Delete Chapter Modal-->
-                                                <div class="modal fade delete_chapter"
-                                                    id="delete_chapter_{{chapter.id}}" tabindex="-1" role="dialog"
-                                                    aria-labelledby="delChapterModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg modal-dialog-centered"
-                                                        role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h2 class="st_title" id="delChapterModalLabel"><i
-                                                                        class="uil uil-analysis"></i>Supprimer le
-                                                                    chapitre <b class="course_active">{{ chapter.name
-                                                                        }}</b>
-                                                                </h2>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close" style="color: red">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div id="delete-chapter-{{chapter.id}}" method="POST"
-                                                                    data-url="{% url 'dashboard:delete-chapter' chapter.id %}">
-                                                                    {% csrf_token %}
-                                                                    <div class="general_info10">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <div
-                                                                                    class="ui search focus mt-10 lbel25">
-                                                                                    <label>
-                                                                                        Êtes-vous sûr de vouloir
-                                                                                        supprimer ce chapitre?
-                                                                                    </label>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-12">
-                                                                                <button data-dismiss="modal"
-                                                                                    class="create_btn_dash btn-danger"
-                                                                                    style="float: right;">Annuler</button>
-                                                                                <button type="button"
-                                                                                    class="create_btn_dash mr-2 submit-deleted-chapter-data"
-                                                                                    style="float: right;">Confirmer</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <!-- Delete modals for lesson -->
+                                                {% include 'partials/modals/_lesson_modals.html' with lesson=lesson %}
+                                                {% endfor %}
 
-                                                <!-- Draft Chapter Modal-->
-                                                <!-- <div class="modal fade draft_chapter" id="draft_chapter_{{chapter.id}}"
-                                                    tabindex="-1" role="dialog" aria-labelledby="draftChapterModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg modal-dialog-centered"
-                                                        role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h2 class="st_title" id="draftChapterModalLabel"><i
-                                                                        class="uil uil-analysis"></i>Archiver le
-                                                                    chapitre <b
-                                                                        class="course_active">{{ chapter.name }}</b>
-                                                                </h2>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close" style="color: red">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div id="draft-chapter-{{chapter.id}}" method="POST"
-                                                                    data-url="{% url 'dashboard:draft-chapter' chapter.id %}">
-                                                                    {% csrf_token %}
-                                                                    <div class="general_info10">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <div
-                                                                                    class="ui search focus mt-10 lbel25">
-                                                                                    <label>
-                                                                                        Êtes-vous sûr de vouloir
-                                                                                        archiver ce chapitre?
-                                                                                    </label>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-12">
-                                                                                <button data-dismiss="modal"
-                                                                                    class="create_btn_dash btn-danger"
-                                                                                    style="float: right;">Annuler</button>
-                                                                                <button type="button"
-                                                                                    class="create_btn_dash mr-2 submit-drafted-chapter-data"
-                                                                                    style="float: right;">Confirmer</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
+                                                <!-- Update and Delete modals for chapter -->
+
+                                                {% with 'partials/modals/_chapter_modals.html' as path %}
+                                                {% include path with form=form form_u=form_update chapter=chapter %}
+                                                {% endwith %}
+
                                                 {% endfor %}
 
                                             </tbody>
@@ -404,11 +296,13 @@
 
                     const trId = "chapter_" + data['id']
                     var newLine = '<tr id="' + trId + '">' +
-                        '<td class="text-center">' + (data['order'] + 1) + '</td>' +
-                        '<td>' + data['name'] + '</td>' +
+                        '<td class="text-center">C-' + (data['order'] + 1) + '</td>' +
+                        '<td><button class="btn btn-link collapsed" data-toggle="collapse" ' +
+                        ' data-target="#collapseOne-' + data['id'] + '" ' +
+                        'aria-expanded="false" aria-controls="collapseOne-' + data['id'] + '">' +
+                        data['name'] + '<i class="fas fa-angle-down ml-2"></i>' +
+                        '</button></td>' +
                         '<td class="text-center">' + data['date_created'] + '</td>' +
-                        '<td class="text-center"><b class="course_active">' + data[
-                        'drafted'] + '</b></td>' +
                         '<td class="text-center">' + data['order'] + '</td>' +
                         '<td class="text-center"> <div class="dropdown">' +
                         '<a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
@@ -471,14 +365,13 @@
                         var deleteUrl = "{% url 'dashboard:delete-chapter' 123 %}"
                             .replace('123', chapterId)
 
-                        var updatedLine = '<td class="text-center">' + (data[
-                            'order'] + 1) + '</td>' +
-                            '<td>' + data['name'] + '</td>' +
-                            '<td class="text-center">' + data['date_created'] +
-                            '</td>' +
-                            '<td class="text-center"><b class="course_active">' +
-                            data[
-                            'drafted'] + '</b></td>' +
+                        var updatedLine = '<td class="text-center">C-' + (data['order'] + 1) + '</td>' +
+                            '<td><button class="btn btn-link collapsed" data-toggle="collapse" ' +
+                            ' data-target="#collapseOne-' + data['id'] + '" ' +
+                            'aria-expanded="false" aria-controls="collapseOne-' + data['id'] + '">' +
+                            data['name'] + '<i class="fas fa-angle-down ml-2"></i>' +
+                            '</button></td>' +
+                            '<td class="text-center">' + data['date_created'] + '</td>' +
                             '<td class="text-center">' + data['order'] + '</td>' +
                             '<td class="text-center"> <div class="dropdown">' +
                             '<a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
@@ -497,8 +390,7 @@
                             data['id'] + ' data-toggle="modal"' +
                             'data-target="#delete_chapter_' + data['id'] +
                             '">Supprimer</a></button>' +
-                            '<button class="btn btn-sm"> <a href = "' + viewUrl +
-                            '"' +
+                            '<button class="btn btn-sm"> <a href = "' + viewUrl + '"' +
                             'title = "View" class="dropdown-item">Gestion</a></button>' +
                             '</div></div></td>'
 
@@ -535,43 +427,30 @@
             })
         })
 
-        /* $(document).on('click', ".draft-chapter-btn", function () {
-
-            var $chapterId = $(this).attr('chapter_id')
-            $(document).on('click', ".submit-drafted-chapter-data", function (event) {
+        $(document).on("click", ".delete-lesson-btn", function () {
+            var $lessonId = $(this).attr("lesson_id");
+            $(document).on("click", ".submit-deleted-lesson-data", function (event) {
                 event.preventDefault();
-                var $form = '#draft-chapter-' + $chapterId
-                var $thisURL = $($form).attr('data-url');
-                var $modalDialog = $('#draft_chapter_' + $chapterId)
+                var $form = "#delete-lesson-" + $lessonId;
+                var $thisURL = $($form).attr("data-url");
+                var $modalDialog = $("#delete_lesson_" + $lessonId);
 
                 $.ajax({
                     type: "POST",
                     url: $thisURL,
                     data: {
-                        'chapter_id': $chapterId,
-                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                        lesson_id: $lessonId,
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
                     },
-                    dataType: 'json',
+                    dataType: "json",
                     success: function (data) {
-                        $modalDialog.modal('hide')
-                        var chapterSlug = data['chapter_slug']
-                        var viewUrl = "{% url 'dashboard:manage-chapter' 123 %}"
-                            .replace('123', chapterSlug)
-                        var $statusCell = $('tr#chapter_' + $chapterId +
-                            ' td b#draft-str-' + $chapterId)
-                        var $actionsCell = $('tr#chapter_' + $chapterId +
-                            ' div#actions-' + $chapterId)
-
-                        $actionsCell.html(
-                            '<button class="btn btn-sm"> <a href = "' +
-                            viewUrl + '"' +
-                            'title = "View" class="dropdown-item">Gestion</a></button>'
-                        )
-                        $statusCell.html('Oui')
-                    }
+                        $modalDialog.modal("hide");
+                        var $lineToDelete = $("tr.lesson_" + $lessonId);
+                        $lineToDelete.html("");
+                    },
                 });
-            })
-        }) */
+            });
+        });
     })
 </script>
 {% endblock extrajs %}
