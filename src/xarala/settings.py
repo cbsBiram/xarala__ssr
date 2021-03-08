@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
     # 3rd part apps
     "corsheaders",
     "graphene_django",
@@ -230,6 +232,9 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, "locale/"),)
 REDIS_HOST = "localhost"
 REDIS_PORT = 6379
 REDIS_DB = 1
+
+SITE_ID = 1
+
 
 PAYDUNYA_ACCESS_TOKENS = {}  # put the valid token on local_settings.py
 try:

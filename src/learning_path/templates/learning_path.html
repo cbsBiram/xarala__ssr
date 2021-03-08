@@ -1,0 +1,48 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+Parcours d'apprentissage
+{% endblock title %}
+
+{% block content %}
+
+
+<div class="section3125">
+  <div class="sa4d25">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12">
+          <h4 class="item_title">Parcours professionnel</h4>
+          {% for i in learning_paths %}
+          <div class="blogbg_1 mt-30">
+            <a href="{{ learning_path.get_absolute_url }}" class="hf_img">
+              <img src="
+                          {% if learning_path.thumbnail %}
+                          {{ learning_path.thumbnail.url }}
+                          {% elif learning_path.thumbnail_url %}
+                          {{ learning_path.thumbnail_url }}
+                          {% else %}{% static 'images/logo.png'  %}
+                          {% endif %}" alt="{{ learning_path.title }}" alt="">
+              <div class="course-overlay">
+              </div>
+            </a>
+            <div class="hs_content">
+              <div class="vdtodt">
+                <span class="vdt14">{{ learning_path.created_at | date:"d, M, Y"}}</span>
+              </div>
+              <a href="{{ learning_path.get_absolute_url }}" class="crse14s title900">{{learning_path.title}}</a>
+              <p class="blog_des">{{ learning_path.description |slice:":200" }}</p>
+              <a href="{{ learning_path.get_absolute_url }}" class="view-blog-link">En savoir plus<i
+                  class="uil uil-arrow-right"></i></a>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

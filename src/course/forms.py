@@ -253,6 +253,7 @@ class UpdateLesson(forms.ModelForm):
     )
     text = forms.CharField(
         label="Description",
+        required=True,
         widget=SummernoteWidget(),
     )
     # widget=forms.Textarea(

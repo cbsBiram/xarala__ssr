@@ -19,12 +19,14 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, shrink-to-fit=9">
-  <meta name="description" content="Xarala Academy La technologie dans votre langue">
+  <meta name="description" property="og:description" content="Xarala Academy La technologie dans votre langue">
   <meta name="keywords"
     content="Xarala Academy, Xarala, Apprendre à coder, Apprendre Python, Formation Xarala, Formation Python">
   <meta name="author" content="xarala">
+  {% block meta %} {% endblock meta %}
   <title> Xarala Academy - {% block title %} Accueil, Cours en ligne - La technologie dans votre langue
-    {% endblock title %}</title>
+    {% endblock title %}
+  </title>
 
   <!-- Favicon Icon -->
   <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
@@ -90,53 +92,14 @@
                   <span class="menu--label">Explorer</span>
                 </a>
               </li>
-              <!-- <li class="menu--item menu--item__has_sub_menu">
-                <label class="menu--link" title="Categories">
-                  <i class='uil uil-layers menu--icon'></i>
-                  <span class="menu--label">Catégories</span>
-                </label>
-                <ul class="sub_menu">
-                  <li class="sub_menu--item">
-                    <a href="#" class="sub_menu--link">Development</a>
-                  </li>
-                  <li class="sub_menu--item">
-                    <a href="#" class="sub_menu--link">Business</a>
-                  </li>
-                  <li class="sub_menu--item">
-                    <a href="#" class="sub_menu--link">Finance & Accounting</a>
-                  </li>
-                  <li class="sub_menu--item">
-                    <a href="#" class="sub_menu--link">IT & Software</a>
-                  </li>
-                  <li class="sub_menu--item">
-                    <a href="#" class="sub_menu--link">Office Productivity</a>
-                  </li>
-                  <li class="sub_menu--item">
-                    <a href="#" class="sub_menu--link">Personal Development</a>
-                  </li>
-                  <li class="sub_menu--item">
-                    <a href="#" class="sub_menu--link">Design</a>
-                  </li>
-                  <li class="sub_menu--item">
-                    <a href="#" class="sub_menu--link">Marketing</a>
-                  </li>
-                  <li class="sub_menu--item">
-                    <a href="#" class="sub_menu--link">Lifestyle</a>
-                  </li>
-                  <li class="sub_menu--item">
-                    <a href="#" class="sub_menu--link">Photography</a>
-                  </li>
-                  <li class="sub_menu--item">
-                    <a href="#" class="sub_menu--link">Health & Fitness</a>
-                  </li>
-                  <li class="sub_menu--item">
-                    <a href="#" class="sub_menu--link">Music</a>
-                  </li>
-                  <li class="sub_menu--item">
-                    <a href="#" class="sub_menu--link">Teaching & Academics</a>
-                  </li>
-                </ul>
-              </li> -->
+
+              <li class="menu--item">
+                <a href="{% url 'learning_path:paths' %}" class="menu--link" title="Parcours">
+
+                  <i class='uil uil-book menu--icon'></i>
+                  <span class="menu--label">Parcours</span>
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -149,13 +112,7 @@
           <li class="menu--item">
             <a href="{% url 'pages:about' %}" class="menu--link" title="Setting">
               <i class='uil uil-cog menu--icon'></i>
-              <span class="menu--label">A propos</span>
-            </a>
-          </li>
-          <li class="menu--item">
-            <a href="#" class="menu--link" title="Help">
-              <i class='uil uil-question-circle menu--icon'></i>
-              <span class="menu--label">Aide</span>
+              <span class="menu--label">À propos</span>
             </a>
           </li>
           <li class="menu--item">
@@ -164,17 +121,11 @@
               <span class="menu--label">Feedback</span>
             </a>
           </li>
-          <!-- <li class="menu--item">
-            <a href="feedback.html" class="menu--link" title="Send Feedback">
-              <i class='uil uil-comment-alt-exclamation menu--icon'></i>
-              <span class="menu--label">Send Feedback</span>
-            </a>
-          </li> -->
         </ul>
       </div>
       <div class="left_footer">
         <ul>
-          <li><a href="{% url 'pages:about' %}">A propos</a></li>
+          <li><a href="{% url 'pages:about' %}">À propos</a></li>
           <li><a href="{% url 'pages:contact' %}">Nous contacter</a></li>
         </ul>
         <div class="left_footer_content">

@@ -173,8 +173,8 @@
                                                             <div class="modal-header">
                                                                 <h2 class="st_title" id="editChapterModalLabel"><i
                                                                         class="uil uil-analysis"></i>Modifier le
-                                                                    chapitre <b
-                                                                        class="course_active">{{ chapter.name }}</b>
+                                                                    chapitre <b class="course_active">{{ chapter.name
+                                                                        }}</b>
                                                                 </h2>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close" style="color: red">
@@ -228,8 +228,8 @@
                                                             <div class="modal-header">
                                                                 <h2 class="st_title" id="delChapterModalLabel"><i
                                                                         class="uil uil-analysis"></i>Supprimer le
-                                                                    chapitre <b
-                                                                        class="course_active">{{ chapter.name }}</b>
+                                                                    chapitre <b class="course_active">{{ chapter.name
+                                                                        }}</b>
                                                                 </h2>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close" style="color: red">
@@ -408,7 +408,7 @@
                         '<td>' + data['name'] + '</td>' +
                         '<td class="text-center">' + data['date_created'] + '</td>' +
                         '<td class="text-center"><b class="course_active">' + data[
-                            'drafted'] + '</b></td>' +
+                        'drafted'] + '</b></td>' +
                         '<td class="text-center">' + data['order'] + '</td>' +
                         '<td class="text-center"> <div class="dropdown">' +
                         '<a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
@@ -435,7 +435,7 @@
                     $('#chapters_list').append(newLine)
 
                 },
-                error: function (err) {}
+                error: function (err) { }
             });
         })
 
@@ -472,13 +472,13 @@
                             .replace('123', chapterId)
 
                         var updatedLine = '<td class="text-center">' + (data[
-                                'order'] + 1) + '</td>' +
+                            'order'] + 1) + '</td>' +
                             '<td>' + data['name'] + '</td>' +
                             '<td class="text-center">' + data['date_created'] +
                             '</td>' +
                             '<td class="text-center"><b class="course_active">' +
                             data[
-                                'drafted'] + '</b></td>' +
+                            'drafted'] + '</b></td>' +
                             '<td class="text-center">' + data['order'] + '</td>' +
                             '<td class="text-center"> <div class="dropdown">' +
                             '<a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
