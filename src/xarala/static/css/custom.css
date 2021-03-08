@@ -1,5 +1,4 @@
-.btn-appstore a,
-.btn-appstore .tm-btn {
+.btn-appstore a, .btn-appstore .tm-btn {
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
   color: #fff;
@@ -11,11 +10,13 @@
   text-decoration: none;
   padding-right: 14px;
 }
+
 .btn-appstore a:hover {
   color: #cacaca !important;
 }
 
 /* framework */
+
 .bg-xarala {
   background-color: #10a8e5ff !important;
   color: #fff;
@@ -23,4 +24,9 @@
 
 .text-xarala {
   color: #10a8e5ff !important;
+}
+
+.platform-select {
+  width: 100% !important;
+  border-radius: 500rem !important
 }
