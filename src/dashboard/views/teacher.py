@@ -132,7 +132,7 @@ def draft_course(request):
 
 @method_decorator([teacher_required], name="dispatch")
 class CourseManagementView(View):
-    template_name = "instructor/manage-course.html"
+    template_name = "instructor/_manage-course.html"
     form_class = CreateChapter
     form_class_update = UpdateChapter
     paginate_by = 10
@@ -274,11 +274,9 @@ def update_lesson(request, id):
     instance = Lesson.objects.get(id=id)
     form_class = UpdateLesson
     form = form_class(request.POST or None, instance=instance)
-    print(request.POST.get("title"))
     if form.is_valid():
         lesson = form.save(commit=False)
         lesson.save()
-        print(lesson.platform)
         return redirect(reverse("dashboard:manage-chapter", args=[lesson.chapter.slug]))
 
     template_name = "instructor/edit-lesson.html"

@@ -1,0 +1,45 @@
+<!-- Delete lesson Modal-->
+<div class="modal fade delete_lesson" id="delete_lesson_{{lesson.id}}" tabindex="-1" role="dialog"
+    aria-labelledby="delLessonModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="st_title" id="delLessonModalLabel">
+                    <i class="uil uil-analysis"></i>Supprimer le
+                    leçon
+                    <b class="course_active">{{ lesson.name }}</b>
+                </h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="delete-lesson-{{lesson.id}}" method="POST"
+                    data-url="{% url 'dashboard:delete-lesson' lesson.id %}">
+                    {% csrf_token %}
+                    <div class="general_info10">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="ui search focus mt-10 lbel25">
+                                    <label>
+                                        Êtes-vous sûr de vouloir supprimer
+                                        cette leçon?
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button data-dismiss="modal" class="create_btn_dash btn-danger" style="float: right">
+                                    Annuler
+                                </button>
+                                <button type="button" class="create_btn_dash mr-2 submit-deleted-lesson-data"
+                                    style="float: right">
+                                    Confirmer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,456 @@
+{% extends "_dashboard_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Gestion Cours {{ course.title }} {% endblock title %}
+{% block sidebar %}
+{% include "partials/_teacher_sidebar.html" %}
+{% endblock sidebar %}
+{% block content %}
+<div class="_215b01">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section3125">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-4 col-lg-5 col-md-6">
+                            <div class="preview_video">
+                                <a href="#" class="fcrse_img" data-toggle="modal" data-target="#videoModal">
+                                    <img src="
+                                    {% if course.thumbnail %} {{ course.thumbnail.url }}
+                                    {% else %} {% static 'images/courses/img-2.jpg' %}
+                                    {% endif %}
+                                    " alt="">
+                                    <div class="course-overlay">
+                                        <div class="badge_seller">
+                                            {% for category in course.categories.all %} {{ category.name }} {% endfor %}
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-7 col-md-6">
+                            <div class="_215b03">
+                                <h2>{{ course.title }}</h2>
+                                <span class="_215b04">{{ course.description }}</span>
+                            </div>
+                            <div class="_215b05">
+                                <div class="crse_reviews mr-2">
+                                    <i class="uil uil-star"></i>4.5
+                                </div>
+                                (81,665 ratings)
+                            </div>
+                            <div class="_215b05">
+                                {{ course.students.count }} étudiant(s) inscrit(s)
+                            </div>
+                            <div class="_215b06">
+                                <div class="_215b07">
+                                    <span><i class='uil uil-comment'></i></span> {{ course.language.name }}
+                                </div>
+                            </div>
+                            <div class="_215b05">
+                                Créé le {{ course.date_created|date:"d-m-Y" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="_215b15 _byt1458">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="course_tabs">
+                    <nav>
+                        <div class="nav nav-tabs tab_crse justify-content-center" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-about-tab" data-toggle="tab" href="#nav-about"
+                                role="tab" aria-selected="true">Liste</a>
+                            <a class="nav-item nav-link" id="nav-courses-tab" data-toggle="tab" href="#nav-courses"
+                                role="tab" aria-selected="false">Ordonner</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="_215b17">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="course_tab_content">
+                    <div class="tab-content" id="nav-t123ontent">
+                        <div class="tab-pane fade show active" id="nav-about" role="tabpanel">
+                            <div class="_htg451">
+                                <div class="_htg452">
+                                    <h3><i class='uil uil-file-download-alt icon_142'></i>Liste des chapitres</h3>
+                                </div>
+                                <div class="_htgdrt mt-35">
+                                    <div class="card_dash_right1 mb-2">
+                                        <button class="create_btn_dash" data-toggle="modal"
+                                            data-target="#new_chapter">Ajouter un chapitre</button>
+                                    </div>
+                                    <div class="table-responsive mt-30">
+                                        <table class="table ucp-table" id="chapters_list">
+                                            <thead class="thead-s">
+                                                <tr>
+                                                    <th class="text-center" scope="col">#</th>
+                                                    <th>Titre</th>
+                                                    <th class="text-center" scope="col">Date de création</th>
+                                                    <th class="text-center" scope="col">Ordre</th>
+                                                    <th class="text-center" scope="col">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                {% for chapter in chapters %}
+                                                <tr id="chapter_{{chapter.id}}">
+                                                    <td class="text-center">C-{{ forloop.counter }}</td>
+                                                    <td id="{{chapter.name}}_{{chapter.id}}">
+                                                        <button class="btn btn-link collapsed" data-toggle="collapse"
+                                                            data-target="#collapseOne-{{chapter.id}}"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseOne-{{chapter.id}}">
+                                                            {{ chapter.name }}
+                                                            <i class="fas fa-angle-down ml-2"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">{{ chapter.date_created|date:"d-m-Y" }}
+                                                    </td>
+                                                    <td class="text-center">{{ chapter.order }}</td>
+                                                    <td class="text-center">
+                                                        <div class="dropdown">
+                                                            <a class="btn" href="#" role="button" id="dropdownMenuLink"
+                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                <i class="fas fa-ellipsis-v"></i>
+                                                            </a>
+                                                            <div class="dropdown-menu"
+                                                                aria-labelledby="dropdownMenuButton"
+                                                                id="actions-{{chapter.id}}">
+                                                                <button class="btn btn-sm">
+                                                                    <a href="{% url 'dashboard:manage-chapter' chapter.slug %}"
+                                                                        title="View" class="dropdown-item">Gestion</a>
+                                                                </button>
+                                                                {% if not chapter.drafted %}
+                                                                <button id="edit_chapter" class="btn btn-sm">
+                                                                    <a title="Edit"
+                                                                        class="dropdown-item edit-chapter-btn"
+                                                                        chapter_id={{chapter.id}} data-toggle="modal"
+                                                                        data-target="#edit_chapter_{{chapter.id}}">Modifier</a>
+                                                                </button>
+                                                                <button id="delete_chapter" class="btn btn-sm">
+                                                                    <a data-toggle="modal"
+                                                                        data-target="#delete_chapter_{{chapter.id}}"
+                                                                        chapter_id={{chapter.id}} title="Delete"
+                                                                        class="dropdown-item delete-chapter-btn">Supprimer
+                                                                    </a>
+                                                                </button>
+                                                                {% endif %}
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                {% for lesson in chapter.course_lessons.all %}
+                                                <tr id="collapseOne-{{chapter.id}}"
+                                                    class="collapse lesson_{{lesson.id}} table-active">
+                                                    <td class="text-center">
+                                                        <span>
+                                                            L-{{forloop.counter}}
+
+                                                        </span>
+                                                    </td>
+                                                    <td id="{{lesson.title}}_{{lesson.id}}">
+                                                        {{ lesson.title }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ lesson.date_created|date:"d-m-Y" }}
+                                                    </td>
+                                                    <td class="text-center">{{ lesson.order }}</td>
+                                                    <td class="text-center">
+                                                        <div class="dropdown">
+                                                            <a class="btn" href="#" role="button" id="dropdownMenuLink"
+                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                <i class="fas fa-ellipsis-v"></i>
+                                                            </a>
+                                                            <div class="dropdown-menu"
+                                                                aria-labelledby="dropdownMenuButton"
+                                                                id="actions-{{lesson.id}}">
+                                                                <button id="edit_lesson" class="btn btn-sm">
+                                                                    <a title="Edit"
+                                                                        class="dropdown-item edit-lesson-btn"
+                                                                        lesson_id="{{lesson.id}}"
+                                                                        href="{% url 'dashboard:update-lesson' lesson.id %}">Modifier</a>
+                                                                </button>
+                                                                <button id="delete_lesson" class="btn btn-sm">
+                                                                    <a data-toggle="modal"
+                                                                        data-target="#delete_lesson_{{lesson.id}}"
+                                                                        lesson_id="{{lesson.id}}" title="Delete"
+                                                                        class="dropdown-item delete-lesson-btn">Supprimer
+                                                                    </a>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <!-- Delete modals for lesson -->
+                                                {% include 'partials/modals/_lesson_modals.html' with lesson=lesson %}
+                                                {% endfor %}
+
+                                                <!-- Update and Delete modals for chapter -->
+
+                                                {% with 'partials/modals/_chapter_modals.html' as path %}
+                                                {% include path with form=form form_u=form_update chapter=chapter %}
+                                                {% endwith %}
+
+                                                {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-courses" role="tabpanel">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Create Chapter Modal-->
+<div class="modal fade" id="new_chapter" tabindex="-1" role="dialog" aria-labelledby="addChapterModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="st_title" id="addChapterModalLabel"><i class="uil uil-analysis"></i>Créer un nouveau chapitre
+                </h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add-chapter" method="POST" data-url="{% url 'dashboard:create-chapter' course.slug %}">
+                    {% csrf_token %}
+                    <div class="general_info10">
+                        <div class="row">
+                            {{ form.non_field_errors }}
+                            <div class="col-12">
+                                <small id="titleHelp" class="text-danger">
+                                    {{ form.name.errors }}
+                                </small>
+                                <div class="ui search focus mt-10 lbel25">
+                                    <label for="{{ form.name.id_for_label }}">Titre*</label>
+                                    <div class="ui left icon input swdh19">
+                                        {{ form.name }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 mt-30">
+                                <button type="submit" class="create_btn_dash">Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extrajs %}
+{% block semantic %} {% endblock semantic %}
+<script>
+    $(document).ready(function () {
+        $("#add-chapter").on('submit', function () {
+            event.preventDefault();
+            var $thisURL = $('form#add-chapter').attr('data-url');
+            var $nameInput = $("input[id=id_name]")
+
+            $.ajax({
+                type: "POST",
+                url: $thisURL,
+                data: {
+                    'name': $nameInput.val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $nameInput.val('')
+                    var chapterSlug = data['chapter_slug']
+                    var chapterId = data['id']
+                    $('#new_chapter').modal('hide');
+                    var viewUrl = "{% url 'dashboard:manage-chapter' 123 %}".replace('123',
+                        chapterSlug)
+                    var editUrl = "{% url 'dashboard:update-chapter' 123 %}".replace('123',
+                        chapterId)
+                    var deleteUrl = "{% url 'dashboard:delete-chapter' 123 %}".replace('123',
+                        chapterId)
+
+                    const trId = "chapter_" + data['id']
+                    var newLine = '<tr id="' + trId + '">' +
+                        '<td class="text-center">C-' + (data['order'] + 1) + '</td>' +
+                        '<td><button class="btn btn-link collapsed" data-toggle="collapse" ' +
+                        ' data-target="#collapseOne-' + data['id'] + '" ' +
+                        'aria-expanded="false" aria-controls="collapseOne-' + data['id'] + '">' +
+                        data['name'] + '<i class="fas fa-angle-down ml-2"></i>' +
+                        '</button></td>' +
+                        '<td class="text-center">' + data['date_created'] + '</td>' +
+                        '<td class="text-center">' + data['order'] + '</td>' +
+                        '<td class="text-center"> <div class="dropdown">' +
+                        '<a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                        '<i class="fas fa-ellipsis-v"></i></a>' +
+                        '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="actions-' +
+                        data['id'] + '">' +
+                        '<button id="edit_chapter" class="btn btn-sm">' +
+                        '<a href="' + editUrl + '"' +
+                        'title="Edit" class="dropdown-item edit-chapter-btn" chapter_id=' +
+                        data['id'] + ' data-toggle="modal"' +
+                        'data-target="#edit_chapter_' + data['id'] +
+                        '">Modifier</a></button>' +
+                        '<button id="delete_chapter" class="btn btn-sm">' +
+                        '<a href="' + deleteUrl + '"' +
+                        'title="Delete" class="dropdown-item delete-chapter-btn" chapter_id=' +
+                        data['id'] + ' data-toggle="modal"' +
+                        'data-target="#delete_chapter_' + data['id'] +
+                        '">Supprimer</a></button>' +
+                        '<button class="btn btn-sm"> <a href = "' + viewUrl + '"' +
+                        'title = "View" class="dropdown-item">Gestion</a></button>' +
+                        '</div></div></td>' +
+                        '</tr>'
+
+                    $('#chapters_list').append(newLine)
+
+                },
+                error: function (err) { }
+            });
+        })
+
+        $(document).on('click', ".edit-chapter-btn", function () {
+
+            var $chapterId = $(this).attr('chapter_id')
+            $(document).on('click', ".submit-editted-chapter-data", function (event) {
+                event.preventDefault();
+                var $form = '#edit-chapter-' + $chapterId
+                var $thisURL = $($form).attr('data-url');
+                var $nameInput = $($form + " input[name=name]")
+                var $modalDialog = $('#edit_chapter_' + $chapterId)
+
+                $.ajax({
+                    type: "POST",
+                    url: $thisURL,
+                    data: {
+                        'name': $nameInput.val(),
+                        'chapter_id': $chapterId,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        $nameInput.val('')
+                        $modalDialog.modal('hide')
+                        var chapterSlug = data['chapter_slug']
+                        var chapterId = data['id']
+                        var $lineToUpdate = $('tr#chapter_' + $chapterId)
+                        var viewUrl = "{% url 'dashboard:manage-chapter' 123 %}"
+                            .replace('123', chapterSlug)
+                        var editUrl = "{% url 'dashboard:update-chapter' 123 %}"
+                            .replace('123', chapterId)
+                        var deleteUrl = "{% url 'dashboard:delete-chapter' 123 %}"
+                            .replace('123', chapterId)
+
+                        var updatedLine = '<td class="text-center">C-' + (data['order'] + 1) + '</td>' +
+                            '<td><button class="btn btn-link collapsed" data-toggle="collapse" ' +
+                            ' data-target="#collapseOne-' + data['id'] + '" ' +
+                            'aria-expanded="false" aria-controls="collapseOne-' + data['id'] + '">' +
+                            data['name'] + '<i class="fas fa-angle-down ml-2"></i>' +
+                            '</button></td>' +
+                            '<td class="text-center">' + data['date_created'] + '</td>' +
+                            '<td class="text-center">' + data['order'] + '</td>' +
+                            '<td class="text-center"> <div class="dropdown">' +
+                            '<a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                            '<i class="fas fa-ellipsis-v"></i></a>' +
+                            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="actions-' +
+                            data['id'] + '">' +
+                            '<button id="edit_chapter" class="btn btn-sm">' +
+                            '<a href="' + editUrl + '"' +
+                            'title="Edit" class="dropdown-item edit-chapter-btn" chapter_id=' +
+                            data['id'] + ' data-toggle="modal"' +
+                            'data-target="#edit_chapter_' + data['id'] +
+                            '">Modifier</a></button>' +
+                            '<button id="delete_chapter" class="btn btn-sm">' +
+                            '<a href="' + deleteUrl + '"' +
+                            'title="Delete" class="dropdown-item delete-chapter-btn" chapter_id=' +
+                            data['id'] + ' data-toggle="modal"' +
+                            'data-target="#delete_chapter_' + data['id'] +
+                            '">Supprimer</a></button>' +
+                            '<button class="btn btn-sm"> <a href = "' + viewUrl + '"' +
+                            'title = "View" class="dropdown-item">Gestion</a></button>' +
+                            '</div></div></td>'
+
+                        $lineToUpdate.html(updatedLine)
+                    }
+                });
+
+            })
+        })
+
+        $(document).on('click', ".delete-chapter-btn", function () {
+
+            var $chapterId = $(this).attr('chapter_id')
+            $(document).on('click', ".submit-deleted-chapter-data", function (event) {
+                event.preventDefault();
+                var $form = '#delete-chapter-' + $chapterId
+                var $thisURL = $($form).attr('data-url');
+                var $modalDialog = $('#delete_chapter_' + $chapterId)
+
+                $.ajax({
+                    type: "POST",
+                    url: $thisURL,
+                    data: {
+                        'chapter_id': $chapterId,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        $modalDialog.modal('hide')
+                        var $lineToDelete = $('tr#chapter_' + $chapterId)
+                        $lineToDelete.html('')
+                    }
+                });
+            })
+        })
+
+        $(document).on("click", ".delete-lesson-btn", function () {
+            var $lessonId = $(this).attr("lesson_id");
+            $(document).on("click", ".submit-deleted-lesson-data", function (event) {
+                event.preventDefault();
+                var $form = "#delete-lesson-" + $lessonId;
+                var $thisURL = $($form).attr("data-url");
+                var $modalDialog = $("#delete_lesson_" + $lessonId);
+
+                $.ajax({
+                    type: "POST",
+                    url: $thisURL,
+                    data: {
+                        lesson_id: $lessonId,
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $modalDialog.modal("hide");
+                        var $lineToDelete = $("tr.lesson_" + $lessonId);
+                        $lineToDelete.html("");
+                    },
+                });
+            });
+        });
+    })
+</script>
+{% endblock extrajs %}
