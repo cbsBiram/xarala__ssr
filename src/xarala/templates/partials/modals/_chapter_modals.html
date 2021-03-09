@@ -1,0 +1,89 @@
+<!-- Update Chapter Modal-->
+<div class="modal fade edit_chapter" id="edit_chapter_{{chapter.id}}" tabindex="-1" role="dialog"
+    aria-labelledby="editChapterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="st_title" id="editChapterModalLabel">
+                    <i class="uil uil-analysis"></i>Modifier le
+                    chapitre <b class="course_active">
+                        {{ chapter.name }}
+                    </b>
+                </h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="edit-chapter-{{chapter.id}}" chapter_id={{chapter.id}}
+                    data-url="{% url 'dashboard:update-chapter' chapter.id %}">
+                    {% csrf_token %}
+                    <div class="general_info10">
+                        <div class="row">
+                            {{ form_u.non_field_errors }}
+                            <div class="col-12">
+                                <small id="titleHelp" class="text-danger">
+                                    {{ form_u.name.errors }}
+                                </small>
+                                <div class="ui search focus mt-10 lbel25">
+                                    <label for="{{ form_u.name.id_for_label }}">Titre*</label>
+                                    <div class="ui left icon input swdh19">
+                                        {{ form_u.name }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 mt-30">
+                                <button type="button"
+                                    class="create_btn_dash submit-editted-chapter-data">Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Chapter Modal-->
+<div class="modal fade delete_chapter" id="delete_chapter_{{chapter.id}}" tabindex="-1" role="dialog"
+    aria-labelledby="delChapterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="st_title" id="delChapterModalLabel">
+                    <i class="uil uil-analysis"></i>
+                    Supprimer le chapitre
+                    <b class="course_active">{{ chapter.name }}</b>
+                </h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="delete-chapter-{{chapter.id}}" method="POST"
+                    data-url="{% url 'dashboard:delete-chapter' chapter.id %}">
+                    {% csrf_token %}
+                    <div class="general_info10">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="ui search focus mt-10 lbel25">
+                                    <label>
+                                        Êtes-vous sûr de vouloir
+                                        supprimer ce chapitre?
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button data-dismiss="modal" class="create_btn_dash btn-danger"
+                                    style="float: right;">Annuler</button>
+                                <button type="button" class="create_btn_dash mr-2 submit-deleted-chapter-data"
+                                    style="float: right;">Confirmer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
