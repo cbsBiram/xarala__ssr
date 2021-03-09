@@ -135,6 +135,11 @@
                                                                 </button>
                                                                 {% if not chapter.drafted %}
                                                                 <button id="edit_chapter" class="btn btn-sm">
+                                                                    <a href="{% url 'dashboard:create-lesson' chapter.slug %}"
+                                                                        title="Add" class="dropdown-item add-lesson-btn"
+                                                                        lesson_id={{lesson.id}}>Ajouter une leçon</a>
+                                                                </button>
+                                                                <button id="edit_chapter" class="btn btn-sm">
                                                                     <a title="Edit"
                                                                         class="dropdown-item edit-chapter-btn"
                                                                         chapter_id={{chapter.id}} data-toggle="modal"

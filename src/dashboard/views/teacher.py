@@ -264,7 +264,9 @@ class LessonCreateView(CreateView):
             lesson.chapter = chapter
             lesson.save()
             chapter.course_lessons.add(lesson)
-            return redirect(reverse("dashboard:manage-chapter", args=[chapter.slug]))
+            return redirect(
+                reverse("dashboard:manage-course", args=[chapter.course.slug])
+            )
 
         return render(request, self.template_name, {"form": form})
 
@@ -277,7 +279,9 @@ def update_lesson(request, id):
     if form.is_valid():
         lesson = form.save(commit=False)
         lesson.save()
-        return redirect(reverse("dashboard:manage-chapter", args=[lesson.chapter.slug]))
+        return redirect(
+            reverse("dashboard:manage-course", args=[lesson.chapter.course.slug])
+        )
 
     template_name = "instructor/edit-lesson.html"
     return render(request, template_name, {"form": form, "lesson": instance})
