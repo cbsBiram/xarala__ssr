@@ -129,16 +129,25 @@
                                                             <div class="dropdown-menu"
                                                                 aria-labelledby="dropdownMenuButton"
                                                                 id="actions-{{chapter.id}}">
-                                                                <button class="btn btn-sm">
-                                                                    <a href="{% url 'dashboard:manage-chapter' chapter.slug %}"
-                                                                        title="View" class="dropdown-item">Gestion</a>
-                                                                </button>
-                                                                {% if not chapter.drafted %}
                                                                 <button id="edit_chapter" class="btn btn-sm">
                                                                     <a href="{% url 'dashboard:create-lesson' chapter.slug %}"
-                                                                        title="Add" class="dropdown-item add-lesson-btn"
-                                                                        lesson_id={{lesson.id}}>Ajouter une leçon</a>
+                                                                        title="Add Lesson"
+                                                                        class="dropdown-item add-lesson-btn">Ajouter une
+                                                                        leçon</a>
                                                                 </button>
+
+                                                                {% if not chapter.quiz %}
+                                                                <button id="add_quiz" class="btn btn-sm">
+                                                                    <a data-toggle="modal"
+                                                                        data-target="#add_quiz_{{chapter.id}}"
+                                                                        title="Add Quiz" chapter_slug={{chapter.slug}}
+                                                                        chapter_id={{chapter.id}}
+                                                                        class="dropdown-item add-quiz-btn">Ajouter un
+                                                                        quiz
+                                                                    </a>
+                                                                </button>
+                                                                {% endif %}
+
                                                                 <button id="edit_chapter" class="btn btn-sm">
                                                                     <a title="Edit"
                                                                         class="dropdown-item edit-chapter-btn"
@@ -152,7 +161,6 @@
                                                                         class="dropdown-item delete-chapter-btn">Supprimer
                                                                     </a>
                                                                 </button>
-                                                                {% endif %}
 
                                                             </div>
                                                         </div>
@@ -163,8 +171,7 @@
                                                     class="collapse lesson_{{lesson.id}} table-active">
                                                     <td class="text-center">
                                                         <span>
-                                                            L-{{forloop.counter}}
-
+                                                            C{{forloop.parentloop.counter}}L{{forloop.counter}}
                                                         </span>
                                                     </td>
                                                     <td id="{{lesson.title}}_{{lesson.id}}">
@@ -206,10 +213,67 @@
                                                 {% include 'partials/modals/_lesson_modals.html' with lesson=lesson %}
                                                 {% endfor %}
 
-                                                <!-- Update and Delete modals for chapter -->
 
+                                                <tr id="quiz_{{chapter.id}}" class="quiz_{{chapter.id}} table-success">
+                                                    {% with chapter.quiz as quiz %}
+                                                    {% if quiz %}
+                                                    <td class="text-center">
+                                                        <span></span>
+                                                    </td>
+                                                    <td id="{{quiz.title}}_{{quiz.id}}">
+                                                        {{ quiz.title }} (Exercice)
+                                                    </td>
+                                                    <td class="text-center"></td>
+                                                    <td class="text-center"></td>
+                                                    <td class="text-center">
+                                                        <div class="dropdown">
+                                                            <a class="btn" href="#" role="button" id="dropdownMenuLink"
+                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                <i class="fas fa-ellipsis-v"></i>
+                                                            </a>
+                                                            <div class="dropdown-menu"
+                                                                aria-labelledby="dropdownMenuButton"
+                                                                id="actions-{{quiz.id}}">
+                                                                <button id="manage_quiz" class="btn btn-sm">
+                                                                    <a title="Gestion quiz"
+                                                                        class="dropdown-item manage-quiz-btn"
+                                                                        quiz_id="{{quiz.id}}"
+                                                                        href="{% url 'dashboard:manage-quiz' chapter.slug %}">
+                                                                        Gestion quiz
+                                                                    </a>
+                                                                </button>
+                                                                <button id="edit_quiz" class="btn btn-sm">
+                                                                    <a title="Edit Quiz"
+                                                                        class="dropdown-item edit-quiz-btn"
+                                                                        chapter_slug="{{chapter.slug}}"
+                                                                        href="{% url 'dashboard:update-quiz' chapter.slug %}">Modifier
+                                                                        Quiz</a>
+                                                                </button>
+                                                                <button id="delete_quiz" class="btn btn-sm">
+                                                                    <a data-toggle="modal"
+                                                                        data-target="#delete_quiz_{{chapter.id}}"
+                                                                        chapter_slug="{{chapter.slug}}"
+                                                                        chapter_id="{{chapter.id}}" title="Delete Quiz"
+                                                                        class="dropdown-item delete-quiz-btn">
+                                                                        Supprimer Quiz
+                                                                    </a>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    {% endif %}
+                                                    {% endwith %}
+                                                </tr>
+
+                                                <!-- Update and Delete modals for chapter -->
                                                 {% with 'partials/modals/_chapter_modals.html' as path %}
                                                 {% include path with form=form form_u=form_update chapter=chapter %}
+                                                {% endwith %}
+
+                                                <!-- Create quiz for quiz -->
+                                                {% with 'partials/modals/_quiz_modals.html' as path %}
+                                                {% include path with form_q=form_quiz chapter=chapter %}
                                                 {% endwith %}
 
                                                 {% endfor %}
@@ -292,8 +356,6 @@
                     var chapterSlug = data['chapter_slug']
                     var chapterId = data['id']
                     $('#new_chapter').modal('hide');
-                    var viewUrl = "{% url 'dashboard:manage-chapter' 123 %}".replace('123',
-                        chapterSlug)
                     var editUrl = "{% url 'dashboard:update-chapter' 123 %}".replace('123',
                         chapterId)
                     var deleteUrl = "{% url 'dashboard:delete-chapter' 123 %}".replace('123',
@@ -326,8 +388,6 @@
                         data['id'] + ' data-toggle="modal"' +
                         'data-target="#delete_chapter_' + data['id'] +
                         '">Supprimer</a></button>' +
-                        '<button class="btn btn-sm"> <a href = "' + viewUrl + '"' +
-                        'title = "View" class="dropdown-item">Gestion</a></button>' +
                         '</div></div></td>' +
                         '</tr>'
 
@@ -395,8 +455,6 @@
                             data['id'] + ' data-toggle="modal"' +
                             'data-target="#delete_chapter_' + data['id'] +
                             '">Supprimer</a></button>' +
-                            '<button class="btn btn-sm"> <a href = "' + viewUrl + '"' +
-                            'title = "View" class="dropdown-item">Gestion</a></button>' +
                             '</div></div></td>'
 
                         $lineToUpdate.html(updatedLine)
@@ -432,30 +490,102 @@
             })
         })
 
-        $(document).on("click", ".delete-lesson-btn", function () {
-            var $lessonId = $(this).attr("lesson_id");
-            $(document).on("click", ".submit-deleted-lesson-data", function (event) {
+        $(document).on("click", ".add-quiz-btn", function () {
+            var $chapterSlug = $(this).attr("chapter_slug");
+            var $chapterId = $(this).attr("chapter_id");
+
+            $(document).on("click", ".submit-added-quiz-data", function (event) {
                 event.preventDefault();
-                var $form = "#delete-lesson-" + $lessonId;
+                var $form = "#add-quiz-" + $chapterId;
                 var $thisURL = $($form).attr("data-url");
-                var $modalDialog = $("#delete_lesson_" + $lessonId);
+                var $modalDialog = $("#add_quiz_" + $chapterId);
+                var $titleInput = $("input[id=quiz_title]")
+                var $descriptionInput = $("textarea[id=quiz_description]")
 
                 $.ajax({
                     type: "POST",
                     url: $thisURL,
                     data: {
-                        lesson_id: $lessonId,
+                        'chapterSlug': $chapterSlug,
+                        'title': $titleInput.val(),
+                        'description': $descriptionInput.val(),
                         csrfmiddlewaretoken: "{{ csrf_token }}",
                     },
                     dataType: "json",
                     success: function (data) {
-                        $modalDialog.modal("hide");
-                        var $lineToDelete = $("tr.lesson_" + $lessonId);
-                        $lineToDelete.html("");
+                        $titleInput.val('')
+                        $descriptionInput.val('')
+                        $modalDialog.modal("hide")
+                        var editUrl = "{% url 'dashboard:update-quiz' 123 %}".replace('123',
+                            $chapterSlug)
+                        var deleteUrl = "{% url 'dashboard:delete-quiz' 123 %}".replace('123',
+                            $chapterSlug)
+                        var manageUrl = "{% url 'dashboard:manage-quiz' 123 %}".replace('123',
+                            $chapterSlug)
+
+                        const $whereToAdd = $("tr#quiz_" + $chapterId)
+                        var newLine = '<td class="text-center"></td>' +
+                            '<td>' + data['title'] + ' (Exercice)</td>' +
+                            '<td class="text-center"></td>' +
+                            '<td class="text-center"></td>' +
+                            '<td class="text-center"> <div class="dropdown">' +
+                            '<a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                            '<i class="fas fa-ellipsis-v"></i></a>' +
+                            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="actions-' +
+                            data['quiz_id'] + '">' +
+                            '<button id="manage_quiz" class="btn btn-sm">' +
+                            '<a href="' + manageUrl + '"' +
+                            'title="Manage Quiz" class="dropdown-item mamage-quiz-btn" chapter_slug=' +
+                            data['chapter_slug'] + ' data-toggle="modal"' +
+                            'data-target="#manage_quiz_' + data['quiz_id'] +
+                            '">Gestion Quiz</a></button>' +
+                            '<button id="edit_quiz" class="btn btn-sm">' +
+                            '<a href="' + editUrl + '"' +
+                            'title="Edit Quiz" class="dropdown-item edit-quiz-btn" chapter_slug=' +
+                            data['chapter_slug'] + ' data-toggle="modal"' +
+                            'data-target="#edit_quiz_' + data['quiz_id'] +
+                            '">Modifier Quiz</a></button>' +
+                            '<button id="delete_quiz" class="btn btn-sm">' +
+                            '<a href="' + deleteUrl + '"' +
+                            'title="Delete" class="dropdown-item delete-quiz-btn" chapter_slug=' +
+                            data['chapter_slug'] + ' data-toggle="modal"' +
+                            'data-target="#delete_quiz_' + data['quiz_id'] +
+                            '">Supprimer Quiz</a></button>' +
+                            '</div></div></td>';
+
+                        $whereToAdd.html(newLine);
                     },
                 });
             });
+
         });
+
+        $(document).on('click', ".delete-quiz-btn", function () {
+            var $chapterId = $(this).attr('chapter_id')
+            var $chapterSlug = $(this).attr('chapter_slug')
+
+            $(document).on('click', ".submit-deleted-quiz-data", function (event) {
+                event.preventDefault();
+                var $form = '#delete-quiz-' + $chapterId
+                var $thisURL = $($form).attr('data-url');
+                var $modalDialog = $('#delete_quiz_' + $chapterId)
+
+                $.ajax({
+                    type: "POST",
+                    url: $thisURL,
+                    data: {
+                        'chapter_slug': $chapterSlug,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        $modalDialog.modal('hide')
+                        var $lineToDelete = $('tr#quiz_' + $chapterId)
+                        $lineToDelete.html('')
+                    }
+                });
+            })
+        })
     })
 </script>
 {% endblock extrajs %}

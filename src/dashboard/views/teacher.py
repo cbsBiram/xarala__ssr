@@ -135,22 +135,23 @@ class CourseManagementView(View):
     template_name = "instructor/_manage-course.html"
     form_class = CreateChapter
     form_class_update = UpdateChapter
+    form_class_quiz = CreateQuiz
     paginate_by = 10
 
     def get(self, request, *args, **kwargs):
         course = Course.objects.get(slug=self.kwargs["slug"])
         form = self.form_class()
         form_update = self.form_class_update(auto_id="update_%s")
-        return render(
-            request,
-            self.template_name,
-            {
-                "chapters": course.get_chapters(),
-                "course": course,
-                "form": form,
-                "form_update": form_update,
-            },
-        )
+        form_quiz = self.form_class_quiz(auto_id="quiz_%s")
+        context = {
+            "chapters": course.get_chapters(),
+            "course": course,
+            "form": form,
+            "form_update": form_update,
+            "form_quiz": form_quiz,
+        }
+
+        return render(request, self.template_name, context=context)
 
 
 @teacher_required
@@ -316,16 +317,19 @@ def draft_lesson(request, id):
 @teacher_required
 def create_quiz(request, slug):
     teacher = request.user
-    form_class = CreateLesson
+    form_class = CreateQuiz
     form = form_class(request.POST)
     values = {"error": "", "has_error": 0}
     try:
         chapter = Chapter.objects.get(slug=slug)
+        print(form.errors)
         if form.is_valid():
             quiz = form.save(commit=False)
             quiz.chapter = chapter
             quiz.save()
-            values["id"] = quiz.id
+            values["chapter_id"] = chapter.id
+            values["chapter_slug"] = chapter.slug
+            values["quiz_id"] = quiz.id
             values["title"] = quiz.title
             values["description"] = quiz.description
             UserLog.objects.create(
@@ -340,31 +344,27 @@ def create_quiz(request, slug):
 
 
 @teacher_required
-def update_quiz(request, id):
-    values = {"error": "", "has_error": 0}
-    try:
-        instance = get_object_or_404(Quiz, id=id)
-        form_class = CreateQuiz
-        form = form_class(request.POST, instance=instance)
-        print(form.errors)
+def update_quiz(request, slug):
+    instance = Quiz.objects.get(chapter__slug=slug)
+    form_class = CreateQuiz
+    form = form_class(request.POST or None, instance=instance)
+    if form.is_valid():
+        quiz = form.save(commit=False)
+        quiz.save()
+        return redirect(
+            reverse("dashboard:manage-course", args=[quiz.chapter.course.slug])
+        )
 
-        if form.is_valid():
-            quiz = form.save(commit=False)
-            quiz.save()
-            values["id"] = quiz.id
-            values["title"] = quiz.title
-            values["description"] = quiz.description
-    except Exception as e:
-        values["error"] = e
-        values["has_error"] = -1
-    return JsonResponse(values)
+    template_name = "instructor/edit-quiz.html"
+    context = {"form": form, "quiz": instance}
+    return render(request, template_name, context=context)
 
 
 @teacher_required
-def delete_quiz(request, id):
+def delete_quiz(request, slug):
     values = {"error": "", "has_error": 0}
     try:
-        quiz = get_object_or_404(Quiz, id=id)
+        quiz = get_object_or_404(Quiz, chapter__slug=slug)
         if request.method == "POST":
             quiz.delete()
     except Exception as e:

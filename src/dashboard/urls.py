@@ -116,14 +116,19 @@ urlpatterns = [
     ),
     path("add-quiz/<slug:slug>/", teacher_views.create_quiz, name="create-quiz"),
     path(
-        "update-quiz/<int:id>/",
+        "update-quiz/<slug:slug>/",
         teacher_views.update_quiz,
         name="update-quiz",
     ),
     path(
-        "delete-quiz/<int:id>/",
+        "delete-quiz/<slug:slug>/",
         teacher_views.delete_quiz,
         name="delete-quiz",
+    ),
+    path(
+        "manage-quiz/<slug:slug>",
+        teacher_views.ChapterManagementView.as_view(),
+        name="manage-quiz",
     ),
     path(
         "draft-lesson/<int:id>/",
