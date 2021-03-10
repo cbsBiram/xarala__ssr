@@ -32,16 +32,18 @@ def payment_process(request):
         order_item_first.course.id,
         user.id,
     )
-    successful, response = get_invoice(
-        items,
-        total_cost,
-        request.get_host(),
-        custom_data=custom_data,
-    )
-    if successful:
-        # payment_completed.delay(order.id)
-        return redirect(response.get("response_text"))
-    messages.error(request, "Une erreur s'est produit, veuillez ressayer")
+    try:
+        successful, response = get_invoice(
+            items,
+            total_cost,
+            request.get_host(),
+            custom_data=custom_data,
+        )
+        if successful:
+            # payment_completed.delay(order.id)
+            return redirect(response.get("response_text"))
+    except Exception:
+        messages.error(request, "Une erreur s'est produit, veuillez ressayer")
     return redirect("cart:cart_detail")
 
 

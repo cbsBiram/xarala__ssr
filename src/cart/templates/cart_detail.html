@@ -8,11 +8,7 @@
 
 {% block content %}
 
-
-
-
 <div class="section3125">
-  {% include "partials/_alerts.html" %}
   <div class="container">
     {% if cart|length  %}
 
@@ -55,6 +51,7 @@
 
 
         </div>
+        <!-- testimonials -->
       </div>
       <div class="col-lg-4">
         <div class="membership_chk_bg rght1528">
@@ -81,7 +78,7 @@
             </div>
             <div class="coupon_code">
               <p></p>
-              <div class="coupon_input">
+              <!-- <div class="coupon_input">
                 <div class="ui search focus mt-15">
                   <div class="ui left icon input swdh11 swdh19">
                     <input class="prompt srch_explore" type="text" name="couponcode" value="" id="id_coupon_code"
@@ -89,9 +86,9 @@
                   </div>
                   <button class="code-apply-btn" type="submit">Appliquer</button>
                 </div>
-              </div>
+              </div> -->
             </div>
-            <a href="{% url 'order:order_create' %}" class="chck-btn22">Valider</a>
+            <a href="{% url 'order:order_create' %}" class="chck-btn22">Payer</a>
           </div>
         </div>
       </div>

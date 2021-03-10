@@ -68,12 +68,14 @@
                       <a href="{% if button_text == 'S\'inscrire'  %}{% url 'course:subscribe_user_to_course' course.slug %}{% else %}/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}{% endif %}"
                         class="text-light">{{ button_text }}</a>
                     </button>
-
                   </li>
 
                   {% else %}
-                  <li><button class="btn_adcart">Ajouter au panier</button></li>
-                  <li><button class="btn_buy">Acheter maintenant</button></li>
+                  <li>
+                    <a href="{% url 'cart:add_course_to_cart' course.slug %}" class="text-light">
+                      <button class="btn_adcart">Ajouter au panier</button>
+                    </a>
+                  </li>
                   {% endif %}
 
                 </ul>
