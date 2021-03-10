@@ -237,8 +237,7 @@ def update_profile_image(request):
             return JsonResponse(
                 {"code": "201", "message": "Profile mis a jour", "is_success": True}
             )
-    except Exception as e:
-        print(e)
+    except Exception:
         return JsonResponse(
             {"code": "500", "message": "Une erreur s'est produite", "is_success": False}
         )
@@ -253,8 +252,7 @@ def update_personal_info(request):
             return JsonResponse(
                 {"code": "201", "message": "Information mis a jour", "is_success": True}
             )
-    except Exception as e:
-        print(e)
+    except Exception:
         return JsonResponse(
             {"code": "500", "message": "Une erreur s'est produite", "is_success": False}
         )
@@ -278,8 +276,7 @@ def update_password(request):
         return JsonResponse(
             {"errors": password_form.errors.as_json(), "is_error": True}
         )
-    except Exception as e:
-        print(e)
+    except Exception:
         return JsonResponse(
             {"code": "500", "message": "Une erreur s'est produite", "is_success": False}
         )
@@ -298,8 +295,7 @@ def update_social(request):
                     "is_success": True,
                 }
             )
-    except Exception as e:
-        print(e)
+    except Exception:
         return JsonResponse(
             {"code": "500", "message": "Une erreur s'est produite", "is_success": False}
         )
@@ -318,8 +314,7 @@ def update_bio(request):
                     "is_success": True,
                 }
             )
-    except Exception as e:
-        print(e)
+    except Exception:
         return JsonResponse(
             {"code": "500", "message": "Une erreur s'est produite", "is_success": False}
         )

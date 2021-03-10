@@ -347,7 +347,6 @@ class UpdateChapter(graphene.Mutation):
 
     def mutate(self, info, chapterId, name, chapterNumber):
         user = info.context.user
-        print("chapter number", chapterNumber)
         if user.is_anonymous:
             raise GraphQLError("Log in to update a chapter/section!")
 

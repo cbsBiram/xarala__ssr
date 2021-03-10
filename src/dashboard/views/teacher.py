@@ -110,7 +110,6 @@ def submit_course(request):
     except Exception as e:
         values["error"] = e
         values["has_error"] = -1
-        print(e)
     return JsonResponse(values)
 
 
@@ -126,7 +125,6 @@ def draft_course(request):
     except Exception as e:
         values["error"] = e
         values["has_error"] = -1
-        print(e)
     return JsonResponse(values)
 
 
@@ -171,7 +169,6 @@ def create_chapter(request, slug):
             values["order"] = chapter.order
             values["drafted"] = "Oui" if chapter.drafted else "Non"
             course.course_chapters.add(chapter)
-            print(values)
     except Exception as e:
         values["error"] = e
         values["has_error"] = -1
@@ -193,7 +190,6 @@ def update_chapter(request, id):
         values["order"] = chapter.order
         values["drafted"] = "Oui" if chapter.drafted else "Non"
     except Exception as e:
-        print("error ", e)
         values["error"] = e
         values["has_error"] = -1
     return JsonResponse(values)
@@ -221,7 +217,6 @@ def draft_chapter(request, id):
         chapter.save()
         values["chapter_slug"] = chapter.slug
     except Exception as e:
-        print("error ", e)
         values["error"] = e
         values["has_error"] = -1
     return JsonResponse(values)
@@ -235,7 +230,6 @@ class ChapterManagementView(View):
 
     def get(self, request, *args, **kwargs):
         chapter = Chapter.objects.get(slug=self.kwargs["slug"])
-        print(chapter)
         form = self.form_class()
         form_update = self.form_class_update(auto_id="update_%s")
         return render(
@@ -342,7 +336,6 @@ def update_quiz(request, id):
         instance = get_object_or_404(Quiz, id=id)
         form_class = CreateQuiz
         form = form_class(request.POST, instance=instance)
-        print(form.errors)
 
         if form.is_valid():
             quiz = form.save(commit=False)

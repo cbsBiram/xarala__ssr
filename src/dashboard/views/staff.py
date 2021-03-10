@@ -144,7 +144,6 @@ def publish_course(request):
     except Exception as e:
         values["error"] = e
         values["has_error"] = -1
-        print(e)
     return JsonResponse(values)
 
 
@@ -160,5 +159,4 @@ def publish_tutorial(request):
     except Exception as e:
         values["error"] = e
         values["has_error"] = -1
-        print(e)
     return JsonResponse(values)

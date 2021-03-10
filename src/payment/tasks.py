@@ -16,11 +16,11 @@ def payment_completed(order_id):
     order = Order.objects.get(id=order_id)
 
     # create invoice e-mail
-    subject = f"My Shop - EE Invoice no. {order.id}"
+    subject = f"Xarala - Facture no. {order.id}"
     message = "Please, find attached the invoice for your recent purchase."
-    email = EmailMessage(subject, message, "admin@myshop.com", [order.email])
+    email = EmailMessage(subject, message, "xaralaxarala@gmail.com", [order.email])
     # generate PDF
-    html = render_to_string("orders/order/pdf.html", {"order": order})
+    html = render_to_string("order/order/pdf.html", {"order": order})
     out = BytesIO()
     stylesheets = [weasyprint.CSS(settings.STATIC_ROOT + "css/pdf.css")]
     weasyprint.HTML(string=html).write_pdf(out, stylesheets=stylesheets)

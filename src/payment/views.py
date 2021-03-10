@@ -48,11 +48,14 @@ def payment_process(request):
 
 
 def payment_done(request):
-    token = request.GET.get("token")
-    successful, response = invoice_confirmation(token)
-    if successful:
-        return render(request, "payment/done.html")
-    messages.error(request, "Paiement non complete")
+    try:
+        token = request.GET.get("token")
+        successful, response = invoice_confirmation(token)
+        if successful:
+            messages.success(request, "Paiement reçu")
+            return render(request, "payment/done.html")
+    except Exception:
+        messages.error(request, "Paiement non complete")
     return redirect("cart:cart_detail")
 
 

@@ -36,10 +36,10 @@ Order {{ order.id }} {{ block.super }}
   </tr>
   <tr>
     <th>Address</th>
-    <td>{{ order.address }}, {{ order.postal_code }} {{ order.city }}</td>
+    <td>{{ order.address }}</td>
   </tr>
   <tr>
-    <th>Total amount</th>
+    <th>Montant Total</th>
     <td>${{ order.get_total_cost }}</td>
   </tr>
   <tr>
@@ -53,10 +53,10 @@ Order {{ order.id }} {{ block.super }}
   <table style="width:100%">
     <thead>
       <tr>
-        <th>Course</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Total</th>
+        <th>Cours</th>
+        <th>Prix</th>
+        <th>Quantité</th>
+        <th>Coùt</th>
       </tr>
     </thead>
     <tbody>

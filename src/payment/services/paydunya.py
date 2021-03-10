@@ -1,17 +1,17 @@
 from paydunya import InvoiceItem, Store, Invoice
 
 
-# Configuration des informations de votre service/entreprise
-infos = {
-    "name": "Xarala Academy",  # Seul le nom est requis
-    "tagline": "La technologie dans votre langue",
-    "postal_address": "Sicap Mbao, Extension",
-    "phone_number": "763772260",
-    "website_url": "https://www.xarala.co",
-    "logo_url": "https://www.xarala.co/static/images/logo.32b513268679.png",
-}
-
-store = Store(**infos)
+def get_store():
+    infos = {
+        "name": "Xarala",  # Seul le nom est requis
+        "tagline": "Xarala Academy",
+        "postal_address": "Sicap Mbao, Extension",
+        "phone_number": "763772260",
+        "website_url": "https://www.xarala.co",
+        "logo_url": "https://www.xarala.co/static/images/logo.32b513268679.png",
+    }
+    store = Store(**infos)
+    return store
 
 
 def get_items(order_items):
@@ -37,6 +37,7 @@ def get_user_and_course(course_id, user_id):
 
 
 def get_invoice(items, total_cost, host, custom_data=None):
+    store = get_store()
     invoice = Invoice(store)
     invoice.add_items(items)
     invoice.add_custom_data(custom_data)
@@ -47,5 +48,6 @@ def get_invoice(items, total_cost, host, custom_data=None):
 
 
 def invoice_confirmation(token):
+    store = get_store()
     invoice = Invoice(store)
     return invoice.confirm(token)

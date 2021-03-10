@@ -75,7 +75,6 @@ class Query(graphene.ObjectType):
         return Post.objects.all()
 
     def resolve_postsBySearch(self, info, query=None):
-        print(query)
         if query:
             filter = Q(title__icontains=query) | Q(description__icontains=query)
             return Post.objects.filter(filter)

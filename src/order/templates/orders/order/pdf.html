@@ -1,10 +1,11 @@
 <html>
+
 <body>
-  <h1>My Shop</h1>
+  <h1>Xarala</h1>
   <p>
-    Invoice no. {{ order.id }}</br>
+    Facture no. {{ order.id }}</br>
     <span class="secondary">
-      {{ order.created|date:"M d, Y" }}
+      {{ order.created|date:"d-M-Y" }}
     </span>
   </p>
 
@@ -13,27 +14,26 @@
     {{ order.first_name }} {{ order.last_name }}<br>
     {{ order.email }}<br>
     {{ order.address }}<br>
-    {{ order.postal_code }}, {{ order.city }}
   </p>
 
   <h3>Items bought</h3>
   <table>
     <thead>
       <tr>
-        <th>Product</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Cost</th>
+        <th>Cours</th>
+        <th>Prix</th>
+        <th>Quantité</th>
+        <th>Coùt</th>
       </tr>
     </thead>
     <tbody>
       {% for item in order.items.all %}
-        <tr class="row{% cycle "1" "2" %}">
-          <td>{{ item.product.name }}</td>
-          <td class="num">${{ item.price }}</td>
-          <td class="num">{{ item.quantity }}</td>
-          <td class="num">${{ item.get_cost }}</td>
-        </tr>
+      <tr class="row{% cycle "1" "2" %}">
+        <td>{{ item.course.name }}</td>
+        <td class="num">${{ item.price }}</td>
+        <td class="num">{{ item.quantity }}</td>
+        <td class="num">${{ item.get_cost }}</td>
+      </tr>
       {% endfor %}
       <tr class="total">
         <td colspan="3">Total</td>
@@ -46,4 +46,5 @@
     {% if order.paid %}Paid{% else %}Pending payment{% endif %}
   </span>
 </body>
+
 </html>
