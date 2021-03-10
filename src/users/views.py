@@ -25,6 +25,10 @@ from .models import CustomUser
 from .tasks import account_created
 
 
+def oauth_login(request):
+    return render(request, "oauth-login.html", {"title": "Se connecter avec Google"})
+
+
 @check_recaptcha
 def login(request):
     next_ = request.GET.get("next")

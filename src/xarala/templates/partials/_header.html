@@ -37,8 +37,8 @@
     </form>
   </div>
   <div class="header_right">
-    <ul>    
-      
+    <ul>
+
 
       {% if request.user.is_authenticated %}
       <li>
@@ -96,7 +96,7 @@
       </li>
       {% else %}
       <li>
-        <a href="{% url 'register' %}" class="upload_btn d-block" title="Commencez Ici">Commencez Ici</a>
+        <a href="{% url 'oauth_login' %}" class="upload_btn d-block" title="Commencez Ici">Commencez Ici</a>
         {% endif %}
       </li>
     </ul>

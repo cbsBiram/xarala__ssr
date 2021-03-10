@@ -159,8 +159,8 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     "fields": "id, name, email, age_range",
 }
 
-LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "profile"
+LOGIN_URL = "oauth_login"
+LOGIN_REDIRECT_URL = "dashboard:dashboard"
 LOGOUT_URL = "logout"
 LOGOUT_REDIRECT_URL = "pages:home"
 # Internationalization
