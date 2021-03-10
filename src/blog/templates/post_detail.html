@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block meta %}
-<meta property="og:url" content="{{ request.get_host() }}/{{ post.slug }}" />
+<meta property="og:url" content="{{ request.get_host }}/{{ post.slug }}" />
 <meta property="og:title" content="{{ post.title }}" />
 <meta property="og:image" content="{% if post.thumbnail %}
             {{ post.thumbnail.url }}
