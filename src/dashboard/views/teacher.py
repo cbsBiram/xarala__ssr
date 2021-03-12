@@ -64,27 +64,44 @@ class CourseListView(ListView):
         return render(request, self.template_name, context)
 
 
+# @method_decorator([teacher_required], name="dispatch")
+# class CourseCreateView(CreateView):
+#     form_class = CreateCourse
+#     template_name = "instructor/create-course.html"
+
+#     def post(self, request, *args, **kwargs):
+#         form = self.form_class(request.POST, request.FILES)
+#         teacher = self.request.user
+#         if form.is_valid():
+#             course = form.save(commit=False)
+#             course.teacher = teacher
+#             course.save()
+#             form.save_m2m()
+#             UserLog.objects.create(
+#                 action=f"Created {course.title} course",
+#                 user_type="Instructeur",
+#                 user=teacher,
+#             )
+#             return redirect("dashboard:courses")
+
+#         return render(request, self.template_name, {"form": form})
+
+
 @method_decorator([teacher_required], name="dispatch")
 class CourseCreateView(CreateView):
     form_class = CreateCourse
     template_name = "instructor/create-course.html"
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST, request.FILES)
-        teacher = self.request.user
-        if form.is_valid():
-            course = form.save(commit=False)
-            course.teacher = teacher
-            course.save()
-            form.save_m2m()
-            UserLog.objects.create(
-                action=f"Created {course.title} course",
-                user_type="Instructeur",
-                user=teacher,
-            )
+        if request.POST:
+            course_title = request.POST.get("courseTitle", "")
+            chapter_name = request.POST.get("chapterName", "")
+            course = Course.objects.create(title=course_title)
+            chapter = Chapter.objects.create(name=chapter_name, course=course)
+            print(chapter)
             return redirect("dashboard:courses")
 
-        return render(request, self.template_name, {"form": form})
+        return render(request, self.template_name)
 
 
 @method_decorator([teacher_required], name="dispatch")
