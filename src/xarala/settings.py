@@ -159,8 +159,8 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     "fields": "id, name, email, age_range",
 }
 
-LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "profile"
+LOGIN_URL = "oauth_login"
+LOGIN_REDIRECT_URL = "dashboard:dashboard"
 LOGOUT_URL = "logout"
 LOGOUT_REDIRECT_URL = "pages:home"
 # Internationalization
@@ -194,9 +194,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATIC_URL = "/static/"
@@ -221,7 +218,7 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SUMMERNOTE_THEME = "bs4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
-# CELERY_BROKER_URL = "amqp://dbadmin:abc123!@127.0.0.1:5672//"
+
 CELERY_BROKER_URL = "amqp://guest:guest@127.0.0.1:15672//"
 CART_SESSION_ID = "cart"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

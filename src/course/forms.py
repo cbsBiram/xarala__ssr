@@ -295,6 +295,7 @@ class CreateQuiz(forms.ModelForm):
     )
     description = forms.CharField(
         label="Description",
+        required=True,
         widget=SummernoteWidget(),
     )
 

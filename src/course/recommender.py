@@ -15,15 +15,15 @@ class Recommender(object):
 
     def products_bought(self, courses):
         course_ids = [p.id for p in courses]
-        for product_id in course_ids:
+        for course_id in course_ids:
             for with_id in course_ids:
                 # get the other courses bought with each course
-                if product_id != with_id:
+                if course_id != with_id:
                     # increment score for course purchased together
-                    r.zincrby(self.get_course_key(product_id), 1, with_id)
+                    r.zincrby(self.get_course_key(course_id), 1, with_id)
 
     def suggest_products_for(self, courses, max_results=6):
-        course_ids = [p.id for p in courses]
+        course_ids = [course.id for course in courses]
         if len(courses) == 1:
             # only 1 course
             suggestions = r.zrange(

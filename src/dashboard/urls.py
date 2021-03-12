@@ -47,9 +47,29 @@ urlpatterns = [
         name="all_teachers",
     ),
     path(
+        "staff/invalid-teachers/",
+        staff_views.InvalidTeachersView.as_view(),
+        name="invalid_teachers",
+    ),
+    path(
+        "staff/valid-teachers/",
+        staff_views.ValidTeachersView.as_view(),
+        name="valid_teachers",
+    ),
+    path(
         "staff/all-students/",
         staff_views.AllStudentsView.as_view(),
         name="all_students",
+    ),
+    path(
+        "staff/enrolled-students/",
+        staff_views.EnrolledStudentsView.as_view(),
+        name="enrolled_students",
+    ),
+    path(
+        "staff/no-enrolled-students/",
+        staff_views.NoEnrolledStudentsView.as_view(),
+        name="no_enrolled_students",
     ),
     path("publish-tutorial/", staff_views.publish_tutorial, name="publish-tutorial"),
     path("publish-course/", staff_views.publish_course, name="publish-course"),

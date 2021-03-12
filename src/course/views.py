@@ -75,8 +75,7 @@ def subscribe_user_to_course(request, course_slug):
                 return redirect(f"/courses/{course.slug}/overview")
             else:
                 return redirect(f"/courses/{course.slug}/overview")
-    except Exception as e:
-        print("Error ", e)
+    except Exception:
         return JsonResponse(values)
 
 
@@ -215,7 +214,6 @@ class CategoryCourseList(ListView):
         context = super().get_context_data(**kwargs)
         # Add in the publisher
         context["category"] = self.category
-        print(context)
         return context
 
 

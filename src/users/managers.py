@@ -37,5 +37,17 @@ class CustomUserManager(BaseUserManager):
     def teachers(self):
         return self.get_queryset().filter(is_teacher=True)
 
+    def valid_teachers(self):
+        return self.get_queryset().filter(is_teacher=True)
+
+    def invalid_teachers(self):
+        return self.get_queryset().filter(is_teacher=True)
+
     def students(self):
+        return self.get_queryset().filter(is_student=True)
+
+    def no_enrolled_students(self):
+        return self.get_queryset().filter()
+
+    def enrolled_students(self):
         return self.get_queryset().filter(is_student=True)

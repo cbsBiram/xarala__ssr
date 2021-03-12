@@ -12,12 +12,6 @@ Authentification
 <div class="col-lg-6 col-md-8">
   <div class="sign_form">
     <h2>S'inscrire sur Xarala</h2>
-    <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-light">
-      <button class="social_lnk_btn color_btn_go">
-        <i class="uil uil-google"></i>S'inscrire avec
-        Google
-      </button>
-    </a>
     <form method="POST">
       {% csrf_token %}
       <div class="ui search focus mt-15">
@@ -50,7 +44,7 @@ Authentification
         <div class="inline field">
           <div class="ui checkbox mncheck">
             <input type="checkbox" tabindex="0" class="hidden" name="is_teacher">
-            <label>Je suis formateur</label>
+            <label>Je suis formateur(trice)</label>
           </div>
         </div>
       </div>

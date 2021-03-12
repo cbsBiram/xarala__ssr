@@ -19,6 +19,8 @@ class CustomUser(AbstractUser):
     github = models.CharField(max_length=250, blank=True, null=True)
     avatar = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     bio = models.TextField(blank=True)
+    # is_enterprise = models.BooleanField(default=False)
+    # business_name = models.CharField(max_length=150, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

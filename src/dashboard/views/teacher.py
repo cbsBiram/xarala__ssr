@@ -127,7 +127,6 @@ def submit_course(request):
     except Exception as e:
         values["error"] = e
         values["has_error"] = -1
-        print(e)
     return JsonResponse(values)
 
 
@@ -143,7 +142,6 @@ def draft_course(request):
     except Exception as e:
         values["error"] = e
         values["has_error"] = -1
-        print(e)
     return JsonResponse(values)
 
 
@@ -211,7 +209,6 @@ def update_chapter(request, id):
         values["order"] = chapter.order
         values["drafted"] = "Oui" if chapter.drafted else "Non"
     except Exception as e:
-        print("error ", e)
         values["error"] = e
         values["has_error"] = -1
     return JsonResponse(values)
@@ -239,7 +236,6 @@ def draft_chapter(request, id):
         chapter.save()
         values["chapter_slug"] = chapter.slug
     except Exception as e:
-        print("error ", e)
         values["error"] = e
         values["has_error"] = -1
     return JsonResponse(values)
@@ -253,7 +249,6 @@ class ChapterManagementView(View):
 
     def get(self, request, *args, **kwargs):
         chapter = Chapter.objects.get(slug=self.kwargs["slug"])
-        print(chapter)
         form = self.form_class()
         form_update = self.form_class_update(auto_id="update_%s")
         return render(
@@ -306,7 +301,7 @@ def update_lesson(request, id):
 
 
 @teacher_required
-def delete_lesson(request, id):
+def update_quiz(request, id):
     values = {"error": "", "has_error": 0}
     try:
         lesson = get_object_or_404(Lesson, id=id)
@@ -319,7 +314,7 @@ def delete_lesson(request, id):
 
 
 @teacher_required
-def draft_lesson(request, id):
+def delete_quiz(request, id):
     values = {"error": "", "has_error": 0}
     try:
         lesson = get_object_or_404(Lesson, id=id)

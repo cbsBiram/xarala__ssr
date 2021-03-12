@@ -61,16 +61,8 @@
               <button class="btn btn-sm">
                 <a href="{% url 'dashboard:update-course' course.id %}" title="Edit" class="dropdown-item">Modifier</a>
               </button>
-              <form id="delete-form" action="{% url 'dashboard:delete-course' course.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-sm">
-                  <a onclick="return confirm('Are you sure you want to delete this item?');" title="Delete"
-                    class="dropdown-item">Supprimer</i></a>
-                </button>
-              </form>
+
               {% endif %}
-
-
 
             </div>
           </div>

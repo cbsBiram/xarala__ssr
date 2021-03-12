@@ -8,11 +8,7 @@
 
 {% block content %}
 
-
-
-
 <div class="section3125">
-  {% include "partials/_alerts.html" %}
   <div class="container">
     {% if cart|length  %}
 
@@ -55,6 +51,9 @@
 
 
         </div>
+        <<<<<<< HEAD <!-- testimonials -->
+          =======
+          >>>>>>> f21ece682b181302752e2109addd019c72717c96
       </div>
       <div class="col-lg-4">
         <div class="membership_chk_bg rght1528">
@@ -81,29 +80,37 @@
             </div>
             <div class="coupon_code">
               <p></p>
-              <div class="coupon_input">
-                <div class="ui search focus mt-15">
-                  <div class="ui left icon input swdh11 swdh19">
-                    <input class="prompt srch_explore" type="text" name="couponcode" value="" id="id_coupon_code"
-                      required="" maxlength="6" placeholder="Enter Coupon Code">
+              <<<<<<< HEAD <!-- <div class="coupon_input">
+                =======
+                <div class="coupon_input">
+                  >>>>>>> f21ece682b181302752e2109addd019c72717c96
+                  <div class="ui search focus mt-15">
+                    <div class="ui left icon input swdh11 swdh19">
+                      <input class="prompt srch_explore" type="text" name="couponcode" value="" id="id_coupon_code"
+                        required="" maxlength="6" placeholder="Enter Coupon Code">
+                    </div>
+                    <button class="code-apply-btn" type="submit">Appliquer</button>
                   </div>
-                  <button class="code-apply-btn" type="submit">Appliquer</button>
+                  <<<<<<< HEAD </div> -->
                 </div>
-              </div>
+                <a href="{% url 'order:order_create' %}" class="chck-btn22">Payer</a>
+                =======
             </div>
-            <a href="{% url 'order:order_create' %}" class="chck-btn22">Valider</a>
           </div>
+          <a href="{% url 'order:order_create' %}" class="chck-btn22">Valider</a>
+          >>>>>>> f21ece682b181302752e2109addd019c72717c96
         </div>
       </div>
     </div>
-
-    {% else %}
-
-    <p class="text-center">Votre panier est vide</p>
-
-    {% endif %}
-
   </div>
+
+  {% else %}
+
+  <p class="text-center">Votre panier est vide</p>
+
+  {% endif %}
+
+</div>
 </div>
 
 {% endblock content %}

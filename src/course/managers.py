@@ -53,9 +53,6 @@ class LessonManager(models.Manager):
     def get_queryset(self):
         return LessonQuerySet(self.model, using=self._db)
 
-    # def published(self):
-    #     return self.get_queryset()
-
     def search(self, query=None):
         if query is None:
             return self.get_queryset().none()

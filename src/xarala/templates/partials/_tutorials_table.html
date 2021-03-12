@@ -49,13 +49,6 @@
               <button class="btn"><a href="{% url 'dashboard:update-tutorial' tutorial.id %}" title="Edit"
                   class="dropdown-item">Modifier</a>
               </button>
-              <form id="delete-form" action="{% url 'dashboard:delete-tutorial' tutorial.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn">
-                  <a onclick="return confirm('Etes-vous sûr de vouloir supprimer ce tutoriel?');" title="Delete"
-                    class="dropdown-item">Supprimer</i></a>
-                </button>
-              </form>
               {% endif %}
 
               {% if user.is_staff and tutorial.submitted %}
