@@ -301,32 +301,6 @@ def update_lesson(request, id):
 
 
 @teacher_required
-def update_quiz(request, id):
-    values = {"error": "", "has_error": 0}
-    try:
-        lesson = get_object_or_404(Lesson, id=id)
-        if request.method == "POST":
-            lesson.delete()
-    except Exception as e:
-        values["error"] = e
-        values["has_error"] = -1
-    return JsonResponse(values)
-
-
-@teacher_required
-def delete_quiz(request, id):
-    values = {"error": "", "has_error": 0}
-    try:
-        lesson = get_object_or_404(Lesson, id=id)
-        lesson.drafted = True
-        lesson.save()
-    except Exception as e:
-        values["error"] = e
-        values["has_error"] = -1
-    return JsonResponse(values)
-
-
-@teacher_required
 def create_quiz(request, slug):
     teacher = request.user
     form_class = CreateQuiz
