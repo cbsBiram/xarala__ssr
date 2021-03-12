@@ -129,11 +129,6 @@ urlpatterns = [
         teacher_views.update_lesson,
         name="update-lesson",
     ),
-    path(
-        "delete-lesson/<int:id>/",
-        teacher_views.delete_lesson,
-        name="delete-lesson",
-    ),
     path("add-quiz/<slug:slug>/", teacher_views.create_quiz, name="create-quiz"),
     path(
         "update-quiz/<slug:slug>/",
