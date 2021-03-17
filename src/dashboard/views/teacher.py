@@ -145,17 +145,21 @@ class CourseUpdateView(UpdateView):
                 course.title = course_title
                 course.save()
                 for chap in chapters:
-                    chapter = Chapter.objects.get(slug=chap.get("chapter_slug"))
-                    chapter.name = chap.get("chapter")
-                    chapter.save()
+                    Chapter.objects.update_or_create(
+                        slug=chap.get("chapter_slug"),
+                        defaults={"name": chap.get("chapter")},
+                    )
                 for less in lessons:
                     chapter = Chapter.objects.get(name=less.get("chapter"))
-                    lesson = Lesson.objects.get(slug=chap.get("lesson_slug"))
-                    lesson.title = (lesson.get("title", ""),)
-                    lesson.video_id = (lesson.get("videoId", ""),)
-                    lesson.chapter = (chapter,)
-                    lesson.text = (lesson.get("text", ""),)
-                    lesson.save()
+                    Lesson.objects.update_or_create(
+                        slug=chap.get("lesson_slug"),
+                        defaults={
+                            "title": less.get("title", ""),
+                            "video_id": less.get("videoId", ""),
+                            "chapter": chapter,
+                            "text": less.get("text", ""),
+                        },
+                    )
                 values["id"] = course.id
                 values["title"] = course.title
             except Exception as e:

@@ -201,10 +201,10 @@
                 <img class="d-flex justify-content-center" src="{% static 'images/25.gif' %}" width='32px'
                     height='32px'>
             </div>
-            <button class="hJLFyW" id="save-draft-btn" disabled=""
-                data-url="{% url 'dashboard:create-course' %}">Enregistrer</button>
+            <button class="hJLFyW" id="save-draft-btn"
+                data-url="{% url 'dashboard:update-course' course.slug %}">Enregistrer</button>
         </div>
-        <button disabled="" id="publish-course-btn" data-toggle="modal" data-target="#publish_course_modal"
+        <button id="publish-course-btn" data-toggle="modal" data-target="#publish_course_modal"
             class="defaultButton__DefaultButton-sc-1scxgx7-0 primaryButton__PrimaryButton-sc-1t32hmz-0 jRKnYV khmjno">Publier</button>
     </div>
     <div class="jwyJKT">
@@ -214,7 +214,7 @@
 </div>
 
 <!-- Publish Course Modal-->
-<!-- <div class="modal fade publish" id="publish_course_modal" tabindex="-1" role="dialog"
+<div class="modal fade publish" id="publish_course_modal" tabindex="-1" role="dialog"
     aria-labelledby="publishCourseModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="max-width: 1090px;">
         <div class="modal-content">
@@ -248,7 +248,7 @@
                                             <div class="ui form swdh339">
                                                 <div class="field">
                                                     <textarea rows="5" name="description" id="course_description"
-                                                        placeholder="Insert your course description"></textarea>
+                                                        placeholder="Insert your course description">{{course.description}}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -263,7 +263,7 @@
                                             <input class="prompt srch_explore" type="text"
                                                 placeholder="Insert your course Subtitle." name="subtitle"
                                                 data-purpose="edit-course-title" maxlength="60" id="course_price"
-                                                value="">
+                                                value="{{course.price}}">
                                             <div class="badge_num2">FCFA</div>
                                         </div>
                                     </div>
@@ -299,6 +299,7 @@
                                     {% for key, value in levels %}
                                     <option value="{{key}}">{{ value }}</option>
                                     {% endfor %}
+
                                 </select>
                             </div>
                             <div class="col-lg-4 col-md-12 select-box">
@@ -323,7 +324,7 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 {% endblock %}
 
@@ -358,8 +359,7 @@
                 '<svg class="mr-2" width="16" height="16" viewBox="0 0 16 16"><g fill="none" fill-rule="evenodd">' +
                 '<g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
                 'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
-                '</path></g></g></svg>Supprimer</button> </div></div></div>' +
-                '<div class="gMCPru add-lesson-section"><div class="esedNQ">' +
+                '</path></g></g></svg>Supprimer</button> </div></div></div><div class="gMCPru add-lesson-section"><div class="esedNQ">' +
                 '<div class="ivYHKm"><div class="dropdown"><a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"' +
                 'aria-haspopup="true" aria-expanded="false">Ajouter*<i class="fas fa-plus-circle" style="font-size: 18px"></i></a>' +
                 '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm add-lesson-btn dropdown-item">' +
@@ -371,6 +371,7 @@
                 '</g></g></svg><div class="ibgLNl ml-1">Leçon</div></div>' +
                 '</button></div></div></div></div>' +
                 '<div id="quiz_section"></div></div></div><div id="insert_chapter"></div></div>';
+
             $(htmlToAdd).find('.lesson-form').remove()
             $(htmlToAdd).insertBefore('#insert_chapter')
         })
