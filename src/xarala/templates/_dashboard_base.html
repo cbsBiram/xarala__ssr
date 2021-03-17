@@ -46,8 +46,624 @@
   <link href="{% static 'vendor/OwlCarousel/assets/owl.theme.default.min.css' %}" rel="stylesheet" />
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="{% static 'vendor/semantic/semantic.min.css' %}" />
-  <link href="{% static 'css/custom.css' %}" rel="stylesheet" />
-  {% block extrastyle %} {% endblock extrastyle %}
+
+  {% block extrastyle %}
+  <style>
+    .bqfDsc {
+      position: relative;
+      padding: 36px 50px 50px;
+    }
+
+    .bqfDsc> :not(:last-child) {
+      margin-bottom: 50px;
+    }
+
+    .jjarOm {
+      background-color: rgb(255, 255, 255);
+      border-radius: 10px;
+      border: 1px solid rgb(234, 235, 239);
+    }
+
+    .inmuHv {
+      position: relative;
+    }
+
+    .jYirZ input,
+    .jYirZ input::placeholder {
+      font-weight: 600;
+      font-size: 1.5625rem;
+    }
+
+    .inmuHv input {
+      width: 100%;
+      color: rgb(19, 19, 26);
+      font-size: 0.9375rem;
+      border: medium none;
+      outline: currentcolor none medium;
+      background-color: transparent;
+      padding: 5px 0px 9px;
+    }
+
+    .inmuHv::after {
+      bottom: 0px;
+      left: 0px;
+      background-color: rgb(19, 19, 26);
+      transform-origin: 0px 50% 0px;
+      opacity: 0.5;
+      transform: scaleX(0.05);
+      transition: opacity 0.2s linear 0s, transform 0.2s ease-in-out 0s;
+      content: "";
+      height: 2px;
+      position: absolute;
+      width: 100%;
+    }
+
+    .hkJnVs {
+      background-color: rgb(255, 255, 255);
+      border: 1px solid rgb(234, 235, 239);
+      border-radius: 10px;
+      padding: 10px 16px;
+      position: relative;
+    }
+
+    .lcllUe {
+      display: flex;
+      flex-direction: column;
+      margin: -10px -16px;
+      line-height: 24px;
+    }
+
+    .ggvSQY {
+      cursor: text;
+      min-height: 80px;
+    }
+
+    .gBTnjC {
+      position: relative;
+    }
+
+    .DraftEditor-root {
+      position: relative;
+    }
+
+    .DraftEditor-editorContainer,
+    .DraftEditor-root,
+    .public-DraftEditor-content {
+      height: inherit;
+      text-align: initial;
+    }
+
+    .ggvSQY .public-DraftEditor-content,
+    .ggvSQY .public-DraftEditorPlaceholder-root {
+      padding: 10px 32px 10px 16px;
+    }
+
+    .public-DraftEditorPlaceholder-root {
+      color: #9197a3;
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+    }
+
+    .gMCPru {
+      position: relative;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .ivYHKm {
+      cursor: pointer;
+      background-color: rgb(255, 255, 255);
+      border: 1px solid rgb(234, 235, 239);
+      border-radius: 10px;
+      display: flex;
+      -moz-box-align: center;
+      align-items: center;
+      -moz-box-pack: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .ivYHKm>div>a {
+      color: rgb(19, 19, 26);
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-right: 6px;
+    }
+
+    .ibgLNl {
+      cursor: pointer;
+      color: rgb(19, 19, 26);
+      font-size: 0.8125rem;
+      font-weight: 700;
+    }
+
+    .ibgLNl {
+      transition: transform 0.2s ease-in-out 0s;
+    }
+
+    .ibgLNl:hover {
+      transform: translateX(5px);
+    }
+
+    .eQVCSW {
+      padding: 10px 16px;
+      position: relative;
+    }
+
+    .eKocqC {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+    }
+
+    .gulyia {
+      background-color: rgba(234, 235, 239, 0.5);
+    }
+
+    svg:first-child:last-child {
+      display: block;
+    }
+
+    .hwgExz {
+      width: 24px;
+      height: 24px;
+    }
+
+    .ynJOs {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lmfOYQ input[type="file"],
+    .lmfOYQ input[type="file"]::-webkit-file-upload-button {
+      cursor: pointer;
+      appearance: none;
+      position: absolute;
+      display: block;
+      inset: 0px;
+      opacity: 0;
+      width: 100%;
+    }
+
+    .kehBGJ {
+      padding: 34px 50px;
+    }
+
+    .bjYTln> :not(:last-child) {
+      margin-bottom: 40px;
+    }
+
+    .fmgnGK {
+      color: rgb(19, 19, 26);
+      font-size: 1.5625rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+
+    .kAAma {
+      padding: 32px 26px;
+      border: medium none;
+      display: flex;
+      flex-direction: column;
+      -moz-box-align: stretch;
+      align-items: stretch;
+    }
+
+    .kAAma> :not(:last-child) {
+      margin-bottom: 40px;
+    }
+
+    .bFucVQ {
+      border-radius: 25px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 46px 0px;
+    }
+
+    .kLHfqT {
+      color: rgb(19, 19, 26);
+      font-size: 0.9375rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .gkeyhG {
+      display: flex;
+      margin-bottom: 15px;
+      -moz-box-align: center;
+      align-items: center;
+      -moz-box-pack: justify;
+      justify-content: space-between;
+    }
+
+    .jGSZkH {
+      display: flex;
+      -moz-box-align: center;
+      align-items: center;
+    }
+
+    .jGSZkH .exerciseEditor__ChoiceIndex-sc-1hguq4q-4 {
+      margin-right: 10px;
+    }
+
+    .ksjfCD {
+      color: rgb(178, 178, 178);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      line-height: 0.8125rem;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      -moz-box-align: center;
+      align-items: center;
+      -moz-box-pack: center;
+      justify-content: center;
+      border-radius: 10px;
+      border: 1px solid rgb(178, 178, 178);
+    }
+
+    .eWWrhn {
+      padding: 18px;
+    }
+
+    .fFlPup {
+      display: flex;
+    }
+
+    .fFlPup .exerciseEditor__ChoiceIndex-sc-1hguq4q-4 {
+      cursor: pointer;
+    }
+
+    .ksjfCD {
+      color: rgb(178, 178, 178);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      line-height: 0.8125rem;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      -moz-box-align: center;
+      align-items: center;
+      -moz-box-pack: center;
+      justify-content: center;
+      border-radius: 10px;
+      border: 1px solid rgb(178, 178, 178);
+    }
+
+    .ixkpGJ {
+      display: flex;
+    }
+
+    .ixkpGJ> :first-child {
+      margin-right: 20px;
+    }
+
+    button.hJLFyW {
+      cursor: pointer;
+      display: block;
+      border: medium none;
+      outline: currentcolor none medium;
+      font-size: 0.9375rem;
+      color: rgb(19, 19, 26);
+      text-decoration: underline;
+      border-radius: 13px;
+      transition: color 0.1s linear 0s;
+      background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%;
+    }
+
+    button.khmjno {
+      background-color: rgb(254, 79, 79);
+      color: rgb(255, 255, 255);
+      transition: background-color 0.2s linear 0s;
+    }
+
+    .jRKnYV {
+      cursor: pointer;
+      border: medium none;
+      outline: currentcolor none medium;
+      border-radius: 10px;
+      padding: 12px 40px;
+      font-size: 0.9375rem;
+      line-height: 15px;
+      background-color: rgb(234, 235, 239);
+      color: rgb(111, 111, 111);
+      display: flex;
+      -moz-box-align: center;
+      align-items: center;
+      -moz-box-pack: center;
+      justify-content: center;
+      transition: background-color 0.2s linear 0s;
+    }
+
+    .iHhhTz {
+      align-self: flex-start;
+      display: flex;
+      -moz-box-align: center;
+      align-items: center;
+      margin-top: 15px;
+    }
+
+    .iHhhTz> :first-child {
+      margin-right: 20px;
+    }
+
+    .hJLFyW:disabled {
+      pointer-events: none;
+      color: rgb(209, 209, 209);
+      box-shadow: none;
+    }
+
+    .jwyJKT {
+      color: rgb(178, 178, 178);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      margin-top: 15px;
+    }
+
+    .fFlPup> :not(:last-child) {
+      margin-right: 14px;
+    }
+
+    .iuVOof {
+      border: medium none;
+      padding: 22px 26px;
+      position: relative;
+    }
+
+    .iuVOof> :not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    .bgQjcd {
+      color: rgb(19, 19, 26);
+      font-size: 0.9375rem;
+    }
+
+    .hRaafP {
+      display: flex;
+      -moz-box-align: center;
+      align-items: center;
+    }
+
+    .eOnonT {
+      position: absolute;
+      right: 22px;
+      top: 22px;
+    }
+
+    .hRaafP input {
+      width: 20px;
+      height: 20px;
+      padding: 5px;
+      border-radius: 10px;
+      margin-right: 10px;
+      margin-bottom: 3px;
+      appearance: none;
+      border: 1px solid rgb(178, 178, 178);
+      position: relative;
+    }
+
+    .jRKnYV:disabled {
+      pointer-events: none;
+      background-color: rgb(209, 209, 209);
+      color: rgb(234, 235, 239);
+      box-shadow: none;
+    }
+
+    .jgZALD {
+      display: flex;
+      -moz-box-align: center;
+      align-items: center;
+    }
+
+    .jgZALD input {
+      font-size: 0.75rem;
+      flex: 1 1 0%;
+      border: medium none;
+      outline: currentcolor none medium;
+      text-overflow: ellipsis;
+      padding-right: 10px;
+    }
+
+    .knEnYt {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .knEnYt> :not(:last-child) {
+      margin-right: 60px;
+    }
+
+    .csYwjZ {
+      flex: 1 1 0%;
+    }
+
+    .eGxxZW> :not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    .ilhrAj {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      height: 200px;
+      width: 100%;
+      background: rgb(255, 255, 255) none repeat scroll 0% 0%;
+    }
+
+    .kHJuMu {
+      height: 100%;
+    }
+
+    .lmfOYQ {
+      height: 100%;
+      position: relative;
+    }
+
+    .eMctrY {
+      width: 100%;
+      height: 100%;
+      background-color: rgb(254, 79, 79);
+      display: flex;
+      flex-direction: column;
+      -moz-box-align: center;
+      align-items: center;
+      -moz-box-pack: center;
+      justify-content: center;
+      overflow: hidden;
+      transform: scale(1);
+      transition: transform 0.2s ease-out 0s;
+    }
+
+    .eMctrY img {
+      position: absolute;
+      z-index: -1;
+      top: 50%;
+      left: 50%;
+      transition: transform 0.2s ease-in-out 0s;
+      transform-origin: 52% 46% 0px;
+      transform: translate(-50%, -50%);
+    }
+
+    .ghyTvl {
+      pointer-events: none;
+      position: absolute;
+      inset: 0px;
+      background-image: linear-gradient(to top, rgba(0, 0, 0, 0.75) 25%, rgba(0, 0, 0, 0));
+      color: rgb(255, 255, 255);
+      padding: 26px 14px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .bgQjcd {
+      color: rgb(19, 19, 26);
+      font-size: 0.9375rem;
+    }
+
+    .bbSxCG {
+      color: rgb(254, 79, 79);
+      max-width: 250px;
+    }
+
+    .knEnYt> :not(:last-child) {
+      margin-right: 60px;
+    }
+
+    .eclWOp {
+      -moz-box-flex: 0;
+      flex-grow: 0;
+      align-self: stretch;
+      background-color: rgb(234, 235, 239);
+      width: 1px;
+      flex-shrink: 0;
+    }
+
+    .hyZfpm {
+      flex: 1 1 0%;
+    }
+
+    .hyZfpm> :not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    .jPVeyK {
+      color: rgb(19, 19, 26);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .hyZfpm> :not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    .bgPPRW {
+      background-color: rgb(255, 255, 255);
+      border: 1px solid rgb(234, 235, 239);
+      border-radius: 10px;
+      min-height: 100px;
+      margin-top: 20px;
+      cursor: text;
+    }
+
+    .gBTnjC {
+      position: relative;
+    }
+
+    .DraftEditor-root {
+      position: relative;
+    }
+
+    .bgPPRW .public-DraftEditorPlaceholder-root {
+      opacity: 0.8;
+    }
+
+    .bgPPRW .public-DraftEditor-content,
+    .bgPPRW .public-DraftEditorPlaceholder-root {
+      padding: 20px;
+    }
+
+    .public-DraftEditorPlaceholder-root {
+      color: #9197a3;
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+    }
+
+    .DraftEditor-editorContainer {
+      background-color: hsla(0, 0%, 100%, 0);
+      border-left: .1px solid transparent;
+      position: relative;
+      z-index: 1;
+    }
+
+    .public-DraftStyleDefault-ltr {
+      direction: ltr;
+      text-align: left;
+    }
+
+    .public-DraftStyleDefault-block {
+      position: relative;
+      white-space: pre-wrap;
+    }
+
+    .gtXKZH {
+      position: relative;
+    }
+
+    .jdHWNt {
+      width: 100%;
+      background-color: rgb(255, 255, 255);
+      border: 1px solid rgb(234, 235, 239);
+      border-radius: 10px;
+      outline: currentcolor none medium;
+      padding: 15px 34px 15px 15px;
+      font-size: 0.75rem;
+      appearance: none;
+    }
+
+    .gtXKZH svg {
+      pointer-events: none;
+      content: "";
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+
+    .dAfxhl {
+      align-self: flex-end;
+    }
+
+    .dAfxhl {
+      display: flex;
+      -moz-box-align: center;
+      align-items: center;
+    }
+
+    .dAfxhl> :not(:last-child) {
+      margin-right: 10px;
+    }
+  </style>
+  {% endblock extrastyle %}
 </head>
 
 <body>

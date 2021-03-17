@@ -13,9 +13,7 @@
         <h1>Passez à la création de vos cours</h1>
       </div>
       <div class="card_dash_right1">
-        <a href="{% url 'dashboard:create-course' %}"
-          ><button class="create_btn_dash">Créer votre cours</button></a
-        >
+        <a href="{% url 'dashboard:create-course' %}"><button class="create_btn_dash">Créer votre cours</button></a>
       </div>
     </div>
   </div>
@@ -62,103 +60,58 @@
 
               <td class="text-center">
                 {% for category in course.categories.all %}
-                <a href="#">{{ category.name|default_if_none:"" }}</a> 
-                {% endfor  %}
+                <a href="#">{{ category.name|default_if_none:"" }}</a>
+                {% endfor %}
               </td>
               <td class="text-center">
                 <b class="course_active" id="status-{{course.id}}">
-                  {% if course.drafted %} Archivé 
+                  {% if course.drafted %} Archivé
                   {% elif course.published %}
-                  Publié 
-                  {% elif course.submitted %} Soumis 
-                  {% else %} En attente 
+                  Publié
+                  {% elif course.submitted %} Soumis
+                  {% else %} En attente
                   {% endif %}
                 </b>
               </td>
               <td class="text-center">
                 <div class="dropdown">
-                  <a
-                    class="btn"
-                    href="#"
-                    role="button"
-                    id="dropdownMenuLink"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
+                  <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v"></i>
                   </a>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <button class="btn btn-sm">
-                      <a
-                        href="{% url 'course:course-overview' course.slug %}"
-                        title="View"
-                        class="dropdown-item"
-                        >Aperçu</a
-                      >
+                      <a href="{% url 'course:course-overview' course.slug %}" title="View"
+                        class="dropdown-item">Aperçu</a>
                     </button>
-                    <button class="btn btn-sm">
-                      <a
-                        href="{% url 'dashboard:manage-course' course.slug %}"
-                        title="Manage"
-                        class="dropdown-item"
-                        >Gestion</a
-                      >
-                    </button>
-                    {% if user.is_teacher and not course.submitted and not course.published %} 
+                    <!-- <button class="btn btn-sm">
+                      <a href="{% url 'dashboard:manage-course' course.slug %}" title="Manage"
+                        class="dropdown-item">Gestion</a>
+                    </button> -->
+                    {% if user.is_teacher and not course.submitted and not course.published %}
                     {% if course.get_chapters and course.count_lessons %}
-                    <button
-                      id="submit_course"
-                      class="btn btn-sm"
-                    >
-                      <a
-                        href="#"
-                        title="Submit"
-                        class="dropdown-item submit-course-btn"
-                        course_id="{{course.id}}"
-                        data-toggle="modal"
-                        data-target="#submit_course_{{course.id}}"
-                        >Soumettre</a
-                      >
+                    <button id="submit_course" class="btn btn-sm">
+                      <a href="#" title="Submit" class="dropdown-item submit-course-btn" course_id="{{course.id}}"
+                        data-toggle="modal" data-target="#submit_course_{{course.id}}">Soumettre</a>
                     </button>
-                    {% endif %} 
-                    {% endif %} 
+                    {% endif %}
+                    {% endif %}
                     {% if user.is_teacher and not course.drafted %}
                     <button class="btn btn-sm">
-                      <a
-                        href="{% url 'dashboard:update-course' course.id %}"
-                        title="Edit"
-                        class="dropdown-item"
-                        >Modifier</a
-                      >
+                      <a href="{% url 'dashboard:update-course' course.slug %}" title="Edit"
+                        class="dropdown-item">Modifier</a>
                     </button>
-                    {% endif %} 
+                    {% endif %}
                     {% if user.is_teacher and not course.drafted %}
-                    <button
-                      id="draft_course"
-                      class="btn btn-sm"
-                    >
-                      <a href="#" title="Draft" course_id="{{course.id}}"
-                      data-toggle="modal"
-                      data-target="#draft_course_{{course.id}}" class="dropdown-item draft-course-btn"
-                        >Archiver</a
-                      >
+                    <button id="draft_course" class="btn btn-sm">
+                      <a href="#" title="Draft" course_id="{{course.id}}" data-toggle="modal"
+                        data-target="#draft_course_{{course.id}}" class="dropdown-item draft-course-btn">Archiver</a>
                     </button>
-                    {% endif %} 
+                    {% endif %}
                     {% if user.is_staff and course.submitted and not course.published %}
-                    <button
-                      id="publish_course"
-                      class="btn btn-sm"
-                    >
-                      <a href="#" title="Publish" 
-                      course_id="{{course.id}}"
-                      data-toggle="modal"
-                      data-target="#publish_course_{{course.id}}" class="dropdown-item publish-course-btn"
-                        >Publier</a
-                      >
+                    <button id="publish_course" class="btn btn-sm">
+                      <a href="#" title="Publish" course_id="{{course.id}}" data-toggle="modal"
+                        data-target="#publish_course_{{course.id}}" class="dropdown-item publish-course-btn">Publier</a>
                     </button>
                     {% endif %}
                   </div>
@@ -167,40 +120,21 @@
             </tr>
 
             <!-- Submit Course Modal-->
-            <div
-              class="modal fade submit_course"
-              id="submit_course_{{course.id}}"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="submitCourseModalLabel"
-              aria-hidden="true"
-            >
-              <div
-                class="modal-dialog modal-lg modal-dialog-centered"
-                role="document"
-              >
+            <div class="modal fade submit_course" id="submit_course_{{course.id}}" tabindex="-1" role="dialog"
+              aria-labelledby="submitCourseModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h2 class="st_title" id="submitCourseModalLabel">
                       <i class="uil uil-analysis"></i>Soumettre le cours
                       <b class="course_active">{{ course.title }}</b>
                     </h2>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                      style="color: red"
-                    >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
-                    <div
-                      id="submit-course-{{course.id}}"
-                      method="POST"
-                      data-url="{% url 'dashboard:submit-course' %}"
-                    >
+                    <div id="submit-course-{{course.id}}" method="POST" data-url="{% url 'dashboard:submit-course' %}">
                       {% csrf_token %}
                       <div class="general_info10">
                         <div class="row">
@@ -212,18 +146,11 @@
                             </div>
                           </div>
                           <div class="col-12">
-                            <button
-                              data-dismiss="modal"
-                              class="create_btn_dash btn-danger"
-                              style="float: right"
-                            >
+                            <button data-dismiss="modal" class="create_btn_dash btn-danger" style="float: right">
                               Annuler
                             </button>
-                            <button
-                              type="button"
-                              class="create_btn_dash mr-2 submit-submitted-course-data"
-                              style="float: right"
-                            >
+                            <button type="button" class="create_btn_dash mr-2 submit-submitted-course-data"
+                              style="float: right">
                               Confirmer
                             </button>
                           </div>
@@ -236,40 +163,21 @@
             </div>
 
             <!-- Publish Course Modal-->
-            <div
-              class="modal fade publish_course"
-              id="publish_course_{{course.id}}"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="publishCourseModalLabel"
-              aria-hidden="true"
-            >
-              <div
-                class="modal-dialog modal-lg modal-dialog-centered"
-                role="document"
-              >
+            <div class="modal fade publish_course" id="publish_course_{{course.id}}" tabindex="-1" role="dialog"
+              aria-labelledby="publishCourseModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h2 class="st_title" id="publishCourseModalLabel">
                       <i class="uil uil-analysis"></i>Publier le cours
                       <b class="course_active">{{ course.title }}</b>
                     </h2>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                      style="color: red"
-                    >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
-                    <div
-                      id="publish-course-{{course.id}}"
-                      method="POST"
-                      data-url="{% url 'dashboard:submit-course' %}"
-                    >
+                    <div id="publish-course-{{course.id}}" method="POST" data-url="{% url 'dashboard:submit-course' %}">
                       {% csrf_token %}
                       <div class="general_info10">
                         <div class="row">
@@ -281,18 +189,11 @@
                             </div>
                           </div>
                           <div class="col-12">
-                            <button
-                              data-dismiss="modal"
-                              class="create_btn_dash btn-danger"
-                              style="float: right"
-                            >
+                            <button data-dismiss="modal" class="create_btn_dash btn-danger" style="float: right">
                               Annuler
                             </button>
-                            <button
-                              type="button"
-                              class="create_btn_dash mr-2 submit-published-course-data"
-                              style="float: right"
-                            >
+                            <button type="button" class="create_btn_dash mr-2 submit-published-course-data"
+                              style="float: right">
                               Confirmer
                             </button>
                           </div>
@@ -305,40 +206,21 @@
             </div>
 
             <!-- Draft Course Modal-->
-            <div
-              class="modal fade draft_course"
-              id="draft_course_{{course.id}}"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="draftCourseModalLabel"
-              aria-hidden="true"
-            >
-              <div
-                class="modal-dialog modal-lg modal-dialog-centered"
-                role="document"
-              >
+            <div class="modal fade draft_course" id="draft_course_{{course.id}}" tabindex="-1" role="dialog"
+              aria-labelledby="draftCourseModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h2 class="st_title" id="draftCourseModalLabel">
                       <i class="uil uil-analysis"></i>Archiver le cours
                       <b class="course_active">{{ course.title }}</b>
                     </h2>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                      style="color: red"
-                    >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
-                    <div
-                      id="draft-course-{{course.id}}"
-                      method="POST"
-                      data-url="{% url 'dashboard:draft-course' %}"
-                    >
+                    <div id="draft-course-{{course.id}}" method="POST" data-url="{% url 'dashboard:draft-course' %}">
                       {% csrf_token %}
                       <div class="general_info10">
                         <div class="row">
@@ -350,18 +232,11 @@
                             </div>
                           </div>
                           <div class="col-12">
-                            <button
-                              data-dismiss="modal"
-                              class="create_btn_dash btn-danger"
-                              style="float: right"
-                            >
+                            <button data-dismiss="modal" class="create_btn_dash btn-danger" style="float: right">
                               Annuler
                             </button>
-                            <button
-                              type="button"
-                              class="create_btn_dash mr-2 submit-drafted-course-data"
-                              style="float: right"
-                            >
+                            <button type="button" class="create_btn_dash mr-2 submit-drafted-course-data"
+                              style="float: right">
                               Confirmer
                             </button>
                           </div>
@@ -382,11 +257,7 @@
             <ul class="pagination">
               {% if courses.has_previous %}
               <li class="page-item">
-                <a
-                  class="page-link"
-                  href="?page={{ courses.previous_page_number }}"
-                  aria-label="Previous"
-                >
+                <a class="page-link" href="?page={{ courses.previous_page_number }}" aria-label="Previous">
                   &laquo;
                 </a>
               </li>
@@ -396,7 +267,7 @@
                   &laquo;
                 </a>
               </li>
-              {% endif %} {% for i in courses.paginator.page_range %} 
+              {% endif %} {% for i in courses.paginator.page_range %}
               {% if courses.number == i %}
               <li class="page-item">
                 <a class="page-link active" href="#">{{ i }}</a>
@@ -407,11 +278,7 @@
               </li>
               {% endif %} {% endfor %} {% if courses.has_next %}
               <li class="page-item">
-                <a
-                  class="page-link"
-                  href="?page={{ courses.next_page_number }}"
-                  aria-label="Next"
-                >
+                <a class="page-link" href="?page={{ courses.next_page_number }}" aria-label="Next">
                   &raquo;
                 </a>
               </li>
