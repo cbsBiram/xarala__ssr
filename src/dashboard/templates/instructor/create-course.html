@@ -24,26 +24,22 @@
                     <i class="fas fa-ellipsis-v" style="font-size: large;"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="btn btn-sm">
-                        <a href="#" title="Add Lesson" class="dropdown-item add-lesson-btn">
-                            <svg width="16" height="16" viewBox="0 0 16 16">
-                                <g fill="none" fill-rule="evenodd">
-                                    <g fill="#13131A">
-                                        <path
-                                            d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"
-                                            transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">
-                                        </path>
-                                    </g>
+                    <button class="btn btn-sm dropdown-item delete-chapter d-flex">
+                        <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">
+                            <g fill="none" fill-rule="evenodd">
+                                <g fill="#13131A">
+                                    <path
+                                        d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"
+                                        transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">
+                                    </path>
                                 </g>
-                            </svg>
-                            Supprimer
-                        </a>
+                            </g>
+                        </svg>
+                        Supprimer
                     </button>
                 </div>
             </div>
         </div>
-
-
 
 
         <div class="gMCPru add-lesson-section">
@@ -52,27 +48,31 @@
                     <div class="dropdown">
                         <a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                            Ajouter une leçon*
+                            Ajouter*
                             <i class="fas fa-plus-circle" style="font-size: 18px"></i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                            <button class="btn btn-sm add-title-btn">
-                                <a href="#" title="Title" class="dropdown-item">
-                                    <div class="d-flex flex-row">
-                                        <svg width="18" height="18" viewBox="0 0 18 18">
-                                            <g fill="#13131A" fill-rule="nonzero">
-                                                <path
-                                                    d="M0.167 0.333L0.167 2.833 4.75 2.833 4.75 12.833 7.25 12.833 7.25 2.833 11.833 2.833 11.833 0.333z"
-                                                    transform="translate(-802 -727) translate(785 555) translate(17 172) translate(3 3)">
-                                                </path>
+                            <button class="btn btn-sm add-lesson-btn dropdown-item">
+                                <div class="d-flex flex-row">
+                                    <svg width="20" height="20" viewBox="0 0 20 20">
+                                        <g fill="none" fill-rule="evenodd">
+                                            <g fill-rule="nonzero">
+                                                <path fill="red"
+                                                    d="M0 10C0 4.477 4.477 0 10 0s10 4.477 10 10-4.477 10-10 10S0 15.523 0 10z"
+                                                    transform="translate(-36 -796) translate(36 796)"></path>
+                                                <path fill="#FFF"
+                                                    d="M15.11 7.53c-.122-.47-.484-.842-.943-.968C13.336 6.333 10 6.333 10 6.333s-3.336 0-4.167.23c-.46.125-.82.496-.943.968-.223.854-.223 2.636-.223 2.636s0 1.782.223 2.636c.122.471.484.842.943.968C6.664 14 10 14 10 14s3.336 0 4.167-.229c.46-.126.82-.497.943-.968.223-.854.223-2.636.223-2.636s0-1.782-.223-2.636"
+                                                    transform="translate(-36 -796) translate(36 796)"></path>
+                                                <path fill="red" d="M9 12L9 8.667 11.667 10.333z"
+                                                    transform="translate(-36 -796) translate(36 796)"></path>
                                             </g>
-                                        </svg>
-                                        <div class="ibgLNl ml-1">Titre</div>
-                                    </div>
-                                </a>
+                                        </g>
+                                    </svg>
+                                    <div class="ibgLNl ml-1">Leçon</div>
+                                </div>
                             </button>
-                            <button class="btn btn-sm add-video-btn">
+                            <!-- <button class="btn btn-sm add-video-btn">
                                 <a href="#" title="Add Video" class="dropdown-item">
                                     <div class="d-flex flex-row">
                                         <svg width="20" height="20" viewBox="0 0 20 20">
@@ -92,8 +92,8 @@
                                         <div class="ibgLNl ml-1">Vidéo</div>
                                     </div>
                                 </a>
-                            </button>
-                            <button class="btn btn-sm add-description-btn">
+                            </button> -->
+                            <!-- <button class="btn btn-sm add-description-btn">
                                 <a href="#" title="Add Description" class="dropdown-item lmfOYQ">
                                     <div class="d-flex flex-row">
                                         <svg width="18" height="18" viewBox="0 0 18 18">
@@ -108,8 +108,8 @@
                                     </div>
                                     <input type="file" class="d-none">
                                 </a>
-                            </button>
-                            <button class="btn btn-sm">
+                            </button> -->
+                            <!-- <button class="btn btn-sm">
                                 <a href="#" title="Add Question" class="dropdown-item add-quiz-btn">
                                     <div class="d-flex flex-row">
                                         <svg width="18" height="18" viewBox="0 0 18 18">
@@ -128,50 +128,171 @@
                                         </div>
                                     </div>
                                 </a>
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div id="quiz_section"></div>
+
         </div>
-
-        <div id="quiz_section"></div>
-
     </div>
+
+    <div id="insert_chapter"></div>
 </div>
+<div class="ivYHKm" style="margin-top: 40px;">
 
-<div id="insert_chapter"></div>
-
-<div class="ivYHKm" id="add_new_chapter" style="margin-top: 40px;">
-    <div>Ajouter un nouveau chapitre</div>
-    <svg width="18" height="18" viewBox="0 0 18 18">
-        <g fill="#13131A">
-            <path
-                d="M.535 3.851v.012l5.9 2.691h.006c.355.165.765.165 1.12 0h.006l5.9-2.691v-.012c.223-.074.376-.278.384-.513-.008-.236-.163-.442-.389-.514L7.57.124h-.011c-.354-.165-.764-.165-1.118 0H6.43l-5.89 2.7c-.226.072-.381.278-.389.514.008.235.161.44.384.513z"
-                transform="translate(-937 -2179) translate(447 2137) translate(331 42) translate(159) translate(2 2)">
-            </path>
-            <path
-                d="M13.46 6.485l-1.153-.529C10.5 6.783 8.03 7.909 8 7.919c-.642.255-1.358.255-2 0-.028-.009-2.494-1.134-4.3-1.962l-1.16.528c-.23.064-.389.273-.39.512-.001.238.156.448.385.515v.011l5.9 2.692h.006c.355.165.765.165 1.12 0h.006l5.9-2.692v-.011c.23-.065.387-.275.387-.513 0-.239-.158-.449-.387-.514h-.007z"
-                transform="translate(-937 -2179) translate(447 2137) translate(331 42) translate(159) translate(2 2)">
-            </path>
-            <path
-                d="M13.46 10.148l-1.153-.529C10.5 10.447 8.03 11.573 8 11.582c-.642.257-1.358.257-2 0-.028-.009-2.494-1.134-4.3-1.962l-1.16.528c-.23.065-.388.274-.39.512 0 .238.156.449.385.516v.011l5.9 2.691h.006c.355.165.765.165 1.12 0h.006l5.9-2.691v-.011c.229-.066.387-.276.387-.514s-.158-.448-.387-.514h-.007z"
-                transform="translate(-937 -2179) translate(447 2137) translate(331 42) translate(159) translate(2 2)">
-            </path>
-        </g>
-    </svg>
+    <button class="btn add_new_chapter d-flex">
+        <div class="mr-2" style="font-weight: bold;">Ajouter un nouveau chapitre</div>
+        <svg width="18" height="18" viewBox="0 0 18 18">
+            <g fill="#13131A">
+                <path
+                    d="M.535 3.851v.012l5.9 2.691h.006c.355.165.765.165 1.12 0h.006l5.9-2.691v-.012c.223-.074.376-.278.384-.513-.008-.236-.163-.442-.389-.514L7.57.124h-.011c-.354-.165-.764-.165-1.118 0H6.43l-5.89 2.7c-.226.072-.381.278-.389.514.008.235.161.44.384.513z"
+                    transform="translate(-937 -2179) translate(447 2137) translate(331 42) translate(159) translate(2 2)">
+                </path>
+                <path
+                    d="M13.46 6.485l-1.153-.529C10.5 6.783 8.03 7.909 8 7.919c-.642.255-1.358.255-2 0-.028-.009-2.494-1.134-4.3-1.962l-1.16.528c-.23.064-.389.273-.39.512-.001.238.156.448.385.515v.011l5.9 2.692h.006c.355.165.765.165 1.12 0h.006l5.9-2.692v-.011c.23-.065.387-.275.387-.513 0-.239-.158-.449-.387-.514h-.007z"
+                    transform="translate(-937 -2179) translate(447 2137) translate(331 42) translate(159) translate(2 2)">
+                </path>
+                <path
+                    d="M13.46 10.148l-1.153-.529C10.5 10.447 8.03 11.573 8 11.582c-.642.257-1.358.257-2 0-.028-.009-2.494-1.134-4.3-1.962l-1.16.528c-.23.065-.388.274-.39.512 0 .238.156.449.385.516v.011l5.9 2.691h.006c.355.165.765.165 1.12 0h.006l5.9-2.691v-.011c.229-.066.387-.276.387-.514s-.158-.448-.387-.514h-.007z"
+                    transform="translate(-937 -2179) translate(447 2137) translate(331 42) translate(159) translate(2 2)">
+                </path>
+            </g>
+        </svg>
+    </button>
 </div>
-
 <div class="mt-4">
     <div class="iHhhTz">
-        <button class="hJLFyW" id="save-draft-btn" data-url="{% url 'dashboard:create-course'  %}">Enregistrer</button>
-        <button disabled=""
+        <div>
+            <div id='loader' style='display: none;'>
+                <img class="d-flex justify-content-center" src="{% static 'images/25.gif' %}" width='32px'
+                    height='32px'>
+            </div>
+            <button class="hJLFyW" id="save-draft-btn" disabled=""
+                data-url="{% url 'dashboard:create-course' %}">Enregistrer</button>
+        </div>
+        <button disabled="" id="publish-course-btn" data-toggle="modal" data-target="#publish_course_modal"
             class="defaultButton__DefaultButton-sc-1scxgx7-0 primaryButton__PrimaryButton-sc-1t32hmz-0 jRKnYV khmjno">Publier</button>
     </div>
-    <div class="jwyJKT">Les champs avec des asterisks (*) doivent être remplis pour que le cours soit publié. À
-        l'enregistrement, seul le titre du cours est obligatoire.</div>
+    <div class="jwyJKT">
+        Les champs avec des asterisks (*) doivent être remplis pour que le cours soit publié. À
+        l'enregistrement, seul le titre du cours est obligatoire.
+    </div>
 </div>
 
+<!-- Publish Course Modal-->
+<div class="modal fade publish" id="publish_course_modal" tabindex="-1" role="dialog"
+    aria-labelledby="publishCourseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="max-width: 1090px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="general_info10">
+                    <div class="course__form" style="padding-left: 20px; padding-right: 20px;">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="course_des_textarea mt-30 lbel25">
+                                    <label>Description*</label>
+                                    <div class="course_des_bg">
+                                        <ul class="course_des_ttle">
+                                            <li><a href="#"><i class="uil uil-bold"></i></a></li>
+                                            <li><a href="#"><i class="uil uil-italic"></i></a></li>
+                                            <li><a href="#"><i class="uil uil-list-ul"></i></a></li>
+                                            <li><a href="#"><i class="uil uil-left-to-right-text-direction"></i></a>
+                                            </li>
+                                            <li><a href="#"><i class="uil uil-right-to-left-text-direction"></i></a>
+                                            </li>
+                                            <li><a href="#"><i class="uil uil-list-ui-alt"></i></a></li>
+                                            <li><a href="#"><i class="uil uil-link"></i></a></li>
+                                            <li><a href="#"><i class="uil uil-text-size"></i></a></li>
+                                            <li><a href="#"><i class="uil uil-text"></i></a></li>
+                                        </ul>
+                                        <div class="textarea_dt">
+                                            <div class="ui form swdh339">
+                                                <div class="field">
+                                                    <textarea rows="5" name="description" id="course_description"
+                                                        placeholder="Insert your course description"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="ui search focus mt-30 lbel25">
+                                        <label>Prix*</label>
+                                        <div class="ui left icon input swdh19">
+                                            <input class="prompt srch_explore" type="text"
+                                                placeholder="Insert your course Subtitle." name="subtitle"
+                                                data-purpose="edit-course-title" maxlength="60" id="course_price"
+                                                value="">
+                                            <div class="badge_num2">FCFA</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="ui search focus mt-30 lbel25">
+                                        <label>Thumbnail*</label>
+                                        <div class="ui left icon input swdh19">
+                                            <input class="prompt srch_explore" type="file" name="subtitle"
+                                                id="course_thumbnail">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="mt-30 lbel25">
+                                    <label>Langue*</label>
+                                </div>
+                                <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="course_language">
+                                    <option value="" disabled>Choisir la langue</option>
+                                    {% for language in languages %}
+                                    <option value="{{language.name}}">{{ language.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="mt-30 lbel25">
+                                    <label>Niveau*</label>
+                                </div>
+                                <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="course_level">
+                                    <option value="" disabled>Choisir le niveau</option>
+
+                                    {% for key, value in levels %}
+                                    <option value="{{key}}">{{ value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-12 select-box">
+                                <div class="mt-30 lbel25">
+                                    <label>Catégorie*</label>
+                                </div>
+                                <select class="ui hj145 dropdown cntry152 prompt srch_explore">
+                                    {% for category in categories %}
+                                    <option value="{{category.name}}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dAfxhl" style="margin: 15px 50px 40px 0;">
+                <button id="publish_course_btn" data-url="{% url 'dashboard:submit-course' %}"
+                    class="defaultButton__DefaultButton-sc-1scxgx7-0 primaryButton__PrimaryButton-sc-1t32hmz-0 detailsEditorModal__PublishOrSave-z4bcvp-8 jRKnYV khmjno">
+                    Publier votre cours
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 
@@ -180,12 +301,8 @@
 {% block semantic %} {% endblock semantic %}
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
 <script>
     $(document).ready(function () {
-        $('#summernote').summernote();
-
         $("#sortable").sortable({
             revert: true
         });
@@ -199,59 +316,62 @@
 
         $("ul, li").disableSelection();
 
-        $('#add_new_chapter').on('click', function () {
-            var len = $('.chapter').length;
+        $('.add_new_chapter').on('click', function () {
             var $htmlToAdd = $('div.my-chapter').clone()
-            $htmlToAdd.removeClass('my-chapter').addClass('my-chapter-' + len)
+            $htmlToAdd.removeClass('my-chapter').addClass('my-chapter')
+            $htmlToAdd.find('.lesson-form').remove()
             $htmlToAdd.insertBefore('#insert_chapter')
-
         })
 
-        $(document).on('click', '.add-title-btn', function () {
-            var len = $('.chapter').length;
+        $(document).on('click', '.add-lesson-btn', function () {
             var $sortableComponent = $(this).parents(".add-lesson-section")
 
-            var $htmlToAdd = '<div class="eQVCSW"><div class="inmuHv dfZJeY">' +
-                '<input type="text" autocapitalize="sentences" name="lesson_' + len +
-                '-name" placeholder="Ajouter le titre de la leçon">' +
-                '</div><div class="gMCPru gulyia eKocqC"><div class="esedNQ">' +
-                '<svg width="18" height="19" viewBox="0 0 18 19" class="hwgExz"><g fill="none" fill-rule="evenodd">' +
-                '<path d="M0 0H18V18H0z" transform="translate(-358 -198) translate(51 180) translate(18 18.5) translate(289)">' +
-                '</path><path fill="#13131A" d="M9 12.75c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zM9 7.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5S7.5 9.828 7.5 9 8.172 7.5 9 7.5zm0-5.25c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z" transform="translate(-358 -198) translate(51 180) translate(18 18.5) translate(289)">' +
-                '</path></g></svg></div></div></div>';
+            var $htmlToAdd = '<div class="lesson-form ivYHKm" style="display: block!important; padding: 10px!important; margin-top: 15px;">' +
+                '<div class="dropdown d-flex justify-content-end">' +
+                '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
+                '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                '<button class="btn btn-sm dropdown-item delete-lesson d-flex">' +
+                '<svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">' +
+                '<g fill="none" fill-rule="evenodd"><g fill="#13131A">' +
+                '<path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
+                'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
+                '</path></g></g></svg>Supprimer</button></div></div>' +
 
-            $sortableComponent.append($htmlToAdd);
-            $sortableComponent.addClass("sortable")
-        })
+                '<div class="eQVCSW lesson-title" style="margin-top: 5px"><div class="inmuHv dfZJeY">' +
+                '<input type="text" autocapitalize="sentences" name="ltitle_input" placeholder="Ajouter le titre de la leçon">' +
+                '</div></div>' +
 
-        $('.add-video-btn').on('click', function () {
-            event.preventDefault()
-            var $htmlToAdd = '<div class="hkJnVs mt-4"><div class="ynJOs">' +
-                '<div class="jgZALD"><svg width="20" height="20" viewBox="0 0 20 20">' +
+                '<div class="hkJnVs mt-4 lesson-video"><div class="ynJOs">' +
+                '<div class="jgZALD"><svg width="20" class="mr-4" height="20" viewBox="0 0 20 20">' +
                 '<g fill="none" fill-rule="evenodd"><g fill-rule="nonzero">' +
                 '<path fill="red" d="M0 10C0 4.477 4.477 0 10 0s10 4.477 10 10-4.477 10-10 10S0 15.523 0 10z" transform="translate(-36 -796) translate(36 796)"></path>' +
                 '<path fill="#FFF" d="M15.11 7.53c-.122-.47-.484-.842-.943-.968C13.336 6.333 10 6.333 10 6.333s-3.336 0-4.167.23c-.46.125-.82.496-.943.968-.223.854-.223 2.636-.223 2.636s0 1.782.223 2.636c.122.471.484.842.943.968C6.664 14 10 14 10 14s3.336 0 4.167-.229c.46-.126.82-.497.943-.968.223-.854.223-2.636.223-2.636s0-1.782-.223-2.636" transform="translate(-36 -796) translate(36 796)">' +
                 '</path><path fill="red" d="M9 12L9 8.667 11.667 10.333z" transform="translate(-36 -796) translate(36 796)"></path></g></g></svg>' +
-                '<input placeholder="Add here the Youtube link"></div></div>' +
-                '<div class="gMCPru gulyia eKocqC">' +
-                '<div class="esedNQ"><svg width="18" height="19" viewBox="0 0 18 19" class="kebabMenu__BigKebab-sc-1f2nmz8-1 hwgExz">' +
-                '<g fill="none" fill-rule="evenodd"><path d="M0 0H18V18H0z" transform="translate(-358 -198) translate(51 180) translate(18 18.5) translate(289)">' +
-                '</path><path fill="#13131A" d="M9 12.75c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zM9 7.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5S7.5 9.828 7.5 9 8.172 7.5 9 7.5zm0-5.25c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z" transform="translate(-358 -198) translate(51 180) translate(18 18.5) translate(289)">' +
-                '</path></g></svg></div></div></div>';
-            var $sortableComponent = $('div#sortable');
-            $sortableComponent.append($htmlToAdd);
-        })
+                '<input placeholder="Add here the Youtube link" name="lvideo_input"></div></div>' +
+                '</div>' +
 
-        $('.add-description-btn').on('click', function () {
-            var $htmlToAdd = '<div class="eQVCSW"><div class="inmuHv dfZJeY">' +
-                '<textarea id="summernote"></textarea>' +
-                '</div><div class="gMCPru gulyia eKocqC"><div class="esedNQ">' +
-                '<svg width="18" height="19" viewBox="0 0 18 19" class="hwgExz"><g fill="none" fill-rule="evenodd">' +
-                '<path d="M0 0H18V18H0z" transform="translate(-358 -198) translate(51 180) translate(18 18.5) translate(289)">' +
-                '</path><path fill="#13131A" d="M9 12.75c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zM9 7.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5S7.5 9.828 7.5 9 8.172 7.5 9 7.5zm0-5.25c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z" transform="translate(-358 -198) translate(51 180) translate(18 18.5) translate(289)">' +
-                '</path></g></svg></div></div></div>';
-            var $sortableComponent = $('div#sortable');
+                '<div class="eQVCSW lesson-text" style="margin-top: 15px;"><div class="inmuHv dfZJeY">' +
+                '<div class="course_des_bg"><ul class="course_des_ttle">' +
+                '<li><a href="#"><i class="uil uil-bold"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-italic"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-list-ul"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-left-to-right-text-direction"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-right-to-left-text-direction"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-list-ui-alt"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-link"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-text-size"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-text"></i></a></li></ul>' +
+                '<div class="textarea_dt"><div class="ui form swdh339">' +
+                '<div class="field"> <textarea rows="5" name="ltext_input" id="course_description"' +
+                'placeholder="Insert your course description"></textarea>' +
+                '</div></div></div></div>' +
+                '</div></div>' +
+
+                '</div>';
+
             $sortableComponent.append($htmlToAdd);
+            $sortableComponent.addClass("sortable")
         })
 
         $('.add-quiz-btn').on('click', function () {
@@ -317,23 +437,100 @@
         })
 
         $('#save-draft-btn').on('click', function () {
-            var $courseTitle = $("input[name=course_title]")
-            var $chapterName = $("input[name=chapter_name]")
+            var $courseTitle = $("input[name=course_title]");
             var $thisURL = $(this).attr('data-url');
+            var chapterList = [];
+            var lessonList = [];
+
+            $('.my-chapter').each(function () {
+                chapterList.push({
+                    chapter: $(this).find("input[name=chapter_name]").val()
+                })
+            })
+
+            $('div.my-chapter div.chapter div.add-lesson-section div.lesson-form').each(function () {
+                lessonList.push({
+                    chapter: $(this).closest('div.my-chapter').find("input[name=chapter_name]").val(),
+                    title: $(this).find('input[name=ltitle_input]').val(),
+                    videoId: $(this).find('input[name=lvideo_input]').val(),
+                    text: $(this).find('textarea[name=ltext_input]').val()
+                })
+            })
+
+            $.ajax({
+                type: 'POST',
+                url: $thisURL,
+                beforeSend: function () {
+                    // Show image container
+                    $('#save-draft-btn').hide();
+                    $("#loader").show();
+                },
+                data: {
+                    'courseTitle': $courseTitle.val(),
+                    'chapters': JSON.stringify(chapterList),
+                    'lessons': JSON.stringify(lessonList),
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    console.log(data)
+                    $('#publish-course-btn').attr('disabled', false);
+                    $('#publish_course_btn').attr('course_id', data['id'])
+                }
+                ,
+                complete: function (data) {
+                    $("#loader").hide();
+                    $('#save-draft-btn').show();
+                }
+            })
+        })
+
+        $(document).on('click', '.delete-chapter', function () {
+            $(this).closest("div.my-chapter").remove()
+        })
+
+        $(document).on('click', '.delete-lesson', function () {
+            $(this).closest('div.lesson-form').remove()
+        })
+
+        $('input[name=course_title]').on('keyup', function () {
+            let empty = false;
+            empty = $(this).val().length == 0
+
+            if (empty)
+                $('#save-draft-btn').attr('disabled', 'disabled');
+            else
+                $('#save-draft-btn').attr('disabled', false);
+        });
+
+        $('#publish_course_btn').on('click', function () {
+            let $thisURL = $(this).attr('data-url');
+            let $id = $(this).attr('course_id');
+            let $description = $('textarea[id=course_description]');
+            let $price = $('input[id=course_price]');
+            let $thumbnail = $('input[id=course_thumbnail]');
+            let $level = $('select[id=course_level]');
+            let $language = $('select[id=course_language]');
+            console.log($description.val(), $price.val(), $thumbnail.val(), $level.val(), $language.val())
+            console.log($thisURL)
 
             $.ajax({
                 type: 'POST',
                 url: $thisURL,
                 data: {
-                    courseTitle: $courseTitle.val(),
-                    chapterName: $chapterName.val(),
+                    'id': $id,
+                    'description': $description.val(),
+                    'price': $price.val(),
+                    'thumbnail': $thumbnail.val(),
+                    'level': $level.val(),
+                    'language': $language.val(),
                     csrfmiddlewaretoken: '{{ csrf_token }}'
                 },
                 success: function (data) {
-                    console.log(data)
+                    window.location.href = '/dashboard/courses/';
                 }
             })
         })
+
     })
 </script>
 {% endblock extrajs %}

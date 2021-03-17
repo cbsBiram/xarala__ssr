@@ -39,6 +39,7 @@
   <link href="{% static 'css/instructor-responsive.css' %}" rel="stylesheet" />
   <link href="{% static 'css/night-mode.css' %}" rel="stylesheet" />
   <link href="{% static 'css/jquery-steps.css' %}" rel="stylesheet">
+  <link href="{% static 'css/bootstrap-select.css' %}" rel="stylesheet" />
 
   <!-- Vendor Stylesheets -->
   <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" />
@@ -46,10 +47,6 @@
   <link href="{% static 'vendor/OwlCarousel/assets/owl.theme.default.min.css' %}" rel="stylesheet" />
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="{% static 'vendor/semantic/semantic.min.css' %}" />
-  <!-- include summernote css/js -->
-  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
 
   {% block extrastyle %}
   <style>
@@ -452,6 +449,220 @@
       color: rgb(234, 235, 239);
       box-shadow: none;
     }
+
+    .jgZALD {
+      display: flex;
+      -moz-box-align: center;
+      align-items: center;
+    }
+
+    .jgZALD input {
+      font-size: 0.75rem;
+      flex: 1 1 0%;
+      border: medium none;
+      outline: currentcolor none medium;
+      text-overflow: ellipsis;
+      padding-right: 10px;
+    }
+
+    .knEnYt {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .knEnYt> :not(:last-child) {
+      margin-right: 60px;
+    }
+
+    .csYwjZ {
+      flex: 1 1 0%;
+    }
+
+    .eGxxZW> :not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    .ilhrAj {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      height: 200px;
+      width: 100%;
+      background: rgb(255, 255, 255) none repeat scroll 0% 0%;
+    }
+
+    .kHJuMu {
+      height: 100%;
+    }
+
+    .lmfOYQ {
+      height: 100%;
+      position: relative;
+    }
+
+    .eMctrY {
+      width: 100%;
+      height: 100%;
+      background-color: rgb(254, 79, 79);
+      display: flex;
+      flex-direction: column;
+      -moz-box-align: center;
+      align-items: center;
+      -moz-box-pack: center;
+      justify-content: center;
+      overflow: hidden;
+      transform: scale(1);
+      transition: transform 0.2s ease-out 0s;
+    }
+
+    .eMctrY img {
+      position: absolute;
+      z-index: -1;
+      top: 50%;
+      left: 50%;
+      transition: transform 0.2s ease-in-out 0s;
+      transform-origin: 52% 46% 0px;
+      transform: translate(-50%, -50%);
+    }
+
+    .ghyTvl {
+      pointer-events: none;
+      position: absolute;
+      inset: 0px;
+      background-image: linear-gradient(to top, rgba(0, 0, 0, 0.75) 25%, rgba(0, 0, 0, 0));
+      color: rgb(255, 255, 255);
+      padding: 26px 14px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .bgQjcd {
+      color: rgb(19, 19, 26);
+      font-size: 0.9375rem;
+    }
+
+    .bbSxCG {
+      color: rgb(254, 79, 79);
+      max-width: 250px;
+    }
+
+    .knEnYt> :not(:last-child) {
+      margin-right: 60px;
+    }
+
+    .eclWOp {
+      -moz-box-flex: 0;
+      flex-grow: 0;
+      align-self: stretch;
+      background-color: rgb(234, 235, 239);
+      width: 1px;
+      flex-shrink: 0;
+    }
+
+    .hyZfpm {
+      flex: 1 1 0%;
+    }
+
+    .hyZfpm> :not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    .jPVeyK {
+      color: rgb(19, 19, 26);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .hyZfpm> :not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    .bgPPRW {
+      background-color: rgb(255, 255, 255);
+      border: 1px solid rgb(234, 235, 239);
+      border-radius: 10px;
+      min-height: 100px;
+      margin-top: 20px;
+      cursor: text;
+    }
+
+    .gBTnjC {
+      position: relative;
+    }
+
+    .DraftEditor-root {
+      position: relative;
+    }
+
+    .bgPPRW .public-DraftEditorPlaceholder-root {
+      opacity: 0.8;
+    }
+
+    .bgPPRW .public-DraftEditor-content,
+    .bgPPRW .public-DraftEditorPlaceholder-root {
+      padding: 20px;
+    }
+
+    .public-DraftEditorPlaceholder-root {
+      color: #9197a3;
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+    }
+
+    .DraftEditor-editorContainer {
+      background-color: hsla(0, 0%, 100%, 0);
+      border-left: .1px solid transparent;
+      position: relative;
+      z-index: 1;
+    }
+
+    .public-DraftStyleDefault-ltr {
+      direction: ltr;
+      text-align: left;
+    }
+
+    .public-DraftStyleDefault-block {
+      position: relative;
+      white-space: pre-wrap;
+    }
+
+    .gtXKZH {
+      position: relative;
+    }
+
+    .jdHWNt {
+      width: 100%;
+      background-color: rgb(255, 255, 255);
+      border: 1px solid rgb(234, 235, 239);
+      border-radius: 10px;
+      outline: currentcolor none medium;
+      padding: 15px 34px 15px 15px;
+      font-size: 0.75rem;
+      appearance: none;
+    }
+
+    .gtXKZH svg {
+      pointer-events: none;
+      content: "";
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+
+    .dAfxhl {
+      align-self: flex-end;
+    }
+
+    .dAfxhl {
+      display: flex;
+      -moz-box-align: center;
+      align-items: center;
+    }
+
+    .dAfxhl> :not(:last-child) {
+      margin-right: 10px;
+    }
   </style>
   {% endblock extrastyle %}
 </head>
@@ -571,6 +782,8 @@
     <!-- <script src="{% static 'vendor/semantic/semantic.min.js' %}"></script> -->
     <!-- <script src="{% static 'js/custom.js' %}"></script> -->
     <script src="{% static 'js/night-mode.js' %}"></script>
+
+    <script src="{% static 'js/bootstrap-select.js' %}"></script>
     {% block extrajs %} {% endblock extrajs %}
 </body>
 
