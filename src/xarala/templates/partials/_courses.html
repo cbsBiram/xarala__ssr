@@ -84,10 +84,10 @@
                       <a href="{% url 'course:course-overview' course.slug %}" title="View"
                         class="dropdown-item">Aperçu</a>
                     </button>
-                    <button class="btn btn-sm">
+                    <!-- <button class="btn btn-sm">
                       <a href="{% url 'dashboard:manage-course' course.slug %}" title="Manage"
                         class="dropdown-item">Gestion</a>
-                    </button>
+                    </button> -->
                     {% if user.is_teacher and not course.submitted and not course.published %}
                     {% if course.get_chapters and course.count_lessons %}
                     <button id="submit_course" class="btn btn-sm">
