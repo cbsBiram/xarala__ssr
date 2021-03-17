@@ -1,0 +1,102 @@
+<!-- Create Quiz Modal-->
+<div class="modal fade add_quiz" id="add_quiz_{{chapter.id}}" tabindex="-1" role="dialog"
+    aria-labelledby="addQuizModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="st_title" id="addQuizModalLabel">
+                    <i class="uil uil-analysis"></i>
+                    Ajouter un quiz
+                </h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="add-quiz-{{chapter.id}}" chapter_id={{chapter.id}}
+                    data-url="{% url 'dashboard:create-quiz' chapter.slug %}">
+                    {% csrf_token %}
+                    <div class="general_info10">
+                        <div class="row">
+                            {{ form_q.non_field_errors }}
+                            <div class="col-12">
+                                <small id="titleHelp" class="text-danger">
+                                    {{ form_q.title.errors }}
+                                </small>
+                                <div class="ui search focus mt-10 lbel25">
+                                    <label for="{{ form_q.title.id_for_label }}">Titre*</label>
+                                    <div class="ui left icon input swdh19">
+                                        {{ form_q.title }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <small id="descriptionHelp" class="text-danger">
+                                    {{ form_q.description.errors }}
+                                </small>
+                                <div class="ui search focus mt-10 lbel25">
+                                    <label for="{{ form_q.description.id_for_label }}">Description*</label>
+                                    <div class="ui left icon input swdh19">
+                                        {{ form_q.description }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 mt-30">
+                                <button type="button"
+                                    class="create_btn_dash submit-added-quiz-data">Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Delete quiz Modal-->
+<div class="modal fade delete_quiz" id="delete_quiz_{{chapter.id}}" tabindex="-1" role="dialog"
+    aria-labelledby="delQuizModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="st_title" id="delQuizModalLabel">
+                    <i class="uil uil-analysis"></i>
+                    Supprimer le quiz
+                    <b class="course_active">{{ chapter.quiz.title }}</b>
+                </h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="delete-quiz-{{chapter.id}}" method="POST"
+                    data-url="{% url 'dashboard:delete-quiz' chapter.slug %}">
+                    {% csrf_token %}
+                    <div class="general_info10">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="ui search focus mt-10 lbel25">
+                                    <label>
+                                        Êtes-vous sûr de vouloir supprimer
+                                        ce quiz?
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button data-dismiss="modal" class="create_btn_dash btn-danger" style="float: right">
+                                    Annuler
+                                </button>
+                                <button type="button" class="create_btn_dash mr-2 submit-deleted-quiz-data"
+                                    style="float: right">
+                                    Confirmer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

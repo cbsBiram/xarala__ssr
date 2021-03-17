@@ -166,6 +166,10 @@ class Chapter(models.Model):
             self.slug = self._get_unique_slug()
         super().save(*args, **kwargs)
 
+    def get_lessons(self):
+        lessons = Lesson.objects.filter(chapter=self).order_by("id")
+        return lessons
+
     class Meta:
         ordering = ["id"]
 

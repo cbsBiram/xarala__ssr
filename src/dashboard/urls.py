@@ -87,7 +87,7 @@ urlpatterns = [
         "course/create/", teacher_views.CourseCreateView.as_view(), name="create-course"
     ),
     path(
-        "course/edit/<int:pk>",
+        "course/edit/<slug:slug>",
         teacher_views.CourseUpdateView.as_view(),
         name="update-course",
     ),
@@ -105,7 +105,7 @@ urlpatterns = [
         name="update-chapter",
     ),
     path(
-        "delete-chapter/<int:id>/",
+        "delete-chapter/<slug:slug>/",
         teacher_views.delete_chapter,
         name="delete-chapter",
     ),
@@ -130,25 +130,25 @@ urlpatterns = [
         name="update-lesson",
     ),
     path(
-        "delete-lesson/<int:id>/",
+        "delete-lesson/<slug:slug>/",
         teacher_views.delete_lesson,
         name="delete-lesson",
     ),
     path("add-quiz/<slug:slug>/", teacher_views.create_quiz, name="create-quiz"),
     path(
-        "update-quiz/<int:id>/",
+        "update-quiz/<slug:slug>/",
         teacher_views.update_quiz,
         name="update-quiz",
     ),
     path(
-        "delete-quiz/<int:id>/",
+        "delete-quiz/<slug:slug>/",
         teacher_views.delete_quiz,
         name="delete-quiz",
     ),
     path(
-        "draft-lesson/<int:id>/",
-        teacher_views.draft_lesson,
-        name="draft-lesson",
+        "manage-quiz/<slug:slug>",
+        teacher_views.ChapterManagementView.as_view(),
+        name="manage-quiz",
     ),
     path("submit-course/", teacher_views.submit_course, name="submit-course"),
     path("draft-course/", teacher_views.draft_course, name="draft-course"),
