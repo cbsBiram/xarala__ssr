@@ -66,29 +66,6 @@ class CourseListView(ListView):
         return render(request, self.template_name, context)
 
 
-# @method_decorator([teacher_required], name="dispatch")
-# class CourseCreateView(CreateView):
-#     form_class = CreateCourse
-#     template_name = "instructor/create-course.html"
-
-#     def post(self, request, *args, **kwargs):
-#         form = self.form_class(request.POST, request.FILES)
-#         teacher = self.request.user
-#         if form.is_valid():
-#             course = form.save(commit=False)
-#             course.teacher = teacher
-#             course.save()
-#             form.save_m2m()
-#             UserLog.objects.create(
-#                 action=f"Created {course.title} course",
-#                 user_type="Instructeur",
-#                 user=teacher,
-#             )
-#             return redirect("dashboard:courses")
-
-#         return render(request, self.template_name, {"form": form})
-
-
 @method_decorator([teacher_required], name="dispatch")
 class CourseCreateView(CreateView):
     form_class = CreateCourse
@@ -141,6 +118,54 @@ class CourseCreateView(CreateView):
         return render(request, self.template_name)
 
 
+@method_decorator([teacher_required], name="dispatch")
+class CourseUpdateView(UpdateView):
+    model = Course
+    form_class = UpdateCourse
+    template_name = "instructor/edit-course.html"
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        print(self.kwargs["slug"])
+        course = Course.objects.get(slug=self.kwargs["slug"], teacher=user)
+        context = {"course": course}
+
+        return render(request, self.template_name, context=context)
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        if request.POST:
+            values = {"error": "", "has_error": 0}
+            try:
+                course_title = request.POST.get("courseTitle", "")
+                chapters = jsonloads(request.POST.get("chapters", ""))
+                lessons = jsonloads(request.POST.get("lessons", ""))
+
+                course = Course.objects.get(slug=self.kwargs["slug"], teacher=user)
+                course.title = course_title
+                course.save()
+                for chap in chapters:
+                    chapter = Chapter.objects.get(slug=chap.get("chapter_slug"))
+                    chapter.name = chap.get("chapter")
+                    chapter.save()
+                for less in lessons:
+                    chapter = Chapter.objects.get(name=less.get("chapter"))
+                    lesson = Lesson.objects.get(slug=chap.get("lesson_slug"))
+                    lesson.title = (lesson.get("title", ""),)
+                    lesson.video_id = (lesson.get("videoId", ""),)
+                    lesson.chapter = (chapter,)
+                    lesson.text = (lesson.get("text", ""),)
+                    lesson.save()
+                values["id"] = course.id
+                values["title"] = course.title
+            except Exception as e:
+                values["error"] = e
+                values["has_error"] = -1
+            return JsonResponse(values)
+
+        return render(request, self.template_name)
+
+
 @teacher_required
 def submit_course(request):
     user = request.user
@@ -157,32 +182,6 @@ def submit_course(request):
         course.save()
         return redirect("dashboard:courses")
     return JsonResponse({})
-
-
-@method_decorator([teacher_required], name="dispatch")
-class CourseUpdateView(UpdateView):
-    model = Course
-    form_class = UpdateCourse
-    template_name = "instructor/edit-course.html"
-
-
-# @teacher_required
-# def submit_course(request):
-#     user = request.user
-#     values = {"error": "", "has_error": 0}
-#     course_id = int(request.POST.get("id"))
-#     try:
-#         course = Course.objects.get(pk=course_id, teacher=user)
-#         if not course.submitted:
-#             course.submitted = True
-#         else:
-#             if not course.published:
-#                 course.published = True
-#         course.save()
-#     except Exception as e:
-#         values["error"] = e
-#         values["has_error"] = -1
-#     return JsonResponse(values)
 
 
 @teacher_required
@@ -270,10 +269,10 @@ def update_chapter(request, id):
 
 
 @teacher_required
-def delete_chapter(request, id):
+def delete_chapter(request, slug):
     values = {"error": "", "has_error": 0}
     try:
-        chapter = get_object_or_404(Chapter, id=id)
+        chapter = get_object_or_404(Chapter, slug=slug)
         if request.method == "POST":
             chapter.delete()
     except Exception as e:
@@ -353,6 +352,19 @@ def update_lesson(request, id):
 
     template_name = "instructor/edit-lesson.html"
     return render(request, template_name, {"form": form, "lesson": instance})
+
+
+@teacher_required
+def delete_lesson(request, slug):
+    values = {"error": "", "has_error": 0}
+    try:
+        lesson = get_object_or_404(Lesson, slug=slug)
+        if request.method == "POST":
+            lesson.delete()
+    except Exception as e:
+        values["error"] = e
+        values["has_error"] = -1
+    return JsonResponse(values)
 
 
 @teacher_required

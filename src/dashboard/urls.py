@@ -87,7 +87,7 @@ urlpatterns = [
         "course/create/", teacher_views.CourseCreateView.as_view(), name="create-course"
     ),
     path(
-        "course/edit/<int:pk>",
+        "course/edit/<slug:slug>",
         teacher_views.CourseUpdateView.as_view(),
         name="update-course",
     ),
@@ -105,7 +105,7 @@ urlpatterns = [
         name="update-chapter",
     ),
     path(
-        "delete-chapter/<int:id>/",
+        "delete-chapter/<slug:slug>/",
         teacher_views.delete_chapter,
         name="delete-chapter",
     ),
@@ -128,6 +128,11 @@ urlpatterns = [
         "update-lesson/<int:id>/",
         teacher_views.update_lesson,
         name="update-lesson",
+    ),
+    path(
+        "delete-lesson/<slug:slug>/",
+        teacher_views.delete_lesson,
+        name="delete-lesson",
     ),
     path("add-quiz/<slug:slug>/", teacher_views.create_quiz, name="create-quiz"),
     path(
