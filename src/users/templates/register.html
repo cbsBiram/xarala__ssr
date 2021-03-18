@@ -12,51 +12,66 @@ Authentification
 <div class="col-lg-6 col-md-8">
   <div class="sign_form">
     <h2>S'inscrire sur Xarala</h2>
-    <form method="POST">
-      {% csrf_token %}
-      <div class="ui search focus mt-15">
-        <div class="ui left icon input swdh11 swdh19">
-          <input class="prompt srch_explore" type="text" name="first_name" required placeholder="Prénom">
-        </div>
-      </div>
-      <div class="ui search focus mt-15">
-        <div class="ui left icon input swdh11 swdh19">
-          <input class="prompt srch_explore" type="text" name="last_name" required placeholder="Nom de famille">
-        </div>
-      </div>
-      <div class="ui search focus mt-15">
-        <div class="ui left icon input swdh11 swdh19">
-          <input class="prompt srch_explore" type="email" name="email" required placeholder="Email">
-        </div>
-      </div>
-      <div class="ui search focus mt-15">
-        <div class="ui left icon input swdh11 swdh19">
-          <input class="prompt srch_explore" type="password" name="password" required placeholder="Mot de passe">
-        </div>
-      </div>
-      <div class="ui search focus mt-15">
-        <div class="ui left icon input swdh11 swdh19">
-          <input class="prompt srch_explore" type="password" name="password2" required
-            placeholder="Confirmation du mot de passe">
-        </div>
-      </div>
-      <div class="ui form mt-30 checkbox_sign">
-        <div class="inline field">
-          <div class="ui checkbox mncheck">
-            <input type="checkbox" tabindex="0" class="hidden" name="is_teacher">
-            <label>Je suis formateur(trice)</label>
+    <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-light">
+      <button class="social_lnk_btn color_btn_go">
+        <i class="uil uil-google"></i>Continuez avec
+        Google
+      </button>
+
+    </a>
+
+    <button class="social_lnk_btn color_btn_fb   mt-15 using-email">
+      <i class="uil uil-fast-mail"></i>Continuez avec
+      votre email
+    </button>
+    <div class="form-container" style="display: none;">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="ui search focus mt-15">
+          <div class="ui left icon input swdh11 swdh19">
+            <input class="prompt srch_explore" type="text" name="first_name" required placeholder="Prénom">
           </div>
         </div>
-      </div>
-      <div class="mb-2 mt-10">
-        <div class="g-recaptcha" data-sitekey="{{ GOOGLE_RECAPTCHA_SITE_KEY }}"></div>
-      </div>
-      <button class="login-btn" type="submit">S'inscrire</button>
-    </form>
-    <p class="sgntrm145">En vous inscrivant vous acceptez <a target="_blank" href="{% url 'pages:privacy_policy' %}">les
-        conditions
-        d'utilisation du site</a></p>
-    <p class="mb-0 mt-10"><a href="{% url 'login' %}?next={{ next|default_if_none:'/' }}">J'ai déja un compte</a></p>
+        <div class="ui search focus mt-15">
+          <div class="ui left icon input swdh11 swdh19">
+            <input class="prompt srch_explore" type="text" name="last_name" required placeholder="Nom de famille">
+          </div>
+        </div>
+        <div class="ui search focus mt-15">
+          <div class="ui left icon input swdh11 swdh19">
+            <input class="prompt srch_explore" type="email" name="email" required placeholder="Email">
+          </div>
+        </div>
+        <div class="ui search focus mt-15">
+          <div class="ui left icon input swdh11 swdh19">
+            <input class="prompt srch_explore" type="password" name="password" required placeholder="Mot de passe">
+          </div>
+        </div>
+        <div class="ui search focus mt-15">
+          <div class="ui left icon input swdh11 swdh19">
+            <input class="prompt srch_explore" type="password" name="password2" required
+              placeholder="Confirmation du mot de passe">
+          </div>
+        </div>
+        <div class="ui form mt-30 checkbox_sign">
+          <div class="inline field">
+            <div class="ui checkbox mncheck">
+              <input type="checkbox" tabindex="0" class="hidden" name="is_teacher">
+              <label>Je suis formateur(trice)</label>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2 mt-10">
+          <div class="g-recaptcha" data-sitekey="{{ GOOGLE_RECAPTCHA_SITE_KEY }}"></div>
+        </div>
+        <button class="login-btn" type="submit">S'inscrire</button>
+      </form>
+      <p class="sgntrm145">En vous inscrivant vous acceptez <a target="_blank"
+          href="{% url 'pages:privacy_policy' %}">les
+          conditions
+          d'utilisation du site</a></p>
+      <p class="mb-0 mt-10"><a href="{% url 'login' %}?next={{ next|default_if_none:'/' }}">J'ai déja un compte</a></p>
+    </div>
   </div>
   {% include "_auth_footer.html" %}
 </div>
@@ -65,4 +80,11 @@ Authentification
 
 {% block extrajs %}
 <script src='https://www.google.com/recaptcha/api.js?hl=fr'></script>
+<script>
+  $(document).ready(function () {
+    $(document).on("click", ".using-email", function () {
+      $(".form-container").toggle()
+    })
+  });
+</script>
 {% endblock extrajs %}

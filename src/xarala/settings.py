@@ -146,20 +146,10 @@ AUTHENTICATION_BACKENDS = [
     "graphql_jwt.backends.JSONWebTokenBackend",
     "social_core.backends.google.GoogleOAuth2",
     "django.contrib.auth.backends.ModelBackend",
-    "social_core.backends.github.GithubOAuth2",
-    "social_core.backends.google.GoogleOAuth2",
-    "social_core.backends.twitter.TwitterOAuth",
-    "social_core.backends.facebook.FacebookOAuth2",
-    "django.contrib.auth.backends.ModelBackend",
 ]
 
 
-SOCIAL_AUTH_FACEBOOK_SCOPE = ["email"]
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    "fields": "id, name, email, age_range",
-}
-
-LOGIN_URL = "oauth_login"
+LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "dashboard:dashboard"
 LOGOUT_URL = "logout"
 LOGOUT_REDIRECT_URL = "pages:home"
