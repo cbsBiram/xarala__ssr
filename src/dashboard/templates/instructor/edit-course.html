@@ -21,30 +21,29 @@
                 <input type="text" autocapitalize="sentences" name="chapter_name" placeholder="Titre de votre chapitre"
                     value="{{chapter.name}}" required>
             </div>
-            <div class="dropdown d-flex justify-content-end" style="position: relative; top: -40px; right: -20px">
-                <a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <i class="fas fa-ellipsis-v" style="font-size: large;"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="btn btn-sm dropdown-item delete-chapter d-flex"
-                        data-url="{% url 'dashboard:delete-chapter' chapter.slug %}">
-                        <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">
-                            <g fill="none" fill-rule="evenodd">
-                                <g fill="#13131A">
-                                    <path
-                                        d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"
-                                        transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">
-                                    </path>
-                                </g>
+        </div>
+        <div class="dropdown d-flex justify-content-end" style="position: relative; top: -70px; right: -20px">
+            <a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <i class="fas fa-ellipsis-v" style="font-size: large;"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button class="btn btn-sm dropdown-item delete-chapter d-flex"
+                    data-url="{% url 'dashboard:delete-chapter' chapter.slug %}">
+                    <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">
+                        <g fill="none" fill-rule="evenodd">
+                            <g fill="#13131A">
+                                <path
+                                    d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"
+                                    transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">
+                                </path>
                             </g>
-                        </svg>
-                        Supprimer
-                    </button>
-                </div>
+                        </g>
+                    </svg>
+                    Supprimer
+                </button>
             </div>
         </div>
-
 
         <div class="gMCPru add-lesson-section">
             <div class="esedNQ">
@@ -348,18 +347,28 @@
 
         $("ul, li").disableSelection();
 
+        $('input[name=course_title]').on('focus', function () {
+            console.log('a')
+            $(this).parent().removeClass('inmuHv').addClass('bYLGqV')
+        })
+
+        $('input[name=course_title]').on('focusout', function () {
+            $(this).parent().removeClass('bYLGqV').addClass('inmuHv')
+        })
+
         $('.add_new_chapter').on('click', function () {
             var htmlToAdd = '<div class="my-chapter"><div class="jjarOm bqfDsc chapter" style="margin-top: 40px;">' +
                 '<div class="col-12"> <div class="inmuHv jYirZ"><input type="text" autocapitalize="sentences" name="chapter_name"' +
-                'placeholder="Ajouter un titre à votre chapitre" required></div>' +
-                '<div class="dropdown d-flex justify-content-end" style="position: relative; top: -40px; right: -20px">' +
+                'placeholder="Ajouter un titre à votre chapitre" required></div></div>' +
+                '<div class="dropdown d-flex justify-content-end" style="position: relative; top: -70px; right: -20px">' +
                 '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                 '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
                 '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm dropdown-item delete-chapter d-flex">' +
                 '<svg class="mr-2" width="16" height="16" viewBox="0 0 16 16"><g fill="none" fill-rule="evenodd">' +
                 '<g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
                 'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
-                '</path></g></g></svg>Supprimer</button> </div></div></div><div class="gMCPru add-lesson-section"><div class="esedNQ">' +
+                '</path></g></g></svg>Supprimer</button> </div></div>' +
+                '<div class="gMCPru add-lesson-section"><div class="esedNQ">' +
                 '<div class="ivYHKm"><div class="dropdown"><a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"' +
                 'aria-haspopup="true" aria-expanded="false">Ajouter*<i class="fas fa-plus-circle" style="font-size: 18px"></i></a>' +
                 '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm add-lesson-btn dropdown-item">' +
