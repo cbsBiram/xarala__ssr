@@ -383,7 +383,7 @@
                     '<div class="jjarOm kehBGJ bjYTln question-form">' +
                     '<div><div class="kLHfqT">Question 1</div>' +
                     '<div class="inmuHv" style="margin-bottom: 15px;"><input type="text" name="question" autocapitalize="sentences" class="question_input" placeholder="Edit the question...*"></div></div>' +
-                    '<div class="dZwVYc"><div class="new-answer"><div class="gkeyhG"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 jGSZkH"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">1</div><div class="inmuHv">' +
+                    '<div class="dZwVYc"><div class="new-answer"><div class="gkeyhG answer"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 jGSZkH"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">1</div><div class="inmuHv">' +
                     '<input name="answer" type="text" autocapitalize="sentences" placeholder="Answer 1*">' +
                     '</div></div></div></div></div>' +
                     '<div class="eWWrhn ivYHKm add-answer-btn" style="margin-bottom: 18px;"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
@@ -395,7 +395,7 @@
                 let questionToAdd = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
                     '<div><div class="kLHfqT">Question 1</div>' +
                     '<div class="inmuHv" style="margin-bottom: 15px;"><input type="text" autocapitalize="sentences" class="question_input" placeholder="Ajouter la question...*"></div></div>' +
-                    '<div class="dZwVYc"><div class="new-answer"><div class="gkeyhG"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 jGSZkH"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">1</div><div class="inmuHv">' +
+                    '<div class="dZwVYc"><div class="new-answer"><div class="gkeyhG answer"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 jGSZkH"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">1</div><div class="inmuHv">' +
                     '<input name="answer" class="answer_input"  autocapitalize="sentences" placeholder="Réponse 1*">' +
                     '</div></div></div> <div class="new-answer"></div></div>' +
                     '<div class="eWWrhn ivYHKm add-answer-btn" style="margin-bottom: 18px;"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
@@ -408,7 +408,7 @@
             $('.add-answer-btn').on('click', function () {
                 let answerLen = $(this).parents().find('.new-answer').children().length
                 let $answerToAdd =
-                    '<div class="gkeyhG">' +
+                    '<div class="gkeyhG answer">' +
                     '<div class="exerciseEditor__Choice-sc-1hguq4q-5 jGSZkH">' +
                     '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">' + (answerLen + 1) + '</div>' +
                     '<div class="materialTextInput__Container-sc-1aj17jz-0 inmuHv">' +
@@ -430,10 +430,15 @@
                 let $questionLabel = $(this).parents().find('input[name=question]').val()
                 let $answersLabel = ''
                 $(this).parents().find('div.new-answer').find('div.gkeyhG input[name=answer]').each(function () {
-                    console.log($(this).attr('right_answer'))
-                    $answersLabel += '<div class="exerciseView__Choice-sc-19oun2q-3 hRaafP">' +
-                        '<input disabled="" type="checkbox">' +
-                        '<label>' + $(this).val() + '</label></div></div>';
+                    let $value = $(this).val()
+                    if ($(this).attr('correct') == "true")
+                        $answersLabel += '<div class="exerciseView__Choice-sc-19oun2q-3 hRaafP">' +
+                            '<input disabled="" type="checkbox" name="choice" checked>' +
+                            '<label>' + $value + '</label></div></div>';
+                    else
+                        $answersLabel += '<div class="exerciseView__Choice-sc-19oun2q-3 kxhlBp">' +
+                            '<input disabled="" name="choice" type="checkbox">' +
+                            '<label>' + $value + '</label></div></div>';
                 })
 
                 let $questionViewToAdd =
@@ -453,6 +458,7 @@
             })
 
             $(document).on('click', 'div.right-answer-choice div.exerciseEditor__ChoiceIndex-sc-1hguq4q-4', function () {
+                let $index = $(this).html()
                 let $parent = $(this).parent('div.right-answer-choice');
                 $parent.find('.exerciseEditor__ChoiceIndex-sc-1hguq4q-4').each(function () {
                     if ($(this).hasClass('cCrQLa')) {
@@ -462,6 +468,16 @@
                 })
                 $(this).attr("right-answer", true)
                 $(this).addClass("cCrQLa").removeClass('ksjfCD')
+
+                $(this).parents('.question-form').find('.dZwVYc div.new-answer div.gkeyhG.answer').each(function () {
+                    if ($(this).find('.jGSZkH .answer-form').html() == $index) {
+                        $(this).find('.jGSZkH .answer-form').addClass("cCrQLa").removeClass("ksjfCD");
+                        $(this).find('.jGSZkH .inmuHv input[name=answer]').attr("correct", true);
+                    } else {
+                        $(this).find('.jGSZkH .answer-form').addClass("ksjfCD").removeClass("cCrQLa");
+                        $(this).find('.jGSZkH .inmuHv input[name=answer]').removeAttr("correct");
+                    }
+                })
             })
 
             $(document).on('click', 'button.cancel_btn', function () {
