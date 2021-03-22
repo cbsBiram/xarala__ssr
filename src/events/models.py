@@ -17,8 +17,8 @@ class Speaker(models.Model):
 
 class Event(models.Model):
     title = models.CharField(max_length=240)
-    description = models.TextField(null=True)
-    content = models.TextField(null=True, blank=True)
+    description = models.TextField()
+    content = models.TextField()
     location = models.CharField(max_length=240)
     country = models.CharField(max_length=240, null=True)
     total_seats = models.IntegerField(default=0)
@@ -28,7 +28,7 @@ class Event(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_start = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     date_end = models.DateTimeField(auto_now_add=False, blank=True, null=True)
-    speakers = models.ManyToManyField(Speaker, blank=True)
+    speakers = models.ManyToManyField(Speaker)
 
     def __str__(self):
         return self.title
