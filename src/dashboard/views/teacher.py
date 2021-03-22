@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.db.models.aggregates import Count, Sum
 from django.http.response import JsonResponse
 from django.urls import reverse
@@ -83,6 +84,7 @@ class CourseCreateView(CreateView):
         }
         return render(request, self.template_name, context=context)
 
+    @transaction.atomic
     def post(self, request, *args, **kwargs):
         user = request.user
         if request.POST:
@@ -103,31 +105,37 @@ class CourseCreateView(CreateView):
                 )
                 for chapter in chapters:
                     Chapter.objects.create(name=chapter.get("chapter"), course=course)
-                for lesson in lessons:
-                    chapter = Chapter.objects.get(name=lesson.get("chapter"))
-                    Lesson.objects.create(
-                        title=lesson.get("title", ""),
-                        video_id=lesson.get("videoId", ""),
-                        chapter=chapter,
-                        text=lesson.get("text", ""),
-                    )
+                if lessons:
+                    for lesson in lessons:
+                        chapter = Chapter.objects.get(name=lesson.get("chapter"))
+                        Lesson.objects.create(
+                            title=lesson.get("title", ""),
+                            video_id=lesson.get("videoId", ""),
+                            chapter=chapter,
+                            text=lesson.get("text", ""),
+                        )
                 if quizzes:
                     for quiz in quizzes:
-                        chapter = Chapter.objects.get(name=lesson.get("chapter"))
+                        chapter = Chapter.objects.get(name=quiz.get("chapter"))
                         Quiz.objects.create(chapter=chapter, title=quiz.get("title"))
                     for question in questions:
-                        quiz = Quiz.objects.get(name=question.get("quiz"))
+                        print("title", question.get("quiz"))
+                        quiz = Quiz.objects.get(title=question.get("quiz"))
+                        print(quiz)
                         Question.objects.create(quiz=quiz, label=question.get("label"))
-                    for answer in answers:
-                        question = Question.objects.get(label=answer.get("question"))
-                        correct = True if answer.get("checked") else False
-                        Answer.objects.create(
-                            question=question,
-                            label=answer.get("label"),
-                            is_correct=correct,
-                        )
+                        for answer in answers:
+                            question = Question.objects.get(
+                                label=answer.get("question")
+                            )
+                            correct = True if answer.get("correct") else False
+                            Answer.objects.create(
+                                question=question,
+                                label=answer.get("label"),
+                                is_correct=correct,
+                            )
                 values["id"] = course.id
                 values["title"] = course.title
+                values["slug"] = course.slug
             except Exception as e:
                 values["error"] = e
                 values["has_error"] = -1
