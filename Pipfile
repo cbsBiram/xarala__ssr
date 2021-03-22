@@ -37,6 +37,8 @@ pytest = "*"
 redis = "*"
 social-auth-app-django = "*"
 paydunya = "*"
+install = "*"
+django-compressor = "*"
 
 [requires]
 python_version = "3.8"
