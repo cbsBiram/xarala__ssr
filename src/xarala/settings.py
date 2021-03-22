@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "celery",
     "embed_video",
     "import_export",
+    "compressor",
     # refresh tokens are optional
     "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     "django_filters",
@@ -221,6 +222,13 @@ REDIS_PORT = 6379
 REDIS_DB = 1
 
 SITE_ID = 1
+
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    # other finders..
+    "compressor.finders.CompressorFinder",
+)
 
 
 PAYDUNYA_ACCESS_TOKENS = {}  # put the valid token on local_settings.py
