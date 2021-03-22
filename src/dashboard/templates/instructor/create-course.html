@@ -392,7 +392,7 @@
                     '<div class="eWWrhn ivYHKm add-answer-btn" style="margin-bottom: 18px;"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
                     '</div><div><div class="kLHfqT">Choose the right answer</div>' +
                     '<div class="fFlPup right-answer-choice"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">1</div></div></div>' +
-                    '<div><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn">Ok</button></div></div></div>';
+                    '<div><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn" disabled="">Ok</button></div></div></div>';
                 $sortableComponent.append(quizToAdd);
             } else {
                 let questionToAdd = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
@@ -412,7 +412,7 @@
             }
 
             $('.add-answer-btn').on('click', function () {
-                let answerLen = $(this).parents().find('.new-answer').children().length
+                let answerLen = $(this).parents('.question-form').find('.new-answer').children().length
                 let $answerToAdd =
                     '<div class="gkeyhG answer">' +
                     '<div class="exerciseEditor__Choice-sc-1hguq4q-5 jGSZkH">' +
@@ -423,11 +423,18 @@
                     '</path></g></g></svg></div>';
                 let $choiceToAdd =
                     '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">' + (answerLen + 1) + '</div>';
-                let $answerSection = $('div.new-answer');
-                let $choiceSection = $('div.right-answer-choice');
+                let $answerSection = $(this).parents('.question-form').find('.new-answer');
+                let $choiceSection = $(this).parents('.question-form').find('div.right-answer-choice');
 
                 $answerSection.append($answerToAdd);
                 $choiceSection.append($choiceToAdd);
+            })
+
+            $('#quiz_section input').on('blur', function () {
+                if ($(this).val())
+                    $(this).parents('.question-form').find('div div.ixkpGJ button.save-question-btn').removeAttr('disabled')
+                else
+                    $(this).parents('.question-form').find('div div.ixkpGJ button.save-question-btn').attr('disabled', true)
             })
 
             $('.save-question-btn').on('click', function () {
