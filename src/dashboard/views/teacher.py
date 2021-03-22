@@ -4,7 +4,7 @@ from django.http.response import JsonResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, UpdateView
-from quiz.models import Quiz
+from quiz.models import Answer, Question, Quiz
 from users.decorators import teacher_required
 from django.views.generic import View, ListView
 from django.shortcuts import get_object_or_404, redirect, render
@@ -91,6 +91,9 @@ class CourseCreateView(CreateView):
                 course_title = request.POST.get("courseTitle", "")
                 chapters = jsonloads(request.POST.get("chapters", ""))
                 lessons = jsonloads(request.POST.get("lessons", ""))
+                quizzes = jsonloads(request.POST.get("quizzes", ""))
+                questions = jsonloads(request.POST.get("questions", ""))
+                answers = jsonloads(request.POST.get("answers", ""))
 
                 course = Course.objects.create(title=course_title, teacher=user)
                 UserLog.objects.create(
@@ -108,6 +111,21 @@ class CourseCreateView(CreateView):
                         chapter=chapter,
                         text=lesson.get("text", ""),
                     )
+                if quizzes:
+                    for quiz in quizzes:
+                        chapter = Chapter.objects.get(name=lesson.get("chapter"))
+                        Quiz.objects.create(chapter=chapter, title=quiz.get("title"))
+                    for question in questions:
+                        quiz = Quiz.objects.get(name=question.get("quiz"))
+                        Question.objects.create(quiz=quiz, label=question.get("label"))
+                    for answer in answers:
+                        question = Question.objects.get(label=answer.get("question"))
+                        correct = True if answer.get("checked") else False
+                        Answer.objects.create(
+                            question=question,
+                            label=answer.get("label"),
+                            is_correct=correct,
+                        )
                 values["id"] = course.id
                 values["title"] = course.title
             except Exception as e:

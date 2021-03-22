@@ -531,43 +531,29 @@
 
             $('div#quiz_section input[name=quiz_title]').each(function () {
                 quizList.push({
-                    quiz: $(this).val()
+                    chapter: $(this).closest('div.my-chapter').find("input[name=chapter_name]").val(),
+                    title: $(this).val()
                 })
             })
 
             $('div#quiz_section div.question .question-section .view-question .gmrWGH').each(function () {
                 questionList.push({
                     quiz: $(this).closest('div#quiz_section').find('input[name=quiz_title]').val(),
-                    question: $(this).find('.question-label b').html()
-                })
-            })
-
-            $('div#quiz_section div.question .question-section .view-question .gmrWGH').each(function () {
-                questionList.push({
-                    quiz: $(this).closest('div#quiz_section').find('input[name=quiz_title]').val(),
-                    question: {
-                        title: $(this).find('.question-label b').html(),
-                        answers: [
-                            $(this).find('.giWrJk .kxhlBp').each(function () {
-                                return { title: $(this).find('label').html(), correct: $(this).attr('checked') }
-                            })
-                        ]
-                    },
-
+                    label: $(this).find('.question-label b').html()
                 })
             })
 
             $('div#quiz_section div.exerciseView__Choice-sc-19oun2q-3').each(function () {
                 answerList.push({
                     question: $(this).parents('.gmrWGH').find('div.question-label b').html(),
-                    title: $(this).find('label').html(),
+                    label: $(this).find('label').html(),
                     correct: $(this).find('input[name=choice]').attr('checked')
                 })
             })
 
-            console.log(answerList)
+            console.log(quizList)
 
-            /* $.ajax({
+            $.ajax({
                 type: 'POST',
                 url: $thisURL,
                 beforeSend: function () {
@@ -579,6 +565,9 @@
                     'courseTitle': $courseTitle.val(),
                     'chapters': JSON.stringify(chapterList),
                     'lessons': JSON.stringify(lessonList),
+                    'quizzes': JSON.stringify(quizList),
+                    'questions': JSON.stringify(questionList),
+                    'answers': JSON.stringify(answerList),
                     csrfmiddlewaretoken: '{{ csrf_token }}'
                 },
                 success: function (data) {
@@ -592,7 +581,7 @@
                     $("#loader").hide();
                     $('#save-draft-btn').show();
                 }
-            }) */
+            })
         })
 
         $(document).on('click', '.delete-chapter', function () {
