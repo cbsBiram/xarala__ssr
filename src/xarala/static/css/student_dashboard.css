@@ -708,7 +708,7 @@ i.icon1 {
 
 .ui.dropdown .menu > .channel_item:hover {
   color: #333 !important;
-  background: #ffecec !important;
+  background: #ffc39f !important;
 }
 
 .rhte85 {
@@ -746,7 +746,7 @@ i.icon1 {
   text-align: center;
   float: left;
   padding: 15px 0;
-  background: #ffecec;
+  background: #ffc39f;
   font-size: 14px;
   color: #333 !important;
   font-family: 'Roboto', sans-serif;
@@ -1466,7 +1466,7 @@ i.icon1 {
 
 .dropdown-content span:hover {
   color: #333 !important;
-  background-color: #ffecec;
+  background-color: #ffc39f;
 }
 
 .more_dropdown:hover .dropdown-content {
@@ -1850,7 +1850,7 @@ table.table.ucp-table {
 .ucp-table thead tr th {
   color: #333;
   font-size: 14px;
-  background-color: #ffecec;
+  background-color: #ffc39f;
 }
 
 .ucp-table tfoot {
@@ -2995,7 +2995,7 @@ i.icon8 {
 .chat__message__dt.active,
 .chat__message__dt:hover {
   border-left: 4px solid #f7965c;
-  background: #ffecec;
+  background: #ffc39f;
 }
 
 .user-status {
@@ -3284,7 +3284,7 @@ i.icon8 {
 }
 
 .message-dt.st3 .message-inner-dt > p {
-  background-color: #ffecec;
+  background-color: #ffc39f;
   color: #686f7a;
   width: auto;
   padding: 12px 20px;
@@ -4095,7 +4095,7 @@ i.icon8 {
   font-size: 120%;
   height: 30px;
   width: 30px;
-  background: #ffecec;
+  background: #ffc39f;
   border-radius: 100%;
   margin-right: 10px;
   padding: 6px 4px 0;

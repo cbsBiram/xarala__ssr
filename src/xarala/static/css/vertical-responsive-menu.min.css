@@ -75,12 +75,12 @@
 }
 
 .menu--link:hover {
-	background: #ffecec;
+	background: #ffc39f;
 	color: #f7965c !important;
 }
 
 .menu--link.active {
-	background: #ffecec;
+	background: #ffc39f;
 	color: #f7965c;
 }
 
@@ -96,7 +96,7 @@
 }
 
 .menu--subitens__opened {
-	background: #ffecec;
+	background: #ffc39f;
 }
 
 .menu--subitens__opened .menu--link {
@@ -120,7 +120,7 @@
 }
 
 .menu--link:hover,.menu--link:hover .menu--label {
-	background: #ffecec;
+	background: #ffc39f;
 }
 
 .menu--icon {
@@ -159,7 +159,7 @@
 
 .sub_menu--link:hover {
 	color: #f7965c !important;
-	background: #ffecec;
+	background: #ffc39f;
 }
 
 .sub_menu--link.active {
