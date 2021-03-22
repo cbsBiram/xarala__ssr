@@ -97,7 +97,7 @@
             <nav>
               <div class="nav nav-tabs tab_crse justify-content-center" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab"
-                  aria-selected="true">À propos de ce cours</a>
+                  aria-selected="true">Description</a>
                 <a class="nav-item nav-link" id="nav-courses-tab" data-toggle="tab" href="#nav-courses" role="tab"
                   aria-selected="false">Contenu</a>
                 <a class="nav-item nav-link" id="nav-teacher-tab" data-toggle="tab" href="#nav-teacher" role="tab"
@@ -140,55 +140,34 @@
 
               </div>
               <div class="tab-pane fade" id="nav-courses" role="tabpanel">
-                <div class="fcrse_2">
-                  <div class="_112456">
-                    <ul class="accordion-expand-holder">
-                      <li><span class="accordion-expand-all _d1452">Développer tout</span></li>
-                      <li><span class="_fgr123"> {{ course.count_lessons }} lectures</span></li>
-                    </ul>
-                  </div>
-                  <div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
-
-                    {% if object.course_chapters.all %}
-                    {% for chapter in object.course_chapters.all %}
-                    <a href="javascript:void(0)"
-                      class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all">
-                      <div class="">
-                        <span class="section-title-wrapper">
-                          <i class='uil uil-presentation-play crse_icon'></i>
-                          <span class="section-title-text">{{ chapter.name }}</span>
-                        </span>
-                      </div>
-
-                    </a>
-                    <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-
-                      {% if chapter.course_lessons.all  %}
-                      {% for lesson in chapter.course_lessons.all  %}
-                      {% if lesson.chapter.id == chapter.id %}
-
-                      <div class="lecture-container">
-                        <div class="left-content w-100">
-                          <i class='uil uil-play-circle icon_142'></i>
-                          <div class="top">
-                            <div class="title"> {{ lesson.title }}</div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {% endif %}
-                      {% endfor %}
-                      {% endif %}
 
 
-                    </div>
+                {% if object.course_chapters.all %}
+                {% for chapter in object.course_chapters.all %}
+                <div class="fcrse_2 mb-3">
 
+
+                  <div class="card-body">
+                    <h3 class="text-oc-primary-link text-xarala">Section {{ forloop.counter }}: {{ chapter.name }}</h3>
+
+                    {% if chapter.course_lessons.all  %}
+                    {% for lesson in chapter.course_lessons.all  %}
+                    {% if lesson.chapter.id == chapter.id %}
+
+                    <p class="text-muted ml-2">Leçon {{ forloop.counter }}: {{ lesson.title }}</p>
+
+                    {% endif %}
                     {% endfor %}
                     {% endif %}
 
+
                   </div>
-                  <!-- <a class="btn1458" href="#">20 More Sections</a> -->
+
                 </div>
+                {% endfor %}
+                {% endif %}
+
+
               </div>
 
               <div class="tab-pane fade" id="nav-teacher" role="tabpanel">
@@ -221,7 +200,15 @@
                 </div>
               </div>
 
+              <div class="fcrse_2 mt-2 text-center">
+                <button class="btn_adcart btn-block">
+                  <a href="{% if button_text == 'S\'inscrire'  %}{% url 'course:subscribe_user_to_course' course.slug %}{% else %}/courses/{{ course.slug }}/?lecture={{course.get_introudction.slug}}{% endif %}"
+                    class="text-light">{{ button_text }}</a>
+                </button>
+              </div>
+
             </div>
+
           </div>
         </div>
       </div>
