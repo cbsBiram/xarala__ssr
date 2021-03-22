@@ -170,8 +170,7 @@
                 <img class="d-flex justify-content-center" src="{% static 'images/25.gif' %}" width='32px'
                     height='32px'>
             </div>
-            <button class="hJLFyW" id="save-draft-btn" disabled=""
-                data-url="{% url 'dashboard:update-course' course.slug %}">Enregistrer</button>
+            <button class="hJLFyW" id="save-draft-btn" disabled="" data-url="#">Enregistrer</button>
         </div>
         <button disabled="" id="publish-course-btn" data-toggle="modal" data-target="#publish_course_modal"
             course_id="{{course.id}}"
@@ -326,7 +325,8 @@
         $(document).on('click', '.add-lesson-btn', function () {
             var $sortableComponent = $(this).parents(".add-lesson-section")
 
-            var $htmlToAdd = '<div class="lesson-form ivYHKm" style="display: block!important; padding: 10px!important; margin-top: 15px;">' +
+            var $htmlToAdd =
+                '<div class="lesson-form ivYHKm" style="display: block!important; padding: 10px!important; margin-top: 15px;">' +
                 '<div class="dropdown d-flex justify-content-end">' +
                 '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                 '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
@@ -450,7 +450,8 @@
 
             $('div.my-chapter div.chapter div.add-lesson-section div.lesson-form').each(function () {
                 lessonList.push({
-                    chapter: $(this).closest('div.my-chapter').find("input[name=chapter_name]").val(),
+                    chapter: $(this).closest('div.my-chapter').find(
+                        "input[name=chapter_name]").val(),
                     title: $(this).find('input[name=ltitle_input]').val(),
                     videoId: $(this).find('input[name=lvideo_input]').val(),
                     text: $(this).find('textarea[name=ltext_input]').val()
@@ -475,8 +476,7 @@
                     console.log(data)
                     $('#publish-course-btn').attr('disabled', false);
                     $('#publish_course_btn').attr('course_id', data['id'])
-                }
-                ,
+                },
                 complete: function (data) {
                     $("#loader").hide();
                     $('#save-draft-btn').show();
