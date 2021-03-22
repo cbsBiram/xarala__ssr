@@ -152,84 +152,14 @@
 
         {% endif %}
         <div class="row">
-          <div class="col-xl-9 col-lg-8">
+          <div class="col-xl-12 col-lg-12">
 
             {% block content %}
 
             {% endblock content %}
 
           </div>
-          <div class="col-xl-3 col-lg-4">
-            <div class="right_side">
 
-              {% if user.is_authenticated %}
-              <div class="fcrse_2 mb-30">
-                <div class="tutor_img">
-                  <a href="{% url 'profile' %}"><img src="{% if user.avatar %} {{ user.avatar.url }}
-            {% else %} {% static 'images/logo.png' %}
-            {% endif %}" alt=""></a>
-                </div>
-                <div class="tutor_content_dt">
-                  <div class="tutor150">
-                    <a href="{% url 'profile' %}" class="tutor_name">{{ user.get_full_name }}</a>
-                    <div class="mef78" title="Verify">
-                      <i class="uil uil-check-circle"></i>
-                    </div>
-                  </div>
-                  <div class="tutor_cate">{{ user.title|default_if_none:"Pas de titre" }}</div>
-                  <ul class="tutor_social_links">
-                    <li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="#" class="ln"><i class="fab fa-linkedin-in"></i></a></li>
-                    <li><a href="#" class="yu"><i class="fab fa-youtube"></i></a></li>
-                  </ul>
-                  <div class="tut1250">
-                    <span class="vdt15">
-                      {% if user.is_student %}
-                      {{ user.courses_enrolled.count }}
-                      {% endif %}
-                      {% if user.is_teacher %}
-                      {{ user.courses_created.count }}
-                      {% endif %}
-                      Cours
-                    </span>
-                  </div>
-                  <a href="{% url 'profile' %}" class="prfle12link">Mon profil</a>
-                </div>
-              </div>
-              {% endif %}
-
-              <div class="strttech120">
-                <h4>Devenir instructeur</h4>
-                <p>Les meilleurs formateurs enseignent à des milliers d'étudiants sur Xarala.co. Nous
-                  fournissons les outils et les compétences pour enseigner ce que vous aimez.</p>
-                <button class="Get_btn" onclick="window.location.href = '#';">Commencer à enseigner</button>
-              </div>
-              <div class="get1452">
-                <h4>Nos recommandations</h4>
-                <p>Répondez à quelques questions pour vos meilleurs choix</p>
-                <button class="Get_btn">
-                  <a href="http://bit.ly/3dF5JsF" target="_blank" class="text-light">Commencer</a>
-                </button>
-              </div>
-              <div class="fcrse_3">
-                <div class="cater_ttle">
-                  <h4>Top Catégories</h4>
-                </div>
-                <ul class="allcate15">
-                  <li><a href="#" class="ct_item"><i class='uil uil-arrow'></i>Development</a></li>
-                  <li><a href="#" class="ct_item"><i class='uil uil-graph-bar'></i>Business</a></li>
-                  <li><a href="#" class="ct_item"><i class='uil uil-monitor'></i>IT and Software</a></li>
-                  <li><a href="#" class="ct_item"><i class='uil uil-ruler'></i>Design</a></li>
-                  <li><a href="#" class="ct_item"><i class='uil uil-chart-line'></i>Marketing</a></li>
-                  <li><a href="#" class="ct_item"><i class='uil uil-book-open'></i>Personal Development</a></li>
-                  <li><a href="#" class="ct_item"><i class='uil uil-camera'></i>Photography</a></li>
-                  <li><a href="#" class="ct_item"><i class='uil uil-music'></i>Music</a></li>
-                </ul>
-              </div>
-
-            </div>
-          </div>
           <!-- testimonials -->
         </div>
       </div>

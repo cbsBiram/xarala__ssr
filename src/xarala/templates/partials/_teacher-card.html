@@ -14,12 +14,7 @@
         </div>
       </div>
       <div class="tutor_cate">{{ teacher.title|default_if_none:"Non renseigné"  }}</div>
-      <ul class="tutor_social_links">
-        <li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a></li>
-        <li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
-        <li><a href="#" class="ln"><i class="fab fa-linkedin-in"></i></a></li>
-        <li><a href="#" class="yu"><i class="fab fa-youtube"></i></a></li>
-      </ul>
+
       <div class="tut1250">
         <!-- <span class="vdt15">10 Étudiants</span> -->
         <span class="vdt15">{{ teacher.courses_created.count }} cours</span>
