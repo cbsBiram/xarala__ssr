@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 {% load static %}
-{% load compress %}
 
 <head>
   <meta charset="utf-8" />
@@ -18,7 +17,7 @@
 
   <!-- Favicon Icon -->
   <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}" />
-  {% compress css %}
+
   <!-- Stylesheets -->
   <link href='{% static "vendor/unicons-2.0.1/css/unicons.css" %}' rel="stylesheet" />
   <link href="{% static 'css/vertical-responsive-menu.min.css' %}" rel="stylesheet" />
@@ -33,12 +32,7 @@
   <link href="{% static 'vendor/OwlCarousel/assets/owl.carousel.css' %}" rel="stylesheet" />
   <link href="{% static 'vendor/OwlCarousel/assets/owl.theme.default.min.css' %}" rel="stylesheet" />
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
-
-  {% if request.user.is_authenticated %}
-
   <link rel="stylesheet" type="text/css" href="{% static 'vendor/semantic/semantic.min.css' %}" />
-  {% endif %}
-
 
   {% block extrastyle %}
   <style>
@@ -657,7 +651,6 @@
     }
   </style>
   {% endblock extrastyle %}
-  {% endcompress %}
 </head>
 
 <body>
@@ -761,7 +754,7 @@
       {% include "partials/_footer.html" %}
     </div>
     <!-- Body End -->
-    {% compress js %}
+
     <script src="{% static 'js/vertical-responsive-menu.min.js' %}"></script>
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
@@ -776,7 +769,6 @@
     <!-- <script src="{% static 'js/custom.js' %}"></script> -->
     <script src="{% static 'js/night-mode.js' %}"></script>
     {% block extrajs %} {% endblock extrajs %}
-    {% endcompress %}
 </body>
 
 </html>
