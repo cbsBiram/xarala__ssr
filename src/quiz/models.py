@@ -12,9 +12,9 @@ class Quiz(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        setattr(self, "title", getattr(self, "title", False).title())
-        super(Quiz, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     setattr(self, "title", getattr(self, "title", False).title())
+    #     super(Quiz, self).save(*args, **kwargs)
 
 
 class Question(models.Model):
