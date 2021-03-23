@@ -5,6 +5,21 @@
 Le blog de Xarala
 {% endblock title %}
 
+{% block meta %}
+<meta property="og:title" content="Le blog de Xarala">
+<meta name="description" property="og:description" content="Xarala Academy La technologie dans votre langue">
+<meta property="og:image" content="{% static 'images/logo.png' %}">
+<meta property="og:image:alt" content="Logo Xarala">
+<meta property="og:url" content="{{ request.get_host }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@xaralatech">
+<meta name="twitter:creator" content="@xaralatech">
+<meta name="twitter:title" content="Xarala Academy">
+<meta name="twitter:description" content="Xarala, La technologie dans votre langue.">
+<meta name="twitter:image" content="{% static 'images/logo.png' %}">
+<meta name="twitter:image:alt" content="Logo de Xarala.">
+{% endblock meta %}
+
 {% block content %}
 
 <div class="section3125">
