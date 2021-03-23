@@ -1,5 +1,4 @@
 {% extends "_base.html" %}
-{% load embed_video_tags %}
 
 {% block title %}
 {{ lesson.title }}
@@ -7,26 +6,18 @@
 
 {% block content %}
 
-<div class="section3125">
-
+<div class="sa4d25">
   <div class="container-fluid">
-    <h2>
-      {{ lesson.title }}
-    </h2>
     <div class="row">
-      <div class="col-lg-12">
-        <div class="embed-responsive embed-responsive-16by9">
-          {% if lesson.video_url %}
-          {% video lesson.video_url 'small' %}
-          {% else %}
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ lesson.video_id }}?rel=0"
-            allowfullscreen></iframe>
-          {% endif %}
-        </div>
-        <p>
-          {{ lesson.text|safe }}
-        </p>
-        <!-- <div class="row">
+      <div class="col-xl-8 col-lg-8">
+        <div class="section3125">
+          <div class="live1452">
+            <iframe src="https://www.youtube.com/embed/{{ lesson.video_id }}?rel=0?autoplay=1"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="user_dt5">
+            {{ lesson.text|safe }}
+            <!-- <div class="row">
           <div class="col-md-12">
             <div class="blog_pagination">
               <a href="#" class="bp_left">
@@ -47,63 +38,51 @@
           </div>
         </div> -->
 
-      </div>
-
-      <div class="col-lg-12">
-        <div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
-          {% if object.course_chapters.all %}
-          {% for chapter in object.course_chapters.all %}
-          <a href="javascript:void(0)"
-            class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all">
-            <div class="section-header-left">
-              <span class="section-title-wrapper">
-                <i class='uil uil-presentation-play crse_icon'></i>
-                <span class="section-title-text">{{ chapter.name }}</span>
-              </span>
-            </div>
-            <div class="section-header-right">
-              <span class="num-items-in-section">{{ chapter.course_lessons.count }} lectures</span>
-
-            </div>
-          </a>
-
-          <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-
-            {% if chapter.course_lessons.all  %}
-            {% for lesson in chapter.course_lessons.all  %}
-            {% if lesson.chapter.id == chapter.id %}
-
-            <div class="lecture-container">
-              <div class="left-content w-100">
-                <i class='uil uil-play-circle icon_142'></i>
-                <div class="top">
-                  <div class="title">
-                    <a href="{% url 'course:course-detail' object.slug %}?lecture={{lesson.slug}}"
-                      class="{% if lesson.slug in request.get_full_path %} text-primary {% else %} text-dark  {% endif %}">
-                      {{ lesson.title }}</a>
-
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            {% endif %}
-            {% endfor %}
-            {% endif %}
-
-
           </div>
-
-
-          {% endfor %}
-          {% endif %}
-
         </div>
-
       </div>
+      <div class="col-xl-4 col-lg-4">
+        <div class="right_side">
+          <div class="fcrse_3">
+            <div class="cater_ttle">
+              <h4>Contenu du cours</h4>
+            </div>
+            <div class="live_chat">
+              <div class="mb-2">
+                {% if object.course_chapters.all %}
+                {% for chapter in object.course_chapters.all %}
+
+                <h5>Section {{ forloop.counter }}: {{ chapter.name }}</h5>
+
+                {% if chapter.course_lessons.all  %}
+                {% for lesson in chapter.course_lessons.all  %}
+                {% if lesson.chapter.id == chapter.id %}
+
+                <p class="ml-2">
+                  {{ forloop.counter }}:
+                  <a href="{% url 'course:course-detail' object.slug %}?lecture={{lesson.slug}}"
+                    class="{% if lesson.slug in request.get_full_path %} text-primary {% else %} text-dark  {% endif %}">
+                    {{ lesson.title }}</a>
+                </p>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <!-- prise de notes -->
+            <!-- <div class="live_comment">
+              <input class="live_input" type="text" placeholder="Say Something..." />
+              <button class="btn_live"><i class='uil uil-message'></i></button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-
 </div>
+
 {% endblock content %}

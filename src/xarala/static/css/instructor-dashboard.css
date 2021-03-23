@@ -422,7 +422,7 @@ input[type='text'] {
   font-size: 10px;
   font-weight: 500;
   color: #fff;
-  background: #10a8e5ff;
+  background: #f7965c;
   overflow: hidden;
   width: 5px;
   height: 5px;
@@ -450,7 +450,7 @@ input[type='text'] {
 }
 
 .left_footer a:hover {
-  color: #10a8e5ff !important;
+  color: #f7965c !important;
 }
 
 .left_footer_content {
@@ -557,7 +557,7 @@ i.icon1 {
   position: absolute;
   top: 3px;
   right: 8px;
-  background: #10a8e5ff;
+  background: #f7965c;
   color: #fff;
   width: 16px;
   height: 16px;
@@ -581,7 +581,7 @@ i.icon1 {
   font-weight: 500;
   font-family: 'Roboto', sans-serif;
   color: #fff;
-  background: #10a8e5ff;
+  background: #f7965c;
   padding: 9px 15px;
   border-radius: 25px;
   margin-right: 10px;
@@ -696,7 +696,7 @@ i.icon1 {
 }
 
 .dp_link_12:hover {
-  color: #10a8e5ff !important;
+  color: #f7965c !important;
 }
 
 .ui.dropdown .menu > .channel_item {
@@ -708,7 +708,7 @@ i.icon1 {
 
 .ui.dropdown .menu > .channel_item:hover {
   color: #333 !important;
-  background: #ffecec !important;
+  background: #ffc39f !important;
 }
 
 .rhte85 {
@@ -746,7 +746,7 @@ i.icon1 {
   text-align: center;
   float: left;
   padding: 15px 0;
-  background: #ffecec;
+  background: #ffc39f;
   font-size: 14px;
   color: #333 !important;
   font-family: 'Roboto', sans-serif;
@@ -798,7 +798,7 @@ i.icon1 {
   border-radius: 20px;
   color: #fff;
   font-family: 'Roboto', sans-serif;
-  background: #10a8e5ff;
+  background: #f7965c;
   font-size: 14px;
   font-weight: 500;
   display: inline-block;
@@ -1247,7 +1247,7 @@ i.icon1 {
   font-weight: 500;
   font-family: 'Roboto', sans-serif;
   color: #fff;
-  background: #10a8e5ff;
+  background: #f7965c;
   padding: 0px 20px;
   border-radius: 25px;
   border: 0;
@@ -1466,7 +1466,7 @@ i.icon1 {
 
 .dropdown-content span:hover {
   color: #333 !important;
-  background-color: #ffecec;
+  background-color: #ffc39f;
 }
 
 .more_dropdown:hover .dropdown-content {
@@ -1529,16 +1529,16 @@ i.icon1 {
 .courses_performance .owl-nav .owl-prev:hover {
   color: #fff !important;
   opacity: 1;
-  background: #10a8e5ff !important;
-  border: 1px solid #10a8e5ff !important;
+  background: #f7965c !important;
+  border: 1px solid #f7965c !important;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.07);
 }
 
 .courses_performance .owl-nav .owl-next:hover {
   color: #fff !important;
   opacity: 1;
-  border: 1px solid #10a8e5ff !important;
-  background: #10a8e5ff !important;
+  border: 1px solid #f7965c !important;
+  background: #f7965c !important;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.07);
 }
 
@@ -1638,16 +1638,16 @@ i.icon1 {
 .edututs_news .owl-nav .owl-prev:hover {
   color: #fff !important;
   opacity: 1;
-  background: #10a8e5ff !important;
-  border: 1px solid #10a8e5ff !important;
+  background: #f7965c !important;
+  border: 1px solid #f7965c !important;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.07);
 }
 
 .edututs_news .owl-nav .owl-next:hover {
   color: #fff !important;
   opacity: 1;
-  border: 1px solid #10a8e5ff !important;
-  background: #10a8e5ff !important;
+  border: 1px solid #f7965c !important;
+  background: #f7965c !important;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.07);
 }
 
@@ -1688,7 +1688,7 @@ i.icon1 {
 }
 
 .analyics_pr {
-  color: #10a8e5ff;
+  color: #f7965c;
   font-weight: 500;
 }
 
@@ -1771,7 +1771,7 @@ i.icon1 {
   font-size: 12px;
   font-weight: 500;
   margin-left: 10px;
-  background: #10a8e5ff;
+  background: #f7965c;
   color: #fff;
   padding: 5px 10px;
   border-radius: 5px;
@@ -1798,12 +1798,12 @@ i.icon1 {
 .my_courses_tabs .nav-pills .nav-link.active,
 .my_courses_tabs .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #10a8e5ff !important;
+  background-color: #f7965c !important;
 }
 
 .my_courses_tabs .nav-pills .nav-link:hover {
   color: #fff !important;
-  background-color: #10a8e5ff !important;
+  background-color: #f7965c !important;
 }
 
 .my_courses_tabs .nav-link {
@@ -1853,7 +1853,7 @@ table.table.ucp-table {
 .ucp-table thead tr th {
   color: #333;
   font-size: 14px;
-  background-color: #ffecec;
+  background-color: #ffc39f;
 }
 
 .ucp-table tfoot {
@@ -1906,7 +1906,7 @@ table {
 }
 
 .course_active {
-  color: #10a8e5ff;
+  color: #f7965c;
 }
 
 .ucp-table tbody tr td {
@@ -2071,15 +2071,15 @@ table {
 .datepicker--cell.-selected-,
 .datepicker--cell.-selected-.-current- {
   color: #fff;
-  background: #10a8e5ff !important;
+  background: #f7965c !important;
 }
 
 .datepicker--day-name {
-  color: #10a8e5ff !important;
+  color: #f7965c !important;
 }
 
 .datepicker--cell.-current- {
-  color: #10a8e5ff !important;
+  color: #f7965c !important;
 }
 
 .datepicker {
@@ -2102,7 +2102,7 @@ table {
   color: #fff;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  background: #10a8e5ff;
+  background: #f7965c;
   width: 100%;
   text-align: center;
 }
@@ -2154,7 +2154,7 @@ table {
   color: #fff;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  background: #10a8e5ff;
+  background: #f7965c;
   text-align: center;
   padding: 0 30px;
 }
@@ -2287,7 +2287,7 @@ table {
 }
 
 .text-success1 {
-  color: #10a8e5ff !important;
+  color: #f7965c !important;
 }
 
 .thumb_img img {
@@ -2371,7 +2371,7 @@ table {
 
 #add-course-tab .step-steps > li.active > a > .number,
 #add-course-tab .step-steps > li.done > a > .number {
-  background-color: #10a8e5ff;
+  background-color: #f7965c;
 }
 
 #add-course-tab .step-steps > li.active > a > .number:before,
@@ -2385,7 +2385,7 @@ table {
 }
 
 #add-course-tab .step-steps > li.done:before {
-  background-color: #10a8e5ff;
+  background-color: #f7965c;
 }
 
 #add-course-tab .step-steps > li.done > a > .number:after {
@@ -2500,7 +2500,7 @@ table {
   line-height: 0;
   color: #fff;
   content: 'Upload File';
-  background-color: #10a8e5ff;
+  background-color: #f7965c;
   border-left: inherit;
   border-radius: 0 10rem 10rem 0;
 }
@@ -2564,7 +2564,7 @@ table {
 }
 
 .badge_num {
-  background: #10a8e5ff;
+  background: #f7965c;
   color: #fff;
   font-weight: 500;
   font-family: 'Roboto', sans-serif;
@@ -2579,7 +2579,7 @@ table {
 }
 
 .badge_num2 {
-  background: #10a8e5ff;
+  background: #f7965c;
   color: #fff;
   font-weight: 500;
   font-family: 'Roboto', sans-serif;
@@ -2628,7 +2628,7 @@ table {
   font-weight: 500 !important;
   font-family: 'Roboto', sans-serif !important;
   color: #fff !important;
-  background: #10a8e5ff !important;
+  background: #f7965c !important;
   padding: 0px 20px !important;
   border-radius: 25px !important;
   border: 0 !important;
@@ -2780,7 +2780,7 @@ table {
   line-height: 0;
   color: #fff;
   content: 'Upload File';
-  background-color: #10a8e5ff;
+  background-color: #f7965c;
   border-left: inherit;
   border-radius: 0 10rem 10rem 0;
 }
@@ -2802,7 +2802,7 @@ table {
 }
 
 .badge_mb {
-  background: #10a8e5ff;
+  background: #f7965c;
   color: #fff;
   font-weight: 500;
   font-family: 'Roboto', sans-serif;
@@ -2826,7 +2826,7 @@ table {
 }
 
 .badge_min {
-  background: #10a8e5ff;
+  background: #f7965c;
   color: #fff;
   font-weight: 500;
   font-family: 'Roboto', sans-serif;
@@ -2858,7 +2858,7 @@ table {
   font-weight: 500;
   font-family: 'Roboto', sans-serif;
   color: #fff;
-  background: #10a8e5ff;
+  background: #f7965c;
   padding: 0px 30px;
   border-radius: 25px;
   border: 0;
@@ -2873,18 +2873,18 @@ table {
 .ui.checkbox input:checked ~ .box:before,
 .ui.checkbox input:checked ~ label:before {
   background: #fff;
-  border-color: #10a8e5ff !important;
+  border-color: #f7965c !important;
 }
 
 .ui.radio.checkbox input:checked ~ .box:after,
 .ui.radio.checkbox input:checked ~ label:after {
-  background-color: #10a8e5ff !important;
+  background-color: #f7965c !important;
 }
 
 .ui.checkbox.mncheck input:checked ~ .box:after,
 .ui.checkbox.mncheck input:checked ~ label:after {
   opacity: 1;
-  color: #10a8e5ff !important;
+  color: #f7965c !important;
   font-size: 10px !important;
   border-radius: 100%;
   margin-top: 2px;
@@ -2940,7 +2940,7 @@ table {
   font-weight: 500;
   font-family: 'Roboto', sans-serif;
   color: #fff;
-  background: #10a8e5ff;
+  background: #f7965c;
   padding: 0px 30px;
   border-radius: 25px;
   border: 0;
@@ -2997,8 +2997,8 @@ i.icon8 {
 
 .chat__message__dt.active,
 .chat__message__dt:hover {
-  border-left: 4px solid #10a8e5ff;
-  background: #ffecec;
+  border-left: 4px solid #f7965c;
+  background: #ffc39f;
 }
 
 .user-status {
@@ -3028,7 +3028,7 @@ i.icon8 {
   border: 2px solid #fff;
   height: 22px;
   width: 22px;
-  background: #10a8e5ff;
+  background: #f7965c;
   position: absolute;
   right: 10px;
   bottom: 2px;
@@ -3272,7 +3272,7 @@ i.icon8 {
 .message-inner-dt > p {
   float: right;
   width: 60%;
-  background-color: #10a8e5ff;
+  background-color: #f7965c;
   font-size: 14px;
   font-family: 'Roboto', sans-serif;
   line-height: 22px;
@@ -3287,7 +3287,7 @@ i.icon8 {
 }
 
 .message-dt.st3 .message-inner-dt > p {
-  background-color: #ffecec;
+  background-color: #ffc39f;
   color: #686f7a;
   width: auto;
   padding: 12px 20px;
@@ -3334,7 +3334,7 @@ i.icon8 {
   font-weight: 500;
   font-size: 18px;
   color: #fff;
-  background: #10a8e5ff;
+  background: #f7965c;
   height: 40px;
   float: left;
 }
@@ -3353,7 +3353,7 @@ i.icon8 {
   width: 50px;
   font-size: 18px;
   color: #fff;
-  background: #10a8e5ff;
+  background: #f7965c;
 }
 
 .add_photo:hover {
@@ -3380,7 +3380,7 @@ i.icon8 {
   float: left;
   padding: 10px 20px;
   color: #fff;
-  background: #10a8e5ff;
+  background: #f7965c;
   border-radius: 20px;
   font-size: 14px;
   font-weight: 500;
@@ -3533,7 +3533,7 @@ i.icon8 {
 }
 
 .progress1 .progress-bar {
-  background-color: #10a8e5ff !important;
+  background-color: #f7965c !important;
 }
 
 .w-70 {
@@ -3604,7 +3604,7 @@ i.icon8 {
   border: 0;
   height: 26px;
   width: 26px;
-  background: #10a8e5ff;
+  background: #f7965c;
   color: #fff;
   font-size: 14px;
 }
@@ -3819,7 +3819,7 @@ i.icon8 {
 .ui.active.selection.vchrt-dropdown {
   border-top-left-radius: 1.5rem !important;
   border-top-right-radius: 1.5rem !important;
-  border: 1px solid #10a8e5ff !important;
+  border: 1px solid #f7965c !important;
 }
 
 .date_list152 a {
@@ -3896,7 +3896,7 @@ i.icon8 {
 }
 
 .payout__btn {
-  background: #10a8e5ff;
+  background: #f7965c;
   color: #fff;
   float: left;
   width: 100%;
@@ -3966,7 +3966,7 @@ i.icon8 {
 }
 
 .js-earnings__fees-wrapper {
-  color: #10a8e5ff;
+  color: #f7965c;
 }
 
 .statement_invoice_content {
@@ -3983,7 +3983,7 @@ i.icon8 {
   padding: 0 8px;
   border-radius: 100%;
   margin-left: 10px;
-  background: #10a8e5ff;
+  background: #f7965c;
 }
 
 .st_download_btn:hover {
@@ -4097,7 +4097,7 @@ i.icon8 {
 
 .edututs_required_img i {
   font-size: 36px;
-  color: #10a8e5ff;
+  color: #f7965c;
 }
 
 .apply_verify_text {
@@ -4129,7 +4129,7 @@ i.icon8 {
   font-weight: 500;
   font-family: 'Roboto', sans-serif;
   color: #fff;
-  background: #10a8e5ff;
+  background: #f7965c;
   padding: 0px 30px;
   border-radius: 25px;
   border: 0;
@@ -4171,7 +4171,7 @@ i.icon8 {
   font-size: 120%;
   height: 30px;
   width: 30px;
-  background: #ffecec;
+  background: #ffc39f;
   border-radius: 100%;
   margin-right: 10px;
   padding: 6px 4px 0;

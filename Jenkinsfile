@@ -14,7 +14,7 @@ node {
             sh 'virtualenv env -p python3.6'
             sh '. env/bin/activate'
             sh 'env/bin/pip install -r requirements.txt'
-            sh 'env/bin/python3.6 manage.py test --testrunner=djtrump.tests.test_runners.NoDbTestRunner'
+            sh 'env/bin/python3.8 manage.py test --testrunner=djtrump.tests.test_runners.NoDbTestRunner'
 
         stage 'Deploy'
             sh './sh_scripts/deploy.sh'

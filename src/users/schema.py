@@ -168,7 +168,10 @@ class RegisterUser(graphene.Mutation):
         user.set_password(password)
         user.is_student = True
         user.save()
-        account_created.delay(mail_to_lower) if not settings.DEBUG else None
+        try:
+            account_created.delay(mail_to_lower)
+        except Exception:
+            pass
         return RegisterUser(user)
 
 
@@ -187,7 +190,10 @@ class PasswordResetEmail(graphene.Mutation):
             raise GraphQLError(
                 "Compte non trouvé, merci de bien vérifier votre adresse email"
             )
-        send_password_reset_email.delay(mail_to_lower) if not settings.DEBUG else None
+        try:
+            send_password_reset_email.delay(mail_to_lower)
+        except Exception:
+            pass
         return PasswordResetEmail(user)
 
 

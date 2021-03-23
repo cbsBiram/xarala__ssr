@@ -22,9 +22,9 @@ We’re using these technologies:
 - Bootstrap 4.x
 - JQuery
 
-In order to run the application, you should have *Python-3.7 or higher* installed in your system.
+In order to run the application, you should have *Python-3.8 or higher* installed in your system.
 
-In order to run the application you should have *Python-3.7 or higher* installed in your system.
+In order to run the application you should have *Python-3.8 or higher* installed in your system.
 
 We use **Pipenv** as a dependency manager, you can install it [here](https://pipenv.pypa.io/en/latest/install/).
 

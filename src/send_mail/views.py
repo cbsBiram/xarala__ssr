@@ -136,3 +136,27 @@ def send_author_submitted_email(author, article_title):
         "text/html",
     )
     msg.send(fail_silently=False)
+
+
+def passowrd_reset_mail(user_email):
+    htmly = get_template("email/passowrd_reset.html")
+    code = ResetCode.objects.create(email=user_email)
+    code.save()
+    context = {"email": user_email, "code": code.code}
+    to_emails = [user_email]
+    subject, from_email = (
+        "Xarala - réinitialisation mot de passe",
+        "Ousseynou de Xarala",
+    )
+    html_content = htmly.render(context)
+    msg = EmailMultiAlternatives(
+        subject,
+        html_content,
+        from_email,
+        to_emails,
+    )
+    msg.attach_alternative(
+        html_content,
+        "text/html",
+    )
+    msg.send(fail_silently=False)

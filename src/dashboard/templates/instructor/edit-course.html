@@ -398,7 +398,6 @@
                                     {% for key, value in levels %}
                                     <option value="{{key}}">{{ value }}</option>
                                     {% endfor %}
-
                                 </select>
                             </div>
                             <div class="col-lg-4 col-md-12 select-box">
@@ -479,7 +478,6 @@
                 '</g></g></svg><div class="ibgLNl ml-1">Leçon</div></div>' +
                 '</button></div></div></div></div>' +
                 '<div id="quiz_section"></div></div></div><div id="insert_chapter"></div></div>';
-
             $(htmlToAdd).find('.lesson-form').remove()
             $(htmlToAdd).insertBefore('#insert_chapter')
         })

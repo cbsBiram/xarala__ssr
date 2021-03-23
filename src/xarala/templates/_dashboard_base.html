@@ -3,18 +3,6 @@
 {% load static %}
 
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143511541-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "UA-143511541-1");
-  </script>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, shrink-to-fit=9" />
@@ -31,7 +19,6 @@
   <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}" />
 
   <!-- Stylesheets -->
-  <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,500" rel="stylesheet" />
   <link href='{% static "vendor/unicons-2.0.1/css/unicons.css" %}' rel="stylesheet" />
   <link href="{% static 'css/vertical-responsive-menu.min.css' %}" rel="stylesheet" />
   <link href="{% static 'css/style.css' %}" rel="stylesheet" />
@@ -761,8 +748,8 @@
       <span class="collapse_menu--label"></span>
     </button>
     <div class="main_logo" id="logo">
-      <a href="/"><img src="{% static 'images/logo.png' %}" alt="" width="60" /></a>
-      <a href="/"><img class="logo-inverse" src="{% static 'images/logo.png' %}" alt="" width="60" /></a>
+      <a href="/"><img src="{% static 'images/logo.png' %}" alt="" width="150" /></a>
+      <a href="/"><img class="logo-inverse" src="{% static 'images/logo.png' %}" alt="" width="150" /></a>
     </div>
 
     <div class="header_right">
