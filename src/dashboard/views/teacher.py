@@ -119,20 +119,17 @@ class CourseCreateView(CreateView):
                         chapter = Chapter.objects.get(name=quiz.get("chapter"))
                         Quiz.objects.create(chapter=chapter, title=quiz.get("title"))
                     for question in questions:
-                        print("title", question.get("quiz"))
                         quiz = Quiz.objects.get(title=question.get("quiz"))
                         print(quiz)
                         Question.objects.create(quiz=quiz, label=question.get("label"))
-                        for answer in answers:
-                            question = Question.objects.get(
-                                label=answer.get("question")
-                            )
-                            correct = True if answer.get("correct") else False
-                            Answer.objects.create(
-                                question=question,
-                                label=answer.get("label"),
-                                is_correct=correct,
-                            )
+                    for answer in answers:
+                        question = Question.objects.get(label=answer.get("question"))
+                        correct = True if answer.get("correct") else False
+                        Answer.objects.create(
+                            question=question,
+                            label=answer.get("label"),
+                            is_correct=correct,
+                        )
                 values["id"] = course.id
                 values["title"] = course.title
                 values["slug"] = course.slug
