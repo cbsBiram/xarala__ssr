@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.db.models.aggregates import Count, Sum
 from django.http.response import JsonResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, UpdateView
-from quiz.models import Quiz
+from quiz.models import Answer, Question, Quiz
 from users.decorators import teacher_required
 from django.views.generic import View, ListView
 from django.shortcuts import get_object_or_404, redirect, render
@@ -83,6 +84,7 @@ class CourseCreateView(CreateView):
         }
         return render(request, self.template_name, context=context)
 
+    @transaction.atomic
     def post(self, request, *args, **kwargs):
         user = request.user
         if request.POST:
@@ -91,6 +93,9 @@ class CourseCreateView(CreateView):
                 course_title = request.POST.get("courseTitle", "")
                 chapters = jsonloads(request.POST.get("chapters", ""))
                 lessons = jsonloads(request.POST.get("lessons", ""))
+                quizzes = jsonloads(request.POST.get("quizzes", ""))
+                questions = jsonloads(request.POST.get("questions", ""))
+                answers = jsonloads(request.POST.get("answers", ""))
 
                 course = Course.objects.create(title=course_title, teacher=user)
                 UserLog.objects.create(
@@ -100,16 +105,34 @@ class CourseCreateView(CreateView):
                 )
                 for chapter in chapters:
                     Chapter.objects.create(name=chapter.get("chapter"), course=course)
-                for lesson in lessons:
-                    chapter = Chapter.objects.get(name=lesson.get("chapter"))
-                    Lesson.objects.create(
-                        title=lesson.get("title", ""),
-                        video_id=lesson.get("videoId", ""),
-                        chapter=chapter,
-                        text=lesson.get("text", ""),
-                    )
+                if lessons:
+                    for lesson in lessons:
+                        chapter = Chapter.objects.get(name=lesson.get("chapter"))
+                        Lesson.objects.create(
+                            title=lesson.get("title", ""),
+                            video_id=lesson.get("videoId", ""),
+                            chapter=chapter,
+                            text=lesson.get("text", ""),
+                        )
+                if quizzes:
+                    for quiz in quizzes:
+                        chapter = Chapter.objects.get(name=quiz.get("chapter"))
+                        Quiz.objects.create(chapter=chapter, title=quiz.get("title"))
+                    for question in questions:
+                        quiz = Quiz.objects.get(title=question.get("quiz"))
+                        print(quiz)
+                        Question.objects.create(quiz=quiz, label=question.get("label"))
+                    for answer in answers:
+                        question = Question.objects.get(label=answer.get("question"))
+                        correct = True if answer.get("correct") else False
+                        Answer.objects.create(
+                            question=question,
+                            label=answer.get("label"),
+                            is_correct=correct,
+                        )
                 values["id"] = course.id
                 values["title"] = course.title
+                values["slug"] = course.slug
             except Exception as e:
                 values["error"] = e
                 values["has_error"] = -1
@@ -145,17 +168,21 @@ class CourseUpdateView(UpdateView):
                 course.title = course_title
                 course.save()
                 for chap in chapters:
-                    chapter = Chapter.objects.get(slug=chap.get("chapter_slug"))
-                    chapter.name = chap.get("chapter")
-                    chapter.save()
+                    Chapter.objects.update_or_create(
+                        slug=chap.get("chapter_slug"),
+                        defaults={"name": chap.get("chapter")},
+                    )
                 for less in lessons:
                     chapter = Chapter.objects.get(name=less.get("chapter"))
-                    lesson = Lesson.objects.get(slug=chap.get("lesson_slug"))
-                    lesson.title = (lesson.get("title", ""),)
-                    lesson.video_id = (lesson.get("videoId", ""),)
-                    lesson.chapter = (chapter,)
-                    lesson.text = (lesson.get("text", ""),)
-                    lesson.save()
+                    Lesson.objects.update_or_create(
+                        slug=chap.get("lesson_slug"),
+                        defaults={
+                            "title": less.get("title", ""),
+                            "video_id": less.get("videoId", ""),
+                            "chapter": chapter,
+                            "text": less.get("text", ""),
+                        },
+                    )
                 values["id"] = course.id
                 values["title"] = course.title
             except Exception as e:

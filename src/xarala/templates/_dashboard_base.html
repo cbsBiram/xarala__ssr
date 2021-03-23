@@ -36,6 +36,14 @@
 
   {% block extrastyle %}
   <style>
+    .eWdrvQ {
+      display: flex;
+      flex-direction: column;
+      -moz-box-align: stretch;
+      align-items: stretch;
+      width: 100%;
+    }
+
     .bqfDsc {
       position: relative;
       padding: 36px 50px 50px;
@@ -61,14 +69,15 @@
       font-size: 1.5625rem;
     }
 
-    .inmuHv input {
+    .inmuHv input,
+    .bYLGqV input {
       width: 100%;
       color: rgb(19, 19, 26);
-      font-size: 0.9375rem;
+      font-size: 1.1rem;
       border: medium none;
       outline: currentcolor none medium;
       background-color: transparent;
-      padding: 5px 0px 9px;
+      padding: 5px 0px 13px;
     }
 
     .inmuHv::after {
@@ -85,11 +94,28 @@
       width: 100%;
     }
 
+    .bYLGqV {
+      position: relative;
+    }
+
+    .bYLGqV::after {
+      content: '';
+      width: 100%;
+      height: 2px;
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      background-color: rgb(19, 19, 26);
+      transform-origin: 0px 50% 0px;
+      opacity: 1;
+      transition: opacity 0.2s linear 0s, transform 0.2s ease-in-out 0s;
+    }
+
     .hkJnVs {
       background-color: rgb(255, 255, 255);
       border: 1px solid rgb(234, 235, 239);
       border-radius: 10px;
-      padding: 10px 16px;
+      padding: 13px 16px;
       position: relative;
     }
 
@@ -135,11 +161,10 @@
     .gMCPru {
       position: relative;
       border-radius: 5px;
-      cursor: pointer;
     }
 
     .ivYHKm {
-      cursor: pointer;
+      /* cursor: pointer; */
       background-color: rgb(255, 255, 255);
       border: 1px solid rgb(234, 235, 239);
       border-radius: 10px;
@@ -294,6 +319,23 @@
 
     .fFlPup {
       display: flex;
+    }
+
+    .cCrQLa {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      line-height: 0.8125rem;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      -moz-box-align: center;
+      align-items: center;
+      -moz-box-pack: center;
+      justify-content: center;
+      border-radius: 10px;
+      border: 1px solid rgb(254, 79, 79);
+      background-color: rgb(254, 79, 79);
+      color: rgb(255, 255, 255);
     }
 
     .fFlPup .exerciseEditor__ChoiceIndex-sc-1hguq4q-4 {
@@ -648,6 +690,48 @@
 
     .dAfxhl> :not(:last-child) {
       margin-right: 10px;
+    }
+
+    .hRaafP input:checked::after {
+      transform: scale(1);
+    }
+
+    .hRaafP input::after {
+      background-color: rgb(254, 79, 79);
+      position: absolute;
+      inset: 0px;
+      margin: 5px;
+      border-radius: 5px;
+      transform: scale(0);
+      content: "";
+    }
+
+    .kxhlBp {
+      display: flex;
+      -moz-box-align: center;
+      align-items: center;
+    }
+
+    .kxhlBp input::after {
+      background-color: rgb(209, 64, 64);
+      position: absolute;
+      inset: 0px;
+      margin: 5px;
+      border-radius: 5px;
+      transform: scale(0);
+      content: "";
+    }
+
+    .kxhlBp input {
+      width: 20px;
+      height: 20px;
+      padding: 5px;
+      border-radius: 10px;
+      margin-right: 10px;
+      margin-bottom: 3px;
+      appearance: none;
+      border: 1px solid rgb(178, 178, 178);
+      position: relative;
     }
   </style>
   {% endblock extrastyle %}
