@@ -136,125 +136,10 @@
                 <button class="hJLFyW" id="save-draft-btn" disabled=""
                     data-url="{% url 'dashboard:create-course' %}">Enregistrer</button>
             </div>
-            <button disabled="" id="publish-course-btn" data-toggle="modal" data-target="#publish_course_modal"
-                course_id="{{course.id}}"
-                class="defaultButton__DefaultButton-sc-1scxgx7-0 primaryButton__PrimaryButton-sc-1t32hmz-0 jRKnYV khmjno">Publier</button>
         </div>
         <div class="jwyJKT">
             Les champs avec des asterisks (*) doivent être remplis pour que le cours soit publié. À
             l'enregistrement, seul le titre du cours est obligatoire.
-        </div>
-    </div>
-</div>
-
-<!-- Publish Course Modal-->
-<div class="modal fade publish" id="publish_course_modal" tabindex="-1" role="dialog"
-    aria-labelledby="publishCourseModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="max-width: 1090px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="general_info10">
-                    <div class="course__form" style="padding-left: 20px; padding-right: 20px;">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12">
-                                <div class="course_des_textarea mt-30 lbel25">
-                                    <label>Description*</label>
-                                    <div class="course_des_bg">
-                                        <ul class="course_des_ttle">
-                                            <li><a href="#"><i class="uil uil-bold"></i></a></li>
-                                            <li><a href="#"><i class="uil uil-italic"></i></a></li>
-                                            <li><a href="#"><i class="uil uil-list-ul"></i></a></li>
-                                            <li><a href="#"><i class="uil uil-left-to-right-text-direction"></i></a>
-                                            </li>
-                                            <li><a href="#"><i class="uil uil-right-to-left-text-direction"></i></a>
-                                            </li>
-                                            <li><a href="#"><i class="uil uil-list-ui-alt"></i></a></li>
-                                            <li><a href="#"><i class="uil uil-link"></i></a></li>
-                                            <li><a href="#"><i class="uil uil-text-size"></i></a></li>
-                                            <li><a href="#"><i class="uil uil-text"></i></a></li>
-                                        </ul>
-                                        <div class="textarea_dt">
-                                            <div class="ui form swdh339">
-                                                <div class="field">
-                                                    <textarea rows="5" name="description" id="course_description"
-                                                        placeholder="Insert your course description"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 d-flex align-items-center">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="ui search focus mt-30 lbel25">
-                                        <label>Prix*</label>
-                                        <div class="ui left icon input swdh19">
-                                            <input class="prompt srch_explore" type="text"
-                                                placeholder="Insert your course Subtitle." name="subtitle"
-                                                data-purpose="edit-course-title" maxlength="60" id="course_price"
-                                                value="">
-                                            <div class="badge_num2">FCFA</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="ui search focus mt-30 lbel25">
-                                        <label>Thumbnail*</label>
-                                        <div class="ui left icon input swdh19">
-                                            <input class="prompt srch_explore" type="file" name="subtitle"
-                                                id="course_thumbnail">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-12">
-                                <div class="mt-30 lbel25">
-                                    <label>Langue*</label>
-                                </div>
-                                <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="course_language">
-                                    <option value="" disabled>Choisir la langue</option>
-                                    {% for language in languages %}
-                                    <option value="{{language.name}}">{{ language.name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-lg-4 col-md-12">
-                                <div class="mt-30 lbel25">
-                                    <label>Niveau*</label>
-                                </div>
-                                <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="course_level">
-                                    <option value="" disabled>Choisir le niveau</option>
-
-                                    {% for key, value in levels %}
-                                    <option value="{{key}}">{{ value }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-lg-4 col-md-12 select-box">
-                                <div class="mt-30 lbel25">
-                                    <label>Catégorie*</label>
-                                </div>
-                                <select class="ui hj145 dropdown cntry152 prompt srch_explore">
-                                    {% for category in categories %}
-                                    <option value="{{category.name}}">{{ category.name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="dAfxhl" style="margin: 15px 50px 40px 0;">
-                <button id="publish_course_btn" data-url="{% url 'dashboard:submit-course' %}"
-                    class="defaultButton__DefaultButton-sc-1scxgx7-0 primaryButton__PrimaryButton-sc-1t32hmz-0 detailsEditorModal__PublishOrSave-z4bcvp-8 jRKnYV khmjno">
-                    Publier votre cours
-                </button>
-            </div>
         </div>
     </div>
 </div>
@@ -617,9 +502,7 @@
                 },
                 success: function (data) {
                     console.log(data)
-                    $('#publish-course-btn').attr('disabled', true);
                     $('#save-draft-btn').attr('disabled', false);
-                    $('#publish_course_btn').attr('course_id', data['id'])
                     if (data['slug'])
                         window.location.href = '/dashboard/course/edit/' + data['slug'];
                 }
@@ -648,34 +531,6 @@
             else
                 $('#save-draft-btn').attr('disabled', false);
         });
-
-        $('#publish_course_btn').on('click', function () {
-            let $thisURL = $(this).attr('data-url');
-            let $courseId = $(this).attr('course_id')
-            let $description = $('textarea[id=course_description]');
-            let $price = $('input[id=course_price]');
-            let $thumbnail = $('input[id=course_thumbnail]');
-            let $level = $('select[id=course_level]');
-            let $language = $('select[id=course_language]');
-
-            $.ajax({
-                type: 'POST',
-                url: $thisURL,
-                data: {
-                    'id': $courseId,
-                    'description': $description.val(),
-                    'price': $price.val(),
-                    'thumbnail': $thumbnail.val(),
-                    'level': $level.val(),
-                    'language': $language.val(),
-                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                },
-                success: function (data) {
-                    window.location.href = '/dashboard/courses/';
-                }
-            })
-        })
-
     })
 </script>
 {% endblock extrajs %}
