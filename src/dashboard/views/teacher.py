@@ -155,6 +155,7 @@ class CourseUpdateView(UpdateView):
 
         return render(request, self.template_name, context=context)
 
+    @transaction.atomic
     def post(self, request, *args, **kwargs):
         user = request.user
         if request.POST:
@@ -163,6 +164,9 @@ class CourseUpdateView(UpdateView):
                 course_title = request.POST.get("courseTitle", "")
                 chapters = jsonloads(request.POST.get("chapters", ""))
                 lessons = jsonloads(request.POST.get("lessons", ""))
+                quizzes = jsonloads(request.POST.get("quizzes", ""))
+                questions = jsonloads(request.POST.get("questions", ""))
+                answers = jsonloads(request.POST.get("answers", ""))
 
                 course = Course.objects.get(slug=self.kwargs["slug"], teacher=user)
                 course.title = course_title
@@ -172,17 +176,47 @@ class CourseUpdateView(UpdateView):
                         slug=chap.get("chapter_slug"),
                         defaults={"name": chap.get("chapter")},
                     )
-                for less in lessons:
-                    chapter = Chapter.objects.get(name=less.get("chapter"))
-                    Lesson.objects.update_or_create(
-                        slug=chap.get("lesson_slug"),
-                        defaults={
-                            "title": less.get("title", ""),
-                            "video_id": less.get("videoId", ""),
-                            "chapter": chapter,
-                            "text": less.get("text", ""),
-                        },
-                    )
+                if lessons:
+                    for less in lessons:
+                        chapter = Chapter.objects.get(name=less.get("chapter"))
+                        Lesson.objects.update_or_create(
+                            slug=chap.get("lesson_slug"),
+                            defaults={
+                                "title": less.get("title", ""),
+                                "video_id": less.get("videoId", ""),
+                                "chapter": chapter,
+                                "text": less.get("text", ""),
+                            },
+                        )
+                if quizzes:
+                    for quiz in quizzes:
+                        chapter = Chapter.objects.get(name=quiz.get("chapter"))
+                        Quiz.objects.update_or_create(
+                            id=quiz.get("quizId"),
+                            defaults={
+                                "title": quiz.get("title", ""),
+                                "chapter": chapter,
+                            },
+                        )
+                    for question in questions:
+                        quiz = Quiz.objects.get(name=question.get("quiz"))
+                        Quiz.objects.update_or_create(
+                            id=question.get("questionId"),
+                            defaults={
+                                "label": question.get("label", ""),
+                                "quiz": quiz,
+                            },
+                        )
+                    for answer in answers:
+                        question = Question.objects.get(name=answer.get("question"))
+                        Question.objects.update_or_create(
+                            id=answer.get("answerId"),
+                            defaults={
+                                "label": answer.get("label", ""),
+                                "question": question,
+                                "correct": answer.get("correct", ""),
+                            },
+                        )
                 values["id"] = course.id
                 values["title"] = course.title
             except Exception as e:

@@ -166,7 +166,8 @@
                 {% with chapter.quiz as quiz %}
                 <div class="fmgnGK mt-30">
                     <div class="inmuHv jYirZ">
-                        <input type="text" autocapitalize="sentences" name="quiz_title" value="{{quiz.title}}" required>
+                        <input type="text" autocapitalize="sentences" name="quiz_title" quiz_id="{{quiz.id}}"
+                            value="{{quiz.title}}" required>
                     </div>
 
                 </div>
@@ -197,8 +198,9 @@
                                 <div class="primary__Primary-sc-16k2f7-0 bgQjcd">
                                     <b>Question {{ forloop.counter }} </b>
                                 </div>
-                                <div class="primary__Primary-sc-16k2f7-0 bgQjcd question-label"><b> {{ question.label }}
-                                    </b>
+                                <div class="primary__Primary-sc-16k2f7-0 bgQjcd question-label"
+                                    question_id="{{question.id}}">
+                                    <b> {{ question.label }}</b>
                                 </div>
 
                                 {% for answer in question.answers.all %}
@@ -208,7 +210,7 @@
                                     ">
                                         <input disabled="" name="choice" type="checkbox" {% if answer.is_correct %}
                                             checked {% else %} {% endif %}>
-                                        <label>{{ answer.label }}</label>
+                                        <label answer_id="{{answer.id}}">{{ answer.label }}</label>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -820,6 +822,31 @@
                 })
             })
 
+            $('div#quiz_section input[name=quiz_title]').each(function () {
+                quizList.push({
+                    chapter: $(this).closest('div.my-chapter').find("input[name=chapter_name]").val(),
+                    quizId: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('quiz_id'),
+                    title: $(this).val()
+                })
+            })
+
+            $('div#quiz_section div.question .question-section .view-question .gmrWGH').each(function () {
+                questionList.push({
+                    quiz: $(this).closest('div#quiz_section').find('input[name=quiz_title]').val(),
+                    questionId: $(this).find('.question-label b').attr('question_id'),
+                    label: $(this).find('.question-label b').html()
+                })
+            })
+
+            $('div#quiz_section div.exerciseView__Choice-sc-19oun2q-3').each(function () {
+                answerList.push({
+                    question: $(this).parents('.gmrWGH').find('div.question-label b').html(),
+                    answeId: $(this).find('label').attr('answer_id'),
+                    label: $(this).find('label').html(),
+                    correct: $(this).find('input[name=choice]').attr('checked')
+                })
+            })
+
             $.ajax({
                 type: 'POST',
                 url: $thisURL,
@@ -832,6 +859,9 @@
                     'courseTitle': $courseTitle.val(),
                     'chapters': JSON.stringify(chapterList),
                     'lessons': JSON.stringify(lessonList),
+                    'quizzes': JSON.stringify(quizList),
+                    'questions': JSON.stringify(questionList),
+                    'answers': JSON.stringify(answerList),
                     csrfmiddlewaretoken: '{{ csrf_token }}'
                 },
                 success: function (data) {
