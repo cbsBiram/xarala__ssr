@@ -87,4 +87,7 @@ def format_date(date_object):
 
 
 def trail_string(str):
-    return str.lstrip().rstrip()
+    if str:
+        return str.lstrip().rstrip()
+    else:
+        return ""

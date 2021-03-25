@@ -117,6 +117,7 @@ class CourseCreateView(CreateView):
                             video_id=lesson.get("videoId", ""),
                             chapter=chapter,
                             text=trail_string(lesson.get("text", "")),
+                            order=lesson.get("order"),
                         )
                 if quizzes:
                     for quiz in quizzes:
@@ -160,7 +161,6 @@ class CourseUpdateView(UpdateView):
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
-        print(self.kwargs["slug"])
         course = Course.objects.get(slug=self.kwargs["slug"], teacher=user)
         context = {"course": course}
 
@@ -192,7 +192,6 @@ class CourseUpdateView(UpdateView):
                         chapter = Chapter.objects.get(
                             slug=trail_string(less.get("chapterSlug"))
                         )
-                        print("hey", chapter)
                         Lesson.objects.update_or_create(
                             slug=trail_string(less.get("lessonSlug")),
                             defaults={
@@ -200,9 +199,9 @@ class CourseUpdateView(UpdateView):
                                 "video_id": less.get("videoId", ""),
                                 "chapter": chapter,
                                 "text": trail_string(less.get("text", "")),
+                                "order": less.get("order"),
                             },
                         )
-                    print("err")
                 if quizzes:
                     for quiz in quizzes:
                         chapter = Chapter.objects.get(slug=quiz.get("chapterSlug"))
@@ -240,8 +239,8 @@ class CourseUpdateView(UpdateView):
                             },
                         )
                 values["id"] = course.id
-                values["title"] = course.title
             except Exception as e:
+                print(e)
                 values["error"] = e
                 values["has_error"] = -1
             return JsonResponse(values)

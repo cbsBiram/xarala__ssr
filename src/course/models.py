@@ -112,7 +112,9 @@ class Course(models.Model):
         return chapters
 
     def get_lessons(self):
-        lessons = Lesson.objects.filter(chapter__in=self.get_chapters()).order_by("id")
+        lessons = Lesson.objects.filter(chapter__in=self.get_chapters()).order_by(
+            "order"
+        )
         return lessons
 
     def count_lessons(self):
@@ -167,7 +169,9 @@ class Chapter(models.Model):
         super().save(*args, **kwargs)
 
     def get_lessons(self):
-        lessons = Lesson.objects.filter(chapter=self).order_by("id")
+        lessons = Lesson.objects.filter(chapter=self).order_by("order")
+        for lesson in lessons:
+            print(lesson.order)
         return lessons
 
     class Meta:
