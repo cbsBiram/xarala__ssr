@@ -1,0 +1,61 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+L'actualité de Xarala
+{% endblock title %}
+
+{% block meta %}
+<meta property="og:title" content="L'actualité de Xarala">
+<meta name="description" property="og:description" content="Xarala Academy La technologie dans votre langue">
+<meta property="og:image" content="{% static 'images/logo.png' %}">
+<meta property="og:image:alt" content="Logo Xarala">
+<meta property="og:url" content="{{ request.get_host }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@xaralatech">
+<meta name="twitter:creator" content="@xaralatech">
+<meta name="twitter:title" content="Xarala Academy">
+<meta name="twitter:description" content="Xarala, La technologie dans votre langue.">
+<meta name="twitter:image" content="{% static 'images/logo.png' %}">
+<meta name="twitter:image:alt" content="Logo de Xarala.">
+{% endblock meta %}
+
+{% block content %}
+
+<div class="section3125">
+  <div class="_205ef5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          {% for event in events %}
+          <div class="blogbg_1 mt-50">
+            <a href="{{ event.get_absolute_url }}" class="hf_img">
+              <img src="
+              {% if event.image %}
+              {{ event.image.url }}
+              {% elif event.image_url %}
+              {{ event.image_url }}
+              {% else %}{% static 'images/logo.png'  %}
+              {% endif %}" alt="{{ event.title }}">
+              <div class="course-overlay"></div>
+            </a>
+            <div class="hs_content">
+              <a href="{{ event.get_absolute_url }}" class="crse14s title900">{{ event.title }}</a>
+              <p class="blog_des"> {{ event.description|safe|truncatewords:"20" }}</p>
+              <a href="{{ event.get_absolute_url }}" class="view-blog-link">En savoir plus<i
+                  class="uil uil-arrow-right"></i></a>
+            </div>
+          </div>
+          {% endfor %}
+
+          <!-- event pagination -->
+          {% include "partials/_pagination.html" %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}

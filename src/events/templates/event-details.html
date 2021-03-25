@@ -1,0 +1,101 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block meta %}
+<meta property="og:url" content="{{ request.get_host }}/{{ event.slug }}" />
+<meta property="og:title" content="{{ event.title }}" />
+<meta property="og:image" content="{% if event.image %}
+            {{ event.image.url }}
+            {% elif event.image_url %}
+            {{ event.image_url }}
+            {% else %}{% static 'images/logo.png'  %}
+            {% endif %}" />
+<meta property="og:image:alt" content="{{ event.title }}" />
+
+<meta name="twitter:image" content="{% if event.image %}
+            {{ event.image.url }}
+            {% elif event.image_url %}
+            {{ event.image_url }}
+            {% else %}{% static 'images/logo.png'  %}
+            {% endif %}" />
+<meta property="twitter:image:alt" content="{{ event.title }}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@xaralatech" />
+{% endblock meta %}
+
+{% block title %}
+Le blog de Xarala - {{ event.title }}
+{% endblock title %}
+
+{% block content %}
+<div class="section3125">
+  <div class="faq1256">
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col-md-8">
+          <div class="bg_blog2">
+            <img src="
+            {% if event.image %}
+            {{ event.image.url }}
+            {% elif event.image_url %}
+            {{ event.image_url }}
+            {% else %}{% static 'images/logo.png'  %}
+            {% endif %}" alt="{{ event.title }}" class="img-fluid">
+          </div>
+          <div class="vew120 frc123">
+            <p>{{ event.description|safe }}</p>
+          </div>
+          <div class="vew120 mt-35 mb-30">
+            {{ event.content|safe }}
+          </div>
+
+          <div class="vew120 mt-35 mb-30">
+            <div id="disqus_thread"></div>
+          </div>
+
+        </div>
+        <!-- <div class="col-md-12">
+          <div class="blog_pagination">
+            <a href="#" class="bp_left">
+              <i class="uil uil-angle-double-left"></i>
+              <div class="kslu15">
+                <div class="prevlink">Previous</div>
+                <div class="prev_title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+              </div>
+            </a>
+            <a href="#" class="bp_right">
+              <div class="kslu16">
+                <div class="prevlink1">Next</div>
+                <div class="prev_title1">Vestibulum vulputate nulla quis dignissim ultricies.</div>
+              </div>
+              <i class="uil uil-angle-double-right"></i>
+            </a>
+          </div>
+        </div> -->
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock content %}
+
+{% block extrajs %}
+<script>
+  var disqus_config = function () {
+    this.page.url = window.location.href;
+    this.page.identifier = "{{ event.slug }}";
+  };
+
+
+  (function () { // DON'T EDIT BELOW THIS LINE
+    var d = document,
+      s = d.createElement('script');
+    s.src = 'https://xarala-academy.disqus.com/embed.js';
+    s.setAttribute('data-created_at', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+{% endblock extrajs %}

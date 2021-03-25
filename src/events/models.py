@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.core.validators import URLValidator
 from django.utils.text import slugify
 from xarala.utils import upload_image_path
@@ -32,6 +33,9 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("events:event-detail", kwargs={"slug": self.slug})
 
     def _get_unique_slug(self):
         slug = slugify(self.title)
