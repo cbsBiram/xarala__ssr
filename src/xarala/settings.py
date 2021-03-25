@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "social_django",
     # custom apps,
     "course.apps.CourseConfig",
+    "events.apps.EventsConfig",
     "pages.apps.PagesConfig",
     "users.apps.UsersConfig",
     "userlogs.apps.LogsConfig",

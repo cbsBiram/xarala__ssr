@@ -231,8 +231,9 @@
                                 <div class="primary__Primary-sc-16k2f7-0 bgQjcd">
                                     <b>Question {{ forloop.counter }} </b>
                                 </div>
-                                <div class="primary__Primary-sc-16k2f7-0 bgQjcd question-label">
-                                    <b question_id="{{question.id}}">{{question.label}}</b>
+                                <div class="primary__Primary-sc-16k2f7-0 bgQjcd question-label"
+                                    question_id="{{question.id}}">
+                                    <b> {{ question.label }}</b>
                                 </div>
 
                                 {% for answer in question.answers.all %}
@@ -902,6 +903,31 @@
                     chapterSlug: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('chapter_slug'),
                     question: $(this).parents('.gmrWGH').find('div.question-label b').html(),
                     answerId: $(this).find('label').attr('answer_id'),
+                    label: $(this).find('label').html(),
+                    correct: $(this).find('input[name=choice]').attr('checked')
+                })
+            })
+
+            $('div#quiz_section input[name=quiz_title]').each(function () {
+                quizList.push({
+                    chapter: $(this).closest('div.my-chapter').find("input[name=chapter_name]").val(),
+                    quizId: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('quiz_id'),
+                    title: $(this).val()
+                })
+            })
+
+            $('div#quiz_section div.question .question-section .view-question .gmrWGH').each(function () {
+                questionList.push({
+                    quiz: $(this).closest('div#quiz_section').find('input[name=quiz_title]').val(),
+                    questionId: $(this).find('.question-label b').attr('question_id'),
+                    label: $(this).find('.question-label b').html()
+                })
+            })
+
+            $('div#quiz_section div.exerciseView__Choice-sc-19oun2q-3').each(function () {
+                answerList.push({
+                    question: $(this).parents('.gmrWGH').find('div.question-label b').html(),
+                    answeId: $(this).find('label').attr('answer_id'),
                     label: $(this).find('label').html(),
                     correct: $(this).find('input[name=choice]').attr('checked')
                 })
