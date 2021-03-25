@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.core.validators import URLValidator
 from django.utils.text import slugify
+from events.managers import EventManager
 from xarala.utils import upload_image_path
 
 
@@ -18,8 +19,8 @@ class Speaker(models.Model):
 
 class Event(models.Model):
     title = models.CharField(max_length=240)
-    description = models.TextField()
-    content = models.TextField()
+    description = models.TextField(null=True)
+    content = models.TextField(null=True)
     location = models.CharField(max_length=240)
     country = models.CharField(max_length=240, null=True)
     total_seats = models.IntegerField(default=0)
@@ -30,6 +31,9 @@ class Event(models.Model):
     date_start = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     date_end = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     speakers = models.ManyToManyField(Speaker)
+    published = models.BooleanField(default=False)
+
+    objects = EventManager()
 
     def __str__(self):
         return self.title

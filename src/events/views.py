@@ -4,6 +4,7 @@ from .models import Event
 
 class EventListView(ListView):
     model = Event
+    queryset = Event.objects.published()
     context_object_name = "events"
     paginate_by = 4
     template_name = "event-list.html"

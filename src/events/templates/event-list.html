@@ -27,6 +27,9 @@ L'actualité de Xarala
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
+
+          {% if events %}
+
           {% for event in events %}
           <div class="blogbg_1 mt-50">
             <a href="{{ event.get_absolute_url }}" class="hf_img">
@@ -47,6 +50,10 @@ L'actualité de Xarala
             </div>
           </div>
           {% endfor %}
+          {% else %}
+          <p>Pas d'actualité</p>
+          {% endif %}
+
 
           <!-- event pagination -->
           {% include "partials/_pagination.html" %}
