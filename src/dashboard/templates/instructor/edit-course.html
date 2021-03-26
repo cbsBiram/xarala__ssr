@@ -135,7 +135,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-center mt-2 mb-10">
+                            <div class="d-flex justify-content-center mt-5 mb-20">
                                 <span class="handle"></span>
                             </div>
                         </td>
@@ -547,7 +547,7 @@
                 '<div class="textarea_dt"><div class="ui form swdh339">' +
                 '<div class="field"> <textarea rows="5" name="ltext_input" id="course_description"' +
                 'placeholder="Insert your course description"></textarea>' +
-                '</div></div></div></div></div></div></div><div class="d-flex justify-content-center mt-2 mb-10">' +
+                '</div></div></div></div></div></div></div><div class="d-flex justify-content-center mt-5 mb-20">' +
                 '<span class="handle"></span></div></td></tr>';
 
             $lessonComponent.append($htmlToAdd);
@@ -559,7 +559,7 @@
 
             if ($sortableComponent.children().length == 0) {
 
-                let quizToAdd = '<div class="fmgnGK mt-30" style="position: relative;"><div class="inmuHv jYirZ">' +
+                let quizToAdd = '<div class="fmgnGK mt-30"><div class="inmuHv jYirZ">' +
                     '<input type="text" autocapitalize="sentences" name="quiz_title" placeholder="Ajouter un titre à votre quiz" required></div>' +
                     '</div><div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">' +
                     '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
@@ -570,12 +570,7 @@
                     '<g fill="none" fill-rule="evenodd"><g fill="#13131A"><path ' +
                     'd="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
                     'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
-                    '</path></g></g></svg>Supprimer</button><button class="btn btn-sm dropdown-item edit_question_card d-flex">' +
-                    '<svg class="mr-2" width="18" height="18" viewBox="0 0 18 18">' +
-                    '<g fill="none" fill-rule="evenodd"><g fill="#13131A"><path ' +
-                    'd="M8.3.412L1.074 7.721l-1 4.6c-.1.461.04.942.374 1.276.334.334.815.475 1.276.374l4.6-1L13.56 5.65c.537-.542.534-1.416-.005-1.956L10.268.406C10.007.145 9.652-.001 9.283 0 8.913 0 8.56.15 8.3.412zM2.81 12.465l-1.234-1.233.63-2.893 3.5 3.5-2.896.626z"' +
-                    'transform="translate(-1001 -238) translate(987 223) translate(14 15) translate(2 2)">' +
-                    '</path></g></g></svg>Modifier</button>' +
+                    '</path></g></g></svg>Supprimer</button>' +
                     '</div></div><div class="question">' +
                     '<div class="question-section"><div class="view-question"></div><div class="add-question"></div></div>' +
                     '<div class="jjarOm kehBGJ bjYTln question-form">' +
@@ -586,9 +581,9 @@
                     '<svg width="16" height="16" viewBox="0 0 16 16" style="cursor: pointer;" class="delete_answer"><g fill="none" fill-rule="evenodd"><g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z" transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
                     '</path></g></g></svg></div></div>' +
                     '<div class="eWWrhn ivYHKm add-answer-btn" style="margin-bottom: 18px;"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
-                    '</div><div><div class="kLHfqT">Choisir la bonne réponse</div>' +
+                    '</div><div><div class="kLHfqT mt-15">Choisir la bonne réponse</div>' +
                     '<div class="fFlPup right-answer-choice"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">1</div></div></div>' +
-                    '<div><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn" disabled="">Ok</button></div></div></div>';
+                    '<div class="mt-20"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn" disabled="">Ok</button></div></div></div>';
                 $sortableComponent.append(quizToAdd);
             } else {
                 let questionToAdd = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
@@ -601,16 +596,16 @@
                     '</path></g></g></svg>' +
                     '</div></div>' +
                     '<div class="eWWrhn ivYHKm add-answer-btn" style="margin-bottom: 18px;"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
-                    '</div><div><div class="kLHfqT">Choose the right answer</div>' +
+                    '</div><div><div class="kLHfqT mt-15">Choisir la bonne réponse</div>' +
                     '<div class="fFlPup right-answer-choice"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">1</div></div></div>' +
-                    '<div class="mt-2"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn">Ok</button></div></div>';
+                    '<div class="mt-20"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn">Ok</button></div></div>';
                 $sortableComponent.find('.question').append(questionToAdd);
             }
 
-            $('.add-answer-btn').on('click', function () {
+            $(document).on('click', '.add-answer-btn', function () {
                 let answerLen = $(this).parents('.question-form').find('.new-answer').children().length
                 let $answerToAdd =
-                    '<div class="gkeyhG answer">' +
+                    '<div class="gkeyhG answer"> ' +
                     '<div class="exerciseEditor__Choice-sc-1hguq4q-5 jGSZkH">' +
                     '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">' + (answerLen + 1) + '</div>' +
                     '<div class="materialTextInput__Container-sc-1aj17jz-0 inmuHv">' +
@@ -706,13 +701,13 @@
                 '<div class="inmuHv" style="margin-bottom: 15px;"><input type="text" autocapitalize="sentences" class="question_input" name="question" value="' + questionLabel + '""></div></div>' +
                 '<div class="dZwVYc"><div class="new-answer">' + answers + '</div>' +
                 '<div class="eWWrhn ivYHKm add-answer-btn" style="margin-bottom: 18px;"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
-                '</div><div><div class="kLHfqT">Choisir la bonne réponse</div>' +
+                '</div><div><div class="kLHfqT mt-15">Choisir la bonne réponse</div>' +
                 '<div class="fFlPup right-answer-choice">';
 
             for (let i = 1; i <= answersList.length; i++)
                 $form += '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">' + i + '</div>';
 
-            $form += '</div></div><div class="mt-2"><div class="ixkpGJ">' +
+            $form += '</div></div><div class="mt-20"><div class="ixkpGJ">' +
                 '<button class="hJLFyW cancel_edit_btn">Annuler</button><button class="jRKnYV khmjno save_edited_question_btn">Ok</button></div></div>'
             $(this).closest('div.question').append($form);
             let $addQuestionBtn = $(this).closest('div.view-question').find('div.new_question_section');
@@ -739,6 +734,9 @@
             let questionId = $sortableComponent.find('.question-label b').attr('question_id')
             let $questionLabel = $sortableComponent.find('input[name=question]').val();
             let $answersLabel = '';
+            let $questionSection = $sortableComponent.find('div.view-question');
+
+            $questionSection.find('.new_question_section').remove()
 
             $sortableComponent.find('div.new-answer').find('div.gkeyhG input[name=answer]').each(function () {
                 let $value = $(this).val()
@@ -773,8 +771,6 @@
                 '</button> </div></div></div><div class="ivYHKm mt-3 new_question_section"><div class="mr-1" style="font-weight: bold; font-size: 0.975rem">' +
                 '<button class="btn add_question_btn">Nouvelle question</button></div><i class="fas fa-plus-circle" style="font-size: 18px"></i></div>';
 
-            let $questionSection = $sortableComponent.find('div.view-question');
-            $questionSection.find('.new_question_section').remove()
             $(this).closest('div.question').find('div.gmrWGH').each(function () {
                 if ($(this).find('div.bgQjcd b').html() == question)
                     $(this).remove()
@@ -788,6 +784,9 @@
         $(document).on('click', 'button.add_question_btn', function () {
             let $quizSection = $(this).parents(".add-lesson-section").find('div#quiz_section')
             let questionLen = $quizSection.find('.question-form').length
+            let $questionSection = $(this).parents().find('div.view-question');
+
+            $questionSection.find('.new_question_section').remove()
 
             let questionToAdd = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
                 '<div><div class="kLHfqT">Question 1</div>' +
@@ -797,9 +796,9 @@
                 '<svg width="16" height="16" viewBox="0 0 16 16" style="cursor: pointer;" class="delete_answer"><g fill="none" fill-rule="evenodd"><g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z" transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
                 '</path></g></g></svg></div></div>' +
                 '<div class="eWWrhn ivYHKm add-answer-btn" style="margin-bottom: 18px;"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
-                '</div><div><div class="kLHfqT">Choose the right answer</div>' +
+                '</div><div><div class="kLHfqT mt-15">Choose the right answer</div>' +
                 '<div class="fFlPup right-answer-choice"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">1</div></div></div>' +
-                '<div class="mt-2"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn">Ok</button></div></div>';
+                '<div class="mt-20"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn">Ok</button></div></div>';
             $quizSection.find('.question').append(questionToAdd);
         })
 
@@ -844,8 +843,8 @@
         })
 
         $(document).on('click', 'button.delete_question_card', function () {
-            $(this).closest('div.view-question').remove()
-            $(this).closest('div.view-question').parents('div#quiz-section').find('input[name=quiz_title]').remove()
+            $(this).closest('div.iuVOof.gmrWGH').remove()
+            // $(this).closest('div.view-question').parents('div#quiz-section').find('input[name=quiz_title]').remove()
         })
 
         $('#save-draft-btn').on('click', function () {
@@ -982,7 +981,7 @@
         })
 
         $(document).on('click', '.delete-lesson', function () {
-            $(this).closest('div.lesson-form').remove()
+            $(this).closest('tr').remove()
             if ($(this).attr('data-url')) {
                 $.ajax({
                     type: 'POST',
