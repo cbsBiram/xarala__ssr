@@ -22,14 +22,14 @@
                     value="{{chapter.name}}" chapter_slug="{{chapter.slug}}" required>
             </div>
         </div>
-        <div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">
+        <div class="dropdown d-flex justify-content-end" style="position: absolute;top: 15px;right: 50px;">
             <a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
                 <i class="fas fa-ellipsis-v" style="font-size: large;"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <button class="btn btn-sm dropdown-item delete-chapter d-flex"
-                    data-url="{% url 'dashboard:delete-chapter' chapter.slug %}">
+                <button class="btn btn-sm dropdown-item delete-chapter d-flex" chapter_id="{{chapter.id}}"
+                    data-toggle="modal" data-target="#delete_chapter_{{chapter.id}}">
                     <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">
                         <g fill="none" fill-rule="evenodd">
                             <g fill="#13131A">
@@ -52,7 +52,7 @@
                     {% for lesson in chapter.get_lessons %}
                     <tr>
                         <td>
-                            <div class="lesson-form ivYHKm mt-15"
+                            <div class="lesson-form ivYHKm mt-15" lesson_slug="{{lesson.slug}}"
                                 style="display: block!important; padding: 10px!important; position:relative">
                                 <div class="dropdown d-flex justify-content-end"
                                     style="position: absolute;top: 0px;right: 0px;">
@@ -219,7 +219,8 @@
                                         </path>
                                     </g>
                                 </g>
-                            </svg>Supprimer</button>
+                            </svg>Supprimer
+                        </button>
                     </div>
                 </div>
                 <div class="question">
@@ -300,9 +301,55 @@
             </div>
 
         </div>
-        {% endfor %}
+    </div>
+    <!-- Delete chapter Modal-->
+    <div class="modal fade delete_chapter" id="delete_chapter_{{chapter.id}}" tabindex="-1" role="dialog"
+        aria-labelledby="deleteChapterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="st_title" id="deleteChapterModalLabel">
+                        <i class="uil uil-analysis"></i>
+                        Supprimer le chapitre
+                        <b class="course_active">{{ chapter.name }}</b>
+                    </h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="delete-chapter-{{chapter.id}}" method="POST"
+                        data-url="{% url 'dashboard:delete-chapter' chapter.slug %}"">
+                        {% csrf_token %}
+                        <div class=" general_info10">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="ui search focus mt-10 lbel25">
+                                    <label>
+                                        Êtes-vous sûr de vouloir supprimer ce chapitre?
+                                        (Tous les éléments de ce chapitre doivent être supprimées avant)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button data-dismiss="modal" class="create_btn_dash btn-danger" style="float: right">
+                                    Annuler
+                                </button>
+                                <button type="button" class="create_btn_dash mr-2 confirm_delete_chapter"
+                                    style="float: right">
+                                    Confirmer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+</div>
+
+{% endfor %}
 <div id="insert_chapter"></div>
 
 
@@ -482,7 +529,7 @@
             let htmlToAdd = '<div class="my-chapter"><div class="jjarOm bqfDsc chapter mt-40" style="position: relative;">' +
                 '<div class="col-12"> <div class="inmuHv jYirZ"><input type="text" autocapitalize="sentences" name="chapter_name"' +
                 'placeholder="Ajouter un titre à votre chapitre" required></div></div>' +
-                '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">' +
+                '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 15px;right: 50px;">' +
                 '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                 '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
                 '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm dropdown-item delete-chapter d-flex">' +
@@ -679,6 +726,7 @@
 
             let question = $questionCard.find('div.bgQjcd b').first().html()
             let questionLabel = $questionCard.find('div.bgQjcd.question-label b').html()
+            let questionId = $questionCard.find('div.bgQjcd.question-label').attr('question_id')
             let answersList = []
             $questionCard.find('div.giWrJk').each(function () {
                 let answerId = $(this).find('label').attr('answer_id')
@@ -698,7 +746,7 @@
             }
             let $form = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
                 '<div><div class="kLHfqT">' + question + '</div>' +
-                '<div class="inmuHv" style="margin-bottom: 15px;"><input type="text" autocapitalize="sentences" class="question_input" name="question" value="' + questionLabel + '""></div></div>' +
+                '<div class="inmuHv" style="margin-bottom: 15px;"><input type="text" autocapitalize="sentences" class="question_input" name="question" value="' + questionLabel + '" question_id=' + questionId + '></div></div>' +
                 '<div class="dZwVYc"><div class="new-answer">' + answers + '</div>' +
                 '<div class="eWWrhn ivYHKm add-answer-btn" style="margin-bottom: 18px;"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
                 '</div><div><div class="kLHfqT mt-15">Choisir la bonne réponse</div>' +
@@ -731,7 +779,7 @@
             let $form = $(this).closest('div.question-form');
             let question = $form.find('div.kLHfqT').html();
             let $sortableComponent = $(this).closest('div#quiz_section');
-            let questionId = $sortableComponent.find('.question-label b').attr('question_id')
+            let questionId = $form.find('div.inmuHv input.question_input').attr('question_id');
             let $questionLabel = $sortableComponent.find('input[name=question]').val();
             let $answersLabel = '';
             let $questionSection = $sortableComponent.find('div.view-question');
@@ -753,7 +801,7 @@
             let $questionViewToAdd =
                 '<div class="jjarOm bFucVQ iuVOof gmrWGH mt-15" style="position: relative;">' +
                 '<div class="primary__Primary-sc-16k2f7-0 bgQjcd"><b>' + question + '</b></div>' +
-                '<div class="primary__Primary-sc-16k2f7-0 bgQjcd question-label"><b question_id="' + questionId + '">' + $questionLabel + '</b></div><div class="exerciseView__Answers-sc-19oun2q-2 giWrJk">' +
+                '<div class="primary__Primary-sc-16k2f7-0 bgQjcd question-label" question_id="' + questionId + '"><b>' + $questionLabel + '</b></div><div class="exerciseView__Answers-sc-19oun2q-2 giWrJk">' +
                 $answersLabel + '</div>' +
                 '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">' +
                 '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
@@ -874,12 +922,6 @@
                 })
             })
 
-            const rows = $('#groups').find('tr');
-            let ids = [];
-            for (let i = 0; i < rows.length; i++) {
-                ids.push({ id: i, lessonSlug: rows[i].getAttribute('lesson_slug') })
-            }
-
             $('div#quiz_section input[name=quiz_title]').each(function () {
                 quizList.push({
                     chapterSlug: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('chapter_slug'),
@@ -892,7 +934,7 @@
                 questionList.push({
                     chapterSlug: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('chapter_slug'),
                     quiz: $(this).closest('div#quiz_section').find('input[name=quiz_title]').val(),
-                    questionId: $(this).find('.question-label b').attr('question_id'),
+                    questionId: $(this).find('.question-label').attr('question_id'),
                     label: $(this).find('.question-label b').html()
                 })
             })
@@ -907,30 +949,7 @@
                 })
             })
 
-            $('div#quiz_section input[name=quiz_title]').each(function () {
-                quizList.push({
-                    chapter: $(this).closest('div.my-chapter').find("input[name=chapter_name]").val(),
-                    quizId: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('quiz_id'),
-                    title: $(this).val()
-                })
-            })
-
-            $('div#quiz_section div.question .question-section .view-question .gmrWGH').each(function () {
-                questionList.push({
-                    quiz: $(this).closest('div#quiz_section').find('input[name=quiz_title]').val(),
-                    questionId: $(this).find('.question-label b').attr('question_id'),
-                    label: $(this).find('.question-label b').html()
-                })
-            })
-
-            $('div#quiz_section div.exerciseView__Choice-sc-19oun2q-3').each(function () {
-                answerList.push({
-                    question: $(this).parents('.gmrWGH').find('div.question-label b').html(),
-                    answeId: $(this).find('label').attr('answer_id'),
-                    label: $(this).find('label').html(),
-                    correct: $(this).find('input[name=choice]').attr('checked')
-                })
-            })
+            console.log('QL', questionList)
 
             $.ajax({
                 type: 'POST',
@@ -947,7 +966,6 @@
                     'quizzes': JSON.stringify(quizList),
                     'questions': JSON.stringify(questionList),
                     'answers': JSON.stringify(answerList),
-                    'orders': JSON.stringify(ids),
                     csrfmiddlewaretoken: '{{ csrf_token }}'
                 },
                 success: function (data) {
@@ -965,11 +983,21 @@
         })
 
         $(document).on('click', '.delete-chapter', function () {
-            $(this).closest("div.my-chapter").remove()
-            if ($(this).attr('data-url')) {
+            var chapterId = $(this).attr('chapter_id');
+            let $myChapter = $(this).closest("div.my-chapter");
+
+            $(document).on('click', '.confirm_delete_chapter', function () {
+                event.preventDefault();
+                let $modalDialog = $('.modal#delete_chapter_' + chapterId);
+                var $thisURL = $(this).closest('#delete-chapter-' + chapterId).attr('data-url');
+                if ($myChapter.find('.chapter .add-lesson-section').children().length) {
+                    $modalDialog.modal('hide');
+                    return;
+                }
+
                 $.ajax({
                     type: 'POST',
-                    url: $(this).attr('data-url'),
+                    url: $thisURL,
                     data: {
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
@@ -977,7 +1005,8 @@
                         console.log(data)
                     },
                 })
-            }
+                $(this).closest("div.my-chapter").remove();
+            })
         })
 
         $(document).on('click', '.delete-lesson', function () {

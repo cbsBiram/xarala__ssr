@@ -21,7 +21,7 @@ from course.forms import (
     UpdateChapter,
     UpdateCourse,
 )
-from xarala.utils import format_date, trail_string
+from xarala.utils import trail_string
 from json import loads as jsonloads
 
 
@@ -146,6 +146,7 @@ class CourseCreateView(CreateView):
                         )
                 values["slug"] = course.slug
             except Exception as e:
+                print(e)
                 values["error"] = e
                 values["has_error"] = -1
             return JsonResponse(values)
@@ -195,28 +196,30 @@ class CourseUpdateView(UpdateView):
                         Lesson.objects.update_or_create(
                             slug=trail_string(less.get("lessonSlug")),
                             defaults={
+                                "chapter": chapter,
                                 "title": trail_string(less.get("title")),
                                 "video_id": less.get("videoId", ""),
-                                "chapter": chapter,
                                 "text": trail_string(less.get("text", "")),
                                 "order": less.get("order"),
                             },
                         )
                 if quizzes:
                     for quiz in quizzes:
-                        chapter = Chapter.objects.get(slug=quiz.get("chapterSlug"))
+                        chapter = Chapter.objects.filter(
+                            slug=quiz.get("chapterSlug")
+                        ).last()
                         Quiz.objects.update_or_create(
                             id=quiz.get("quizId"),
                             defaults={
-                                "title": trail_string(quiz.get("title", "")),
                                 "chapter": chapter,
+                                "title": trail_string(quiz.get("title", "")),
                             },
                         )
                     for question in questions:
-                        quiz = Quiz.objects.get(
+                        quiz = Quiz.objects.filter(
                             title=trail_string(question.get("quiz")),
                             chapter__slug=question.get("chapterSlug"),
-                        )
+                        ).last()
                         Question.objects.update_or_create(
                             id=question.get("questionId"),
                             defaults={
@@ -225,10 +228,10 @@ class CourseUpdateView(UpdateView):
                             },
                         )
                     for answer in answers:
-                        question = Question.objects.get(
+                        question = Question.objects.filter(
                             label=trail_string(answer.get("question")),
                             quiz__chapter__slug=answer.get("chapterSlug"),
-                        )
+                        ).last()
                         correct = True if answer.get("correct") else False
                         Answer.objects.update_or_create(
                             id=answer.get("answerId"),
@@ -303,51 +306,6 @@ class CourseManagementView(View):
         }
 
         return render(request, self.template_name, context=context)
-
-
-@teacher_required
-def create_chapter(request, slug):
-    form_class = CreateChapter
-    form = form_class(request.POST)
-    values = {"error": "", "has_error": 0}
-    try:
-        course = Course.objects.get(slug=slug)
-        if form.is_valid():
-            chapter = form.save(commit=False)
-            chapter.course = course
-            chapter.save()
-            values["id"] = chapter.id
-            values["name"] = chapter.name
-            values["chapter_slug"] = chapter.slug
-            values["date_created"] = format_date(chapter.date_created)
-            values["order"] = chapter.order
-            values["drafted"] = "Oui" if chapter.drafted else "Non"
-            course.course_chapters.add(chapter)
-            print(values)
-    except Exception as e:
-        values["error"] = e
-        values["has_error"] = -1
-    return JsonResponse(values)
-
-
-@teacher_required
-def update_chapter(request, id):
-    values = {"error": "", "has_error": 0}
-    name = request.POST.get("name")
-    try:
-        chapter = get_object_or_404(Chapter, id=id)
-        chapter.name = name
-        chapter.save()
-        values["id"] = chapter.id
-        values["name"] = chapter.name
-        values["chapter_slug"] = chapter.slug
-        values["date_created"] = format_date(chapter.date_created)
-        values["order"] = chapter.order
-        values["drafted"] = "Oui" if chapter.drafted else "Non"
-    except Exception as e:
-        values["error"] = e
-        values["has_error"] = -1
-    return JsonResponse(values)
 
 
 @teacher_required
@@ -457,7 +415,6 @@ def create_quiz(request, slug):
     values = {"error": "", "has_error": 0}
     try:
         chapter = Chapter.objects.get(slug=slug)
-        print(form.errors)
         if form.is_valid():
             quiz = form.save(commit=False)
             quiz.chapter = chapter
