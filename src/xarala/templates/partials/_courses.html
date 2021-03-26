@@ -84,18 +84,6 @@
                       <a href="{% url 'course:course-overview' course.slug %}" title="View"
                         class="dropdown-item">Aperçu</a>
                     </button>
-                    <!-- <button class="btn btn-sm">
-                      <a href="{% url 'dashboard:manage-course' course.slug %}" title="Manage"
-                        class="dropdown-item">Gestion</a>
-                    </button> -->
-                    {% if user.is_teacher and not course.submitted and not course.published %}
-                    {% if course.get_chapters and course.count_lessons %}
-                    <button id="submit_course" class="btn btn-sm">
-                      <a href="#" title="Submit" class="dropdown-item submit-course-btn" course_id="{{course.id}}"
-                        data-toggle="modal" data-target="#submit_course_{{course.id}}">Soumettre</a>
-                    </button>
-                    {% endif %}
-                    {% endif %}
                     {% if user.is_teacher and not course.drafted %}
                     <button class="btn btn-sm">
                       <a href="{% url 'dashboard:update-course' course.slug %}" title="Edit"
@@ -106,12 +94,6 @@
                     <button id="draft_course" class="btn btn-sm">
                       <a href="#" title="Draft" course_id="{{course.id}}" data-toggle="modal"
                         data-target="#draft_course_{{course.id}}" class="dropdown-item draft-course-btn">Archiver</a>
-                    </button>
-                    {% endif %}
-                    {% if user.is_staff and course.submitted and not course.published %}
-                    <button id="publish_course" class="btn btn-sm">
-                      <a href="#" title="Publish" course_id="{{course.id}}" data-toggle="modal"
-                        data-target="#publish_course_{{course.id}}" class="dropdown-item publish-course-btn">Publier</a>
                     </button>
                     {% endif %}
                   </div>
