@@ -601,13 +601,13 @@
                     '</path></g></g></svg>' +
                     '</div></div>' +
                     '<div class="eWWrhn ivYHKm add-answer-btn" style="margin-bottom: 18px;"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
-                    '</div><div><div class="kLHfqT mt-15">Choose the right answer</div>' +
+                    '</div><div><div class="kLHfqT mt-15">Choisir la bonne réponse</div>' +
                     '<div class="fFlPup right-answer-choice"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">1</div></div></div>' +
                     '<div class="mt-20"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn">Ok</button></div></div>';
                 $sortableComponent.find('.question').append(questionToAdd);
             }
 
-            $('.add-answer-btn').on('click', function () {
+            $(document).on('click', '.add-answer-btn', function () {
                 let answerLen = $(this).parents('.question-form').find('.new-answer').children().length
                 let $answerToAdd =
                     '<div class="gkeyhG answer">' +
