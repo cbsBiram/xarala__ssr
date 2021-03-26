@@ -325,6 +325,10 @@
                 let $sortableComponent = $(this).parents(".add-lesson-section").find('div#quiz_section')
                 let questionLen = $sortableComponent.find('.view-question').children().length
                 let $questionLabel = $(this).parents().find('input[name=question]').val()
+
+                let $questionSection = $(this).parents().find('div.view-question');
+                $questionSection.find('.new_question_section').remove()
+
                 let $answersLabel = ''
                 $(this).parents().find('div.new-answer').find('div.gkeyhG input[name=answer]').each(function () {
                     let $value = $(this).val()
@@ -358,8 +362,7 @@
                     '</path></g></g></svg>Modifier</button>' +
                     '</div></div></div><div class="ivYHKm mt-3 new_question_section"><div class="mr-1" style="font-weight: bold; font-size: 0.975rem">' +
                     '<button class="btn add_question_btn">Nouvelle question</button></div><i class="fas fa-plus-circle" style="font-size: 18px"></i></div>';
-                let $questionSection = $(this).parents().find('div.view-question');
-                $questionSection.find('.new_question_section').remove()
+
                 $('.question-form').remove()
 
                 $questionSection.append($questionViewToAdd);
@@ -368,6 +371,9 @@
             $(document).on('click', 'button.add_question_btn', function () {
                 let $quizSection = $(this).parents(".add-lesson-section").find('div#quiz_section')
                 let questionLen = $quizSection.find('.question-form').length
+                let $questionSection = $(this).parents().find('div.view-question');
+
+                $questionSection.find('.new_question_section').remove()
 
                 let questionToAdd = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
                     '<div><div class="kLHfqT">Question 1</div>' +

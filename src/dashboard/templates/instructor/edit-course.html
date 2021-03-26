@@ -739,6 +739,9 @@
             let questionId = $sortableComponent.find('.question-label b').attr('question_id')
             let $questionLabel = $sortableComponent.find('input[name=question]').val();
             let $answersLabel = '';
+            let $questionSection = $sortableComponent.find('div.view-question');
+
+            $questionSection.find('.new_question_section').remove()
 
             $sortableComponent.find('div.new-answer').find('div.gkeyhG input[name=answer]').each(function () {
                 let $value = $(this).val()
@@ -773,8 +776,6 @@
                 '</button> </div></div></div><div class="ivYHKm mt-3 new_question_section"><div class="mr-1" style="font-weight: bold; font-size: 0.975rem">' +
                 '<button class="btn add_question_btn">Nouvelle question</button></div><i class="fas fa-plus-circle" style="font-size: 18px"></i></div>';
 
-            let $questionSection = $sortableComponent.find('div.view-question');
-            $questionSection.find('.new_question_section').remove()
             $(this).closest('div.question').find('div.gmrWGH').each(function () {
                 if ($(this).find('div.bgQjcd b').html() == question)
                     $(this).remove()
@@ -788,6 +789,9 @@
         $(document).on('click', 'button.add_question_btn', function () {
             let $quizSection = $(this).parents(".add-lesson-section").find('div#quiz_section')
             let questionLen = $quizSection.find('.question-form').length
+            let $questionSection = $(this).parents().find('div.view-question');
+
+            $questionSection.find('.new_question_section').remove()
 
             let questionToAdd = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
                 '<div><div class="kLHfqT">Question 1</div>' +
