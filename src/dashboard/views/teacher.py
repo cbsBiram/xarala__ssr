@@ -21,7 +21,7 @@ from course.forms import (
     UpdateChapter,
     UpdateCourse,
 )
-from xarala.utils import format_date
+from xarala.utils import format_date, trail_string
 from json import loads as jsonloads
 
 
@@ -104,34 +104,46 @@ class CourseCreateView(CreateView):
                     user=user,
                 )
                 for chapter in chapters:
-                    Chapter.objects.create(name=chapter.get("chapter"), course=course)
+                    Chapter.objects.create(
+                        name=trail_string(chapter.get("chapter")), course=course
+                    )
                 if lessons:
                     for lesson in lessons:
-                        chapter = Chapter.objects.get(name=lesson.get("chapter"))
+                        chapter = Chapter.objects.get(
+                            name=trail_string(lesson.get("chapter"))
+                        )
                         Lesson.objects.create(
-                            title=lesson.get("title", ""),
+                            title=trail_string(lesson.get("title", "")),
                             video_id=lesson.get("videoId", ""),
                             chapter=chapter,
-                            text=lesson.get("text", ""),
+                            text=trail_string(lesson.get("text", "")),
+                            order=lesson.get("order"),
                         )
                 if quizzes:
                     for quiz in quizzes:
-                        chapter = Chapter.objects.get(name=quiz.get("chapter"))
-                        Quiz.objects.create(chapter=chapter, title=quiz.get("title"))
+                        chapter = Chapter.objects.get(
+                            name=trail_string(quiz.get("chapter"))
+                        )
+                        Quiz.objects.create(
+                            chapter=chapter, title=trail_string(quiz.get("title"))
+                        )
                     for question in questions:
-                        quiz = Quiz.objects.get(title=question.get("quiz"))
-                        print(quiz)
-                        Question.objects.create(quiz=quiz, label=question.get("label"))
+                        quiz = Quiz.objects.get(
+                            title=trail_string(question.get("quiz"))
+                        )
+                        Question.objects.create(
+                            quiz=quiz, label=trail_string(question.get("label"))
+                        )
                     for answer in answers:
-                        question = Question.objects.get(label=answer.get("question"))
+                        question = Question.objects.get(
+                            label=trail_string(answer.get("question"))
+                        )
                         correct = True if answer.get("correct") else False
                         Answer.objects.create(
                             question=question,
-                            label=answer.get("label"),
+                            label=trail_string(answer.get("label")),
                             is_correct=correct,
                         )
-                values["id"] = course.id
-                values["title"] = course.title
                 values["slug"] = course.slug
             except Exception as e:
                 values["error"] = e
@@ -149,7 +161,6 @@ class CourseUpdateView(UpdateView):
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
-        print(self.kwargs["slug"])
         course = Course.objects.get(slug=self.kwargs["slug"], teacher=user)
         context = {"course": course}
 
@@ -173,53 +184,63 @@ class CourseUpdateView(UpdateView):
                 course.save()
                 for chap in chapters:
                     Chapter.objects.update_or_create(
-                        slug=chap.get("chapter_slug"),
-                        defaults={"name": chap.get("chapter")},
+                        slug=chap.get("chapterSlug"),
+                        defaults={"name": trail_string(chap.get("chapter"))},
                     )
                 if lessons:
                     for less in lessons:
-                        chapter = Chapter.objects.get(name=less.get("chapter"))
+                        chapter = Chapter.objects.get(
+                            slug=trail_string(less.get("chapterSlug"))
+                        )
                         Lesson.objects.update_or_create(
-                            slug=chap.get("lesson_slug"),
+                            slug=trail_string(less.get("lessonSlug")),
                             defaults={
-                                "title": less.get("title", ""),
+                                "title": trail_string(less.get("title")),
                                 "video_id": less.get("videoId", ""),
                                 "chapter": chapter,
-                                "text": less.get("text", ""),
+                                "text": trail_string(less.get("text", "")),
+                                "order": less.get("order"),
                             },
                         )
                 if quizzes:
                     for quiz in quizzes:
-                        chapter = Chapter.objects.get(name=quiz.get("chapter"))
+                        chapter = Chapter.objects.get(slug=quiz.get("chapterSlug"))
                         Quiz.objects.update_or_create(
                             id=quiz.get("quizId"),
                             defaults={
-                                "title": quiz.get("title", ""),
+                                "title": trail_string(quiz.get("title", "")),
                                 "chapter": chapter,
                             },
                         )
                     for question in questions:
-                        quiz = Quiz.objects.get(name=question.get("quiz"))
-                        Quiz.objects.update_or_create(
+                        quiz = Quiz.objects.get(
+                            title=trail_string(question.get("quiz")),
+                            chapter__slug=question.get("chapterSlug"),
+                        )
+                        Question.objects.update_or_create(
                             id=question.get("questionId"),
                             defaults={
-                                "label": question.get("label", ""),
+                                "label": trail_string(question.get("label", "")),
                                 "quiz": quiz,
                             },
                         )
                     for answer in answers:
-                        question = Question.objects.get(name=answer.get("question"))
-                        Question.objects.update_or_create(
+                        question = Question.objects.get(
+                            label=trail_string(answer.get("question")),
+                            quiz__chapter__slug=answer.get("chapterSlug"),
+                        )
+                        correct = True if answer.get("correct") else False
+                        Answer.objects.update_or_create(
                             id=answer.get("answerId"),
                             defaults={
-                                "label": answer.get("label", ""),
+                                "label": trail_string(answer.get("label")),
                                 "question": question,
-                                "correct": answer.get("correct", ""),
+                                "is_correct": correct,
                             },
                         )
                 values["id"] = course.id
-                values["title"] = course.title
             except Exception as e:
+                print(e)
                 values["error"] = e
                 values["has_error"] = -1
             return JsonResponse(values)

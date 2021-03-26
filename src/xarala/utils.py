@@ -84,3 +84,10 @@ def format_date(date_object):
     month = date_object.strftime("%m")
     year = date_object.strftime("%Y")
     return "{}-{}-{}".format(day_of_month, month, year)
+
+
+def trail_string(str):
+    if str:
+        return str.lstrip().rstrip()
+    else:
+        return ""
