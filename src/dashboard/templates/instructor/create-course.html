@@ -237,7 +237,7 @@
                 '<div class="textarea_dt"><div class="ui form swdh339">' +
                 '<div class="field"> <textarea rows="5" name="ltext_input" id="course_description"' +
                 'placeholder="Insert your course description"></textarea></div></div></div>' +
-                '</div></div></div></div><div class="d-flex justify-content-center mt-2 mb-10"><span class="handle"></span></div></td></tr>';
+                '</div></div></div></div><div class="d-flex justify-content-center mt-5 mb-20"><span class="handle"></span></div></td></tr>';
 
             $lessonComponent.append($htmlToAdd);
         })
@@ -277,7 +277,7 @@
                     '<div class="eWWrhn ivYHKm add-answer-btn" style="margin-bottom: 18px;"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
                     '</div><div><div class="kLHfqT">Choisir la bonne réponse</div>' +
                     '<div class="fFlPup right-answer-choice"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">1</div></div></div>' +
-                    '<div><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn" disabled="">Ok</button></div></div></div>';
+                    '<div class="mt-20"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn" disabled="">Ok</button></div></div></div>';
                 $sortableComponent.append(quizToAdd);
             } else {
                 let questionToAdd = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
@@ -292,7 +292,7 @@
                     '<div class="eWWrhn ivYHKm add-answer-btn" style="margin-bottom: 18px;"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
                     '</div><div><div class="kLHfqT">Choose the right answer</div>' +
                     '<div class="fFlPup right-answer-choice"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">1</div></div></div>' +
-                    '<div class="mt-2"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn">Ok</button></div></div>';
+                    '<div class="mt-20"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn">Ok</button></div></div>';
                 $sortableComponent.find('.question').append(questionToAdd);
             }
 
@@ -380,7 +380,7 @@
                     '<div class="eWWrhn ivYHKm add-answer-btn" style="margin-bottom: 18px;"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
                     '</div><div><div class="kLHfqT">Choose the right answer</div>' +
                     '<div class="fFlPup right-answer-choice"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">1</div></div></div>' +
-                    '<div class="mt-2"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn">Ok</button></div></div>';
+                    '<div class="mt-20"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn">Ok</button></div></div>';
                 $quizSection.find('.question').append(questionToAdd);
             })
 
@@ -417,7 +417,7 @@
                 for (let i = 1; i <= answersList.length; i++)
                     $form += '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">' + i + '</div>';
 
-                $form += '</div></div><div class="mt-2"><div class="ixkpGJ">' +
+                $form += '</div></div><div class="mt-20"><div class="ixkpGJ">' +
                     '<button class="hJLFyW cancel_edit_btn">Annuler</button><button class="jRKnYV khmjno save_edited_question_btn">Ok</button></div></div>'
                 $(this).closest('div.question').append($form);
                 let $addQuestionBtn = $(this).closest('div.view-question').find('div.new_question_section');
