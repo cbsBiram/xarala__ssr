@@ -33,16 +33,15 @@ class CreatePostForm(forms.ModelForm):
             }
         ),
     )
-    tags = (
-        forms.ModelMultipleChoiceField(
-            queryset=Tag.objects.all(),
-            label="Catégories",
-            required=True,
-            widget=forms.SelectMultiple(
-                attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
-            ),
+    tags = forms.ModelChoiceField(
+        queryset=Tag.objects.all(),
+        label="Tags",
+        required=True,
+        widget=forms.Select(
+            attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
         ),
     )
+
     thumbnail = forms.FileField(
         label="Thumbnail",
         widget=forms.FileInput(

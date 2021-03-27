@@ -66,12 +66,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12 d-flex mt-35">
+                        <div class="col-lg-6 col-md-6">
                             {{ form.tags.errors }}
-                            <div class="mt-30 lbel25" style="margin-right: 10px !important;">
-                                <label for="{{ form.tags.id_for_label }}">Catégories*</label>
+                            <div class="ui search focus mt-30 lbel25">
+                                <label for="{{ form.tags.id_for_label }}">Tags*</label>
+                                <div class="ui left icon input swdh19">
+
+                                    {{ form.tags }}
+                                </div>
                             </div>
-                            {{ form.tags }}
                         </div>
                         <div class="col-12 mt-30">
                             <button type="submit" class="create_btn_dash">Enregistrer</button>
