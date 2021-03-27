@@ -316,6 +316,7 @@ def delete_chapter(request, slug):
         if request.method == "POST":
             chapter.delete()
     except Exception as e:
+        print(e)
         values["error"] = e
         values["has_error"] = -1
     return JsonResponse(values)
@@ -330,6 +331,7 @@ def draft_chapter(request, id):
         chapter.save()
         values["chapter_slug"] = chapter.slug
     except Exception as e:
+        print(e)
         values["error"] = e
         values["has_error"] = -1
     return JsonResponse(values)
@@ -402,6 +404,7 @@ def delete_lesson(request, slug):
         if request.method == "POST":
             lesson.delete()
     except Exception as e:
+        print(e)
         values["error"] = e
         values["has_error"] = -1
     return JsonResponse(values)
@@ -430,6 +433,7 @@ def create_quiz(request, slug):
                 user=teacher,
             )
     except Exception as e:
+        print(e)
         values["error"] = e
         values["has_error"] = -1
     return JsonResponse(values)
@@ -460,6 +464,21 @@ def delete_quiz(request, slug):
         if request.method == "POST":
             quiz.delete()
     except Exception as e:
+        print(e)
+        values["error"] = e
+        values["has_error"] = -1
+    return JsonResponse(values)
+
+
+@teacher_required
+def delete_question(request, id):
+    values = {"error": "", "has_error": 0}
+    try:
+        question = get_object_or_404(Question, pk=id)
+        if request.method == "POST":
+            question.delete()
+    except Exception as e:
+        print(e)
         values["error"] = e
         values["has_error"] = -1
     return JsonResponse(values)
