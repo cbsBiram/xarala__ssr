@@ -97,14 +97,6 @@ urlpatterns = [
         name="manage-course",
     ),
     path(
-        "add-chapter/<slug:slug>/", teacher_views.create_chapter, name="create-chapter"
-    ),
-    path(
-        "update-chapter/<int:id>/",
-        teacher_views.update_chapter,
-        name="update-chapter",
-    ),
-    path(
         "delete-chapter/<slug:slug>/",
         teacher_views.delete_chapter,
         name="delete-chapter",
