@@ -152,7 +152,9 @@ urlpatterns = [
         teacher_views.ChapterManagementView.as_view(),
         name="manage-quiz",
     ),
-    path("submit-course/", teacher_views.submit_course, name="submit-course"),
+    path(
+        "submit-course/<slug:slug>", teacher_views.submit_course, name="submit-course"
+    ),
     path("draft-course/", teacher_views.draft_course, name="draft-course"),
     # shared
     path("tutorials/", shared_views.TutorialListView.as_view(), name="tutorials"),
