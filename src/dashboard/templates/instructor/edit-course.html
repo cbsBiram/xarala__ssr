@@ -308,9 +308,7 @@
                                         <i class="fas fa-ellipsis-v" style="font-size: large;"></i>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <button class="btn btn-sm dropdown-item edit_question_card d-flex"
-                                            quiz_id="{{question.id}}" data-toggle="modal"
-                                            data-target="#delete_question_{{question.id}}">
+                                        <button class="btn btn-sm dropdown-item edit_question_card d-flex">
                                             <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18">
                                                 <g fill="none" fill-rule="evenodd">
                                                     <g fill="#13131A">
@@ -884,6 +882,8 @@
                 let $addQuestionBtn = $(this).closest('div.view-question').find('div.new_question_section');
                 $questionCard.hide();
                 $addQuestionBtn.hide();
+
+
             })
 
             $(document).on('click', '.cancel_edit_btn', function () {
@@ -1158,6 +1158,22 @@
             })
 
             $(document).on('click', 'div.answer svg.delete_answer', function () {
+                let answerId = $(this).parent().find('.inmuHv input[name=answer]').attr('answer_id')
+                let $thisUrl = "{% url 'dashboard:delete-answer' 123 %}".replace('123', answerId);
+
+                if (answerId)
+                    $.ajax({
+                        type: 'POST',
+                        url: $thisUrl,
+                        data: {
+                            csrfmiddlewaretoken: '{{ csrf_token }}'
+                        },
+                        success: function (data) {
+                            console.log(data)
+                        },
+                    })
+
+
                 let $currentValue = $(this).closest('div.answer').find('.jGSZkH .answer-form').html()
                 let $myAnswers = $(this).parents('div.dZwVYc').find('div div.right-answer-choice .ksjfCD');
                 $myAnswers.each(function () {

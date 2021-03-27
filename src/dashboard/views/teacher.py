@@ -482,3 +482,17 @@ def delete_question(request, id):
         values["error"] = e
         values["has_error"] = -1
     return JsonResponse(values)
+
+
+@teacher_required
+def delete_answer(request, id):
+    values = {"error": "", "has_error": 0}
+    try:
+        answer = get_object_or_404(Answer, pk=id)
+        if request.method == "POST":
+            answer.delete()
+    except Exception as e:
+        print(e)
+        values["error"] = e
+        values["has_error"] = -1
+    return JsonResponse(values)

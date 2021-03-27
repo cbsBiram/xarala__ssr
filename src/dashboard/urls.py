@@ -143,6 +143,11 @@ urlpatterns = [
         name="delete-question",
     ),
     path(
+        "delete-answer/<int:id>/",
+        teacher_views.delete_answer,
+        name="delete-answer",
+    ),
+    path(
         "manage-quiz/<slug:slug>",
         teacher_views.ChapterManagementView.as_view(),
         name="manage-quiz",
