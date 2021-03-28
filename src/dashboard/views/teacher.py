@@ -246,10 +246,6 @@ class CourseUpdateView(UpdateView):
                             },
                         )
                     for answer in answers:
-                        question = Question.objects.filter(
-                            label=trail_string(answer.get("question")),
-                            quiz__chapter__slug=answer.get("chapterSlug"),
-                        ).last()
                         if answer.get("question") and answer.get("chapterSlug"):
                             question = Question.objects.filter(
                                 label=trail_string(answer.get("question")),
