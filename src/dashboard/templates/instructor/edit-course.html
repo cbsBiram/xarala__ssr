@@ -5,381 +5,188 @@
 {% block sidebar %} {% include "partials/_sidebar_dashboard.html" %} {% endblock sidebar %}
 
 {% block content %}
-<div style="margin-bottom: 30px;">
-    <div class="inmuHv jYirZ">
-        <input type="text" autocapitalize="sentences" placeholder="Titre de votre cours"
-            style="font-size: 2.1rem !important;" name="course_title" required value="{{course.title}}">
+<div class="eWdrvQ">
+    <div style="margin-bottom: 30px;">
+        <div class="inmuHv jYirZ">
+            <input type="text" autocapitalize="sentences" placeholder="Titre de votre cours"
+                style="font-size: 2.1rem !important;" name="course_title" required value="{{course.title}}">
+        </div>
     </div>
-</div>
 
 
-{% for chapter in course.get_chapters %}
-<div class="my-chapter" chapter_slug="{{chapter.slug}}">
-    <div class="jjarOm bqfDsc chapter mt-40" style="position:relative">
-        <div class="col-12">
-            <div class="inmuHv jYirZ">
-                <input type="text" autocapitalize="sentences" name="chapter_name" placeholder="Titre de votre chapitre"
-                    value="{{chapter.name}}" chapter_slug="{{chapter.slug}}" required>
-            </div>
-        </div>
-        <div class="dropdown d-flex justify-content-end" style="position: absolute;top: 15px;right: 50px;">
-            <a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                <i class="fas fa-ellipsis-v" style="font-size: large;"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <button class="btn btn-sm dropdown-item delete-ex-chapter d-flex" chapter_id="{{chapter.id}}"
-                    data-toggle="modal" data-target="#delete_chapter_{{chapter.id}}">
-                    <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">
-                        <g fill="none" fill-rule="evenodd">
-                            <g fill="#13131A">
-                                <path
-                                    d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"
-                                    transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">
-                                </path>
-                            </g>
-                        </g>
-                    </svg>
-                    Supprimer
-                </button>
-            </div>
-        </div>
-
-        <div class="gMCPru add-lesson-section">
-
-            <table>
-                <tbody id="groups">
-                    {% for lesson in chapter.get_lessons %}
-                    <tr>
-                        <td>
-                            <div class="lesson-form ivYHKm mt-15" lesson_slug="{{lesson.slug}}"
-                                style="display: block!important; padding: 10px!important; position:relative">
-                                <div class="dropdown d-flex justify-content-end"
-                                    style="position: absolute;top: 0px;right: 0px;">
-                                    <a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <button class="btn btn-sm dropdown-item delete-ex-lesson d-flex"
-                                            lesson_id="{{lesson.id}}" data-toggle="modal"
-                                            data-target="#delete_lesson_{{lesson.id}}">
-                                            <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">
-                                                <g fill="none" fill-rule="evenodd">
-                                                    <g fill="#13131A">
-                                                        <path
-                                                            d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"
-                                                            transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">
-                                                        </path>
-                                                    </g>
-                                                </g>
-                                            </svg>
-                                            Supprimer
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="eQVCSW lesson-title" style="margin-top: 5px">
-                                    <div class="inmuHv dfZJeY">
-                                        <input type="text" autocapitalize="sentences" name="ltitle_input"
-                                            value="{{lesson.title}}" placeholder="Titre de la leçon">
-                                    </div>
-                                </div>
-                                <div class="hkJnVs mt-4 lesson-video">
-                                    <div class="ynJOs">
-                                        <div class="jgZALD"><svg width="20" class="mr-4" height="20"
-                                                viewBox="0 0 20 20">
-                                                <g fill="none" fill-rule="evenodd">
-                                                    <g fill-rule="nonzero">
-                                                        <path fill="red"
-                                                            d="M0 10C0 4.477 4.477 0 10 0s10 4.477 10 10-4.477 10-10 10S0 15.523 0 10z"
-                                                            transform="translate(-36 -796) translate(36 796)">
-                                                        </path>
-                                                        <path fill="#FFF"
-                                                            d="M15.11 7.53c-.122-.47-.484-.842-.943-.968C13.336 6.333 10 6.333 10 6.333s-3.336 0-4.167.23c-.46.125-.82.496-.943.968-.223.854-.223 2.636-.223 2.636s0 1.782.223 2.636c.122.471.484.842.943.968C6.664 14 10 14 10 14s3.336 0 4.167-.229c.46-.126.82-.497.943-.968.223-.854.223-2.636.223-2.636s0-1.782-.223-2.636"
-                                                            transform="translate(-36 -796) translate(36 796)">
-                                                        </path>
-                                                        <path fill="red" d="M9 12L9 8.667 11.667 10.333z"
-                                                            transform="translate(-36 -796) translate(36 796)">
-                                                        </path>
-                                                    </g>
-                                                </g>
-                                            </svg>
-                                            <input placeholder="Id de la vidéo" name="lvideo_input"
-                                                value="{{lesson.video_id}}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="eQVCSW lesson-text" style="margin-top: 15px;">
-                                    <div class="inmuHv dfZJeY">
-                                        <div class="course_des_bg">
-                                            <ul class="course_des_ttle">
-                                                <li><a href="#"><i class="uil uil-bold"></i></a></li>
-                                                <li><a href="#"><i class="uil uil-italic"></i></a></li>
-                                                <li><a href="#"><i class="uil uil-list-ul"></i></a></li>
-                                                <li><a href="#"><i class="uil uil-left-to-right-text-direction"></i></a>
-                                                </li>
-                                                <li><a href="#"><i class="uil uil-right-to-left-text-direction"></i></a>
-                                                </li>
-                                                <li><a href="#"><i class="uil uil-list-ui-alt"></i></a></li>
-                                                <li><a href="#"><i class="uil uil-link"></i></a></li>
-                                                <li><a href="#"><i class="uil uil-text-size"></i></a></li>
-                                                <li><a href="#"><i class="uil uil-text"></i></a></li>
-                                            </ul>
-                                            <div class="textarea_dt">
-                                                <div class="ui form swdh339">
-                                                    <div class="field"> <textarea rows="5" name="ltext_input"
-                                                            id="course_description"
-                                                            placeholder="Description">{{lesson.text}}</textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center mt-5 mb-20">
-                                <span class="handle"></span>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <!-- Delete Lesson Modal-->
-                    <div class="modal fade delete_lesson" id="delete_lesson_{{lesson.id}}" tabindex="-1" role="dialog"
-                        aria-labelledby="deleteLessonModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h2 class="st_title" id="deleteLessonModalLabel">
-                                        <i class="uil uil-analysis"></i>
-                                        Supprimer la leçon
-                                        <b class="course_active">: {{ lesson.title }}</b>
-                                    </h2>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                        style="color: red">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div id="delete-lesson-{{lesson.id}}" method="POST"
-                                        data-url="{% url 'dashboard:delete-lesson' lesson.slug %}">
-                                        {% csrf_token %}
-                                        <div class=" general_info10">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="ui search focus mt-10 lbel25">
-                                                        <label>
-                                                            Êtes-vous sûr de vouloir supprimer cette leçon?<br>
-                                                            (Tous les éléments de ce chapitre doivent être d'abord
-                                                            supprimées)
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <button data-dismiss="modal" class="create_btn_dash btn-danger"
-                                                        style="float: right">
-                                                        Annuler
-                                                    </button>
-                                                    <button type="button"
-                                                        class="create_btn_dash mr-2 confirm_delete_lesson"
-                                                        style="float: right">
-                                                        Confirmer
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                </tbody>
-            </table>
-
-            <div class="esedNQ mt-40">
-                <div class="ivYHKm">
-                    <div class="dropdown">
-                        <a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            Ajouter*
-                            <i class="fas fa-plus-circle" style="font-size: 18px"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-                            <button class="btn btn-sm add-lesson-btn dropdown-item">
-                                <div class="d-flex flex-row">
-                                    <svg width="20" height="20" viewBox="0 0 20 20">
-                                        <g fill="none" fill-rule="evenodd">
-                                            <g fill-rule="nonzero">
-                                                <path fill="red"
-                                                    d="M0 10C0 4.477 4.477 0 10 0s10 4.477 10 10-4.477 10-10 10S0 15.523 0 10z"
-                                                    transform="translate(-36 -796) translate(36 796)"></path>
-                                                <path fill="#FFF"
-                                                    d="M15.11 7.53c-.122-.47-.484-.842-.943-.968C13.336 6.333 10 6.333 10 6.333s-3.336 0-4.167.23c-.46.125-.82.496-.943.968-.223.854-.223 2.636-.223 2.636s0 1.782.223 2.636c.122.471.484.842.943.968C6.664 14 10 14 10 14s3.336 0 4.167-.229c.46-.126.82-.497.943-.968.223-.854.223-2.636.223-2.636s0-1.782-.223-2.636"
-                                                    transform="translate(-36 -796) translate(36 796)"></path>
-                                                <path fill="red" d="M9 12L9 8.667 11.667 10.333z"
-                                                    transform="translate(-36 -796) translate(36 796)"></path>
-                                            </g>
-                                        </g>
-                                    </svg>
-                                    <div class="ibgLNl ml-1">Leçon</div>
-                                </div>
-                            </button>
-                            <button class="btn btn-sm dropdown-item add-quiz-btn mt-1">
-                                <div class="d-flex flex-row"><svg width="18" height="18" viewBox="0 0 18 18">
-                                        <g fill="none" fill-rule="evenodd">
-                                            <path d="M0 0H18V18H0z"
-                                                transform="translate(-772 -1744) translate(755 1608) translate(17 136)">
-                                            </path>
-                                            <path fill="#13131A"
-                                                d="M15.617 12.283c.716 0 1.3.567 1.3 1.3 0 .717-.584 1.3-1.3 1.3H7.333c-.716 0-1.3-.583-1.3-1.3 0-.716.584-1.3 1.3-1.3zm-12.284 0c.717 0 1.3.567 1.3 1.3 0 .717-.583 1.3-1.3 1.3h-.95c-.716 0-1.3-.583-1.3-1.3 0-.716.584-1.3 1.3-1.3zM15.617 7.7c.716 0 1.3.583 1.3 1.3 0 .717-.584 1.3-1.3 1.3H7.333c-.716 0-1.3-.583-1.3-1.3 0-.717.584-1.3 1.3-1.3zm-12.284 0c.717 0 1.3.583 1.3 1.3 0 .717-.583 1.3-1.3 1.3h-.95c-.716 0-1.3-.583-1.3-1.3 0-.717.584-1.3 1.3-1.3zm12.284-4.583c.716 0 1.3.583 1.3 1.3 0 .716-.584 1.3-1.3 1.3H7.333c-.716 0-1.3-.584-1.3-1.3 0-.717.584-1.3 1.3-1.3zm-12.284 0c.717 0 1.3.583 1.3 1.3 0 .716-.583 1.3-1.3 1.3h-.95c-.716 0-1.3-.584-1.3-1.3 0-.717.584-1.3 1.3-1.3z"
-                                                transform="translate(-772 -1744) translate(755 1608) translate(17 136)">
-                                            </path>
-                                        </g>
-                                    </svg>
-                                    <div class="ibgLNl ml-2">Quiz</div>
-                                </div>
-                            </button>
-                        </div>
-                    </div>
+    {% for chapter in course.get_chapters %}
+    <div class="my-chapter" chapter_slug="{{chapter.slug}}">
+        <div class="jjarOm bqfDsc chapter mt-40" style="position:relative">
+            <div class="col-12">
+                <div class="inmuHv jYirZ">
+                    <input type="text" autocapitalize="sentences" name="chapter_name"
+                        placeholder="Titre de votre chapitre" value="{{chapter.name}}" chapter_slug="{{chapter.slug}}"
+                        required>
                 </div>
             </div>
-
-            <div id="quiz_section" style="position: relative;">
-
-                {% if chapter.quiz %}
-                {% with chapter.quiz as quiz %}
-                <div class="fmgnGK mt-30">
-                    <div class="inmuHv jYirZ">
-                        <input type="text" autocapitalize="sentences" name="quiz_title" quiz_id="{{quiz.id}}"
-                            value="{{quiz.title}}" required>
-                    </div>
-
-                </div>
-                <div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">
-                    <a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <button class="btn btn-sm dropdown-item remove_ex_quiz d-flex" quiz_id="{{quiz.id}}"
-                            data-toggle="modal" data-target="#delete_quiz_{{quiz.id}}">
-                            <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">
-                                <g fill="none" fill-rule="evenodd">
-                                    <g fill="#13131A">
-                                        <path
-                                            d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"
-                                            transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">
-                                        </path>
-                                    </g>
+            <div class="dropdown d-flex justify-content-end" style="position: absolute;top: 15px;right: 50px;">
+                <a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i class="fas fa-ellipsis-v" style="font-size: large;"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button class="btn btn-sm dropdown-item delete-ex-chapter d-flex" chapter_id="{{chapter.id}}"
+                        data-toggle="modal" data-target="#delete_chapter_{{chapter.id}}">
+                        <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">
+                            <g fill="none" fill-rule="evenodd">
+                                <g fill="#13131A">
+                                    <path
+                                        d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"
+                                        transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">
+                                    </path>
                                 </g>
-                            </svg>Supprimer
-                        </button>
-                    </div>
+                            </g>
+                        </svg>
+                        Supprimer
+                    </button>
                 </div>
-                <div class="question">
-                    <div class="question-section">
-                        <div class="view-question">
+            </div>
 
-                            {% for question in quiz.questions.all %}
-                            <div class="jjarOm bFucVQ iuVOof gmrWGH mb-15" style="position: relative;">
-                                <div class="primary__Primary-sc-16k2f7-0 bgQjcd">
-                                    <b>Question {{ forloop.counter }} </b>
-                                </div>
-                                <div class="primary__Primary-sc-16k2f7-0 bgQjcd question-label"
-                                    question_id="{{question.id}}">
-                                    <b> {{ question.label }}</b>
-                                </div>
+            <div class="gMCPru add-lesson-section">
 
-                                {% for answer in question.answers.all %}
-                                <div class="exerciseView__Answers-sc-19oun2q-2 giWrJk">
-                                    <div class="exerciseView__Choice-sc-19oun2q-3 
-                                    {% if answer.is_correct %} hRaafP {% else %} kxhlBp {% endif %}
-                                    ">
-                                        <input disabled="" name="choice" type="checkbox" {% if answer.is_correct %}
-                                            checked {% else %} {% endif %}>
-                                        <label answer_id="{{answer.id}}">{{ answer.label }}</label>
-                                    </div>
-                                </div>
-
-                                {% endfor %}
-
-                                <div class="dropdown d-flex justify-content-end"
-                                    style="position: absolute;top: 0px;right: 0px;">
-                                    <a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v" style="font-size: large;"></i>
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <button class="btn btn-sm dropdown-item edit_question_card d-flex">
-                                            <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18">
-                                                <g fill="none" fill-rule="evenodd">
-                                                    <g fill="#13131A">
-                                                        <path
-                                                            d="M8.3.412L1.074 7.721l-1 4.6c-.1.461.04.942.374 1.276.334.334.815.475 1.276.374l4.6-1L13.56 5.65c.537-.542.534-1.416-.005-1.956L10.268.406C10.007.145 9.652-.001 9.283 0 8.913 0 8.56.15 8.3.412zM2.81 12.465l-1.234-1.233.63-2.893 3.5 3.5-2.896.626z"
-                                                            transform="translate(-1001 -238) translate(987 223) translate(14 15) translate(2 2)">
-                                                        </path>
+                <table>
+                    <tbody id="groups">
+                        {% for lesson in chapter.get_lessons %}
+                        <tr>
+                            <td>
+                                <div class="lesson-form ivYHKm mt-15" lesson_slug="{{lesson.slug}}"
+                                    style="display: block!important; padding: 10px!important; position:relative">
+                                    <div class="dropdown d-flex justify-content-end"
+                                        style="position: absolute;top: 0px;right: 0px;">
+                                        <a class=" btn" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <button class="btn btn-sm dropdown-item delete-ex-lesson d-flex"
+                                                lesson_id="{{lesson.id}}" data-toggle="modal"
+                                                data-target="#delete_lesson_{{lesson.id}}">
+                                                <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">
+                                                    <g fill="none" fill-rule="evenodd">
+                                                        <g fill="#13131A">
+                                                            <path
+                                                                d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"
+                                                                transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">
+                                                            </path>
+                                                        </g>
                                                     </g>
-                                                </g>
-                                            </svg>
-                                            Modifier
-                                        </button>
-                                        <button class="btn btn-sm dropdown-item delete_ex_question_card d-flex"
-                                            question_id="{{question.id}}" data-toggle="modal"
-                                            data-target="#delete_question_{{question.id}}">
-                                            <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">
-                                                <g fill="none" fill-rule="evenodd">
-                                                    <g fill="#13131A">
-                                                        <path
-                                                            d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"
-                                                            transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">
-                                                        </path>
-                                                    </g>
-                                                </g>
-                                            </svg>
-                                            Supprimer
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Delete question Modal-->
-                            <div class="modal fade" id="delete_question_{{question.id}}" tabindex="-1" role="dialog"
-                                aria-labelledby="deleteQuestionModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h2 class="st_title" id="deleteQuestionModalLabel">
-                                                <i class="uil uil-analysis"></i>
-                                                Supprimer la question:
-                                                <b class="course_active">{{ question.label }}</b>
-                                            </h2>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                                style="color: red">
-                                                <span aria-hidden="true">&times;</span>
+                                                </svg>
+                                                Supprimer
                                             </button>
                                         </div>
-                                        <div class="modal-body">
-                                            <div id="delete-question-{{question.id}}" method="POST"
-                                                data-url="{% url 'dashboard:delete-question' question.id %}">
-                                                {% csrf_token %}
-                                                <div class="general_info10">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="ui search focus mt-10 lbel25">
-                                                                <label>
-                                                                    Êtes-vous sûr de vouloir supprimer cette question?
-                                                                </label>
-                                                            </div>
+                                    </div>
+                                    <div class="eQVCSW lesson-title" style="margin-top: 5px">
+                                        <div class="inmuHv dfZJeY">
+                                            <input type="text" autocapitalize="sentences" name="ltitle_input"
+                                                value="{{lesson.title}}" placeholder="Titre de la leçon">
+                                        </div>
+                                    </div>
+                                    <div class="hkJnVs mt-4 lesson-video">
+                                        <div class="ynJOs">
+                                            <div class="jgZALD"><svg width="20" class="mr-4" height="20"
+                                                    viewBox="0 0 20 20">
+                                                    <g fill="none" fill-rule="evenodd">
+                                                        <g fill-rule="nonzero">
+                                                            <path fill="red"
+                                                                d="M0 10C0 4.477 4.477 0 10 0s10 4.477 10 10-4.477 10-10 10S0 15.523 0 10z"
+                                                                transform="translate(-36 -796) translate(36 796)">
+                                                            </path>
+                                                            <path fill="#FFF"
+                                                                d="M15.11 7.53c-.122-.47-.484-.842-.943-.968C13.336 6.333 10 6.333 10 6.333s-3.336 0-4.167.23c-.46.125-.82.496-.943.968-.223.854-.223 2.636-.223 2.636s0 1.782.223 2.636c.122.471.484.842.943.968C6.664 14 10 14 10 14s3.336 0 4.167-.229c.46-.126.82-.497.943-.968.223-.854.223-2.636.223-2.636s0-1.782-.223-2.636"
+                                                                transform="translate(-36 -796) translate(36 796)">
+                                                            </path>
+                                                            <path fill="red" d="M9 12L9 8.667 11.667 10.333z"
+                                                                transform="translate(-36 -796) translate(36 796)">
+                                                            </path>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                                <input placeholder="Id de la vidéo" name="lvideo_input"
+                                                    value="{{lesson.video_id}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="eQVCSW lesson-text" style="margin-top: 15px;">
+                                        <div class="inmuHv dfZJeY">
+                                            <div class="course_des_bg">
+                                                <ul class="course_des_ttle">
+                                                    <li><a href="#"><i class="uil uil-bold"></i></a></li>
+                                                    <li><a href="#"><i class="uil uil-italic"></i></a></li>
+                                                    <li><a href="#"><i class="uil uil-list-ul"></i></a></li>
+                                                    <li><a href="#"><i
+                                                                class="uil uil-left-to-right-text-direction"></i></a>
+                                                    </li>
+                                                    <li><a href="#"><i
+                                                                class="uil uil-right-to-left-text-direction"></i></a>
+                                                    </li>
+                                                    <li><a href="#"><i class="uil uil-list-ui-alt"></i></a></li>
+                                                    <li><a href="#"><i class="uil uil-link"></i></a></li>
+                                                    <li><a href="#"><i class="uil uil-text-size"></i></a></li>
+                                                    <li><a href="#"><i class="uil uil-text"></i></a></li>
+                                                </ul>
+                                                <div class="textarea_dt">
+                                                    <div class="ui form swdh339">
+                                                        <div class="field"> <textarea rows="5" name="ltext_input"
+                                                                id="course_description"
+                                                                placeholder="Description">{{lesson.text}}</textarea>
                                                         </div>
-                                                        <div class="col-12">
-                                                            <button data-dismiss="modal"
-                                                                class="create_btn_dash btn-danger" style="float: right">
-                                                                Annuler
-                                                            </button>
-                                                            <button type="button"
-                                                                class="create_btn_dash mr-2 confirm_delete_question"
-                                                                style="float: right">
-                                                                Confirmer
-                                                            </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center mt-5 mb-20">
+                                    <span class="handle"></span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Delete Lesson Modal-->
+                        <div class="modal fade delete_lesson" id="delete_lesson_{{lesson.id}}" tabindex="-1"
+                            role="dialog" aria-labelledby="deleteLessonModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="st_title" id="deleteLessonModalLabel">
+                                            <i class="uil uil-analysis"></i>
+                                            Supprimer la leçon
+                                            <b class="course_active">: {{ lesson.title }}</b>
+                                        </h2>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                            style="color: red">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="delete-lesson-{{lesson.id}}" method="POST"
+                                            data-url="{% url 'dashboard:delete-lesson' lesson.slug %}">
+                                            {% csrf_token %}
+                                            <div class=" general_info10">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="ui search focus mt-10 lbel25">
+                                                            <label>
+                                                                Êtes-vous sûr de vouloir supprimer cette leçon?<br>
+                                                                (Tous les éléments de ce chapitre doivent être d'abord
+                                                                supprimées)
+                                                            </label>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <button data-dismiss="modal" class="create_btn_dash btn-danger"
+                                                            style="float: right">
+                                                            Annuler
+                                                        </button>
+                                                        <button type="button"
+                                                            class="create_btn_dash mr-2 confirm_delete_lesson"
+                                                            style="float: right">
+                                                            Confirmer
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -388,106 +195,306 @@
                                 </div>
                             </div>
                             {% endfor %}
+                    </tbody>
+                </table>
 
-                            <div class="ivYHKm mt-3 new_question_section">
-                                <div class="mr-1" style="font-weight: bold; font-size: 0.975rem">
-                                    <button class="btn add_question_btn">Nouvelle question</button>
-                                </div><i class="fas fa-plus-circle" style="font-size: 18px"></i>
+                <div class="esedNQ mt-40">
+                    <div class="ivYHKm">
+                        <div class="dropdown">
+                            <a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Ajouter*
+                                <i class="fas fa-plus-circle" style="font-size: 18px"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                <button class="btn btn-sm add-lesson-btn dropdown-item">
+                                    <div class="d-flex flex-row">
+                                        <svg width="20" height="20" viewBox="0 0 20 20">
+                                            <g fill="none" fill-rule="evenodd">
+                                                <g fill-rule="nonzero">
+                                                    <path fill="red"
+                                                        d="M0 10C0 4.477 4.477 0 10 0s10 4.477 10 10-4.477 10-10 10S0 15.523 0 10z"
+                                                        transform="translate(-36 -796) translate(36 796)"></path>
+                                                    <path fill="#FFF"
+                                                        d="M15.11 7.53c-.122-.47-.484-.842-.943-.968C13.336 6.333 10 6.333 10 6.333s-3.336 0-4.167.23c-.46.125-.82.496-.943.968-.223.854-.223 2.636-.223 2.636s0 1.782.223 2.636c.122.471.484.842.943.968C6.664 14 10 14 10 14s3.336 0 4.167-.229c.46-.126.82-.497.943-.968.223-.854.223-2.636.223-2.636s0-1.782-.223-2.636"
+                                                        transform="translate(-36 -796) translate(36 796)"></path>
+                                                    <path fill="red" d="M9 12L9 8.667 11.667 10.333z"
+                                                        transform="translate(-36 -796) translate(36 796)"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <div class="ibgLNl ml-1">Leçon</div>
+                                    </div>
+                                </button>
+                                <button class="btn btn-sm dropdown-item add-quiz-btn mt-1">
+                                    <div class="d-flex flex-row"><svg width="18" height="18" viewBox="0 0 18 18">
+                                            <g fill="none" fill-rule="evenodd">
+                                                <path d="M0 0H18V18H0z"
+                                                    transform="translate(-772 -1744) translate(755 1608) translate(17 136)">
+                                                </path>
+                                                <path fill="#13131A"
+                                                    d="M15.617 12.283c.716 0 1.3.567 1.3 1.3 0 .717-.584 1.3-1.3 1.3H7.333c-.716 0-1.3-.583-1.3-1.3 0-.716.584-1.3 1.3-1.3zm-12.284 0c.717 0 1.3.567 1.3 1.3 0 .717-.583 1.3-1.3 1.3h-.95c-.716 0-1.3-.583-1.3-1.3 0-.716.584-1.3 1.3-1.3zM15.617 7.7c.716 0 1.3.583 1.3 1.3 0 .717-.584 1.3-1.3 1.3H7.333c-.716 0-1.3-.583-1.3-1.3 0-.717.584-1.3 1.3-1.3zm-12.284 0c.717 0 1.3.583 1.3 1.3 0 .717-.583 1.3-1.3 1.3h-.95c-.716 0-1.3-.583-1.3-1.3 0-.717.584-1.3 1.3-1.3zm12.284-4.583c.716 0 1.3.583 1.3 1.3 0 .716-.584 1.3-1.3 1.3H7.333c-.716 0-1.3-.584-1.3-1.3 0-.717.584-1.3 1.3-1.3zm-12.284 0c.717 0 1.3.583 1.3 1.3 0 .716-.583 1.3-1.3 1.3h-.95c-.716 0-1.3-.584-1.3-1.3 0-.717.584-1.3 1.3-1.3z"
+                                                    transform="translate(-772 -1744) translate(755 1608) translate(17 136)">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                        <div class="ibgLNl ml-2">Quiz</div>
+                                    </div>
+                                </button>
                             </div>
                         </div>
-                        <div class="add-question"></div>
                     </div>
                 </div>
-                {% endwith %}
-                {% endif %}
-            </div>
 
-        </div>
-    </div>
-    <!-- Delete chapter Modal-->
-    <div class="modal fade" id="delete_chapter_{{chapter.id}}" tabindex="-1" role="dialog"
-        aria-labelledby="deleteChapterModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="st_title" id="deleteChapterModalLabel">
-                        <i class="uil uil-analysis"></i>
-                        Supprimer le chapitre
-                        <b class="course_active">{{ chapter.name }}</b>
-                    </h2>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="delete-chapter-{{chapter.id}}" method="POST"
-                        data-url="{% url 'dashboard:delete-chapter' chapter.slug %}">
-                        {% csrf_token %}
-                        <div class=" general_info10">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="ui search focus mt-10 lbel25">
-                                        <label>
-                                            Êtes-vous sûr de vouloir supprimer ce chapitre?
-                                            (Tous les éléments de ce chapitre doivent être supprimées avant)
-                                        </label>
+                <div id="quiz_section" style="position: relative;">
+
+                    {% if chapter.quiz %}
+                    {% with chapter.quiz as quiz %}
+                    <div class="fmgnGK mt-30">
+                        <div class="inmuHv jYirZ">
+                            <input type="text" autocapitalize="sentences" name="quiz_title" quiz_id="{{quiz.id}}"
+                                value="{{quiz.title}}" required>
+                        </div>
+
+                    </div>
+                    <div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">
+                        <a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <button class="btn btn-sm dropdown-item remove_ex_quiz d-flex" quiz_id="{{quiz.id}}"
+                                data-toggle="modal" data-target="#delete_quiz_{{quiz.id}}">
+                                <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <g fill="#13131A">
+                                            <path
+                                                d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"
+                                                transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">
+                                            </path>
+                                        </g>
+                                    </g>
+                                </svg>Supprimer
+                            </button>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-section">
+                            <div class="view-question">
+
+                                {% for question in quiz.questions.all %}
+                                <div class="jjarOm bFucVQ iuVOof gmrWGH mb-15" style="position: relative;">
+                                    <div class="primary__Primary-sc-16k2f7-0 bgQjcd">
+                                        <b>Question {{ forloop.counter }} </b>
+                                    </div>
+                                    <div class="primary__Primary-sc-16k2f7-0 bgQjcd question-label"
+                                        question_id="{{question.id}}">
+                                        <b> {{ question.label }}</b>
+                                    </div>
+
+                                    {% for answer in question.answers.all %}
+                                    <div class="exerciseView__Answers-sc-19oun2q-2 giWrJk">
+                                        <div class="exerciseView__Choice-sc-19oun2q-3
+                                        {% if answer.is_correct %} hRaafP {% else %} kxhlBp {% endif %}
+                                        ">
+                                            <input disabled="" name="choice" type="checkbox" {% if answer.is_correct %}
+                                                checked {% else %} {% endif %}>
+                                            <label answer_id="{{answer.id}}">{{ answer.label }}</label>
+                                        </div>
+                                    </div>
+
+                                    {% endfor %}
+
+                                    <div class="dropdown d-flex justify-content-end"
+                                        style="position: absolute;top: 0px;right: 0px;">
+                                        <a class=" btn" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v" style="font-size: large;"></i>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <button class="btn btn-sm dropdown-item edit_question_card d-flex">
+                                                <svg class="mr-2" width="18" height="18" viewBox="0 0 18 18">
+                                                    <g fill="none" fill-rule="evenodd">
+                                                        <g fill="#13131A">
+                                                            <path
+                                                                d="M8.3.412L1.074 7.721l-1 4.6c-.1.461.04.942.374 1.276.334.334.815.475 1.276.374l4.6-1L13.56 5.65c.537-.542.534-1.416-.005-1.956L10.268.406C10.007.145 9.652-.001 9.283 0 8.913 0 8.56.15 8.3.412zM2.81 12.465l-1.234-1.233.63-2.893 3.5 3.5-2.896.626z"
+                                                                transform="translate(-1001 -238) translate(987 223) translate(14 15) translate(2 2)">
+                                                            </path>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                                Modifier
+                                            </button>
+                                            <button class="btn btn-sm dropdown-item delete_ex_question_card d-flex"
+                                                question_id="{{question.id}}" data-toggle="modal"
+                                                data-target="#delete_question_{{question.id}}">
+                                                <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">
+                                                    <g fill="none" fill-rule="evenodd">
+                                                        <g fill="#13131A">
+                                                            <path
+                                                                d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"
+                                                                transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">
+                                                            </path>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                                Supprimer
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <button data-dismiss="modal" class="create_btn_dash btn-danger"
-                                        style="float: right">
-                                        Annuler
-                                    </button>
-                                    <button type="button" class="create_btn_dash mr-2 confirm_delete_chapter"
-                                        style="float: right">
-                                        Confirmer
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Delete quiz Modal-->
-    <div class="modal fade" id="delete_quiz_{{chapter.quiz.id}}" tabindex="-1" role="dialog"
-        aria-labelledby="delQuizModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="st_title" id="delQuizModalLabel">
-                        <i class="uil uil-analysis"></i>
-                        Supprimer le quiz
-                        <b class="course_active">{{ chapter.quiz.title }}</b>
-                    </h2>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="delete-quiz-{{chapter.quiz.id}}" method="POST"
-                        data-url="{% url 'dashboard:delete-quiz' chapter.slug %}">
-                        {% csrf_token %}
-                        <div class="general_info10">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="ui search focus mt-10 lbel25">
-                                        <label>
-                                            Êtes-vous sûr de vouloir supprimer ce quiz?
-                                        </label>
+                                <!-- Delete question Modal-->
+                                <div class="modal fade" id="delete_question_{{question.id}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="deleteQuestionModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h2 class="st_title" id="deleteQuestionModalLabel">
+                                                    <i class="uil uil-analysis"></i>
+                                                    Supprimer la question:
+                                                    <b class="course_active">{{ question.label }}</b>
+                                                </h2>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close" style="color: red">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="delete-question-{{question.id}}" method="POST"
+                                                    data-url="{% url 'dashboard:delete-question' question.id %}">
+                                                    {% csrf_token %}
+                                                    <div class="general_info10">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="ui search focus mt-10 lbel25">
+                                                                    <label>
+                                                                        Êtes-vous sûr de vouloir supprimer cette
+                                                                        question?
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <button data-dismiss="modal"
+                                                                    class="create_btn_dash btn-danger"
+                                                                    style="float: right">
+                                                                    Annuler
+                                                                </button>
+                                                                <button type="button"
+                                                                    class="create_btn_dash mr-2 confirm_delete_question"
+                                                                    style="float: right">
+                                                                    Confirmer
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <button data-dismiss="modal" class="create_btn_dash btn-danger"
-                                        style="float: right">
-                                        Annuler
-                                    </button>
-                                    <button type="button" class="create_btn_dash mr-2 confirm_delete_quiz"
-                                        style="float: right">
-                                        Confirmer
-                                    </button>
+                                {% endfor %}
+
+                                <div class="ivYHKm mt-3 new_question_section">
+                                    <div class="mr-1" style="font-weight: bold; font-size: 0.975rem">
+                                        <button class="btn add_question_btn">Nouvelle question</button>
+                                    </div><i class="fas fa-plus-circle" style="font-size: 18px"></i>
+                                </div>
+                            </div>
+                            <div class="add-question"></div>
+                        </div>
+                    </div>
+                    {% endwith %}
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+        <!-- Delete chapter Modal-->
+        <div class="modal fade" id="delete_chapter_{{chapter.id}}" tabindex="-1" role="dialog"
+            aria-labelledby="deleteChapterModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="st_title" id="deleteChapterModalLabel">
+                            <i class="uil uil-analysis"></i>
+                            Supprimer le chapitre
+                            <b class="course_active">{{ chapter.name }}</b>
+                        </h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="delete-chapter-{{chapter.id}}" method="POST"
+                            data-url="{% url 'dashboard:delete-chapter' chapter.slug %}">
+                            {% csrf_token %}
+                            <div class=" general_info10">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="ui search focus mt-10 lbel25">
+                                            <label>
+                                                Êtes-vous sûr de vouloir supprimer ce chapitre?
+                                                (Tous les éléments de ce chapitre doivent être supprimées avant)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button data-dismiss="modal" class="create_btn_dash btn-danger"
+                                            style="float: right">
+                                            Annuler
+                                        </button>
+                                        <button type="button" class="create_btn_dash mr-2 confirm_delete_chapter"
+                                            style="float: right">
+                                            Confirmer
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete quiz Modal-->
+        <div class="modal fade" id="delete_quiz_{{chapter.quiz.id}}" tabindex="-1" role="dialog"
+            aria-labelledby="delQuizModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="st_title" id="delQuizModalLabel">
+                            <i class="uil uil-analysis"></i>
+                            Supprimer le quiz
+                            <b class="course_active">{{ chapter.quiz.title }}</b>
+                        </h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="delete-quiz-{{chapter.quiz.id}}" method="POST"
+                            data-url="{% url 'dashboard:delete-quiz' chapter.slug %}">
+                            {% csrf_token %}
+                            <div class="general_info10">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="ui search focus mt-10 lbel25">
+                                            <label>
+                                                Êtes-vous sûr de vouloir supprimer ce quiz?
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button data-dismiss="modal" class="create_btn_dash btn-danger"
+                                            style="float: right">
+                                            Annuler
+                                        </button>
+                                        <button type="button" class="create_btn_dash mr-2 confirm_delete_quiz"
+                                            style="float: right">
+                                            Confirmer
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -496,7 +503,6 @@
             </div>
         </div>
     </div>
-
     {% endfor %}
     <div id="insert_chapter"></div>
 
@@ -540,805 +546,806 @@
             l'enregistrement, seul le titre du cours est obligatoire.
         </div>
     </div>
+</div>
 
-    <!-- Publish Course Modal-->
-    <div class="modal fade publish" id="publish_course_modal" tabindex="-1" role="dialog"
-        aria-labelledby="publishCourseModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="max-width: 1090px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="general_info10">
-                        <div class="course__form" style="padding-left: 20px; padding-right: 20px;">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="course_des_textarea mt-30 lbel25">
-                                        <label>Description*</label>
-                                        <div class="course_des_bg">
-                                            <ul class="course_des_ttle">
-                                                <li><a href="#"><i class="uil uil-bold"></i></a></li>
-                                                <li><a href="#"><i class="uil uil-italic"></i></a></li>
-                                                <li><a href="#"><i class="uil uil-list-ul"></i></a></li>
-                                                <li><a href="#"><i class="uil uil-left-to-right-text-direction"></i></a>
-                                                </li>
-                                                <li><a href="#"><i class="uil uil-right-to-left-text-direction"></i></a>
-                                                </li>
-                                                <li><a href="#"><i class="uil uil-list-ui-alt"></i></a></li>
-                                                <li><a href="#"><i class="uil uil-link"></i></a></li>
-                                                <li><a href="#"><i class="uil uil-text-size"></i></a></li>
-                                                <li><a href="#"><i class="uil uil-text"></i></a></li>
-                                            </ul>
-                                            <div class="textarea_dt">
-                                                <div class="ui form swdh339">
-                                                    <div class="field">
-                                                        <textarea rows="5" name="description" id="course_description"
-                                                            placeholder="Insert your course description">{{course.description}}</textarea>
-                                                    </div>
+<!-- Publish Course Modal-->
+<div class="modal fade publish" id="publish_course_modal" tabindex="-1" role="dialog"
+    aria-labelledby="publishCourseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="max-width: 1090px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: red">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="general_info10">
+                    <div class="course__form" style="padding-left: 20px; padding-right: 20px;">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="course_des_textarea mt-30 lbel25">
+                                    <label>Description*</label>
+                                    <div class="course_des_bg">
+                                        <ul class="course_des_ttle">
+                                            <li><a href="#"><i class="uil uil-bold"></i></a></li>
+                                            <li><a href="#"><i class="uil uil-italic"></i></a></li>
+                                            <li><a href="#"><i class="uil uil-list-ul"></i></a></li>
+                                            <li><a href="#"><i class="uil uil-left-to-right-text-direction"></i></a>
+                                            </li>
+                                            <li><a href="#"><i class="uil uil-right-to-left-text-direction"></i></a>
+                                            </li>
+                                            <li><a href="#"><i class="uil uil-list-ui-alt"></i></a></li>
+                                            <li><a href="#"><i class="uil uil-link"></i></a></li>
+                                            <li><a href="#"><i class="uil uil-text-size"></i></a></li>
+                                            <li><a href="#"><i class="uil uil-text"></i></a></li>
+                                        </ul>
+                                        <div class="textarea_dt">
+                                            <div class="ui form swdh339">
+                                                <div class="field">
+                                                    <textarea rows="5" name="description" id="course_description"
+                                                        placeholder="Insert your course description">{{course.description}}</textarea>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 d-flex align-items-center">
-                                    <div class="col-lg-6 col-md-12">
-                                        <div class="ui search focus mt-30 lbel25">
-                                            <label>Prix*</label>
-                                            <div class="ui left icon input swdh19">
-                                                <input class="prompt srch_explore" type="text"
-                                                    placeholder="Insert your course Subtitle." name="subtitle"
-                                                    data-purpose="edit-course-title" maxlength="60" id="course_price"
-                                                    value="{{course.price}}">
-                                                <div class="badge_num2">FCFA</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-12">
-                                        <div class="ui search focus mt-30 lbel25">
-                                            <label>Thumbnail*</label>
-                                            <div class="ui left icon input swdh19">
-                                                <input class="prompt srch_explore" type="file" name="subtitle"
-                                                    id="course_thumbnail">
-                                            </div>
+                            </div>
+                            <div class="col-12 d-flex align-items-center">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="ui search focus mt-30 lbel25">
+                                        <label>Prix*</label>
+                                        <div class="ui left icon input swdh19">
+                                            <input class="prompt srch_explore" type="text"
+                                                placeholder="Insert your course Subtitle." name="subtitle"
+                                                data-purpose="edit-course-title" maxlength="60" id="course_price"
+                                                value="{{course.price}}">
+                                            <div class="badge_num2">FCFA</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="mt-30 lbel25">
-                                        <label>Langue*</label>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="ui search focus mt-30 lbel25">
+                                        <label>Thumbnail*</label>
+                                        <div class="ui left icon input swdh19">
+                                            <input class="prompt srch_explore" type="file" name="subtitle"
+                                                id="course_thumbnail">
+                                        </div>
                                     </div>
-                                    <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="course_language">
-                                        <option value="" disabled>Choisir la langue</option>
-                                        {% for language in languages %}
-                                        <option value="{{language.name}}">{{ language.name }}</option>
-                                        {% endfor %}
-                                    </select>
                                 </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="mt-30 lbel25">
-                                        <label>Niveau*</label>
-                                    </div>
-                                    <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="course_level">
-                                        <option value="" disabled>Choisir le niveau</option>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="mt-30 lbel25">
+                                    <label>Langue*</label>
+                                </div>
+                                <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="course_language">
+                                    <option value="" disabled>Choisir la langue</option>
+                                    {% for language in languages %}
+                                    <option value="{{language.name}}">{{ language.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="mt-30 lbel25">
+                                    <label>Niveau*</label>
+                                </div>
+                                <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="course_level">
+                                    <option value="" disabled>Choisir le niveau</option>
 
-                                        {% for key, value in levels %}
-                                        <option value="{{key}}">{{ value }}</option>
-                                        {% endfor %}
-                                    </select>
+                                    {% for key, value in levels %}
+                                    <option value="{{key}}">{{ value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-12 select-box">
+                                <div class="mt-30 lbel25">
+                                    <label>Catégorie*</label>
                                 </div>
-                                <div class="col-lg-4 col-md-12 select-box">
-                                    <div class="mt-30 lbel25">
-                                        <label>Catégorie*</label>
-                                    </div>
-                                    <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="course_category">
-                                        {% for category in categories %}
-                                        <option value="{{category.name}}">{{ category.name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
+                                <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="course_category">
+                                    {% for category in categories %}
+                                    <option value="{{category.name}}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="dAfxhl" style="margin: 15px 50px 40px 0;">
-                    <button id="confirm_publish_btn" data-url="{% url 'dashboard:submit-course' course.slug %}"
-                        class="defaultButton__DefaultButton-sc-1scxgx7-0 primaryButton__PrimaryButton-sc-1t32hmz-0 detailsEditorModal__PublishOrSave-z4bcvp-8 jRKnYV khmjno">
-                        Publier votre cours
-                    </button>
-                </div>
+            </div>
+            <div class="dAfxhl" style="margin: 15px 50px 40px 0;">
+                <button id="confirm_publish_btn" data-url="{% url 'dashboard:submit-course' course.slug %}"
+                    class="defaultButton__DefaultButton-sc-1scxgx7-0 primaryButton__PrimaryButton-sc-1t32hmz-0 detailsEditorModal__PublishOrSave-z4bcvp-8 jRKnYV khmjno">
+                    Publier votre cours
+                </button>
             </div>
         </div>
     </div>
+</div>
 
-    {% endblock %}
+{% endblock %}
 
-    {% block extrajs %}
+{% block extrajs %}
 
-    {% block semantic %} {% endblock semantic %}
-    <script src="{% static 'js/Sortable.min.js' %}"></script>
-    <script>
-        $(document).ready(function () {
-            const $groups = document.getElementById('groups');
-            let sortable = Sortable.create($groups, { handle: '.handle' })
+{% block semantic %} {% endblock semantic %}
+<script src="{% static 'js/Sortable.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        const $groups = document.getElementById('groups');
+        let sortable = Sortable.create($groups, { handle: '.handle' })
 
 
-            $('input[name=course_title]').on('focus', function () {
-                $(this).parent().removeClass('inmuHv').addClass('bYLGqV')
-            })
+        $('input[name=course_title]').on('focus', function () {
+            $(this).parent().removeClass('inmuHv').addClass('bYLGqV')
+        })
 
-            $('input[name=course_title]').on('focusout', function () {
-                $(this).parent().removeClass('bYLGqV').addClass('inmuHv')
-            })
+        $('input[name=course_title]').on('focusout', function () {
+            $(this).parent().removeClass('bYLGqV').addClass('inmuHv')
+        })
 
-            $('.add_new_chapter').on('click', function () {
-                let htmlToAdd = '<div class="my-chapter"><div class="jjarOm bqfDsc chapter mt-40" style="position: relative;">' +
-                    '<div class="col-12"> <div class="inmuHv jYirZ"><input type="text" autocapitalize="sentences" name="chapter_name"' +
-                    'placeholder="Ajouter un titre à votre chapitre" required></div></div>' +
-                    '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 15px;right: 50px;">' +
-                    '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                    '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
-                    '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm dropdown-item delete-chapter d-flex">' +
-                    '<svg class="mr-2" width="16" height="16" viewBox="0 0 16 16"><g fill="none" fill-rule="evenodd">' +
-                    '<g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
-                    'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
-                    '</path></g></g></svg>Supprimer</button></div></div>' +
-                    '<div class="gMCPru add-lesson-section"><table><tbody id="groups"><tbody></table><div class="esedNQ">' +
-                    '<div class="ivYHKm"><div class="dropdown"><a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"' +
-                    'aria-haspopup="true" aria-expanded="false">Ajouter*<i class="fas fa-plus-circle" style="font-size: 18px"></i></a>' +
-                    '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm add-lesson-btn dropdown-item">' +
-                    '<div class="d-flex flex-row"><svg width="20" height="20" viewBox="0 0 20 20">' +
-                    '<g fill="none" fill-rule="evenodd"><g fill-rule="nonzero">' +
-                    '<path fill="red" d="M0 10C0 4.477 4.477 0 10 0s10 4.477 10 10-4.477 10-10 10S0 15.523 0 10z" transform="translate(-36 -796) translate(36 796)"></path>' +
-                    '<path fill="#FFF" d="M15.11 7.53c-.122-.47-.484-.842-.943-.968C13.336 6.333 10 6.333 10 6.333s-3.336 0-4.167.23c-.46.125-.82.496-.943.968-.223.854-.223 2.636-.223 2.636s0 1.782.223 2.636c.122.471.484.842.943.968C6.664 14 10 14 10 14s3.336 0 4.167-.229c.46-.126.82-.497.943-.968.223-.854.223-2.636.223-2.636s0-1.782-.223-2.636"' +
-                    'transform="translate(-36 -796) translate(36 796)"></path><path fill="red" d="M9 12L9 8.667 11.667 10.333z" transform="translate(-36 -796) translate(36 796)"></path>' +
-                    '</g></g></svg><div class="ibgLNl ml-1">Leçon</div></div>' +
-                    '</button><button class="btn btn-sm dropdown-item add-quiz-btn mt-1">' +
-                    '<div class="d-flex flex-row"><svg width="18" height="18" viewBox="0 0 18 18">' +
-                    '<g fill="none" fill-rule="evenodd"><path d="M0 0H18V18H0z" transform="translate(-772 -1744) translate(755 1608) translate(17 136)">' +
-                    '</path><path fill="#13131A" d="M15.617 12.283c.716 0 1.3.567 1.3 1.3 0 .717-.584 1.3-1.3 1.3H7.333c-.716 0-1.3-.583-1.3-1.3 0-.716.584-1.3 1.3-1.3zm-12.284 0c.717 0 1.3.567 1.3 1.3 0 .717-.583 1.3-1.3 1.3h-.95c-.716 0-1.3-.583-1.3-1.3 0-.716.584-1.3 1.3-1.3zM15.617 7.7c.716 0 1.3.583 1.3 1.3 0 .717-.584 1.3-1.3 1.3H7.333c-.716 0-1.3-.583-1.3-1.3 0-.717.584-1.3 1.3-1.3zm-12.284 0c.717 0 1.3.583 1.3 1.3 0 .717-.583 1.3-1.3 1.3h-.95c-.716 0-1.3-.583-1.3-1.3 0-.717.584-1.3 1.3-1.3zm12.284-4.583c.716 0 1.3.583 1.3 1.3 0 .716-.584 1.3-1.3 1.3H7.333c-.716 0-1.3-.584-1.3-1.3 0-.717.584-1.3 1.3-1.3zm-12.284 0c.717 0 1.3.583 1.3 1.3 0 .716-.583 1.3-1.3 1.3h-.95c-.716 0-1.3-.584-1.3-1.3 0-.717.584-1.3 1.3-1.3z"' +
-                    'transform="translate(-772 -1744) translate(755 1608) translate(17 136)"></path>' +
-                    '</g></svg><div class="ibgLNl ml-2">Quiz</div></div></button></div></div></div></div>' +
-                    '<div id="quiz_section"></div></div></div><div id="insert_chapter"></div></div>';
-                $(htmlToAdd).find('.lesson-form').remove()
-                $(htmlToAdd).insertBefore('#insert_chapter')
-            })
+        $('.add_new_chapter').on('click', function () {
+            let htmlToAdd = '<div class="my-chapter"><div class="jjarOm bqfDsc chapter mt-40" style="position: relative;">' +
+                '<div class="col-12"> <div class="inmuHv jYirZ"><input type="text" autocapitalize="sentences" name="chapter_name"' +
+                'placeholder="Ajouter un titre à votre chapitre" required></div></div>' +
+                '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 15px;right: 50px;">' +
+                '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
+                '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm dropdown-item delete-chapter d-flex">' +
+                '<svg class="mr-2" width="16" height="16" viewBox="0 0 16 16"><g fill="none" fill-rule="evenodd">' +
+                '<g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
+                'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
+                '</path></g></g></svg>Supprimer</button></div></div>' +
+                '<div class="gMCPru add-lesson-section"><table><tbody id="groups"><tbody></table><div class="esedNQ">' +
+                '<div class="ivYHKm"><div class="dropdown"><a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"' +
+                'aria-haspopup="true" aria-expanded="false">Ajouter*<i class="fas fa-plus-circle" style="font-size: 18px"></i></a>' +
+                '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm add-lesson-btn dropdown-item">' +
+                '<div class="d-flex flex-row"><svg width="20" height="20" viewBox="0 0 20 20">' +
+                '<g fill="none" fill-rule="evenodd"><g fill-rule="nonzero">' +
+                '<path fill="red" d="M0 10C0 4.477 4.477 0 10 0s10 4.477 10 10-4.477 10-10 10S0 15.523 0 10z" transform="translate(-36 -796) translate(36 796)"></path>' +
+                '<path fill="#FFF" d="M15.11 7.53c-.122-.47-.484-.842-.943-.968C13.336 6.333 10 6.333 10 6.333s-3.336 0-4.167.23c-.46.125-.82.496-.943.968-.223.854-.223 2.636-.223 2.636s0 1.782.223 2.636c.122.471.484.842.943.968C6.664 14 10 14 10 14s3.336 0 4.167-.229c.46-.126.82-.497.943-.968.223-.854.223-2.636.223-2.636s0-1.782-.223-2.636"' +
+                'transform="translate(-36 -796) translate(36 796)"></path><path fill="red" d="M9 12L9 8.667 11.667 10.333z" transform="translate(-36 -796) translate(36 796)"></path>' +
+                '</g></g></svg><div class="ibgLNl ml-1">Leçon</div></div>' +
+                '</button><button class="btn btn-sm dropdown-item add-quiz-btn mt-1">' +
+                '<div class="d-flex flex-row"><svg width="18" height="18" viewBox="0 0 18 18">' +
+                '<g fill="none" fill-rule="evenodd"><path d="M0 0H18V18H0z" transform="translate(-772 -1744) translate(755 1608) translate(17 136)">' +
+                '</path><path fill="#13131A" d="M15.617 12.283c.716 0 1.3.567 1.3 1.3 0 .717-.584 1.3-1.3 1.3H7.333c-.716 0-1.3-.583-1.3-1.3 0-.716.584-1.3 1.3-1.3zm-12.284 0c.717 0 1.3.567 1.3 1.3 0 .717-.583 1.3-1.3 1.3h-.95c-.716 0-1.3-.583-1.3-1.3 0-.716.584-1.3 1.3-1.3zM15.617 7.7c.716 0 1.3.583 1.3 1.3 0 .717-.584 1.3-1.3 1.3H7.333c-.716 0-1.3-.583-1.3-1.3 0-.717.584-1.3 1.3-1.3zm-12.284 0c.717 0 1.3.583 1.3 1.3 0 .717-.583 1.3-1.3 1.3h-.95c-.716 0-1.3-.583-1.3-1.3 0-.717.584-1.3 1.3-1.3zm12.284-4.583c.716 0 1.3.583 1.3 1.3 0 .716-.584 1.3-1.3 1.3H7.333c-.716 0-1.3-.584-1.3-1.3 0-.717.584-1.3 1.3-1.3zm-12.284 0c.717 0 1.3.583 1.3 1.3 0 .716-.583 1.3-1.3 1.3h-.95c-.716 0-1.3-.584-1.3-1.3 0-.717.584-1.3 1.3-1.3z"' +
+                'transform="translate(-772 -1744) translate(755 1608) translate(17 136)"></path>' +
+                '</g></svg><div class="ibgLNl ml-2">Quiz</div></div></button></div></div></div></div>' +
+                '<div id="quiz_section" style="position: relative;"></div></div></div></div>';
+            $(htmlToAdd).find('.lesson-form').remove()
+            $(htmlToAdd).insertBefore('#insert_chapter')
+        })
 
-            $(document).on('click', 'button.add-lesson-btn', function () {
-                let $lessonComponent = $(this).closest(".add-lesson-section").find('table tbody#groups')
+        $(document).on('click', 'button.add-lesson-btn', function () {
+            let $lessonComponent = $(this).closest(".add-lesson-section").find('table tbody#groups')
 
-                let $htmlToAdd = '<tr class="col-12"><td><div class="lesson-form ivYHKm mt-15" style="display: block!important; padding: 10px!important; position: relative;">' +
-                    '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">' +
+            let $htmlToAdd = '<tr class="col-12"><td><div class="lesson-form ivYHKm mt-15" style="display: block!important; padding: 10px!important; position: relative;">' +
+                '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">' +
+                '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
+                '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                '<button class="btn btn-sm dropdown-item delete-lesson d-flex">' +
+                '<svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">' +
+                '<g fill="none" fill-rule="evenodd"><g fill="#13131A">' +
+                '<path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
+                'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
+                '</path></g></g></svg>Supprimer</button></div></div><div class="eQVCSW lesson-title" style="margin-top: 5px"><div class="inmuHv dfZJeY">' +
+                '<input type="text" autocapitalize="sentences" name="ltitle_input" placeholder="Ajouter le titre de la leçon">' +
+                '</div></div><div class="hkJnVs mt-4 lesson-video"><div class="ynJOs">' +
+                '<div class="jgZALD"><svg width="20" class="mr-4" height="20" viewBox="0 0 20 20">' +
+                '<g fill="none" fill-rule="evenodd"><g fill-rule="nonzero">' +
+                '<path fill="red" d="M0 10C0 4.477 4.477 0 10 0s10 4.477 10 10-4.477 10-10 10S0 15.523 0 10z" transform="translate(-36 -796) translate(36 796)"></path>' +
+                '<path fill="#FFF" d="M15.11 7.53c-.122-.47-.484-.842-.943-.968C13.336 6.333 10 6.333 10 6.333s-3.336 0-4.167.23c-.46.125-.82.496-.943.968-.223.854-.223 2.636-.223 2.636s0 1.782.223 2.636c.122.471.484.842.943.968C6.664 14 10 14 10 14s3.336 0 4.167-.229c.46-.126.82-.497.943-.968.223-.854.223-2.636.223-2.636s0-1.782-.223-2.636" transform="translate(-36 -796) translate(36 796)">' +
+                '</path><path fill="red" d="M9 12L9 8.667 11.667 10.333z" transform="translate(-36 -796) translate(36 796)"></path></g></g></svg>' +
+                '<input placeholder="Id de la vidéo" name="lvideo_input"></div></div>' +
+                '<div class="eQVCSW lesson-text" style="margin-top: 15px;"><div class="inmuHv dfZJeY">' +
+                '<div class="course_des_bg"><ul class="course_des_ttle">' +
+                '<li><a href="#"><i class="uil uil-bold"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-italic"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-list-ul"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-left-to-right-text-direction"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-right-to-left-text-direction"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-list-ui-alt"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-link"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-text-size"></i></a></li>' +
+                '<li><a href="#"><i class="uil uil-text"></i></a></li></ul>' +
+                '<div class="textarea_dt"><div class="ui form swdh339">' +
+                '<div class="field"> <textarea rows="5" name="ltext_input" id="course_description"' +
+                'placeholder="Insert your course description"></textarea>' +
+                '</div></div></div></div></div></div></div><div class="d-flex justify-content-center mt-5 mb-20">' +
+                '<span class="handle"></span></div></td></tr>';
+
+            $lessonComponent.append($htmlToAdd);
+        })
+
+        $(document).on('click', '.add-answer-btn', function () {
+            let answerLen = $(this).closest('.question-form').find('.new-answer').children().length
+            let $answerToAdd =
+                '<div class="gkeyhG answer">' +
+                '<div class="exerciseEditor__Choice-sc-1hguq4q-5 jGSZkH">' +
+                '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">' + (answerLen + 1) + '</div>' +
+                '<div class="materialTextInput__Container-sc-1aj17jz-0 inmuHv">' +
+                '<input name="answer" type="text" autocapitalize="sentences" placeholder="Réponse 1*">' +
+                '</div></div><svg width="16" height="16" viewBox="0 0 16 16" style="cursor: pointer;" class="delete_answer"><g fill="none" fill-rule="evenodd"><g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z" transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
+                '</path></g></g></svg></div>';
+            let $choiceToAdd =
+                '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">' + (answerLen + 1) + '</div>';
+            let $answerSection = $(this).parents('.question-form').find('.new-answer');
+            let $choiceSection = $(this).parents('.question-form').find('div.right-answer-choice');
+
+            $answerSection.append($answerToAdd);
+            $choiceSection.append($choiceToAdd);
+        })
+
+        $(document).on('click', '.add-quiz-btn', function () {
+            let $sortableComponent = $(this).parents(".add-lesson-section").find('div#quiz_section')
+            let questionLen = $sortableComponent.find('.question-form').length
+
+            if ($sortableComponent.children().length == 0) {
+
+                let quizToAdd = '<div class="fmgnGK mt-30"><div class="inmuHv jYirZ">' +
+                    '<input type="text" autocapitalize="sentences" name="quiz_title" placeholder="Ajouter un titre à votre quiz" required></div>' +
+                    '</div><div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">' +
                     '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                     '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
                     '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
-                    '<button class="btn btn-sm dropdown-item delete-lesson d-flex">' +
+                    '<button class="btn btn-sm dropdown-item remove_quiz d-flex">' +
                     '<svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">' +
-                    '<g fill="none" fill-rule="evenodd"><g fill="#13131A">' +
-                    '<path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
-                    'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
-                    '</path></g></g></svg>Supprimer</button></div></div><div class="eQVCSW lesson-title" style="margin-top: 5px"><div class="inmuHv dfZJeY">' +
-                    '<input type="text" autocapitalize="sentences" name="ltitle_input" placeholder="Ajouter le titre de la leçon">' +
-                    '</div></div><div class="hkJnVs mt-4 lesson-video"><div class="ynJOs">' +
-                    '<div class="jgZALD"><svg width="20" class="mr-4" height="20" viewBox="0 0 20 20">' +
-                    '<g fill="none" fill-rule="evenodd"><g fill-rule="nonzero">' +
-                    '<path fill="red" d="M0 10C0 4.477 4.477 0 10 0s10 4.477 10 10-4.477 10-10 10S0 15.523 0 10z" transform="translate(-36 -796) translate(36 796)"></path>' +
-                    '<path fill="#FFF" d="M15.11 7.53c-.122-.47-.484-.842-.943-.968C13.336 6.333 10 6.333 10 6.333s-3.336 0-4.167.23c-.46.125-.82.496-.943.968-.223.854-.223 2.636-.223 2.636s0 1.782.223 2.636c.122.471.484.842.943.968C6.664 14 10 14 10 14s3.336 0 4.167-.229c.46-.126.82-.497.943-.968.223-.854.223-2.636.223-2.636s0-1.782-.223-2.636" transform="translate(-36 -796) translate(36 796)">' +
-                    '</path><path fill="red" d="M9 12L9 8.667 11.667 10.333z" transform="translate(-36 -796) translate(36 796)"></path></g></g></svg>' +
-                    '<input placeholder="Id de la vidéo" name="lvideo_input"></div></div>' +
-                    '<div class="eQVCSW lesson-text" style="margin-top: 15px;"><div class="inmuHv dfZJeY">' +
-                    '<div class="course_des_bg"><ul class="course_des_ttle">' +
-                    '<li><a href="#"><i class="uil uil-bold"></i></a></li>' +
-                    '<li><a href="#"><i class="uil uil-italic"></i></a></li>' +
-                    '<li><a href="#"><i class="uil uil-list-ul"></i></a></li>' +
-                    '<li><a href="#"><i class="uil uil-left-to-right-text-direction"></i></a></li>' +
-                    '<li><a href="#"><i class="uil uil-right-to-left-text-direction"></i></a></li>' +
-                    '<li><a href="#"><i class="uil uil-list-ui-alt"></i></a></li>' +
-                    '<li><a href="#"><i class="uil uil-link"></i></a></li>' +
-                    '<li><a href="#"><i class="uil uil-text-size"></i></a></li>' +
-                    '<li><a href="#"><i class="uil uil-text"></i></a></li></ul>' +
-                    '<div class="textarea_dt"><div class="ui form swdh339">' +
-                    '<div class="field"> <textarea rows="5" name="ltext_input" id="course_description"' +
-                    'placeholder="Insert your course description"></textarea>' +
-                    '</div></div></div></div></div></div></div><div class="d-flex justify-content-center mt-5 mb-20">' +
-                    '<span class="handle"></span></div></td></tr>';
-
-                $lessonComponent.append($htmlToAdd);
-            })
-
-            $(document).on('click', '.add-answer-btn', function () {
-                let answerLen = $(this).closest('.question-form').find('.new-answer').children().length
-                let $answerToAdd =
-                    '<div class="gkeyhG answer">' +
-                    '<div class="exerciseEditor__Choice-sc-1hguq4q-5 jGSZkH">' +
-                    '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">' + (answerLen + 1) + '</div>' +
-                    '<div class="materialTextInput__Container-sc-1aj17jz-0 inmuHv">' +
-                    '<input name="answer" type="text" autocapitalize="sentences" placeholder="Réponse 1*">' +
-                    '</div></div><svg width="16" height="16" viewBox="0 0 16 16" style="cursor: pointer;" class="delete_answer"><g fill="none" fill-rule="evenodd"><g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z" transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
-                    '</path></g></g></svg></div>';
-                let $choiceToAdd =
-                    '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">' + (answerLen + 1) + '</div>';
-                let $answerSection = $(this).parents('.question-form').find('.new-answer');
-                let $choiceSection = $(this).parents('.question-form').find('div.right-answer-choice');
-
-                $answerSection.append($answerToAdd);
-                $choiceSection.append($choiceToAdd);
-            })
-
-            $(document).on('click', '.add-quiz-btn', function () {
-                let $sortableComponent = $(this).parents(".add-lesson-section").find('div#quiz_section')
-                let questionLen = $sortableComponent.find('.question-form').length
-
-                if ($sortableComponent.children().length == 0) {
-
-                    let quizToAdd = '<div class="fmgnGK mt-30"><div class="inmuHv jYirZ">' +
-                        '<input type="text" autocapitalize="sentences" name="quiz_title" placeholder="Ajouter un titre à votre quiz" required></div>' +
-                        '</div><div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">' +
-                        '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                        '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
-                        '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
-                        '<button class="btn btn-sm dropdown-item remove_quiz d-flex">' +
-                        '<svg class="mr-2" width="16" height="16" viewBox="0 0 16 16">' +
-                        '<g fill="none" fill-rule="evenodd"><g fill="#13131A"><path ' +
-                        'd="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
-                        'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
-                        '</path></g></g></svg>Supprimer</button>' +
-                        '</div></div><div class="question">' +
-                        '<div class="question-section"><div class="view-question"></div><div class="add-question"></div></div>' +
-                        '<div class="jjarOm kehBGJ bjYTln question-form">' +
-                        '<div><div class="kLHfqT">Question</div>' +
-                        '<div class="inmuHv" style="margin-bottom: 15px;"><input type="text" name="question" autocapitalize="sentences" class="question_input" placeholder="Ajouter la question...*"></div></div>' +
-                        '<div class="dZwVYc"><div class="new-answer"><div class="gkeyhG answer"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 jGSZkH"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">1</div><div class="inmuHv">' +
-                        '<input name="answer" type="text" autocapitalize="sentences" placeholder="Answer 1*"></div></div>' +
-                        '<svg width="16" height="16" viewBox="0 0 16 16" style="cursor: pointer;" class="delete_answer"><g fill="none" fill-rule="evenodd"><g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z" transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
-                        '</path></g></g></svg></div></div>' +
-                        '<div class="eWWrhn ivYHKm add-answer-btn mb-18"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
-                        '</div><div><div class="kLHfqT mt-15">Choisir la bonne réponse</div>' +
-                        '<div class="fFlPup right-answer-choice"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">1</div></div></div>' +
-                        '<div class="mt-20"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn" disabled="">Ok</button></div></div></div>';
-                    $sortableComponent.append(quizToAdd);
-                } else {
-                    let questionToAdd = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
-                        '<div><div class="kLHfqT">Question 1</div>' +
-                        '<div class="inmuHv" style="margin-bottom: 15px;"><input type="text" autocapitalize="sentences" class="question_input" name="question" placeholder="Ajouter la question...*"></div></div>' +
-                        '<div class="dZwVYc"><div class="new-answer"><div class="gkeyhG answer"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 jGSZkH"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">1</div><div class="inmuHv">' +
-                        '<input name="answer" class="answer_input" autocapitalize="sentences" placeholder="Réponse 1*">' +
-                        '</div></div>' +
-                        '<svg width="16" height="16" viewBox="0 0 16 16" style="cursor: pointer;" class="delete_answer"><g fill="none" fill-rule="evenodd"><g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z" transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
-                        '</path></g></g></svg>' +
-                        '</div></div>' +
-                        '<div class="eWWrhn ivYHKm add-answer-btn mb-18"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button></div>' +
-                        '<div><div class="kLHfqT mt-15">Choisir la bonne réponse</div>' +
-                        '<div class="fFlPup right-answer-choice"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">1</div></div></div>' +
-                        '<div class="mt-20"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn">Ok</button></div></div>';
-                    $sortableComponent.find('.question').append(questionToAdd);
-                }
-
-                $('#quiz_section input').on('blur', function () {
-                    if ($(this).val())
-                        $(this).parents('.question-form').find('div div.ixkpGJ button.save-question-btn').removeAttr('disabled')
-                    else
-                        $(this).parents('.question-form').find('div div.ixkpGJ button.save-question-btn').attr('disabled', true)
-                })
-
-                $(document).on('click', 'button.remove_quiz', function () {
-                    $(this).closest('div#quiz_section').empty()
-                })
-
-                $(document).on('click', 'div.answer svg.delete_answer', function () {
-                    let $currentValue = $(this).closest('div.answer').find('.jGSZkH .answer-form').html()
-                    console.log($(this).parents('div.dZwVYc'))
-                    $(this).parents('div.dZwVYc').find('div div.right-answer-choice .ksjfCD').each(function () {
-                        if ($(this).html() == $currentValue)
-                            $(this).remove()
-                    })
-                    $(this).closest('div.answer').remove()
-                })
-
-                $(document).on('click', 'button.delete_question_card', function () {
-                    $(this).closest('div.iuVOof.gmrWGH').remove()
-                })
-            })
-
-            $(document).on('click', 'button.edit_question_card', function () {
-                let $questionCard = $(this).closest('div.gmrWGH');
-
-                let question = $questionCard.find('div.bgQjcd b').first().html()
-                let questionLabel = $questionCard.find('div.bgQjcd.question-label b').html()
-                let questionId = $questionCard.find('div.bgQjcd.question-label').attr('question_id')
-                let answersList = []
-                $questionCard.find('div.giWrJk').each(function () {
-                    let answerId = $(this).find('label').attr('answer_id')
-                    let correct = false
-                    if ($(this).find('div').hasClass('hRaafP'))
-                        correct = true
-                    answersList.push({ label: $(this).find('div label').html(), correct: correct, answerId: answerId })
-                })
-                let answers = ''
-                for (let [i, answer] of (answersList).entries()) {
-                    answers += '<div class="gkeyhG answer"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 jGSZkH">' +
-                        '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">' + (i + 1) + '</div><div class="inmuHv">' +
-                        '<input name="answer" type="text" autocapitalize="sentences" answer_id="' + answer.answerId + '" value="' + answer.label + '"></div></div>' +
-                        '<svg width="16" height="16" viewBox="0 0 16 16" style="cursor: pointer;" class="delete_answer">' +
-                        '<g fill="none" fill-rule="evenodd"><g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z" transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
-                        '</path></g></g></svg></div>';
-                }
-                let $form = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
-                    '<div><div class="kLHfqT">' + question + '</div>' +
-                    '<div class="inmuHv" style="margin-bottom: 15px;"><input type="text" autocapitalize="sentences" class="question_input" name="question" value="' + questionLabel + '" question_id=' + questionId + '></div></div>' +
-                    '<div class="dZwVYc"><div class="new-answer">' + answers + '</div>' +
-                    '<div class="eWWrhn ivYHKm add-answer-btn mb-18"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
-                    '</div><div><div class="kLHfqT mt-15">Choisir la bonne réponse</div>' +
-                    '<div class="fFlPup right-answer-choice">';
-
-                for (let i = 1; i <= answersList.length; i++)
-                    $form += '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">' + i + '</div>';
-
-                $form += '</div></div><div class="mt-20"><div class="ixkpGJ">' +
-                    '<button class="hJLFyW cancel_edit_btn">Annuler</button><button class="jRKnYV khmjno save_edited_question_btn">Ok</button></div></div>'
-                $(this).closest('div.question').append($form);
-                let $addQuestionBtn = $(this).closest('div.view-question').find('div.new_question_section');
-                $questionCard.hide();
-                $addQuestionBtn.hide();
-
-
-            })
-
-            $(document).on('click', '.cancel_edit_btn', function () {
-                let $form = $(this).closest('div.question-form');
-                let question = $form.find('div.kLHfqT').html()
-
-                $(this).closest('div.question').find('div.gmrWGH').each(function () {
-                    if ($(this).find('div.bgQjcd b').html() == question)
-                        $(this).show()
-                });
-                $(this).closest('div.question').find('div.view-question div.new_question_section').show();
-                $(this).closest('div.question-form').remove();
-            })
-
-            $(document).on('click', '.save_edited_question_btn', function () {
-                let $form = $(this).closest('div.question-form');
-                let question = $form.find('div.kLHfqT').html();
-                let $sortableComponent = $(this).closest('div#quiz_section');
-                let questionId = $form.find('div.inmuHv input.question_input').attr('question_id');
-                let $questionLabel = $sortableComponent.find('input[name=question]').val();
-                let $answersLabel = '';
-                let $questionSection = $sortableComponent.find('div.view-question');
-
-                $questionSection.find('.new_question_section').remove();
-
-                $sortableComponent.find('div.new-answer').find('div.gkeyhG input[name=answer]').each(function () {
-                    let $value = $(this).val()
-                    let $answerId = $(this).attr('answer_id')
-                    if ($(this).attr('correct') == "true")
-                        $answersLabel += '<div class="exerciseView__Choice-sc-19oun2q-3 hRaafP">' +
-                            '<input disabled="" type="checkbox" name="choice" checked>' +
-                            '<label answer_id="' + $answerId + '">' + $value + '</label></div>';
-                    else
-                        $answersLabel += '<div class="exerciseView__Choice-sc-19oun2q-3 kxhlBp">' +
-                            '<input disabled="" name="choice" type="checkbox">' +
-                            '<label answer_id="' + $answerId + '">' + $value + '</label></div>';
-                })
-                let $questionViewToAdd =
-                    '<div class="jjarOm bFucVQ iuVOof gmrWGH mt-15" style="position: relative;">' +
-                    '<div class="primary__Primary-sc-16k2f7-0 bgQjcd"><b>' + question + '</b></div>' +
-                    '<div class="primary__Primary-sc-16k2f7-0 bgQjcd question-label" question_id="' + questionId + '"><b>' + $questionLabel + '</b></div><div class="exerciseView__Answers-sc-19oun2q-2 giWrJk">' +
-                    $answersLabel + '</div>' +
-                    '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">' +
-                    '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                    '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
-                    '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm dropdown-item delete_question_card d-flex">' +
-                    '<svg class="mr-2" width="16" height="16" viewBox="0 0 16 16"><g fill="none" fill-rule="evenodd">' +
-                    '<g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
-                    'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
-                    '</path></g></g></svg>Supprimer</button><button class="btn btn-sm dropdown-item edit_question_card d-flex">' +
-                    '<svg class="mr-2" width="18" height="18" viewBox="0 0 18 18">' +
                     '<g fill="none" fill-rule="evenodd"><g fill="#13131A"><path ' +
-                    'd="M8.3.412L1.074 7.721l-1 4.6c-.1.461.04.942.374 1.276.334.334.815.475 1.276.374l4.6-1L13.56 5.65c.537-.542.534-1.416-.005-1.956L10.268.406C10.007.145 9.652-.001 9.283 0 8.913 0 8.56.15 8.3.412zM2.81 12.465l-1.234-1.233.63-2.893 3.5 3.5-2.896.626z"' +
-                    'transform="translate(-1001 -238) translate(987 223) translate(14 15) translate(2 2)">' +
-                    '</path></g></g></svg>Modifier' +
-                    '</button> </div></div></div><div class="ivYHKm mt-3 new_question_section"><div class="mr-1" style="font-weight: bold; font-size: 0.975rem">' +
-                    '<button class="btn add_question_btn">Nouvelle question</button></div><i class="fas fa-plus-circle" style="font-size: 18px"></i></div>';
-
-                $(this).closest('div.question').find('div.gmrWGH').each(function () {
-                    if ($(this).find('div.bgQjcd b').html() == question)
-                        $(this).remove()
-                });
-                $questionSection.append($questionViewToAdd);
-
-                $(this).closest('div.question-form').remove();
-
-            })
-
-            $(document).on('click', 'button.add_question_btn', function () {
-                let $quizSection = $(this).parents(".add-lesson-section").find('div#quiz_section')
-                let questionLen = $quizSection.find('.question-form').length
-                let $questionSection = $(this).parents().find('div.view-question');
-
-                $questionSection.find('.new_question_section').remove()
-
-                let questionToAdd = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
-                    '<div><div class="kLHfqT">Question 1</div>' +
-                    '<div class="inmuHv mb-15"><input type="text" autocapitalize="sentences" class="question_input" name="question" placeholder="Ajouter la question...*"></div></div>' +
+                    'd="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
+                    'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
+                    '</path></g></g></svg>Supprimer</button>' +
+                    '</div></div><div class="question">' +
+                    '<div class="question-section"><div class="view-question"></div><div class="add-question"></div></div>' +
+                    '<div class="jjarOm kehBGJ bjYTln question-form">' +
+                    '<div><div class="kLHfqT">Question</div>' +
+                    '<div class="inmuHv" style="margin-bottom: 15px;"><input type="text" name="question" autocapitalize="sentences" class="question_input" placeholder="Ajouter la question...*"></div></div>' +
                     '<div class="dZwVYc"><div class="new-answer"><div class="gkeyhG answer"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 jGSZkH"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">1</div><div class="inmuHv">' +
-                    '<input name="answer" class="answer_input"  autocapitalize="sentences" placeholder="Réponse 1*"></div></div>' +
+                    '<input name="answer" type="text" autocapitalize="sentences" placeholder="Answer 1*"></div></div>' +
                     '<svg width="16" height="16" viewBox="0 0 16 16" style="cursor: pointer;" class="delete_answer"><g fill="none" fill-rule="evenodd"><g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z" transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
                     '</path></g></g></svg></div></div>' +
                     '<div class="eWWrhn ivYHKm add-answer-btn mb-18"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
                     '</div><div><div class="kLHfqT mt-15">Choisir la bonne réponse</div>' +
                     '<div class="fFlPup right-answer-choice"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">1</div></div></div>' +
+                    '<div class="mt-20"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn" disabled="">Ok</button></div></div></div>';
+                $sortableComponent.append(quizToAdd);
+            } else {
+                let questionToAdd = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
+                    '<div><div class="kLHfqT">Question 1</div>' +
+                    '<div class="inmuHv" style="margin-bottom: 15px;"><input type="text" autocapitalize="sentences" class="question_input" name="question" placeholder="Ajouter la question...*"></div></div>' +
+                    '<div class="dZwVYc"><div class="new-answer"><div class="gkeyhG answer"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 jGSZkH"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">1</div><div class="inmuHv">' +
+                    '<input name="answer" class="answer_input" autocapitalize="sentences" placeholder="Réponse 1*">' +
+                    '</div></div>' +
+                    '<svg width="16" height="16" viewBox="0 0 16 16" style="cursor: pointer;" class="delete_answer"><g fill="none" fill-rule="evenodd"><g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z" transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
+                    '</path></g></g></svg>' +
+                    '</div></div>' +
+                    '<div class="eWWrhn ivYHKm add-answer-btn mb-18"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button></div>' +
+                    '<div><div class="kLHfqT mt-15">Choisir la bonne réponse</div>' +
+                    '<div class="fFlPup right-answer-choice"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">1</div></div></div>' +
                     '<div class="mt-20"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn">Ok</button></div></div>';
-                $quizSection.find('.question').append(questionToAdd);
+                $sortableComponent.find('.question').append(questionToAdd);
+            }
+
+            $('#quiz_section input').on('blur', function () {
+                if ($(this).val())
+                    $(this).parents('.question-form').find('div div.ixkpGJ button.save-question-btn').removeAttr('disabled')
+                else
+                    $(this).parents('.question-form').find('div div.ixkpGJ button.save-question-btn').attr('disabled', true)
             })
 
-            $(document).on('click', 'div.right-answer-choice div.exerciseEditor__ChoiceIndex-sc-1hguq4q-4', function () {
-                let $index = $(this).html()
-                let $parent = $(this).parent('div.right-answer-choice');
-                $parent.find('.exerciseEditor__ChoiceIndex-sc-1hguq4q-4').each(function () {
-                    if ($(this).hasClass('cCrQLa')) {
-                        $(this).removeAttr("right_answer");
-                        $(this).removeClass("cCrQLa").addClass('ksjfCD');
-                    }
-                })
-                $(this).attr("right-answer", true)
-                $(this).addClass("cCrQLa").removeClass('ksjfCD')
-
-                $(this).parents('.question-form').find('.dZwVYc div.new-answer div.gkeyhG.answer').each(function () {
-                    if ($(this).find('.jGSZkH .answer-form').html() == $index) {
-                        $(this).find('.jGSZkH .answer-form').addClass("cCrQLa").removeClass("ksjfCD");
-                        $(this).find('.jGSZkH .inmuHv input[name=answer]').attr("correct", true);
-                    } else {
-                        $(this).find('.jGSZkH .answer-form').addClass("ksjfCD").removeClass("cCrQLa");
-                        $(this).find('.jGSZkH .inmuHv input[name=answer]').removeAttr("correct");
-                    }
-                })
-            })
-
-
-            $(document).on('click', '.save-question-btn', function () {
-                console.log('clicked')
-                let $sortableComponent = $(this).parents(".add-lesson-section").find('div#quiz_section')
-                let questionLen = $sortableComponent.find('.view-question').children().length
-                let $questionLabel = $(this).parents().find('input[name=question]').val()
-                let $answersLabel = ''
-                $(this).parents().find('div.new-answer').find('div.gkeyhG input[name=answer]').each(function () {
-                    let $value = $(this).val()
-                    if ($(this).attr('correct') == "true")
-                        $answersLabel += '<div class="exerciseView__Choice-sc-19oun2q-3 hRaafP">' +
-                            '<input disabled="" type="checkbox" name="choice" checked>' +
-                            '<label>' + $value + '</label></div>';
-                    else
-                        $answersLabel += '<div class="exerciseView__Choice-sc-19oun2q-3 kxhlBp">' +
-                            '<input disabled="" name="choice" type="checkbox">' +
-                            '<label>' + $value + '</label></div>';
-                })
-
-                let $questionViewToAdd =
-                    '<div class="jjarOm bFucVQ iuVOof gmrWGH mt-15" style="position: relative;">' +
-                    '<div class="primary__Primary-sc-16k2f7-0 bgQjcd"><b>Question ' + (questionLen + 1) + '</b></div>' +
-                    '<div class="primary__Primary-sc-16k2f7-0 bgQjcd question-label"><b>' + $questionLabel + '</b></div><div class="exerciseView__Answers-sc-19oun2q-2 giWrJk">' +
-                    $answersLabel + '</div>' +
-                    '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">' +
-                    '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                    '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
-                    '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm dropdown-item delete_question_card d-flex">' +
-                    '<svg class="mr-2" width="16" height="16" viewBox="0 0 16 16"><g fill="none" fill-rule="evenodd">' +
-                    '<g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
-                    'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
-                    '</path></g></g></svg>Supprimer</button><button class="btn btn-sm dropdown-item edit_question_card d-flex">' +
-                    '<svg class="mr-2" width="18" height="18" viewBox="0 0 18 18">' +
-                    '<g fill="none" fill-rule="evenodd"><g fill="#13131A"><path ' +
-                    'd="M8.3.412L1.074 7.721l-1 4.6c-.1.461.04.942.374 1.276.334.334.815.475 1.276.374l4.6-1L13.56 5.65c.537-.542.534-1.416-.005-1.956L10.268.406C10.007.145 9.652-.001 9.283 0 8.913 0 8.56.15 8.3.412zM2.81 12.465l-1.234-1.233.63-2.893 3.5 3.5-2.896.626z"' +
-                    'transform="translate(-1001 -238) translate(987 223) translate(14 15) translate(2 2)">' +
-                    '</path></g></g></svg>Modifier' +
-                    '</button> </div></div></div><div class="ivYHKm mt-3 new_question_section"><div class="mr-1" style="font-weight: bold; font-size: 0.975rem">' +
-                    '<button class="btn add_question_btn">Nouvelle question</button></div><i class="fas fa-plus-circle" style="font-size: 18px"></i></div>';
-                let $questionSection = $(this).parents().find('div.view-question');
-                $questionSection.find('.new_question_section').remove()
-                $('.question-form').remove()
-
-                $questionSection.append($questionViewToAdd);
-            })
-
-            $(document).on('click', 'button.cancel_btn', function () {
-                $(this).closest('div.question-form').remove();
-            })
-
-            $('#save-draft-btn').on('click', function () {
-                var empty = false;
-                $('input[name=chapter_name]').each(function () {
-                    console.log($(this).val())
-                    if (!$(this).val()) {
-                        empty = true;
-                    }
-                });
-
-                if (empty) {
-                    alert('Remplir les titres de chapitre.')
-                    return;
-                }
-
-                var $courseTitle = $("input[name=course_title]");
-                var $thisURL = $(this).attr('data-url');
-                var chapterList = [];
-                var lessonList = [];
-                let quizList = []
-                let questionList = []
-                let answerList = []
-
-                $('.my-chapter').each(function () {
-                    chapterList.push({
-                        chapter: $(this).find("input[name=chapter_name]").val(),
-                        chapterSlug: $(this).attr('chapter_slug'),
-                    })
-                })
-
-                $('div.my-chapter div.chapter div.add-lesson-section div.lesson-form').each(function (index) {
-                    lessonList.push({
-                        chapterSlug: $(this).closest('div.my-chapter').attr('chapter_slug'),
-                        chapter: $(this).closest('div.my-chapter').find('input[name=chapter_name]').val(),
-                        lessonSlug: $(this).attr('lesson_slug'),
-                        title: $(this).find('input[name=ltitle_input]').val(),
-                        videoId: $(this).find('input[name=lvideo_input]').val(),
-                        text: $(this).find('textarea[name=ltext_input]').val(),
-                        order: index
-                    })
-                })
-
-                $('div#quiz_section input[name=quiz_title]').each(function () {
-                    quizList.push({
-                        chapterSlug: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('chapter_slug'),
-                        chapter: $(this).closest('div.my-chapter').find('input[name=chapter_name]').val(),
-                        quizId: $(this).closest('div.my-chapter').find("input[name=quiz_title]").attr('quiz_id'),
-                        title: $(this).val()
-                    })
-                })
-
-                $('div#quiz_section div.question .question-section .view-question .gmrWGH').each(function () {
-                    questionList.push({
-                        chapterSlug: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('chapter_slug'),
-                        chapter: $(this).closest('div.my-chapter').find('input[name=chapter_name]').val(),
-                        quiz: $(this).closest('div#quiz_section').find('input[name=quiz_title]').val(),
-                        questionId: $(this).find('.question-label').attr('question_id'),
-                        label: $(this).find('.question-label b').html()
-                    })
-                })
-
-                $('div#quiz_section div.exerciseView__Choice-sc-19oun2q-3').each(function () {
-                    answerList.push({
-                        chapterSlug: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('chapter_slug'),
-                        chapter: $(this).closest('div.my-chapter').find('input[name=chapter_name]').val(),
-                        question: $(this).parents('.gmrWGH').find('div.question-label b').html(),
-                        answerId: $(this).find('label').attr('answer_id'),
-                        label: $(this).find('label').html(),
-                        correct: $(this).find('input[name=choice]').attr('checked')
-                    })
-                })
-
-                console.log('QL', questionList)
-
-                $.ajax({
-                    type: 'POST',
-                    url: $thisURL,
-                    beforeSend: function () {
-                        // Show image container
-                        $('#save-draft-btn').hide();
-                        $("#loader").show();
-                    },
-                    data: {
-                        'courseTitle': $courseTitle.val(),
-                        'chapters': JSON.stringify(chapterList),
-                        'lessons': JSON.stringify(lessonList),
-                        'quizzes': JSON.stringify(quizList),
-                        'questions': JSON.stringify(questionList),
-                        'answers': JSON.stringify(answerList),
-                        csrfmiddlewaretoken: '{{ csrf_token }}'
-                    },
-                    success: function (data) {
-                        console.log(data)
-                        $('#publish-course-btn').attr('disabled', false);
-                    },
-                    error: function (data) {
-                        $('#publish-course-btn').attr('disabled', true);
-                    },
-                    complete: function (data) {
-                        $("#loader").hide();
-                        $('#save-draft-btn').show();
-                    }
-                })
-            })
-
-            $(document).on('click', 'button.remove_ex_quiz', function () {
-                var quizId = $(this).attr('quiz_id');
-                let $myQuiz = $(this).closest('div#quiz_section');
-
-                $(document).on('click', '.confirm_delete_quiz', function () {
-                    let $modalDialog = $('#delete_quiz_' + quizId);
-                    var $thisURL = $(this).closest('#delete-quiz-' + quizId).attr('data-url');
-
-                    $.ajax({
-                        type: 'POST',
-                        url: $thisURL,
-                        data: {
-                            csrfmiddlewaretoken: '{{ csrf_token }}'
-                        },
-                        success: function (data) {
-                            $modalDialog.modal('hide');
-                            console.log(data)
-                        },
-                    })
-                    $modalDialog.modal('hide');
-                    $myQuiz.empty()
-                })
+            $(document).on('click', 'button.remove_quiz', function () {
+                $(this).closest('div#quiz_section').empty()
             })
 
             $(document).on('click', 'div.answer svg.delete_answer', function () {
-                let answerId = $(this).parent().find('.inmuHv input[name=answer]').attr('answer_id')
-                let $thisUrl = "{% url 'dashboard:delete-answer' 123 %}".replace('123', answerId);
-
-                if (answerId)
-                    $.ajax({
-                        type: 'POST',
-                        url: $thisUrl,
-                        data: {
-                            csrfmiddlewaretoken: '{{ csrf_token }}'
-                        },
-                        success: function (data) {
-                            console.log(data)
-                        },
-                    })
-
-
                 let $currentValue = $(this).closest('div.answer').find('.jGSZkH .answer-form').html()
-                let $myAnswers = $(this).parents('div.dZwVYc').find('div div.right-answer-choice .ksjfCD');
-                $myAnswers.each(function () {
+                console.log($(this).parents('div.dZwVYc'))
+                $(this).parents('div.dZwVYc').find('div div.right-answer-choice .ksjfCD').each(function () {
                     if ($(this).html() == $currentValue)
                         $(this).remove()
                 })
                 $(this).closest('div.answer').remove()
             })
 
-            $(document).on('click', 'button.delete_ex_question_card', function () {
-                var questionId = $(this).attr('question_id');
-                var $myQuestionCard = $(this).closest('div.iuVOof.gmrWGH');
-
-                $(document).on('click', '.confirm_delete_question', function () {
-                    let $modalDialog = $('#delete_question_' + questionId);
-                    var $thisURL = $(this).closest('#delete-question-' + questionId).attr('data-url');
-
-                    $.ajax({
-                        type: 'POST',
-                        url: $thisURL,
-                        data: {
-                            csrfmiddlewaretoken: '{{ csrf_token }}'
-                        },
-                        success: function (data) {
-                            $modalDialog.modal('hide');
-                            console.log(data)
-                        },
-                    })
-
-                    $myQuestionCard.remove();
-                    $modalDialog.modal('hide');
-                })
-                // $(this).closest('div.view-question').parents('div#quiz-section').find('input[name=quiz_title]').remove()
+            $(document).on('click', 'button.delete_question_card', function () {
+                $(this).closest('div.iuVOof.gmrWGH').remove()
             })
+        })
 
-            $(document).on('click', '.delete-ex-chapter', function () {
-                var chapterId = $(this).attr('chapter_id');
-                let $myChapter = $(this).closest("div.my-chapter");
+        $(document).on('click', 'button.edit_question_card', function () {
+            let $questionCard = $(this).closest('div.gmrWGH');
 
-                $(document).on('click', '.confirm_delete_chapter', function () {
-                    let $modalDialog = $('#delete_chapter_' + chapterId);
-                    var $thisURL = $(this).closest('#delete-chapter-' + chapterId).attr('data-url');
-                    if ($myChapter.find('.chapter .add-lesson-section').children().length) {
-                        $modalDialog.modal('hide');
-                        return;
-                    }
-
-                    $.ajax({
-                        type: 'POST',
-                        url: $thisURL,
-                        data: {
-                            csrfmiddlewaretoken: '{{ csrf_token }}'
-                        },
-                        success: function (data) {
-                            $modalDialog.modal('hide');
-                            console.log(data)
-                        },
-                    })
-                    $(this).closest("div.my-chapter").remove();
-                })
+            let question = $questionCard.find('div.bgQjcd b').first().html()
+            let questionLabel = $questionCard.find('div.bgQjcd.question-label b').html()
+            let questionId = $questionCard.find('div.bgQjcd.question-label').attr('question_id')
+            let answersList = []
+            $questionCard.find('div.giWrJk').each(function () {
+                let answerId = $(this).find('label').attr('answer_id')
+                let correct = false
+                if ($(this).find('div').hasClass('hRaafP'))
+                    correct = true
+                answersList.push({ label: $(this).find('div label').html(), correct: correct, answerId: answerId })
             })
+            let answers = ''
+            for (let [i, answer] of (answersList).entries()) {
+                answers += '<div class="gkeyhG answer"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 jGSZkH">' +
+                    '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">' + (i + 1) + '</div><div class="inmuHv">' +
+                    '<input name="answer" type="text" autocapitalize="sentences" answer_id="' + answer.answerId + '" value="' + answer.label + '"></div></div>' +
+                    '<svg width="16" height="16" viewBox="0 0 16 16" style="cursor: pointer;" class="delete_answer">' +
+                    '<g fill="none" fill-rule="evenodd"><g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z" transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
+                    '</path></g></g></svg></div>';
+            }
+            let $form = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
+                '<div><div class="kLHfqT">' + question + '</div>' +
+                '<div class="inmuHv" style="margin-bottom: 15px;"><input type="text" autocapitalize="sentences" class="question_input" name="question" value="' + questionLabel + '" question_id=' + questionId + '></div></div>' +
+                '<div class="dZwVYc"><div class="new-answer">' + answers + '</div>' +
+                '<div class="eWWrhn ivYHKm add-answer-btn mb-18"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
+                '</div><div><div class="kLHfqT mt-15">Choisir la bonne réponse</div>' +
+                '<div class="fFlPup right-answer-choice">';
 
-            $(document).on('click', '.delete-ex-lesson', function () {
-                var lessonId = $(this).attr('lesson_id');
-                var $myLesson = $(this).closest('tr')
+            for (let i = 1; i <= answersList.length; i++)
+                $form += '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">' + i + '</div>';
 
-                $(document).on('click', '.confirm_delete_lesson', function () {
-                    let $modalDialog = $('#delete_lesson_' + lessonId);
-                    var $thisURL = $(this).closest('#delete-lesson-' + lessonId).attr('data-url');
-                    $.ajax({
-                        type: 'POST',
-                        url: $thisURL,
-                        data: {
-                            csrfmiddlewaretoken: '{{ csrf_token }}'
-                        },
-                        success: function (data) {
-                            $modalDialog.modal('hide');
-                            console.log(data)
-                        },
-                    })
-                    $modalDialog.modal('hide');
-                    $myLesson.remove()
-                })
+            $form += '</div></div><div class="mt-20"><div class="ixkpGJ">' +
+                '<button class="hJLFyW cancel_edit_btn">Annuler</button><button class="jRKnYV khmjno save_edited_question_btn">Ok</button></div></div>'
+            $(this).closest('div.question').append($form);
+            let $addQuestionBtn = $(this).closest('div.view-question').find('div.new_question_section');
+            $questionCard.hide();
+            $addQuestionBtn.hide();
+
+
+        })
+
+        $(document).on('click', '.cancel_edit_btn', function () {
+            let $form = $(this).closest('div.question-form');
+            let question = $form.find('div.kLHfqT').html()
+
+            $(this).closest('div.question').find('div.gmrWGH').each(function () {
+                if ($(this).find('div.bgQjcd b').html() == question)
+                    $(this).show()
+            });
+            $(this).closest('div.question').find('div.view-question div.new_question_section').show();
+            $(this).closest('div.question-form').remove();
+        })
+
+        $(document).on('click', '.save_edited_question_btn', function () {
+            let $form = $(this).closest('div.question-form');
+            let question = $form.find('div.kLHfqT').html();
+            let $sortableComponent = $(this).closest('div#quiz_section');
+            let questionId = $form.find('div.inmuHv input.question_input').attr('question_id');
+            let $questionLabel = $sortableComponent.find('input[name=question]').val();
+            let $answersLabel = '';
+            let $questionSection = $sortableComponent.find('div.view-question');
+
+            $questionSection.find('.new_question_section').remove();
+
+            $sortableComponent.find('div.new-answer').find('div.gkeyhG input[name=answer]').each(function () {
+                let $value = $(this).val()
+                let $answerId = $(this).attr('answer_id')
+                if ($(this).attr('correct') == "true")
+                    $answersLabel += '<div class="exerciseView__Choice-sc-19oun2q-3 hRaafP">' +
+                        '<input disabled="" type="checkbox" name="choice" checked>' +
+                        '<label answer_id="' + $answerId + '">' + $value + '</label></div>';
+                else
+                    $answersLabel += '<div class="exerciseView__Choice-sc-19oun2q-3 kxhlBp">' +
+                        '<input disabled="" name="choice" type="checkbox">' +
+                        '<label answer_id="' + $answerId + '">' + $value + '</label></div>';
             })
+            let $questionViewToAdd =
+                '<div class="jjarOm bFucVQ iuVOof gmrWGH mt-15" style="position: relative;">' +
+                '<div class="primary__Primary-sc-16k2f7-0 bgQjcd"><b>' + question + '</b></div>' +
+                '<div class="primary__Primary-sc-16k2f7-0 bgQjcd question-label" question_id="' + questionId + '"><b>' + $questionLabel + '</b></div><div class="exerciseView__Answers-sc-19oun2q-2 giWrJk">' +
+                $answersLabel + '</div>' +
+                '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">' +
+                '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
+                '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm dropdown-item delete_question_card d-flex">' +
+                '<svg class="mr-2" width="16" height="16" viewBox="0 0 16 16"><g fill="none" fill-rule="evenodd">' +
+                '<g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
+                'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
+                '</path></g></g></svg>Supprimer</button><button class="btn btn-sm dropdown-item edit_question_card d-flex">' +
+                '<svg class="mr-2" width="18" height="18" viewBox="0 0 18 18">' +
+                '<g fill="none" fill-rule="evenodd"><g fill="#13131A"><path ' +
+                'd="M8.3.412L1.074 7.721l-1 4.6c-.1.461.04.942.374 1.276.334.334.815.475 1.276.374l4.6-1L13.56 5.65c.537-.542.534-1.416-.005-1.956L10.268.406C10.007.145 9.652-.001 9.283 0 8.913 0 8.56.15 8.3.412zM2.81 12.465l-1.234-1.233.63-2.893 3.5 3.5-2.896.626z"' +
+                'transform="translate(-1001 -238) translate(987 223) translate(14 15) translate(2 2)">' +
+                '</path></g></g></svg>Modifier' +
+                '</button> </div></div></div><div class="ivYHKm mt-3 new_question_section"><div class="mr-1" style="font-weight: bold; font-size: 0.975rem">' +
+                '<button class="btn add_question_btn">Nouvelle question</button></div><i class="fas fa-plus-circle" style="font-size: 18px"></i></div>';
 
-            $(document).on('click', '.delete-chapter', function () {
-                $(this).closest("div.my-chapter").remove()
-            })
+            $(this).closest('div.question').find('div.gmrWGH').each(function () {
+                if ($(this).find('div.bgQjcd b').html() == question)
+                    $(this).remove()
+            });
+            $questionSection.append($questionViewToAdd);
 
-            $(document).on('click', '.delete-lesson', function () {
-                $(this).closest('tr').remove()
-            })
+            $(this).closest('div.question-form').remove();
 
-            $('input[name=course_title]').on('keyup', function () {
-                let empty = false;
-                empty = $(this).val().length == 0
+        })
 
-                if (empty) {
-                    $('#publish-course-btn').attr('disabled', 'disabled');
-                    $("#save-draft-btn").attr('disabled', 'disabled');
+        $(document).on('click', 'button.add_question_btn', function () {
+            let $quizSection = $(this).parents(".add-lesson-section").find('div#quiz_section')
+            let questionLen = $quizSection.find('.question-form').length
+            let $questionSection = $(this).parents().find('div.view-question');
+
+            $questionSection.find('.new_question_section').remove()
+
+            let questionToAdd = '<div class="jjarOm kehBGJ bjYTln question-form mt-20">' +
+                '<div><div class="kLHfqT">Question 1</div>' +
+                '<div class="inmuHv mb-15"><input type="text" autocapitalize="sentences" class="question_input" name="question" placeholder="Ajouter la question...*"></div></div>' +
+                '<div class="dZwVYc"><div class="new-answer"><div class="gkeyhG answer"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 jGSZkH"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">1</div><div class="inmuHv">' +
+                '<input name="answer" class="answer_input"  autocapitalize="sentences" placeholder="Réponse 1*"></div></div>' +
+                '<svg width="16" height="16" viewBox="0 0 16 16" style="cursor: pointer;" class="delete_answer"><g fill="none" fill-rule="evenodd"><g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z" transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
+                '</path></g></g></svg></div></div>' +
+                '<div class="eWWrhn ivYHKm add-answer-btn mb-18"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
+                '</div><div><div class="kLHfqT mt-15">Choisir la bonne réponse</div>' +
+                '<div class="fFlPup right-answer-choice"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD">1</div></div></div>' +
+                '<div class="mt-20"><div class="ixkpGJ"><button class="hJLFyW cancel_btn">Annuler</button><button class="jRKnYV khmjno save-question-btn">Ok</button></div></div>';
+            $quizSection.find('.question').append(questionToAdd);
+        })
+
+        $(document).on('click', 'div.right-answer-choice div.exerciseEditor__ChoiceIndex-sc-1hguq4q-4', function () {
+            let $index = $(this).html()
+            let $parent = $(this).parent('div.right-answer-choice');
+            $parent.find('.exerciseEditor__ChoiceIndex-sc-1hguq4q-4').each(function () {
+                if ($(this).hasClass('cCrQLa')) {
+                    $(this).removeAttr("right_answer");
+                    $(this).removeClass("cCrQLa").addClass('ksjfCD');
                 }
-                else {
+            })
+            $(this).attr("right-answer", true)
+            $(this).addClass("cCrQLa").removeClass('ksjfCD')
+
+            $(this).parents('.question-form').find('.dZwVYc div.new-answer div.gkeyhG.answer').each(function () {
+                if ($(this).find('.jGSZkH .answer-form').html() == $index) {
+                    $(this).find('.jGSZkH .answer-form').addClass("cCrQLa").removeClass("ksjfCD");
+                    $(this).find('.jGSZkH .inmuHv input[name=answer]').attr("correct", true);
+                } else {
+                    $(this).find('.jGSZkH .answer-form').addClass("ksjfCD").removeClass("cCrQLa");
+                    $(this).find('.jGSZkH .inmuHv input[name=answer]').removeAttr("correct");
+                }
+            })
+        })
+
+
+        $(document).on('click', '.save-question-btn', function () {
+            console.log('clicked')
+            let $sortableComponent = $(this).parents(".add-lesson-section").find('div#quiz_section')
+            let questionLen = $sortableComponent.find('.view-question').children().length
+            let $questionLabel = $(this).parents().find('input[name=question]').val()
+            let $answersLabel = ''
+            $(this).parents().find('div.new-answer').find('div.gkeyhG input[name=answer]').each(function () {
+                let $value = $(this).val()
+                if ($(this).attr('correct') == "true")
+                    $answersLabel += '<div class="exerciseView__Choice-sc-19oun2q-3 hRaafP">' +
+                        '<input disabled="" type="checkbox" name="choice" checked>' +
+                        '<label>' + $value + '</label></div>';
+                else
+                    $answersLabel += '<div class="exerciseView__Choice-sc-19oun2q-3 kxhlBp">' +
+                        '<input disabled="" name="choice" type="checkbox">' +
+                        '<label>' + $value + '</label></div>';
+            })
+
+            let $questionViewToAdd =
+                '<div class="jjarOm bFucVQ iuVOof gmrWGH mt-15" style="position: relative;">' +
+                '<div class="primary__Primary-sc-16k2f7-0 bgQjcd"><b>Question ' + (questionLen + 1) + '</b></div>' +
+                '<div class="primary__Primary-sc-16k2f7-0 bgQjcd question-label"><b>' + $questionLabel + '</b></div><div class="exerciseView__Answers-sc-19oun2q-2 giWrJk">' +
+                $answersLabel + '</div>' +
+                '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">' +
+                '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
+                '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm dropdown-item delete_question_card d-flex">' +
+                '<svg class="mr-2" width="16" height="16" viewBox="0 0 16 16"><g fill="none" fill-rule="evenodd">' +
+                '<g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
+                'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
+                '</path></g></g></svg>Supprimer</button><button class="btn btn-sm dropdown-item edit_question_card d-flex">' +
+                '<svg class="mr-2" width="18" height="18" viewBox="0 0 18 18">' +
+                '<g fill="none" fill-rule="evenodd"><g fill="#13131A"><path ' +
+                'd="M8.3.412L1.074 7.721l-1 4.6c-.1.461.04.942.374 1.276.334.334.815.475 1.276.374l4.6-1L13.56 5.65c.537-.542.534-1.416-.005-1.956L10.268.406C10.007.145 9.652-.001 9.283 0 8.913 0 8.56.15 8.3.412zM2.81 12.465l-1.234-1.233.63-2.893 3.5 3.5-2.896.626z"' +
+                'transform="translate(-1001 -238) translate(987 223) translate(14 15) translate(2 2)">' +
+                '</path></g></g></svg>Modifier' +
+                '</button> </div></div></div><div class="ivYHKm mt-3 new_question_section"><div class="mr-1" style="font-weight: bold; font-size: 0.975rem">' +
+                '<button class="btn add_question_btn">Nouvelle question</button></div><i class="fas fa-plus-circle" style="font-size: 18px"></i></div>';
+            let $questionSection = $(this).parents().find('div.view-question');
+            $questionSection.find('.new_question_section').remove()
+            $('.question-form').remove()
+
+            $questionSection.append($questionViewToAdd);
+        })
+
+        $(document).on('click', 'button.cancel_btn', function () {
+            $(this).closest('div.question-form').remove();
+        })
+
+        $('#save-draft-btn').on('click', function () {
+            var empty = false;
+            $('input[name=chapter_name]').each(function () {
+                console.log($(this).val())
+                if (!$(this).val()) {
+                    empty = true;
+                }
+            });
+
+            if (empty) {
+                alert('Remplir les titres de chapitre.')
+                return;
+            }
+
+            var $courseTitle = $("input[name=course_title]");
+            var $thisURL = $(this).attr('data-url');
+            var chapterList = [];
+            var lessonList = [];
+            let quizList = []
+            let questionList = []
+            let answerList = []
+
+            $('.my-chapter').each(function () {
+                chapterList.push({
+                    chapter: $(this).find("input[name=chapter_name]").val(),
+                    chapterSlug: $(this).attr('chapter_slug'),
+                })
+            })
+
+            $('div.my-chapter div.chapter div.add-lesson-section div.lesson-form').each(function (index) {
+                lessonList.push({
+                    chapterSlug: $(this).closest('div.my-chapter').attr('chapter_slug'),
+                    chapter: $(this).closest('div.my-chapter').find('input[name=chapter_name]').val(),
+                    lessonSlug: $(this).attr('lesson_slug'),
+                    title: $(this).find('input[name=ltitle_input]').val(),
+                    videoId: $(this).find('input[name=lvideo_input]').val(),
+                    text: $(this).find('textarea[name=ltext_input]').val(),
+                    order: index
+                })
+            })
+
+            $('div#quiz_section input[name=quiz_title]').each(function () {
+                quizList.push({
+                    chapterSlug: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('chapter_slug'),
+                    chapter: $(this).closest('div.my-chapter').find('input[name=chapter_name]').val(),
+                    quizId: $(this).closest('div.my-chapter').find("input[name=quiz_title]").attr('quiz_id'),
+                    title: $(this).val()
+                })
+            })
+
+            $('div#quiz_section div.question .question-section .view-question .gmrWGH').each(function () {
+                questionList.push({
+                    chapterSlug: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('chapter_slug'),
+                    chapter: $(this).closest('div.my-chapter').find('input[name=chapter_name]').val(),
+                    quiz: $(this).closest('div#quiz_section').find('input[name=quiz_title]').val(),
+                    questionId: $(this).find('.question-label').attr('question_id'),
+                    label: $(this).find('.question-label b').html()
+                })
+            })
+
+            $('div#quiz_section div.exerciseView__Choice-sc-19oun2q-3').each(function () {
+                answerList.push({
+                    chapterSlug: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('chapter_slug'),
+                    chapter: $(this).closest('div.my-chapter').find('input[name=chapter_name]').val(),
+                    question: $(this).parents('.gmrWGH').find('div.question-label b').html(),
+                    answerId: $(this).find('label').attr('answer_id'),
+                    label: $(this).find('label').html(),
+                    correct: $(this).find('input[name=choice]').attr('checked')
+                })
+            })
+
+            console.log('QL', questionList)
+
+            $.ajax({
+                type: 'POST',
+                url: $thisURL,
+                beforeSend: function () {
+                    // Show image container
+                    $('#save-draft-btn').hide();
+                    $("#loader").show();
+                },
+                data: {
+                    'courseTitle': $courseTitle.val(),
+                    'chapters': JSON.stringify(chapterList),
+                    'lessons': JSON.stringify(lessonList),
+                    'quizzes': JSON.stringify(quizList),
+                    'questions': JSON.stringify(questionList),
+                    'answers': JSON.stringify(answerList),
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    console.log(data)
                     $('#publish-course-btn').attr('disabled', false);
-                    $("#save-draft-btn").attr('disabled', false);
+                },
+                error: function (data) {
+                    $('#publish-course-btn').attr('disabled', true);
+                },
+                complete: function (data) {
+                    $("#loader").hide();
+                    $('#save-draft-btn').show();
                 }
-            });
+            })
+        })
 
+        $(document).on('click', 'button.remove_ex_quiz', function () {
+            var quizId = $(this).attr('quiz_id');
+            let $myQuiz = $(this).closest('div#quiz_section');
 
-            $(document).on('click', '#publish-course-btn', function () {
-                $('#publish_course_modal input').on('keyup', function () {
-                    console.log('click')
-                    let empty = false;
-                    empty = $(this).val().length == 0
-
-                    if (empty)
-                        $('#confirm_publish_btn').attr('disabled', 'disabled');
-                    else
-                        $('#confirm_publish_btn').attr('disabled', false);
-                });
-            });
-
-            $('#confirm_publish_btn').on('click', function () {
-                let $thisURL = $(this).attr('data-url');
-                let $description = $('textarea[id=course_description]');
-                let $category = $('select[id=course_category]');
-                let $price = $('input[id=course_price]');
-                let $thumbnail = $('input[id=course_thumbnail]');
-                let $level = $('select[id=course_level]');
-                let $language = $('select[id=course_language]');
+            $(document).on('click', '.confirm_delete_quiz', function () {
+                let $modalDialog = $('#delete_quiz_' + quizId);
+                var $thisURL = $(this).closest('#delete-quiz-' + quizId).attr('data-url');
 
                 $.ajax({
                     type: 'POST',
                     url: $thisURL,
                     data: {
-                        'description': $description.val(),
-                        'price': $price.val(),
-                        'thumbnail': $thumbnail.val(),
-                        'level': $level.val(),
-                        'language': $language.val(),
-                        'category': $category.val(),
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
                     success: function (data) {
-                        window.location.href = '/dashboard/courses/';
-                    }
+                        $modalDialog.modal('hide');
+                        console.log(data)
+                    },
                 })
+                $modalDialog.modal('hide');
+                $myQuiz.empty()
             })
-
         })
-    </script>
-    {% endblock extrajs %}
+
+        $(document).on('click', 'div.answer svg.delete_answer', function () {
+            let answerId = $(this).parent().find('.inmuHv input[name=answer]').attr('answer_id')
+            let $thisUrl = "{% url 'dashboard:delete-answer' 123 %}".replace('123', answerId);
+
+            if (answerId)
+                $.ajax({
+                    type: 'POST',
+                    url: $thisUrl,
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        console.log(data)
+                    },
+                })
+
+
+            let $currentValue = $(this).closest('div.answer').find('.jGSZkH .answer-form').html()
+            let $myAnswers = $(this).parents('div.dZwVYc').find('div div.right-answer-choice .ksjfCD');
+            $myAnswers.each(function () {
+                if ($(this).html() == $currentValue)
+                    $(this).remove()
+            })
+            $(this).closest('div.answer').remove()
+        })
+
+        $(document).on('click', 'button.delete_ex_question_card', function () {
+            var questionId = $(this).attr('question_id');
+            var $myQuestionCard = $(this).closest('div.iuVOof.gmrWGH');
+
+            $(document).on('click', '.confirm_delete_question', function () {
+                let $modalDialog = $('#delete_question_' + questionId);
+                var $thisURL = $(this).closest('#delete-question-' + questionId).attr('data-url');
+
+                $.ajax({
+                    type: 'POST',
+                    url: $thisURL,
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        $modalDialog.modal('hide');
+                        console.log(data)
+                    },
+                })
+
+                $myQuestionCard.remove();
+                $modalDialog.modal('hide');
+            })
+            // $(this).closest('div.view-question').parents('div#quiz-section').find('input[name=quiz_title]').remove()
+        })
+
+        $(document).on('click', '.delete-ex-chapter', function () {
+            var chapterId = $(this).attr('chapter_id');
+            let $myChapter = $(this).closest("div.my-chapter");
+
+            $(document).on('click', '.confirm_delete_chapter', function () {
+                let $modalDialog = $('#delete_chapter_' + chapterId);
+                var $thisURL = $(this).closest('#delete-chapter-' + chapterId).attr('data-url');
+                if ($myChapter.find('.chapter .add-lesson-section').children().length) {
+                    $modalDialog.modal('hide');
+                    return;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: $thisURL,
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        $modalDialog.modal('hide');
+                        console.log(data)
+                    },
+                })
+                $(this).closest("div.my-chapter").remove();
+            })
+        })
+
+        $(document).on('click', '.delete-ex-lesson', function () {
+            var lessonId = $(this).attr('lesson_id');
+            var $myLesson = $(this).closest('tr')
+
+            $(document).on('click', '.confirm_delete_lesson', function () {
+                let $modalDialog = $('#delete_lesson_' + lessonId);
+                var $thisURL = $(this).closest('#delete-lesson-' + lessonId).attr('data-url');
+                $.ajax({
+                    type: 'POST',
+                    url: $thisURL,
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        $modalDialog.modal('hide');
+                        console.log(data)
+                    },
+                })
+                $modalDialog.modal('hide');
+                $myLesson.remove()
+            })
+        })
+
+        $(document).on('click', '.delete-chapter', function () {
+            $(this).closest("div.my-chapter").empty()
+        })
+
+        $(document).on('click', '.delete-lesson', function () {
+            $(this).closest('tr').remove()
+        })
+
+        $('input[name=course_title]').on('keyup', function () {
+            let empty = false;
+            empty = $(this).val().length == 0
+
+            if (empty) {
+                $('#publish-course-btn').attr('disabled', 'disabled');
+                $("#save-draft-btn").attr('disabled', 'disabled');
+            }
+            else {
+                $('#publish-course-btn').attr('disabled', false);
+                $("#save-draft-btn").attr('disabled', false);
+            }
+        });
+
+
+        $(document).on('click', '#publish-course-btn', function () {
+            $('#publish_course_modal input').on('keyup', function () {
+                console.log('click')
+                let empty = false;
+                empty = $(this).val().length == 0
+
+                if (empty)
+                    $('#confirm_publish_btn').attr('disabled', 'disabled');
+                else
+                    $('#confirm_publish_btn').attr('disabled', false);
+            });
+        });
+
+        $('#confirm_publish_btn').on('click', function () {
+            let $thisURL = $(this).attr('data-url');
+            let $description = $('textarea[id=course_description]');
+            let $category = $('select[id=course_category]');
+            let $price = $('input[id=course_price]');
+            let $thumbnail = $('input[id=course_thumbnail]');
+            let $level = $('select[id=course_level]');
+            let $language = $('select[id=course_language]');
+
+            $.ajax({
+                type: 'POST',
+                url: $thisURL,
+                data: {
+                    'description': $description.val(),
+                    'price': $price.val(),
+                    'thumbnail': $thumbnail.val(),
+                    'level': $level.val(),
+                    'language': $language.val(),
+                    'category': $category.val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    window.location.href = '/dashboard/courses/';
+                }
+            })
+        })
+
+    })
+</script>
+{% endblock extrajs %}
