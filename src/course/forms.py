@@ -129,6 +129,16 @@ class UpdateCourse(forms.ModelForm):
             attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
         ),
     )
+    categories = (
+        forms.ModelMultipleChoiceField(
+            queryset=Category.objects.all(),
+            label="Catégories",
+            required=True,
+            widget=forms.SelectMultiple(
+                attrs={"class": "ui hj145 dropdown cntry152 prompt srch_explore"}
+            ),
+        ),
+    )
     language = forms.ModelChoiceField(
         queryset=Language.objects.all(),
         label="Langue de la formation",
@@ -159,7 +169,15 @@ class UpdateCourse(forms.ModelForm):
 
     class Meta:
         model = Course
-        fields = ("title", "level", "language", "price", "description", "thumbnail")
+        fields = (
+            "title",
+            "level",
+            "language",
+            "price",
+            "description",
+            "thumbnail",
+            "categories",
+        )
 
 
 class CreateChapter(forms.ModelForm):

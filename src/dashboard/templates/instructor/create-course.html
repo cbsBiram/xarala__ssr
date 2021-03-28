@@ -21,7 +21,7 @@
                 </div>
 
             </div>
-            <div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">
+            <div class="dropdown d-flex justify-content-end" style="position: absolute;top: 15px;right: 50px;">
                 <a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <i class="fas fa-ellipsis-v" style="font-size: large;"></i>
@@ -171,7 +171,7 @@
             let htmlToAdd = '<div class="my-chapter"><div class="jjarOm bqfDsc chapter mt-40" style="position: relative;">' +
                 '<div class="col-12"> <div class="inmuHv jYirZ"><input type="text" autocapitalize="sentences" name="chapter_name"' +
                 'placeholder="Ajouter un titre à votre chapitre" required></div></div>' +
-                '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">' +
+                '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 10px;right: 50px;">' +
                 '<a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                 '<i class="fas fa-ellipsis-v" style="font-size: large;"></i></a>' +
                 '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm dropdown-item delete-chapter d-flex">' +
@@ -290,7 +290,6 @@
             }
 
             $(document).on('click', '.add-answer-btn', function () {
-                console.log('a')
                 let answerLen = $(this).closest('.question-form').find('.new-answer').children().length
                 let $answerToAdd =
                     '<div class="gkeyhG answer">' +
