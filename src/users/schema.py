@@ -161,12 +161,16 @@ class RegisterUser(graphene.Mutation):
     class Arguments:
         email = graphene.String(required=True)
         password = graphene.String(required=True)
+        firstName = graphene.String(required=True)
+        lastName = graphene.String(required=True)
 
-    def mutate(self, info, email, password):
+    def mutate(self, info, email, password, firstName, lastName):
         mail_to_lower = email_validation_function(email.lower())
         user = User(email=mail_to_lower)
         user.set_password(password)
         user.is_student = True
+        user.first_name = firstName
+        user.last_name = lastName
         user.save()
         try:
             account_created.delay(mail_to_lower)
