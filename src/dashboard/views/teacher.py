@@ -185,14 +185,22 @@ class CourseUpdateView(UpdateView):
                 course.save()
                 for chap in chapters:
                     Chapter.objects.update_or_create(
-                        slug=chap.get("chapterSlug"),
-                        defaults={"name": trail_string(chap.get("chapter"))},
+                        slug=trail_string(chap.get("chapterSlug")),
+                        defaults={
+                            "name": trail_string(chap.get("chapter")),
+                            "course": course,
+                        },
                     )
                 if lessons:
                     for less in lessons:
-                        chapter = Chapter.objects.get(
-                            slug=trail_string(less.get("chapterSlug"))
-                        )
+                        if less.get("chapterSlug"):
+                            chapter = Chapter.objects.filter(
+                                slug=trail_string(less.get("chapterSlug"))
+                            ).last()
+                        else:
+                            chapter = Chapter.objects.filter(
+                                name=trail_string(less.get("chapter"))
+                            ).last()
                         Lesson.objects.update_or_create(
                             slug=trail_string(less.get("lessonSlug")),
                             defaults={
@@ -205,9 +213,14 @@ class CourseUpdateView(UpdateView):
                         )
                 if quizzes:
                     for quiz in quizzes:
-                        chapter = Chapter.objects.filter(
-                            slug=quiz.get("chapterSlug")
-                        ).last()
+                        if quiz.get("chapterSlug"):
+                            chapter = Chapter.objects.filter(
+                                slug=trail_string(quiz.get("chapterSlug"))
+                            ).last()
+                        else:
+                            chapter = Chapter.objects.filter(
+                                name=trail_string(quiz.get("chapter"))
+                            ).last()
                         Quiz.objects.update_or_create(
                             id=quiz.get("quizId"),
                             defaults={
@@ -216,10 +229,15 @@ class CourseUpdateView(UpdateView):
                             },
                         )
                     for question in questions:
-                        quiz = Quiz.objects.filter(
-                            title=trail_string(question.get("quiz")),
-                            chapter__slug=question.get("chapterSlug"),
-                        ).last()
+                        if question.get("chapterSlug") and question.get("quiz"):
+                            quiz = Quiz.objects.filter(
+                                title=trail_string(question.get("quiz")),
+                                chapter__slug=question.get("chapterSlug"),
+                            ).last()
+                        else:
+                            quiz = Quiz.objects.filter(
+                                chapter__name=question.get("chapter"),
+                            ).last()
                         Question.objects.update_or_create(
                             id=question.get("questionId"),
                             defaults={
@@ -232,6 +250,15 @@ class CourseUpdateView(UpdateView):
                             label=trail_string(answer.get("question")),
                             quiz__chapter__slug=answer.get("chapterSlug"),
                         ).last()
+                        if answer.get("question") and answer.get("chapterSlug"):
+                            question = Question.objects.filter(
+                                label=trail_string(answer.get("question")),
+                                quiz__chapter__slug=answer.get("chapterSlug"),
+                            ).last()
+                        else:
+                            question = Question.objects.filter(
+                                quiz__chapter__name=answer.get("chapter"),
+                            ).last()
                         correct = True if answer.get("correct") else False
                         Answer.objects.update_or_create(
                             id=answer.get("answerId"),

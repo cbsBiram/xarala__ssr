@@ -1047,6 +1047,19 @@
             })
 
             $('#save-draft-btn').on('click', function () {
+                var empty = false;
+                $('input[name=chapter_name]').each(function () {
+                    console.log($(this).val())
+                    if (!$(this).val()) {
+                        empty = true;
+                    }
+                });
+
+                if (empty) {
+                    alert('Remplir les titres de chapitre.')
+                    return;
+                }
+
                 var $courseTitle = $("input[name=course_title]");
                 var $thisURL = $(this).attr('data-url');
                 var chapterList = [];
@@ -1065,6 +1078,7 @@
                 $('div.my-chapter div.chapter div.add-lesson-section div.lesson-form').each(function (index) {
                     lessonList.push({
                         chapterSlug: $(this).closest('div.my-chapter').attr('chapter_slug'),
+                        chapter: $(this).closest('div.my-chapter').find('input[name=chapter_name]').val(),
                         lessonSlug: $(this).attr('lesson_slug'),
                         title: $(this).find('input[name=ltitle_input]').val(),
                         videoId: $(this).find('input[name=lvideo_input]').val(),
@@ -1076,6 +1090,7 @@
                 $('div#quiz_section input[name=quiz_title]').each(function () {
                     quizList.push({
                         chapterSlug: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('chapter_slug'),
+                        chapter: $(this).closest('div.my-chapter').find('input[name=chapter_name]').val(),
                         quizId: $(this).closest('div.my-chapter').find("input[name=quiz_title]").attr('quiz_id'),
                         title: $(this).val()
                     })
@@ -1084,6 +1099,7 @@
                 $('div#quiz_section div.question .question-section .view-question .gmrWGH').each(function () {
                     questionList.push({
                         chapterSlug: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('chapter_slug'),
+                        chapter: $(this).closest('div.my-chapter').find('input[name=chapter_name]').val(),
                         quiz: $(this).closest('div#quiz_section').find('input[name=quiz_title]').val(),
                         questionId: $(this).find('.question-label').attr('question_id'),
                         label: $(this).find('.question-label b').html()
@@ -1093,6 +1109,7 @@
                 $('div#quiz_section div.exerciseView__Choice-sc-19oun2q-3').each(function () {
                     answerList.push({
                         chapterSlug: $(this).closest('div.my-chapter').find("input[name=chapter_name]").attr('chapter_slug'),
+                        chapter: $(this).closest('div.my-chapter').find('input[name=chapter_name]').val(),
                         question: $(this).parents('.gmrWGH').find('div.question-label b').html(),
                         answerId: $(this).find('label').attr('answer_id'),
                         label: $(this).find('label').html(),
@@ -1271,11 +1288,16 @@
                 let empty = false;
                 empty = $(this).val().length == 0
 
-                if (empty)
+                if (empty) {
                     $('#publish-course-btn').attr('disabled', 'disabled');
-                else
+                    $("#save-draft-btn").attr('disabled', 'disabled');
+                }
+                else {
                     $('#publish-course-btn').attr('disabled', false);
+                    $("#save-draft-btn").attr('disabled', false);
+                }
             });
+
 
             $(document).on('click', '#publish-course-btn', function () {
                 $('#publish_course_modal input').on('keyup', function () {
