@@ -16,7 +16,7 @@ SECRET_KEY = "qliv-rs0nz3z0ccut(ie0$di0bm011-53y@q^u$^v9@kkpohpr"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0:8000", "127.0.0.1:8000", "127.0.0.1"]
 
 
 # Application definition

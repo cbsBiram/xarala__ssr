@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models.aggregates import Count, Sum
-from django.http.response import JsonResponse
+from django.http.response import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, UpdateView
@@ -89,6 +89,8 @@ class CourseCreateView(CreateView):
                 questions = jsonloads(request.POST.get("questions", ""))
                 answers = jsonloads(request.POST.get("answers", ""))
 
+                if not course_title:
+                    return HttpResponse(status=404)
                 course = Course.objects.create(title=course_title, teacher=user)
                 UserLog.objects.create(
                     action=f"Created {course.title} course",
@@ -101,41 +103,46 @@ class CourseCreateView(CreateView):
                     )
                 if lessons:
                     for lesson in lessons:
-                        chapter = Chapter.objects.get(
-                            name=trail_string(lesson.get("chapter"))
-                        )
-                        Lesson.objects.create(
-                            title=trail_string(lesson.get("title", "")),
-                            video_id=lesson.get("videoId", ""),
-                            chapter=chapter,
-                            text=trail_string(lesson.get("text", "")),
-                            order=lesson.get("order"),
-                        )
-                if quizzes:
-                    for quiz in quizzes:
-                        chapter = Chapter.objects.get(
-                            name=trail_string(quiz.get("chapter"))
-                        )
-                        Quiz.objects.create(
-                            chapter=chapter, title=trail_string(quiz.get("title"))
-                        )
-                    for question in questions:
-                        quiz = Quiz.objects.get(
-                            title=trail_string(question.get("quiz"))
-                        )
-                        Question.objects.create(
-                            quiz=quiz, label=trail_string(question.get("label"))
-                        )
-                    for answer in answers:
-                        question = Question.objects.get(
-                            label=trail_string(answer.get("question"))
-                        )
-                        correct = True if answer.get("correct") else False
-                        Answer.objects.create(
-                            question=question,
-                            label=trail_string(answer.get("label")),
-                            is_correct=correct,
-                        )
+                        if lesson.get("chapter"):
+                            chapter = Chapter.objects.get(
+                                name=trail_string(lesson.get("chapter"))
+                            )
+                            Lesson.objects.create(
+                                title=trail_string(lesson.get("title", "")),
+                                video_id=lesson.get("videoId", ""),
+                                chapter=chapter,
+                                text=trail_string(lesson.get("text", "")),
+                                order=lesson.get("order"),
+                            )
+                    if quizzes:
+                        for quiz in quizzes:
+                            if quiz.get("chapter"):
+                                chapter = Chapter.objects.get(
+                                    name=trail_string(quiz.get("chapter"))
+                                )
+                                Quiz.objects.create(
+                                    chapter=chapter,
+                                    title=trail_string(quiz.get("title")),
+                                )
+                        for question in questions:
+                            if question.get("quiz"):
+                                quiz = Quiz.objects.get(
+                                    title=trail_string(question.get("quiz"))
+                                )
+                                Question.objects.create(
+                                    quiz=quiz, label=trail_string(question.get("label"))
+                                )
+                        for answer in answers:
+                            if answer.get("question"):
+                                question = Question.objects.get(
+                                    label=trail_string(answer.get("question"))
+                                )
+                                correct = True if answer.get("correct") else False
+                                Answer.objects.create(
+                                    question=question,
+                                    label=trail_string(answer.get("label")),
+                                    is_correct=correct,
+                                )
                 values["slug"] = course.slug
             except Exception as e:
                 print(e)
@@ -180,6 +187,8 @@ class CourseUpdateView(UpdateView):
                 questions = jsonloads(request.POST.get("questions", ""))
                 answers = jsonloads(request.POST.get("answers", ""))
 
+                if not course_title:
+                    return HttpResponse(status=404)
                 course = Course.objects.get(slug=self.kwargs["slug"], teacher=user)
                 course.title = course_title
                 course.save()
