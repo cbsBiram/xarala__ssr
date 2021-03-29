@@ -114,35 +114,36 @@ class CourseCreateView(CreateView):
                                 text=trail_string(lesson.get("text", "")),
                                 order=lesson.get("order"),
                             )
-                    if quizzes:
-                        for quiz in quizzes:
-                            if quiz.get("chapter"):
-                                chapter = Chapter.objects.get(
-                                    name=trail_string(quiz.get("chapter"))
-                                )
-                                Quiz.objects.create(
-                                    chapter=chapter,
-                                    title=trail_string(quiz.get("title")),
-                                )
-                        for question in questions:
-                            if question.get("quiz"):
-                                quiz = Quiz.objects.get(
-                                    title=trail_string(question.get("quiz"))
-                                )
-                                Question.objects.create(
-                                    quiz=quiz, label=trail_string(question.get("label"))
-                                )
-                        for answer in answers:
-                            if answer.get("question"):
-                                question = Question.objects.get(
-                                    label=trail_string(answer.get("question"))
-                                )
-                                correct = True if answer.get("correct") else False
-                                Answer.objects.create(
-                                    question=question,
-                                    label=trail_string(answer.get("label")),
-                                    is_correct=correct,
-                                )
+                if quizzes:
+                    for quiz in quizzes:
+                        if quiz.get("chapter"):
+                            print(quiz)
+                            chapter = Chapter.objects.get(
+                                name=trail_string(quiz.get("chapter"))
+                            )
+                            Quiz.objects.create(
+                                chapter=chapter,
+                                title=trail_string(quiz.get("title")),
+                            )
+                    for question in questions:
+                        if question.get("quiz"):
+                            quiz = Quiz.objects.get(
+                                title=trail_string(question.get("quiz"))
+                            )
+                            Question.objects.create(
+                                quiz=quiz, label=trail_string(question.get("label"))
+                            )
+                    for answer in answers:
+                        if answer.get("question"):
+                            question = Question.objects.get(
+                                label=trail_string(answer.get("question"))
+                            )
+                            correct = True if answer.get("correct") else False
+                            Answer.objects.create(
+                                question=question,
+                                label=trail_string(answer.get("label")),
+                                is_correct=correct,
+                            )
                 values["slug"] = course.slug
             except Exception as e:
                 print(e)

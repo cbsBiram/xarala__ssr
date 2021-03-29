@@ -170,8 +170,6 @@ class Chapter(models.Model):
 
     def get_lessons(self):
         lessons = Lesson.objects.filter(chapter=self).order_by("order")
-        for lesson in lessons:
-            print(lesson.order)
         return lessons
 
     class Meta:
@@ -245,7 +243,7 @@ class Lesson(models.Model):
             return None
 
     class Meta:
-        ordering = ["id"]
+        ordering = ["order"]
 
     def save(self, *args, **kwargs):
         if not self.slug:
