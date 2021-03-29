@@ -12,7 +12,7 @@
                 style="font-size: 2.1rem !important;" name="course_title" required>
         </div>
     </div>
-    <div class="my-chapter">
+    <div class="my-chapter" nb="1">
         <div class="jjarOm bqfDsc chapter mt-40" style="position: relative;">
             <div class="col-12">
                 <div class="inmuHv jYirZ">
@@ -45,7 +45,7 @@
 
             <div class="gMCPru add-lesson-section">
                 <table>
-                    <tbody id="groups">
+                    <tbody id="groups_1">
                     </tbody>
                 </table>
                 <div class="esedNQ mt-30">
@@ -156,8 +156,10 @@
 <script src="{% static 'js/Sortable.min.js' %}"></script>
 <script>
     $(document).ready(function () {
-        const $groups = document.getElementById('groups');
-        let sortable = Sortable.create($groups, { handle: '.handle' });
+        const $groups = $('#groups_1')[0];
+        let sortable = Sortable.create($groups, {
+            handle: '.handle', animation: 150,
+        });
 
         $('input[name=course_title]').on('focus', function () {
             $(this).parent().removeClass('inmuHv').addClass('bYLGqV')
@@ -168,7 +170,9 @@
         })
 
         $('.add_new_chapter').on('click', function () {
-            let htmlToAdd = '<div class="my-chapter"><div class="jjarOm bqfDsc chapter mt-40" style="position: relative;">' +
+            let nbChapter = $('.my-chapter').length + 1;
+
+            let htmlToAdd = '<div class="my-chapter" nb=' + nbChapter + '><div class="jjarOm bqfDsc chapter mt-40" style="position: relative;">' +
                 '<div class="col-12"> <div class="inmuHv jYirZ"><input type="text" autocapitalize="sentences" name="chapter_name"' +
                 'placeholder="Ajouter un titre à votre chapitre" required></div></div>' +
                 '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 10px;right: 50px;">' +
@@ -179,7 +183,7 @@
                 '<g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z"' +
                 'transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
                 '</path></g></g></svg>Supprimer</button></div></div>' +
-                '<div class="gMCPru add-lesson-section"><table><tbody id="groups"><tbody></table><div class="esedNQ">' +
+                '<div class="gMCPru add-lesson-section"><table><tbody id="groups_' + nbChapter + '"><tbody></table><div class="esedNQ">' +
                 '<div class="ivYHKm"><div class="dropdown"><a class=" btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"' +
                 'aria-haspopup="true" aria-expanded="false">Ajouter*<i class="fas fa-plus-circle" style="font-size: 18px"></i></a>' +
                 '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="btn btn-sm add-lesson-btn dropdown-item">' +
@@ -196,12 +200,17 @@
                 'transform="translate(-772 -1744) translate(755 1608) translate(17 136)"></path>' +
                 '</g></svg><div class="ibgLNl ml-2">Quiz</div></div></button></div></div></div></div>' +
                 '<div id="quiz_section" style="position: relative;"></div></div></div></div>';
-            $(htmlToAdd).find('.lesson-form').remove()
-            $(htmlToAdd).insertBefore('#insert_chapter')
+            $(htmlToAdd).find('.lesson-form').remove();
+            $(htmlToAdd).insertBefore('#insert_chapter');
+            let $groups_2 = $('#groups_' + nbChapter)[0];
+            let sortable_2 = Sortable.create($groups_2, {
+                handle: '.handle', animation: 150,
+            });
         })
 
         $(document).on('click', 'button.add-lesson-btn', function () {
-            let $lessonComponent = $(this).parents(".add-lesson-section").find('table tbody#groups')
+            let nbChapter = $(this).closest(".my-chapter").attr('nb');
+            let $lessonComponent = $(this).parents(".add-lesson-section").find('table tbody#groups_' + nbChapter);
 
             let $htmlToAdd = '<tr><td><div class="lesson-form ivYHKm mt-15" style="display: block!important; padding: 10px!important; position: relative;">' +
                 '<div class="dropdown d-flex justify-content-end" style="position: absolute;top: 0px;right: 0px;">' +
@@ -266,7 +275,7 @@
                     '<div><div class="kLHfqT">Question</div>' +
                     '<div class="inmuHv mb-15"><input type="text" name="question" autocapitalize="sentences" class="question_input" placeholder="Edit the question...*"></div></div>' +
                     '<div class="dZwVYc"><div class="new-answer"><div class="gkeyhG answer"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 jGSZkH"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">1</div><div class="inmuHv">' +
-                    '<input name="answer" type="text" autocapitalize="sentences" placeholder="Answer 1*"></div></div>' +
+                    '<input name="answer" type="text" autocapitalize="sentences" placeholder="Réponse 1*"></div></div>' +
                     '<svg width="16" height="16" viewBox="0 0 16 16" style="cursor: pointer;" class="delete_answer"><g fill="none" fill-rule="evenodd"><g fill="#13131A"><path d="M10.01.624L6.74 3.893 3.467.622C3 .133 2.303-.063 1.648.108.991.279.48.79.31 1.447c-.17.655.028 1.352.517 1.82l3.27 3.271L.829 9.806c-.71.734-.7 1.902.022 2.625.722.723 1.89.733 2.625.022L6.739 9.18l3.269 3.27c.47.487 1.166.683 1.82.512.655-.17 1.167-.682 1.338-1.337.17-.655-.025-1.351-.513-1.82L9.39 6.54l3.267-3.268c.71-.734.701-1.902-.021-2.625-.722-.723-1.89-.733-2.625-.023z" transform="translate(-2511 -602) translate(1918 458) translate(593 144) translate(1.778 1.778)">' +
                     '</path></g></g></svg></div></div>' +
                     '<div class="eWWrhn ivYHKm add-answer-btn mb-18"><button class="btn">Ajouter une réponse<i class="fas fa-plus-circle ml-1"></i></button>' +
@@ -583,7 +592,8 @@
                 })
             })
 
-            console.log(lessonList)
+            console.log(quizList)
+
 
             $.ajax({
                 type: 'POST',
@@ -607,13 +617,14 @@
                     $('#save-draft-btn').attr('disabled', false);
                     if (data['slug'])
                         window.location.href = '/dashboard/course/edit/' + data['slug'];
-                }
-                ,
+                },
                 complete: function (data) {
                     $("#loader").hide();
                     $('#save-draft-btn').show();
                 }
             })
+
+
         })
 
         $(document).on('click', '.delete-chapter', function () {
