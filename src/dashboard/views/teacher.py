@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models.aggregates import Count, Sum
-from django.http.response import HttpResponse, JsonResponse
+from django.http.response import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, UpdateView
@@ -90,61 +90,68 @@ class CourseCreateView(CreateView):
                 answers = jsonloads(request.POST.get("answers", ""))
 
                 if not course_title:
-                    return HttpResponse(status=400)
+                    return HttpResponseBadRequest()
                 course = Course.objects.create(title=course_title, teacher=user)
                 UserLog.objects.create(
                     action=f"Created {course.title} course",
                     user_type="Instructeur",
                     user=user,
                 )
-                chapters_list = [
+                chapter_list = [
                     Chapter(name=chapter.get("chapter"), course=course)
                     for chapter in chapters
                 ]
-                Chapter.objects.bulk_create(chapters_list)
-                if lessons:
-                    for lesson in lessons:
-                        if lesson.get("chapter"):
-                            chapter = Chapter.objects.filter(
-                                name=trail_string(lesson.get("chapter"))
-                            ).last()
-                            Lesson.objects.create(
-                                title=trail_string(lesson.get("title", "")),
-                                video_id=lesson.get("videoId", ""),
-                                chapter=chapter,
-                                text=trail_string(lesson.get("text", "")),
-                                order=lesson.get("order"),
-                            )
+                Chapter.objects.bulk_create(chapter_list)
+                lesson_list = [
+                    Lesson(
+                        title=trail_string(lesson.get("title", "")),
+                        video_id=lesson.get("videoId", ""),
+                        chapter=Chapter.objects.get(name=lesson.get("chapter")),
+                        text=trail_string(lesson.get("text", "")),
+                        order=lesson.get("order"),
+                    )
+                    for lesson in lessons
+                    if lesson.get("chapter")
+                ]
+                Lesson.objects.bulk_create(lesson_list)
                 if quizzes:
-                    for quiz in quizzes:
-                        if quiz.get("chapter"):
-                            print(quiz)
-                            chapter = Chapter.objects.filter(
+                    quiz_list = [
+                        Quiz(
+                            chapter=Chapter.objects.get(
                                 name=trail_string(quiz.get("chapter"))
-                            ).last()
-                            Quiz.objects.create(
-                                chapter=chapter,
-                                title=trail_string(quiz.get("title")),
-                            )
-                    for question in questions:
-                        if question.get("quiz"):
-                            quiz = Quiz.objects.filter(
+                            ),
+                            title=trail_string(quiz.get("title")),
+                        )
+                        for quiz in quizzes
+                        if quiz.get("chapter")
+                    ]
+                    Quiz.objects.bulk_create(quiz_list)
+
+                    question_list = [
+                        Question(
+                            quiz=Quiz.objects.get(
                                 title=trail_string(question.get("quiz"))
-                            ).last()
-                            Question.objects.create(
-                                quiz=quiz, label=trail_string(question.get("label"))
-                            )
-                    for answer in answers:
-                        if answer.get("question"):
-                            question = Question.objects.filter(
+                            ),
+                            label=trail_string(question.get("label")),
+                        )
+                        for question in questions
+                        if question.get("quiz")
+                    ]
+                    Question.objects.bulk_create(question_list)
+
+                    answer_list = [
+                        Answer(
+                            question=Question.objects.get(
                                 label=trail_string(answer.get("question"))
-                            ).last()
-                            correct = True if answer.get("correct") else False
-                            Answer.objects.create(
-                                question=question,
-                                label=trail_string(answer.get("label")),
-                                is_correct=correct,
-                            )
+                            ),
+                            label=trail_string(answer.get("label")),
+                            is_correct=True if answer.get("correct") else False,
+                        )
+                        for answer in answers
+                        if answer.get("question")
+                    ]
+                    Answer.objects.bulk_create(answer_list)
+
                 values["slug"] = course.slug
             except Exception as e:
                 print(e)
