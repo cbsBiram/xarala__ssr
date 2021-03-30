@@ -88,6 +88,6 @@ def format_date(date_object):
 
 def trail_string(str):
     if str:
-        return str.lstrip().rstrip()
+        return str.strip()
     else:
         return ""
