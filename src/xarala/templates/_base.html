@@ -19,6 +19,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, shrink-to-fit=9">
+
+  {% block meta %}
   <meta name="description" property="og:description" content="Xarala Academy La technologie dans votre langue">
   <meta name="keywords"
     content="Formation, Xarala Academy, Xarala, Apprendre à coder, Apprendre Python, Formation Xarala, Formation Python">
@@ -35,7 +37,7 @@
   <meta name="twitter:description" content="Xarala, La technologie dans votre langue.">
   <meta name="twitter:image" content="{% static 'images/logo.jpg' %}">
   <meta name="twitter:image:alt" content="Logo de Xarala.">
-  {% block meta %} {% endblock meta %}
+  {% endblock meta %}
   <title> Xarala Academy - {% block title %} Accueil, Cours en ligne - La technologie dans votre langue
     {% endblock title %}
   </title>
@@ -49,7 +51,7 @@
   <link href="{% static 'css/vertical-responsive-menu.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
   <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
-  <link href="{% static 'css/night-mode.css' %}" rel="stylesheet">
+  <!-- <link href="{% static 'css/night-mode.css' %}" rel="stylesheet"> -->
 
   <!-- Vendor Stylesheets -->
   <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
@@ -189,7 +191,7 @@
 
 
   <script src="{% static 'js/custom.js' %}"></script>
-  <script src="{% static 'js/night-mode.js' %}"></script>
+  <!-- <script src="{% static 'js/night-mode.js' %}"></script> -->
   {% block extrajs %} {% endblock extrajs %}
 </body>
 

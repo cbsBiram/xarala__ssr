@@ -24,7 +24,7 @@
   <link href="{% static 'css/style.css' %}" rel="stylesheet" />
   <link href="{% static 'css/instructor-dashboard.css' %}" rel="stylesheet" />
   <link href="{% static 'css/instructor-responsive.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/night-mode.css' %}" rel="stylesheet" />
+  <!-- <link href="{% static 'css/night-mode.css' %}" rel="stylesheet" /> -->
   <link href="{% static 'css/jquery-steps.css' %}" rel="stylesheet">
 
   <!-- Vendor Stylesheets -->
@@ -821,14 +821,14 @@
               </div>
               <a href="{% url 'profile' %}" class="dp_link_12">Mon profil</a>
             </div>
-            <div class="night_mode_switch__btn">
+            <!-- <div class="night_mode_switch__btn">
               <a href="#" id="night-mode" class="btn-night-mode">
                 <i class="uil uil-moon"></i> Mode Sombre
                 <span class="btn-night-mode-switch">
                   <span class="uk-switch-button"></span>
                 </span>
               </a>
-            </div>
+            </div> -->
             <a href="{% url 'dashboard:dashboard' %}" class="item channel_item">Tableau de bord</a>
             <a class="item channel_item" href="javascript:{document.getElementById('logout').submit()}">Déconnexion
               <form action="{% url 'logout' %}" method="POST" id="logout">
@@ -871,17 +871,16 @@
 
     <script src="{% static 'js/vertical-responsive-menu.min.js' %}"></script>
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'vendor/OwlCarousel/owl.carousel.js' %}"></script>
-    {% block semantic %}
+
     <script src="{% static 'vendor/semantic/semantic.min.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
-    {% endblock semantic %}
+
 
     <!-- <script src="{% static 'vendor/semantic/semantic.min.js' %}"></script> -->
     <!-- <script src="{% static 'js/custom.js' %}"></script> -->
-    <script src="{% static 'js/night-mode.js' %}"></script>
+    <!-- <script src="{% static 'js/night-mode.js' %}"></script> -->
     {% block extrajs %} {% endblock extrajs %}
 </body>
 
