@@ -672,7 +672,6 @@
         $('.groups').each(function () {
             let $groupItem = $(this)[0];
             let sortable = Sortable.create($groupItem, { handle: '.handle', animation: 150 });
-            console.log($groupItem);
         })
 
 
@@ -846,7 +845,6 @@
 
             $(document).on('click', 'div.answer svg.delete_answer', function () {
                 let $currentValue = $(this).closest('div.answer').find('.jGSZkH .answer-form').html()
-                console.log($(this).parents('div.dZwVYc'))
                 $(this).parents('div.dZwVYc').find('div div.right-answer-choice .ksjfCD').each(function () {
                     if ($(this).html() == $currentValue)
                         $(this).remove()
@@ -1015,7 +1013,6 @@
 
 
         $(document).on('click', '.save-question-btn', function () {
-            console.log('clicked')
             let $sortableComponent = $(this).parents(".add-lesson-section").find('div#quiz_section')
             let questionLen = $sortableComponent.find('.view-question').children().length
             let $questionLabel = $(this).parents().find('input[name=question]').val()
@@ -1066,7 +1063,6 @@
         $('#save-draft-btn').on('click', function () {
             var empty = false;
             $('input[name=chapter_name]').each(function () {
-                console.log($(this).val())
                 if (!$(this).val()) {
                     empty = true;
                 }
@@ -1134,7 +1130,8 @@
                 })
             })
 
-            console.log('AL', answerList);
+            console.log('CL', chapterList);
+            console.log('LL', lessonList);
 
             $.ajax({
                 type: 'POST',
