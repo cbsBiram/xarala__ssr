@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models.aggregates import Count, Sum
-from django.http.response import HttpResponse, JsonResponse
+from django.http.response import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, UpdateView
@@ -90,7 +90,7 @@ class CourseCreateView(CreateView):
                 answers = jsonloads(request.POST.get("answers", ""))
 
                 if not course_title:
-                    return HttpResponse(status=400)
+                    return HttpResponseBadRequest()
                 course = Course.objects.create(title=course_title, teacher=user)
                 UserLog.objects.create(
                     action=f"Created {course.title} course",
@@ -102,19 +102,17 @@ class CourseCreateView(CreateView):
                     for chapter in chapters
                 ]
                 Chapter.objects.bulk_create(chapters_list)
-                if lessons:
-                    for lesson in lessons:
-                        if lesson.get("chapter"):
-                            chapter = Chapter.objects.filter(
-                                name=trail_string(lesson.get("chapter"))
-                            ).last()
-                            Lesson.objects.create(
-                                title=trail_string(lesson.get("title", "")),
-                                video_id=lesson.get("videoId", ""),
-                                chapter=chapter,
-                                text=trail_string(lesson.get("text", "")),
-                                order=lesson.get("order"),
-                            )
+                lesson_list = [
+                    Lesson(
+                        title=trail_string(lesson.get("title", "")),
+                        video_id=lesson.get("videoId", ""),
+                        chapter=Chapter.objects.get(name=lesson.get("chapter")),
+                        text=trail_string(lesson.get("text", "")),
+                        order=lesson.get("order"),
+                    )
+                    for lesson in lessons
+                ]
+                Lesson.objects.bulk_create(lesson_list)
                 if quizzes:
                     for quiz in quizzes:
                         if quiz.get("chapter"):
