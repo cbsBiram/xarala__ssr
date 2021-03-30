@@ -106,7 +106,9 @@ class CourseCreateView(CreateView):
                     Lesson(
                         title=trail_string(lesson.get("title", "")),
                         video_id=lesson.get("videoId", ""),
-                        chapter=Chapter.objects.get(name=lesson.get("chapter")),
+                        chapter=Chapter.objects.get(
+                            name=lesson.get("chapter"), course=course
+                        ),
                         text=trail_string(lesson.get("text", "")),
                         order=lesson.get("order"),
                     )
