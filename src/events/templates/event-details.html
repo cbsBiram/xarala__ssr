@@ -49,10 +49,6 @@ Le blog de Xarala - {{ event.title }}
             {{ event.content|safe }}
           </div>
 
-          <div class="vew120 mt-35 mb-30">
-            <div id="disqus_thread"></div>
-          </div>
-
         </div>
         <!-- <div class="col-md-12">
           <div class="blog_pagination">
@@ -81,21 +77,3 @@ Le blog de Xarala - {{ event.title }}
 
 
 {% endblock content %}
-
-{% block extrajs %}
-<script>
-  var disqus_config = function () {
-    this.page.url = window.location.href;
-    this.page.identifier = "{{ event.slug }}";
-  };
-
-
-  (function () { // DON'T EDIT BELOW THIS LINE
-    var d = document,
-      s = d.createElement('script');
-    s.src = 'https://xarala-academy.disqus.com/embed.js';
-    s.setAttribute('data-created_at', +new Date());
-    (d.head || d.body).appendChild(s);
-  })();
-</script>
-{% endblock extrajs %}

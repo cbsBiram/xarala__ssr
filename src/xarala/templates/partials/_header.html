@@ -77,14 +77,14 @@
             </div>
             <a href="{% url 'profile' %}" class="dp_link_12">Mon profil</a>
           </div>
-          <div class="night_mode_switch__btn">
+          <!-- <div class="night_mode_switch__btn">
             <a href="#" id="night-mode" class="btn-night-mode">
               <i class="uil uil-moon"></i> Mode Sombre
               <span class="btn-night-mode-switch">
                 <span class="uk-switch-button"></span>
               </span>
             </a>
-          </div>
+          </div> -->
           <a href="{% url 'dashboard:dashboard' %}" class="item channel_item">Tableau de bord</a>
           <a class="item channel_item" href="javascript:{document.getElementById('logout').submit()}">Déconnexion
             <form action="{% url 'logout' %}" method="POST" id="logout">
