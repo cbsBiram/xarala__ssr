@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models.aggregates import Count, Sum
-from django.http.response import HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.http.response import HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, UpdateView
+from dashboard.dashboard_utils import slugify_chapter, slugify_lesson
 from quiz.models import Answer, Question, Quiz
 from users.decorators import teacher_required
 from django.views.generic import View, ListView
@@ -91,20 +92,29 @@ class CourseCreateView(CreateView):
 
                 if not course_title:
                     return HttpResponseBadRequest()
+
                 course = Course.objects.create(title=course_title, teacher=user)
                 UserLog.objects.create(
                     action=f"Created {course.title} course",
                     user_type="Instructeur",
                     user=user,
                 )
-                chapters_list = [
-                    Chapter(name=chapter.get("chapter"), course=course)
+
+                chapter_list = [
+                    Chapter(
+                        name=chapter.get("chapter"),
+                        course=course,
+                        slug=slugify_chapter(chapter.get("chapter")),
+                    )
                     for chapter in chapters
+                    if chapter.get("chapter")
                 ]
-                Chapter.objects.bulk_create(chapters_list)
+                Chapter.objects.bulk_create(chapter_list)
+
                 lesson_list = [
                     Lesson(
                         title=trail_string(lesson.get("title", "")),
+                        slug=slugify_lesson(title=lesson.get("title")),
                         video_id=lesson.get("videoId", ""),
                         chapter=Chapter.objects.get(
                             name=lesson.get("chapter"), course=course
@@ -113,38 +123,51 @@ class CourseCreateView(CreateView):
                         order=lesson.get("order"),
                     )
                     for lesson in lessons
+                    if lesson.get("chapter")
                 ]
                 Lesson.objects.bulk_create(lesson_list)
+
                 if quizzes:
-                    for quiz in quizzes:
-                        if quiz.get("chapter"):
-                            print(quiz)
-                            chapter = Chapter.objects.filter(
-                                name=trail_string(quiz.get("chapter"))
-                            ).last()
-                            Quiz.objects.create(
-                                chapter=chapter,
-                                title=trail_string(quiz.get("title")),
-                            )
-                    for question in questions:
-                        if question.get("quiz"):
-                            quiz = Quiz.objects.filter(
-                                title=trail_string(question.get("quiz"))
-                            ).last()
-                            Question.objects.create(
-                                quiz=quiz, label=trail_string(question.get("label"))
-                            )
-                    for answer in answers:
-                        if answer.get("question"):
-                            question = Question.objects.filter(
-                                label=trail_string(answer.get("question"))
-                            ).last()
-                            correct = True if answer.get("correct") else False
-                            Answer.objects.create(
-                                question=question,
-                                label=trail_string(answer.get("label")),
-                                is_correct=correct,
-                            )
+                    quiz_list = [
+                        Quiz(
+                            chapter=Chapter.objects.get(
+                                name=trail_string(quiz.get("chapter"), course=course)
+                            ),
+                            title=trail_string(quiz.get("title")),
+                        )
+                        for quiz in quizzes
+                        if quiz.get("chapter")
+                    ]
+                    Quiz.objects.bulk_create(quiz_list)
+
+                    question_list = [
+                        Question(
+                            quiz=Quiz.objects.get(
+                                title=trail_string(
+                                    question.get("quiz"), chapter__course=course
+                                )
+                            ),
+                            label=trail_string(question.get("label")),
+                        )
+                        for question in questions
+                        if question.get("quiz")
+                    ]
+                    Question.objects.bulk_create(question_list)
+
+                    answer_list = [
+                        Answer(
+                            question=Question.objects.get(
+                                label=trail_string(answer.get("question")),
+                                question__quiz__chapter__course=course,
+                            ),
+                            label=trail_string(answer.get("label")),
+                            is_correct=True if answer.get("correct") else False,
+                        )
+                        for answer in answers
+                        if answer.get("question")
+                    ]
+                    Answer.objects.bulk_create(answer_list)
+
                 values["slug"] = course.slug
             except Exception as e:
                 print(e)
@@ -190,7 +213,8 @@ class CourseUpdateView(UpdateView):
                 answers = jsonloads(request.POST.get("answers", ""))
 
                 if not course_title:
-                    return HttpResponse(status=400)
+                    return HttpResponseBadRequest()
+
                 course = Course.objects.get(slug=self.kwargs["slug"], teacher=user)
                 course.title = course_title
                 course.save()
@@ -203,35 +227,37 @@ class CourseUpdateView(UpdateView):
                         },
                     )
                 if lessons:
-                    for less in lessons:
-                        if less.get("chapterSlug"):
-                            chapter = Chapter.objects.filter(
-                                slug=trail_string(less.get("chapterSlug"))
-                            ).last()
+                    for lesson in lessons:
+                        if lesson.get("chapterSlug"):
+                            chapter = Chapter.objects.get(
+                                slug=trail_string(lesson.get("chapterSlug")),
+                                course=course,
+                            )
                         else:
-                            chapter = Chapter.objects.filter(
-                                name=trail_string(less.get("chapter"))
-                            ).last()
+                            chapter = Chapter.objects.get(
+                                name=trail_string(lesson.get("chapter")), course=course
+                            )
                         Lesson.objects.update_or_create(
-                            slug=trail_string(less.get("lessonSlug")),
+                            slug=trail_string(lesson.get("lessonSlug")),
                             defaults={
                                 "chapter": chapter,
-                                "title": trail_string(less.get("title")),
-                                "video_id": less.get("videoId", ""),
-                                "text": trail_string(less.get("text", "")),
-                                "order": less.get("order"),
+                                "title": trail_string(lesson.get("title")),
+                                "video_id": lesson.get("videoId", ""),
+                                "text": trail_string(lesson.get("text", "")),
+                                "order": lesson.get("order"),
                             },
                         )
                 if quizzes:
                     for quiz in quizzes:
                         if quiz.get("chapterSlug"):
-                            chapter = Chapter.objects.filter(
-                                slug=trail_string(quiz.get("chapterSlug"))
-                            ).last()
+                            chapter = Chapter.objects.get(
+                                slug=trail_string(quiz.get("chapterSlug")),
+                                course=course,
+                            )
                         else:
-                            chapter = Chapter.objects.filter(
-                                name=trail_string(quiz.get("chapter"))
-                            ).last()
+                            chapter = Chapter.objects.get(
+                                name=trail_string(quiz.get("chapter")), course=course
+                            )
                         Quiz.objects.update_or_create(
                             id=quiz.get("quizId"),
                             defaults={
@@ -241,14 +267,16 @@ class CourseUpdateView(UpdateView):
                         )
                     for question in questions:
                         if question.get("chapterSlug") and question.get("quiz"):
-                            quiz = Quiz.objects.filter(
+                            quiz = Quiz.objects.get(
                                 title=trail_string(question.get("quiz")),
                                 chapter__slug=question.get("chapterSlug"),
-                            ).last()
+                                chapter__course=course,
+                            )
                         else:
-                            quiz = Quiz.objects.filter(
+                            quiz = Quiz.objects.get(
                                 chapter__name=question.get("chapter"),
-                            ).last()
+                                chapter__course=course,
+                            )
                         Question.objects.update_or_create(
                             id=question.get("questionId"),
                             defaults={
@@ -258,21 +286,22 @@ class CourseUpdateView(UpdateView):
                         )
                     for answer in answers:
                         if answer.get("question") and answer.get("chapterSlug"):
-                            question = Question.objects.filter(
+                            question = Question.objects.get(
                                 label=trail_string(answer.get("question")),
                                 quiz__chapter__slug=answer.get("chapterSlug"),
-                            ).last()
+                                quiz__chapter__course=course,
+                            )
                         else:
-                            question = Question.objects.filter(
+                            question = Question.objects.get(
                                 quiz__chapter__name=answer.get("chapter"),
-                            ).last()
-                        correct = True if answer.get("correct") else False
+                                quiz__chapter__course=course,
+                            )
                         Answer.objects.update_or_create(
                             id=answer.get("answerId"),
                             defaults={
                                 "label": trail_string(answer.get("label")),
                                 "question": question,
-                                "is_correct": correct,
+                                "is_correct": True if answer.get("correct") else False,
                             },
                         )
                 values["id"] = course.id
