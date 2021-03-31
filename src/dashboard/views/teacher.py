@@ -131,7 +131,7 @@ class CourseCreateView(CreateView):
                     quiz_list = [
                         Quiz(
                             chapter=Chapter.objects.get(
-                                name=trail_string(quiz.get("chapter"), course=course)
+                                name=trail_string(quiz.get("chapter")), course=course
                             ),
                             title=trail_string(quiz.get("title")),
                         )
@@ -143,9 +143,8 @@ class CourseCreateView(CreateView):
                     question_list = [
                         Question(
                             quiz=Quiz.objects.get(
-                                title=trail_string(
-                                    question.get("quiz"), chapter__course=course
-                                )
+                                title=trail_string(question.get("quiz")),
+                                chapter__course=course,
                             ),
                             label=trail_string(question.get("label")),
                         )
@@ -158,7 +157,7 @@ class CourseCreateView(CreateView):
                         Answer(
                             question=Question.objects.get(
                                 label=trail_string(answer.get("question")),
-                                question__quiz__chapter__course=course,
+                                quiz__chapter__course=course,
                             ),
                             label=trail_string(answer.get("label")),
                             is_correct=True if answer.get("correct") else False,
