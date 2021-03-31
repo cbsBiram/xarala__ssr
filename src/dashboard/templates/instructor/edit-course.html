@@ -866,9 +866,10 @@
             let $questionCard = $(this).closest('div.gmrWGH');
 
             let question = $questionCard.find('div.bgQjcd b').first().html()
-            let questionLabel = $questionCard.find('div.bgQjcd.question-label b').html()
-            let questionId = $questionCard.find('div.bgQjcd.question-label').attr('question_id')
-            let answersList = []
+            let questionLabel = $questionCard.find('div.bgQjcd.question-label b').html();
+            let questionId = $questionCard.find('div.bgQjcd.question-label').attr('question_id');
+            let answersList = [];
+
             $questionCard.find('div.giWrJk').each(function () {
                 let answerId = $(this).find('label').attr('answer_id')
                 let correct = false
@@ -876,7 +877,9 @@
                     correct = true
                 answersList.push({ label: $(this).find('div label').html(), correct: correct, answerId: answerId })
             })
-            let answers = ''
+
+            let answers = '';
+
             for (let [i, answer] of (answersList).entries()) {
                 answers += '<div class="gkeyhG answer"><div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 jGSZkH">' +
                     '<div class="exerciseEditor__ChoiceIndex-sc-1hguq4q-4 ksjfCD answer-form">' + (i + 1) + '</div><div class="inmuHv">' +
