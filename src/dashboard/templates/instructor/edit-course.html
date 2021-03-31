@@ -539,8 +539,12 @@
                 <button class="hJLFyW" id="save-draft-btn"
                     data-url="{% url 'dashboard:update-course' course.slug %}">Enregistrer</button>
             </div>
+            {% if not course.submitted or course.published %}
             <button id="publish-course-btn" data-toggle="modal" data-target="#publish_course_modal"
-                class="defaultButton__DefaultButton-sc-1scxgx7-0 primaryButton__PrimaryButton-sc-1t32hmz-0 jRKnYV khmjno">Publier</button>
+                class="defaultButton__DefaultButton-sc-1scxgx7-0 primaryButton__PrimaryButton-sc-1t32hmz-0 jRKnYV khmjno">
+                Publier
+            </button>
+            {% endif %}
         </div>
         <div class="jwyJKT">
             Les champs avec des asterisks (*) doivent être remplis pour que le cours soit publié. À
@@ -1328,12 +1332,13 @@
 
         $('#confirm_publish_btn').on('click', function () {
             let $thisURL = $(this).attr('data-url');
-            let $description = $('textarea[id=course_description]');
-            let $category = $('select[id=course_category]');
-            let $price = $('input[id=course_price]');
-            let $thumbnail = $('input[id=course_thumbnail]');
-            let $level = $('select[id=course_level]');
-            let $language = $('select[id=course_language]');
+            let $modalDialog = $(this).closest('div.modal-content');
+            let $description = $modalDialog.find('textarea[id=course_description]');
+            let $category = $modalDialog.find('select[id=course_category]');
+            let $price = $modalDialog.find('input[id=course_price]');
+            let $thumbnail = $modalDialog.find('input[id=course_thumbnail]');
+            let $level = $modalDialog.find('select[id=course_level]');
+            let $language = $modalDialog.find('select[id=course_language]');
 
             $.ajax({
                 type: 'POST',
