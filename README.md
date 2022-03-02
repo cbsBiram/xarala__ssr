@@ -1,5 +1,6 @@
 # Xarala Academy - Online Learning Platform
 
+
 ## Vision
 
 The aim of this project is to help anyone to learn new skills and create value easily.
